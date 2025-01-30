@@ -25,6 +25,7 @@ Both the user and auth service share a Mongo database that is accessed with mong
 - **Paula Díaz Álvarez**: uo294067@uniovi.es
 - **Samuel de la Calle Fernandez**: uo295358@uniovi.es
 - **Pablo Rodríguez García**: uo293973@uniovi.es
+- **Manuel Méndez Fernández**: uo294186@uniovi.es
 
 ## Quick start guide
 
