@@ -3,99 +3,64 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Introduction and Goals
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-Describes the relevant requirements and the driving forces that software architects and development team must consider. 
-These include
+The application aims to be a web game of questions and answers following the format of the TV show ‘Saber y Ganar’. The game will show a question to the player followed by a fixed number of possible answers (the information used in the questions and answers will be obtained from Wikidata https://www.wikidata.org). The player must answer these questions by clicking on one of the answers, clicking a correct answer will increase their score and clicking a bad answer will decrease it. 
+The description given till now was the same as the project that was implemented by the students that took the software architecture course last year. But, apart from that, this year there will be a new feature that implements a clue system using an LLM. This system will let the user decide whether to use clues or not once they have seen the question. Using the clues will result in a penalty to be decided. Some goals established for the application are (without priority order):
 
-* underlying business goals, 
-* essential features, 
-* essential functional requirements, 
-* quality goals for the architecture and
-* relevant stakeholders and their expectations
-****
-endif::arc42help[]
+* The game should implement all the functionality of the ones developed the previous year
+* The game should integrate a clue system that uses LLM technology. 
+* There should be a good quantity of questions and answers to be asked in the game. (considering that the information for this Q&As must be taken for Wikidata)
+* There shall be a log in in the application that allows users to obtain historical data from their participations.
+
 
 === Requirements Overview
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Contents
-Short description of the functional requirements, driving forces, extract (or abstract)
-of requirements. Link to (hopefully existing) requirements documents
-(with version number and information where to find it).
+* The system should give non-registered or unidentified users the option to register to the application
+* The user should be able to ask for hints from the LLM in each question
+* An specific approach should be use to avoid incorrect answers and hallucinations from the LLM
+* Each question must have a single correct answer and at least one incorrect answer
+* The game shall correctly show the questions and all the possible answers.
+* The game shall manage the answers given by the player as expected.
+* The LLM clue system should be implemented so it gives quality clues.
+* The user interaction with the clue system shall be managed.
+* The questions shall be obtained from Wikidata.
+* The questions shall come with an image obtained from Wikidata.
+* The application should be accessible through the web.
+* There shall be a record of the historical data of the games from logged in players (number of games, number of failed questions, …).
+* There shall be a time count down in the game questions.
+* The system shall give access to information about questions through an API. 
 
-.Motivation
-From the point of view of the end users a system is created or modified to
-improve support of a business activity and/or improve the quality.
-
-.Form
-Short textual description, probably in tabular use-case format.
-If requirements documents exist this overview should refer to these documents.
-
-Keep these excerpts as short as possible. Balance readability of this document with potential redundancy w.r.t to requirements documents.
-
-
-.Further Information
-
-See https://docs.arc42.org/section-1/[Introduction and Goals] in the arc42 documentation.
-
-****
-endif::arc42help[]
 
 === Quality Goals
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Contents
-The top three (max five) quality goals for the architecture whose fulfillment is of highest importance to the major stakeholders. 
-We really mean quality goals for the architecture. Don't confuse them with project goals.
-They are not necessarily identical.
+The implementation of tests and that the product is extensible is one of the main goals as they are one of the most important requirements of some of our stakeholders (our teachers)
 
-Consider this overview of potential topics (based upon the ISO 25010 standard):
+[options="header"]
+|===
+|Goal| Description
+|Compatibility & Transferability | The system has to be compatible with different browsers and devices while ensuring an optimal experience regardless of the chosen platform. It also has to take into account different screen sizes
+|Availability| The system shall be available 99% of the time a user tries to access
+|Usability & Operability| The application is intuitive, users can learn how to fluently use the application in their first use
+|Performance| The application is able to manage a big number of users without penalizing response times
+|Maintainability| The system has to be designed to facilitate the maintenance and updating
+|Functional suitability| The system can fulfill its intended goal effectively by allowing the users to register, play the game, ask for hints to the LLM and access their statistics
+|Reliability| The system has to be able to generate questions from Wikidata ensuring their accuracy and diversity. It should handle the storage of user registrations, logins and game data without errors
+|Security| The information about users can only accessed by themselves
+|===
 
-image::01_2_iso-25010-topics-EN.drawio.png["Categories of Quality Requirements"]
+Other goals to take into account are:
+* We should use a test focused development
+* We should carefully choose the design to make sure that the application is maintainable
+* The system has to be easy to use and understand
 
-.Motivation
-You should know the quality goals of your most important stakeholders, since they will influence fundamental architectural decisions. 
-Make sure to be very concrete about these qualities, avoid buzzwords.
-If you as an architect do not know how the quality of your work will be judged...
-
-.Form
-A table with quality goals and concrete scenarios, ordered by priorities
-****
-endif::arc42help[]
 
 === Stakeholders
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Contents
-Explicit overview of stakeholders of the system, i.e. all person, roles or organizations that
-
-* should know the architecture
-* have to be convinced of the architecture
-* have to work with the architecture or with code
-* need the documentation of the architecture for their work
-* have to come up with decisions about the system or its development
-
-.Motivation
-You should know all parties involved in development of the system or affected by the system.
-Otherwise, you may get nasty surprises later in the development process.
-These stakeholders determine the extent and the level of detail of your work and its results.
-
-.Form
-Table with role names, person names, and their expectations with respect to the architecture and its documentation.
-****
-endif::arc42help[]
-
 [options="header",cols="1,2,2"]
 |===
-|Role/Name|Contact|Expectations
-| _<Role-1>_ | _<Contact-1>_ | _<Expectation-1>_
-| _<Role-2>_ | _<Contact-2>_ | _<Expectation-2>_
+|Role/Name|Expectations
+| Users | Test their knowledge.
+| Software architecture professors | Provide their students, the development team, with practical experience regarding software architecture by allowing them to work in an environment that emulates the flow of development of a real project . Which means that they expect us to be able to meet the standards of quality and production of a real application.
+| RTVE | Get an evolution of their quiz game and continue promoting their program all around the world
+| ChattySW | Develop an application within the given constraints and that fulfills the requirements given by the client
+| Wikidata | Offer a service allowing the development team to create the questions using an API
 |===
