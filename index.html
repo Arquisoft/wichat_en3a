@@ -465,7 +465,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_technical_context">3.2. Technical Context</a></li>
 </ul>
 </li>
-<li><a href="#section-solution-strategy">4. Solution Strategy</a></li>
+<li><a href="#section-solution-strategy">4. Solution Strategy</a>
+<ul class="sectlevel2">
+<li><a href="#_technology_breakdown">4.1. Technology breakdown</a></li>
+<li><a href="#_organizational_breakdown">4.2. Organizational breakdown</a></li>
+<li><a href="#_quality_decisions">4.3. Quality decisions</a></li>
+</ul>
+</li>
 <li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
 <li><a href="#_level_1">5.1. Level 1</a></li>
@@ -474,10 +480,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
 <ul class="sectlevel2">
-<li><a href="#_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</a></li>
-<li><a href="#_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</a></li>
-<li><a href="#">6.3. &#8230;&#8203;</a></li>
-<li><a href="#_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</a></li>
+<li><a href="#_sign_up">6.1. Sign up</a></li>
+<li><a href="#_login">6.2. Login</a></li>
+<li><a href="#_game">6.3. Game</a></li>
+<li><a href="#_question_generation">6.4. Question generation</a></li>
+<li><a href="#_hint_generation">6.5. Hint generation</a></li>
 </ul>
 </li>
 <li><a href="#section-deployment-view">7. Deployment View</a>
@@ -557,156 +564,178 @@ For documentation of your own system you use better the <em>plain</em> version.<
 <div class="sect1">
 <h2 id="section-introduction-and-goals">1. Introduction and Goals</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
 <div class="paragraph">
-<p>Describes the relevant requirements and the driving forces that software architects and development team must consider.
-These include</p>
+<p>The application aims to be a web game of questions and answers following the format of the TV show ‘Saber y Ganar’. The game will show a question to the player followed by a fixed number of possible answers (the information used in the questions and answers will be obtained from Wikidata <a href="https://www.wikidata.org" class="bare">https://www.wikidata.org</a>). The player must answer these questions by clicking on one of the answers, clicking a correct answer will increase their score and clicking a bad answer will decrease it.</p>
+</div>
+<div class="paragraph">
+<p>The description given till now was the same as the project that was implemented by the students that took the software architecture course last year. But, apart from that, this year there will be a new feature that implements a clue system using an LLM. This system will let the user decide whether to use clues or not once they have seen the question. Using the clues will result in a penalty to be decided. Some goals established for the application are (without priority order):</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>underlying business goals,</p>
+<p>The game should implement all the functionality of the ones developed the previous year</p>
 </li>
 <li>
-<p>essential features,</p>
+<p>The game should integrate a clue system that uses LLM technology.</p>
 </li>
 <li>
-<p>essential functional requirements,</p>
+<p>There should be a good quantity of questions and answers to be asked in the game. (considering that the information for this Q&amp;As must be taken for Wikidata)</p>
 </li>
 <li>
-<p>quality goals for the architecture and</p>
-</li>
-<li>
-<p>relevant stakeholders and their expectations</p>
+<p>There shall be a log in in the application that allows users to obtain historical data from their participations.</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
 <div class="sect2">
 <h3 id="_requirements_overview">1.1. Requirements Overview</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>Short description of the functional requirements, driving forces, extract (or abstract)
-of requirements. Link to (hopefully existing) requirements documents
-(with version number and information where to find it).</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>From the point of view of the end users a system is created or modified to
-improve support of a business activity and/or improve the quality.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>Short textual description, probably in tabular use-case format.
-If requirements documents exist this overview should refer to these documents.</p>
-</div>
-<div class="paragraph">
-<p>Keep these excerpts as short as possible. Balance readability of this document with potential redundancy w.r.t to requirements documents.</p>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-1/">Introduction and Goals</a> in the arc42 documentation.</p>
-</div>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The system should give non-registered or unidentified users the option to register to the application</p>
+</li>
+<li>
+<p>The user should be able to ask for hints from the LLM in each question</p>
+</li>
+<li>
+<p>An specific approach should be use to avoid incorrect answers and hallucinations from the LLM</p>
+</li>
+<li>
+<p>Each question must have a single correct answer and at least one incorrect answer</p>
+</li>
+<li>
+<p>The game shall correctly show the questions and all the possible answers.</p>
+</li>
+<li>
+<p>The game shall manage the answers given by the player as expected.</p>
+</li>
+<li>
+<p>The LLM clue system should be implemented so it gives quality clues.</p>
+</li>
+<li>
+<p>The user interaction with the clue system shall be managed.</p>
+</li>
+<li>
+<p>The questions shall be obtained from Wikidata.</p>
+</li>
+<li>
+<p>The questions shall come with an image obtained from Wikidata.</p>
+</li>
+<li>
+<p>The application should be accessible through the web.</p>
+</li>
+<li>
+<p>There shall be a record of the historical data of the games from logged in players (number of games, number of failed questions, …).</p>
+</li>
+<li>
+<p>There shall be a time count down in the game questions.</p>
+</li>
+<li>
+<p>The system shall give access to information about questions through an API.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_quality_goals">1.2. Quality Goals</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>The top three (max five) quality goals for the architecture whose fulfillment is of highest importance to the major stakeholders.
-We really mean quality goals for the architecture. Don&#8217;t confuse them with project goals.
-They are not necessarily identical.</p>
+<p>The implementation of tests and that the product is extensible is one of the main goals as they are one of the most important requirements of some of our stakeholders (our teachers)</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Goal</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility &amp; Transferability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system has to be compatible with different browsers and devices while ensuring an optimal experience regardless of the chosen platform. It also has to take into account different screen sizes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system shall be available 99% of the time a user tries to access</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability &amp; Operability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application is intuitive, users can learn how to fluently use the application in their first use</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application is able to manage a big number of users without penalizing response times</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintainability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system has to be designed to facilitate the maintenance and updating</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Functional suitability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system can fulfill its intended goal effectively by allowing the users to register, play the game, ask for hints to the LLM and access their statistics</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reliability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system has to be able to generate questions from Wikidata ensuring their accuracy and diversity. It should handle the storage of user registrations, logins and game data without errors</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The information about users can only accessed by themselves</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>Consider this overview of potential topics (based upon the ISO 25010 standard):</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/01_2_iso-25010-topics-EN.drawio.png" alt="Categories of Quality Requirements">
-</div>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>You should know the quality goals of your most important stakeholders, since they will influence fundamental architectural decisions.
-Make sure to be very concrete about these qualities, avoid buzzwords.
-If you as an architect do not know how the quality of your work will be judged&#8230;&#8203;</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>A table with quality goals and concrete scenarios, ordered by priorities</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_stakeholders">1.3. Stakeholders</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>Explicit overview of stakeholders of the system, i.e. all person, roles or organizations that</p>
+<p>Other goals to take into account are:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>should know the architecture</p>
+<p>We should use a test focused development</p>
 </li>
 <li>
-<p>have to be convinced of the architecture</p>
+<p>We should carefully choose the design to make sure that the application is maintainable</p>
 </li>
 <li>
-<p>have to work with the architecture or with code</p>
-</li>
-<li>
-<p>need the documentation of the architecture for their work</p>
-</li>
-<li>
-<p>have to come up with decisions about the system or its development</p>
+<p>The system has to be easy to use and understand</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>You should know all parties involved in development of the system or affected by the system.
-Otherwise, you may get nasty surprises later in the development process.
-These stakeholders determine the extent and the level of detail of your work and its results.</p>
 </div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>Table with role names, person names, and their expectations with respect to the architecture and its documentation.</p>
-</div>
-</div>
-</div>
+<div class="sect2">
+<h3 id="_stakeholders">1.3. Stakeholders</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 50%;">
+<col style="width: 50%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Role/Name</th>
-<th class="tableblock halign-left valign-top">Contact</th>
 <th class="tableblock halign-left valign-top">Expectations</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test their knowledge.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Role-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Contact-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Expectation-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Software architecture professors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provide their students, the development team, with practical experience regarding software architecture by allowing them to work in an environment that emulates the flow of development of a real project . Which means that they expect us to be able to meet the standards of quality and production of a real application.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RTVE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Get an evolution of their quiz game and continue promoting their program all around the world</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ChattySW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Develop an application within the given constraints and that fulfills the requirements given by the client</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wikidata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Offer a service allowing the development team to create the questions using an API</p></td>
 </tr>
 </tbody>
 </table>
@@ -912,48 +941,68 @@ together with a mapping table showing the relationships between channels and inp
 <div class="sect1">
 <h2 id="section-solution-strategy">4. Solution Strategy</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
+<div class="sect2">
+<h3 id="_technology_breakdown">4.1. Technology breakdown</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Goal / Requirement</th>
+<th class="tableblock halign-left valign-top">Architectural approach</th>
+<th class="tableblock halign-left valign-top">Conclusions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implement LLM technologies in the game</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Research shall be done to decide which LLM is more convenient for our game. A research about how to implement this technologies in a good way (so hallucinations are avoided) shall be done</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The LLM that is going to be used will be decided in further stages of the development. This will be done like this because the majority of the LLMs are implemented in a pretty similar way, so we can change the model with only some small changes in the code.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Develop the program using GitHub.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Research about branching strategies in GitHub shall be done. All team members shall be acquainted with GitHub</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The branching strategy ‘GitHub Flow’ will be used by the development team as it is the branching strategy that fits better the team and project characteristics.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The code should be easy to understand and to extend in the future</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Design techniques and patterns shall be implemented.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_organizational_breakdown">4.2. Organizational breakdown</h3>
 <div class="paragraph">
-<div class="title">Contents</div>
-<p>A short summary and explanation of the fundamental decisions and solution strategies, that shape system architecture. It includes</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>technology decisions</p>
-</li>
-<li>
-<p>decisions about the top-level decomposition of the system, e.g. usage of an architectural pattern or design pattern</p>
-</li>
-<li>
-<p>decisions on how to achieve key quality goals</p>
-</li>
-<li>
-<p>relevant organizational decisions, e.g. selecting a development process or delegating certain tasks to third parties.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>These decisions form the cornerstones for your architecture. They are the foundation for many other detailed decisions or implementation rules.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>Keep the explanations of such key decisions short.</p>
-</div>
-<div class="paragraph">
-<p>Motivate what was decided and why it was decided that way,
-based upon problem statement, quality goals and key constraints.
-Refer to details in the following sections.</p>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-4/">Solution Strategy</a> in the arc42 documentation.</p>
+<p>Up until this moment we are meeting only once a week, but we expect that that may have to change as the project evolves. We are using a whatsapp group as a secondary way of communication</p>
 </div>
 </div>
-</div>
+<div class="sect2">
+<h3 id="_quality_decisions">4.3. Quality decisions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Attribute pursued</th>
+<th class="tableblock halign-left valign-top">Choice</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1072,37 +1121,257 @@ You will mainly capture scenarios in your documentation to communicate your arch
 </div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_1">6.1. &lt;Runtime Scenario 1&gt;</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><em>&lt;insert runtime diagram or textual description of the scenario&gt;</em></p>
-</li>
-<li>
-<p><em>&lt;insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.&gt;</em></p>
-</li>
-</ul>
-</div>
+<h3 id="_sign_up">6.1. Sign up</h3>
 <div class="paragraph">
-<p>It is possible to use a sequence diagram:</p>
+<p>The following diagram shows how the sign up process of a user is done.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The client writes the credentials needed to create and account.</p>
+</li>
+<li>
+<p>Check the credentials are valid in format.</p>
+</li>
+<li>
+<p>Check that the fields that need to be unique are unique.</p>
+</li>
+<li>
+<p>Returns if they are unique.</p>
+</li>
+<li>
+<p>Create the user and store it in the database.</p>
+</li>
+<li>
+<p>Notify to what page the user should be redirected.</p>
+</li>
+<li>
+<p>The user is redirected to the menu. The user can access to its statistics (interaction with the User service) and play the game.</p>
+</li>
+<li>
+<p>Notify that the credentials are invalid.</p>
+</li>
+<li>
+<p>The errors are shown and the user isn’t registered.</p>
+</li>
+</ol>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Sequence%20diagram.png" alt="Sequence diagram" width="366" height="326">
+<img src="./images/Sign%20up%20diagram.png" alt="Sign up diagram" width="550" height="505">
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_2">6.2. &lt;Runtime Scenario 2&gt;</h3>
-
+<h3 id="_login">6.2. Login</h3>
+<div class="paragraph">
+<p>The following diagram shows how the login process of a user is done.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The client writes the credentials needed to login.</p>
+</li>
+<li>
+<p>Check the credentials are valid in format.</p>
+</li>
+<li>
+<p>Check the credentials are valid for the user.</p>
+</li>
+<li>
+<p>Return if the credentials are valid.</p>
+</li>
+<li>
+<p>The user is authenticated.</p>
+</li>
+<li>
+<p>The user is redirected to the menu. The user can access to its statistics (interaction with the User service) and play the game.</p>
+</li>
+<li>
+<p>Notify that the credentials are invalid.</p>
+</li>
+<li>
+<p>The errors are shown and the user isn’t registered.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Login%20diagram.png" alt="Login diagram" width="585" height="474">
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="">6.3. &#8230;&#8203;</h3>
-
+<h3 id="_game">6.3. Game</h3>
+<div class="paragraph">
+<p>The following diagram shows how the playing of the game is done.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Starts game.</p>
+</li>
+<li>
+<p>The game starts.</p>
+</li>
+<li>
+<p>See the Question Generation section below.</p>
+</li>
+<li>
+<p>The data related to the question is returned.</p>
+</li>
+<li>
+<p>User asks for a hint.</p>
+</li>
+<li>
+<p>The timer is stopped.</p>
+</li>
+<li>
+<p>See the Hint Generation section below.</p>
+</li>
+<li>
+<p>The information related to the hint is returned.</p>
+</li>
+<li>
+<p>User choses an option from the four given.</p>
+</li>
+<li>
+<p>The game service checks if the option picked is the answer or not to the question.</p>
+</li>
+<li>
+<p>The game service returns if it&#8217;s correct the option picked.</p>
+</li>
+<li>
+<p>The user is informed if they make a good guess or not.</p>
+</li>
+<li>
+<p>Store the results and information of the game in the database.</p>
+</li>
+<li>
+<p>Returns the information of the game to the Application.</p>
+</li>
+<li>
+<p>The information of the game is shown to the user.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Game%20diagram.png" alt="Game diagram" width="566" height="719">
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_runtime_scenario_n">6.4. &lt;Runtime Scenario n&gt;</h3>
+<h3 id="_question_generation">6.4. Question generation</h3>
+<div class="paragraph">
+<p>The following diagram shows how the generation of the questions is done.
+We have 2 options for the moment.</p>
+</div>
+<div class="sect3">
+<h4 id="_option_1">6.4.1. Option 1</h4>
+<div class="paragraph">
+<p>This option loads the questions during the game directly from Wikidata.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The game service asks for a question.</p>
+</li>
+<li>
+<p>The question generation service requests data for creating the questions.</p>
+</li>
+<li>
+<p>Wikidata returns the question, image and options for the question.</p>
+</li>
+<li>
+<p>The question generation service returns all the information.</p>
+</li>
+<li>
+<p>The game service stores all the information returned.</p>
+</li>
+<li>
+<p>The game service returns the data to the Application</p>
+</li>
+<li>
+<p>The question, image and options for the question are shown</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Question%20generation%201%20diagram.png" alt="Question generation 1 diagram" width="609" height="409">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_option_2">6.4.2. Option 2</h4>
+<div class="paragraph">
+<p>This option is it can have a better performance, as you don’t depend in the game itself for the WikiData API, as the questions are loaded from the database during the game.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the question generation service to load the questions from Wikidata.</p>
+</li>
+<li>
+<p>WikiData returns all the information related to the question.</p>
+</li>
+<li>
+<p>The information is stored in the database for later use.</p>
+</li>
+<li>
+<p>The game service asks for a question to the database</p>
+</li>
+<li>
+<p>The database returns all the information of a question</p>
+</li>
+<li>
+<p>The game service returns the data to the Application</p>
+</li>
+<li>
+<p>The question, image and options for the question are shown</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Question%20generation%202%20diagram.png" alt="Question generation 2 diagram" width="715" height="460">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hint_generation">6.5. Hint generation</h3>
+<div class="paragraph">
+<p>The following diagram shows how the generation of the hints is done.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user asks for a hint to the current question.</p>
+</li>
+<li>
+<p>The application requests a hint for the current question.</p>
+</li>
+<li>
+<p>The hint service gives some context to the LLM.</p>
+</li>
+<li>
+<p>The LLM returns the clue.</p>
+</li>
+<li>
+<p>The hint service returns the clue.</p>
+</li>
+<li>
+<p>The clue is shown to the user.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/Hint%20generation%20diagram.png" alt="Hint generation diagram" width="512" height="365">
+</div>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1558,42 +1827,6 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div class="sect1">
 <h2 id="section-glossary">12. Glossary</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>The most important domain and technical terms that your stakeholders use when discussing the system.</p>
-</div>
-<div class="paragraph">
-<p>You can also see the glossary as source for translations if you work in multi-language teams.</p>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>You should clearly define your terms, so that all stakeholders</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>have an identical understanding of these terms</p>
-</li>
-<li>
-<p>do not use synonyms and homonyms</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>A table with columns &lt;Term&gt; and &lt;Definition&gt;.</p>
-</div>
-<div class="paragraph">
-<p>Potentially more columns in case you need translations.</p>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-12/">Glossary</a> in the arc42 documentation.</p>
-</div>
-</div>
-</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -1607,12 +1840,60 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Term-1&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-1&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>WikiData</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Large database containing information from multiple subjects that’s free to access and open to modifications. We will use it to generate questions for the game.</em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;Term-2&gt;</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>&lt;definition-2&gt;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>LLM</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A Large Language Model is a pre-trained language model with ample knowledge about many different topics that can deliver answers in a way similar to human speach. It will be used to provide clues to the user</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Spring</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Popular framework for the development of web applications that provides different modules for common services such as authentication, access to databases, security, etc.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Framework</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Set of concepts and practices used for solving a problem that can be used as a template for solving similar problems.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>LLM</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A Large Language Model is a pre-trained language model with ample knowledge about many different topics that can deliver answers in a way similar to human speech. It will be used to provide clues to the user.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Gemini</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A LLM developed by Google. It will be one of the LLMs used in our application.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Gitlab flow</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Branching strategy whit 3 different branch types. A Master branch with stable code for release, a Deployment branch where errors are still being fixed and a Feature branch for each feature developed for the system.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>MongoDB</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>An opensource Database system NoSQL. Since it is non-relational, the data isn’t stored in tables but in BSON, a structure similar to JSON.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>NoSQL databases</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Umbrella term used for database systems that store data in a non-relational way. In relational databases, data is stored in tables and connections are established through relationships. NoSQL databases don’t follow this format and may relate the elements of the database using any other method.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>JSON</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Text format used for transferring data. Information is stored in pairs of “name” and “value”, with “name” acting as an identifier for the attribute and “value” its current value.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>BSON</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>(Binary JSON) Data format used by MongoDB. It includes all JSON data structure types and adds support for types including dates, different size integers, ObjectIds, and binary data.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docker</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Platform for developers and system administrators. Provides an extra layer or abstraction compared to Virtual Machines since the containers themselves are not found on the guest operating system but on Docker. It also provides orchestration between containers without the big files needed for VMs.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Container</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Executable package that encloses an application. Multiple containers can form a complex architecture while remaining isolated from each other. It is a live instance of an image, allowing it to be shared and stored.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Image</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>File that includes everything necessary to run an application such as code, runtime system, libraries, runtime variables and configuration files. This will ensure that running the application is consistent independently of the environment.</em></p></td>
 </tr>
 </tbody>
 </table>
@@ -1622,7 +1903,7 @@ more precisely down to a level of scenarios that can be discussed and evaluated.
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2025-02-06 13:00:03 +0100
+Last updated 2025-02-12 21:51:01 +0100
 </div>
 </div>
 </body>
