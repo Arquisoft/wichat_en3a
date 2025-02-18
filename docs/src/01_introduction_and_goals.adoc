@@ -55,7 +55,7 @@ Other goals to take into account are:
 
 === Stakeholders
 
-[options="header",cols="1,2,2"]
+[options="header"]
 |===
 |Role/Name|Expectations
 | Users | Test their knowledge.
