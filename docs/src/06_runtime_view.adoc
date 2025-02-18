@@ -39,29 +39,164 @@ See https://docs.arc42.org/section-6/[Runtime View] in the arc42 documentation.
 ****
 endif::arc42help[]
 
-=== <Runtime Scenario 1>
-
-
-* _<insert runtime diagram or textual description of the scenario>_
-* _<insert description of the notable aspects of the interactions between the
-building block instances depicted in this diagram.>_
+=== Sign up
+1. The client writes the credentials needed to create and account
+2. Check the credentials are valid in format
+3. Check that the fields that need to be unique are unique
+5. Create the user
+6. Notify to what page the user should be redirected
+7. The user is redirected to the menu. The user can access to its statistics (interaction with the User service) and play the game
+8. Notify that the credentials are invalid
+9. The errors are shown and the user isn’t registered
 
 It is possible to use a sequence diagram:
 
 [plantuml,"Sequence diagram",png]
 ----
-actor Alice
-actor Bob
-database Pod as "Bob's Pod"
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-Alice  --> Pod: Store route
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+autonumber
+actor User
+participant Application
+participant Authentication service
+database Database
+
+User -> Application: write credentials
+Application -> Authentication service: check credentials' format
+Authentication service -> Database: check uniqueness
+Database --> Authentication service: 
+
+alt everything is ok
+    Authentication service -> Database: user created
+    Authentication service --> Application: redirect user
+    Application --> User: show menu
+else
+    Authentication service --> Application: notify credentials are invalid
+    Application --> User: show errors
+end
 ----
 
-=== <Runtime Scenario 2>
+=== Login
+1. The client writes the credentials needed to login
+2. Check the credentials are valid in format
+3. Check the credentials are valid for the user
+5. The user is authenticated
+6. The user is redirected to the menu. The user can access to its statistics (interaction with the User service) and play the game
+7. Notify that the credentials are invalid
+8. The errors are shown and the user isn’t registered
 
-=== ...
+[plantuml,"Sequence diagram",png]
+----
+autonumber
+actor User
+participant Application
+participant Authentication service
+database Database
 
-=== <Runtime Scenario n>
+User -> Application: write credentials
+Application -> Authentication service: check credentials' format
+Authentication service -> Database: check credentials are valid
+Database --> Authentication service: 
+
+alt everything is ok
+    Authentication service --> Application: login
+    Application --> User: redirect
+else
+    Authentication service --> Application: notify credentials are invalid
+    Application --> User: show errors
+end
+----
+
+=== Game
+1. Starts game
+2. The game starts
+3. See the Question Generation section below
+5. User asks for a hint
+6. The timer is stopped
+7. See the Hint Generation section below
+9. User choses an option from the 4 given
+10. The game service checks if the option picked is the answer or not to the question
+11. The game service returns if it's correct the option picked
+12. The user is informed if they make a good guess or not
+13. Store the results and information of the game in the database
+14. Returns the information of the game to the Application
+14. The information of the game is shown to the user
+
+[plantuml,"Sequence diagram",png]
+----
+autonumber
+actor User
+participant Application
+participant Game service
+participant Hint service
+database Database
+
+User -> Application: starts the game
+Application -> Game service: the game starts
+loop round starts with  timer (global or per round)
+    Game service -> Database: Question generation part
+    Database <-- Game service
+    alt user asks for a hint
+        User -> Application: ask for a hint
+        Application -> Game service: stop timer
+        Application -> Hint service: Hint generation part
+        Hint service --> Application
+
+    else user choses an option
+        User -> Application: choses an option
+        Application -> Game service: check if correct
+        Game service --> Application: returns if correct
+        Application --> User: inform if correct
+    end
+end
+Game service -> Database: store results
+Game service --> Application: return the results
+Application --> User: show the results
+----
+
+=== Question generation
+We have 2 options for the moment.
+==== Option 1
+1. The game service asks for a question.
+2. The question generation service requests data for creating the questions.
+3. Wikidata returns the question, image and options for the question.
+4. The question generation service returns all the information.
+5. The game service stores all the information returned.
+6. The game service returns the data to the Application
+7. The question, image and options for the question are shown
+
+[plantuml,"Sequence diagram",png]
+----
+autonumber
+actor User
+participant Application
+participant Game service
+participant Question generation service
+entity Wikidata API
+
+Game service -> Question generation service: ask for a question
+Question generation service -> Wikidata API: requests data
+Wikidata API --> Question generation service: returns the data
+Question generation service --> Game service: returns the data
+Game service -> Game service: stores the data
+Game service --> Application: returns the data
+Application --> User: show the data
+----
+
+==== Option 2
+This option is it can have a better performance, as you don’t depend in the game itself for the WikiData API:
+Question generation service -> Wikidata: ask to load questions
+Wikidata -> Question generation service: returns a set of questions, images and answers
+Question generation service -> Database: it stores all this information
+
+Application -> Question generation service: asks for a question
+Question generation service -> Database: asks for a question, image and options for the question
+Database -> Question generation service: returns the question, image and options for the question
+Question generation service -> Application: returns the question, image and options for the question
+Application -> User: the question, image and options for the question are shown
+
+=== Hint generation
+User -> Application: ask for a clue
+Application -> Hint service: asks for a hint for the current question
+Hint service -> LLM: give context for the shown question and ask for a hint
+LLM -> Hint service: returns the clue
+Hint service -> Application: returns the clue
+Application -> User: the clue is shown
