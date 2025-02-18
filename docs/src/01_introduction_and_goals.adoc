@@ -49,6 +49,7 @@ The implementation of tests and that the product is extensible is one of the mai
 |===
 
 Other goals to take into account are:
+
 * We should use a test focused development
 * We should carefully choose the design to make sure that the application is maintainable
 * The system has to be easy to use and understand
