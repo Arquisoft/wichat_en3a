@@ -3,25 +3,32 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-technical-risks]]
 == Risks and Technical Debts
 
+[width="100%",cols="30%,70%",options="header",]
+|===
+|*Risk* |*Description*
+|Integration with Wikidata a|
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Contents
-A list of identified technical risks or technical debts, ordered by priority
-
-.Motivation
-“Risk management is project management for grown-ups” (Tim Lister, Atlantic Systems Guild.) 
-
-This should be your motto for systematic detection and evaluation of risks and technical debts in the architecture, which will be needed by management stakeholders (e.g. project managers, product owners) as part of the overall risk analysis and measurement planning.
-
-.Form
-List of risks and/or technical debts, probably including suggested measures to minimize, mitigate or avoid risks or reduce technical debts.
+Extracting meaningful and accurate data from Wikidata for generating
+questions and hints may be challenging. Data inconsistencies, missing
+attributes, or outdated information could lead to incorrect questions or
+hints.
 
 
-.Further Information
+|LLM Accuracy a|
 
-See https://docs.arc42.org/section-11/[Risks and Technical Debt] in the arc42 documentation.
+The LLM may generate incorrect or misleading hints (hallucinations).
 
-****
-endif::arc42help[]
+
+|Scalability of the System a|
+
+As more users register and play, the backend (Wikidata API, LLM API, and
+database) may face performance bottlenecks.
+
+
+|User Authentication and Data Privacy a|
+
+User registration and historical data storage introduce potential
+security vulnerabilities (e.g., data leaks, unauthorized access). Compliance with GDPR or other privacy regulations
+is also a concern.
+
+|===
