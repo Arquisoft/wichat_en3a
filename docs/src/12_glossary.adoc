@@ -3,42 +3,50 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-glossary]]
 == Glossary
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Contents
-The most important domain and technical terms that your stakeholders use when discussing the system.
-
-You can also see the glossary as source for translations if you work in multi-language teams.
-
-.Motivation
-You should clearly define your terms, so that all stakeholders
-
-* have an identical understanding of these terms
-* do not use synonyms and homonyms
-
-
-.Form
-
-A table with columns <Term> and <Definition>.
-
-Potentially more columns in case you need translations.
-
-
-.Further Information
-
-See https://docs.arc42.org/section-12/[Glossary] in the arc42 documentation.
-
-****
-endif::arc42help[]
 
 [cols="e,2e" options="header"]
 |===
 |Term |Definition
 
-|<Term-1>
-|<definition-1>
+|WikiData
+|Large database containing information from multiple subjects that’s free to access and open to modifications. We will use it to generate questions for the game. 
 
-|<Term-2>
-|<definition-2>
+|LLM
+|A Large Language Model is a pre-trained language model with ample knowledge about many different topics that can deliver answers in a way similar to human speach. It will be used to provide clues to the user
+
+|Spring
+|Popular framework for the development of web applications that provides different modules for common services such as authentication, access to databases, security, etc. 
+
+|Framework
+|Set of concepts and practices used for solving a problem that can be used as a template for solving similar problems.
+
+|LLM
+|A Large Language Model is a pre-trained language model with ample knowledge about many different topics that can deliver answers in a way similar to human speech. It will be used to provide clues to the user.
+
+|Gemini
+|A LLM developed by Google. It will be one of the LLMs used in our application.  
+
+|Gitlab flow
+|Branching strategy whit 3 different branch types. A Master branch with stable code for release, a Deployment branch where errors are still being fixed and a Feature branch for each feature developed for the system. 
+
+|MongoDB
+|An opensource Database system NoSQL. Since it is non-relational, the data isn’t stored in tables but in BSON, a structure similar to JSON. 
+
+|NoSQL databases
+|Umbrella term used for database systems that store data in a non-relational way. In relational databases, data is stored in tables and connections are established through relationships. NoSQL databases don’t follow this format and may relate the elements of the database using any other method. 
+
+|JSON
+|Text format used for transferring data. Information is stored in pairs of “name” and “value”, with “name” acting as an identifier for the attribute and “value” its current value.
+
+|BSON
+|(Binary JSON) Data format used by MongoDB. It includes all JSON data structure types and adds support for types including dates, different size integers, ObjectIds, and binary data.
+
+|Docker
+|Platform for developers and system administrators. Provides an extra layer or abstraction compared to Virtual Machines since the containers themselves are not found on the guest operating system but on Docker. It also provides orchestration between containers without the big files needed for VMs. 
+
+|Container
+|Executable package that encloses an application. Multiple containers can form a complex architecture while remaining isolated from each other. It is a live instance of an image, allowing it to be shared and stored. 
+|Image
+|File that includes everything necessary to run an application such as code, runtime system, libraries, runtime variables and configuration files. This will ensure that running the application is consistent independently of the environment.  
+
 |===
