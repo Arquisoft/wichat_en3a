@@ -6,7 +6,21 @@ ifndef::imagesdir[:imagesdir: ../images]
 === Technology breakdown
 
 [options="header"]
+|===
+| Goal / Requirement | Architectural approach | Conclusions
+| Implement LLM technologies in the game | Research shall be done to decide which LLM is more convenient for our game. A research about how to implement this technologies in a good way (so hallucinations are avoided) shall be done | The LLM that is going to be used will be decided in further stages of the development. This will be done like this because the majority of the LLMs are implemented in a pretty similar way, so we can change the model with only some small changes in the code.
+| Develop the program using GitHub. | Research about branching strategies in GitHub shall be done. All team members shall be acquainted with GitHub | The branching strategy ‘GitHub Flow’ will be used by the development team as it is the branching strategy that fits better the team and project characteristics.
+| The code should be easy to understand and to extend in the future | Design techniques and patterns shall be implemented. | 
+|===
 
 === Organizational breakdown
 
+Up until this moment we are meeting only once a week, but we expect that that may have to change as the project evolves. We are using a whatsapp group as a secondary way of communication
+
 === Quality decisions
+
+[options="header"]
+|===
+| Attribute pursued | Choice
+||
+|===
