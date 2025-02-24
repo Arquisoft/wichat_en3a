@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form method="post" action="/login">
+        <label for="username">Email:</label>
+        <input type="text" id="username" name="username" placeholder="john@mail.com" required="true"/>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="1234" required="true"/>
+        <button type="submit">Login</button>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+</body>
+</html>
