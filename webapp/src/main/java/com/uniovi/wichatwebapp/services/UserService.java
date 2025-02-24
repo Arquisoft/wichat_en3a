@@ -13,7 +13,7 @@ public class UserService {
 
     public User getUserByEmail(String email){
         return webClientBuilder
-                .baseUrl("http://localhost:8090") // Set base URL here or in config
+                .baseUrl("http://localhost:8100") // Set base URL here or in config
                 .build()
                 .get()
                 .uri(uriBuilder -> uriBuilder
@@ -29,7 +29,7 @@ public class UserService {
     public boolean addUser(User user){
         User result =
                 webClientBuilder
-                        .baseUrl("http://localhost:8090")
+                        .baseUrl("http://localhost:8100")
                         .build()
                         .post()
                         .uri("/addUser")
