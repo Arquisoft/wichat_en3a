@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public User addUser(@ModelAttribute User user) {
+    public User addUser(@RequestBody User user) {
         //Get the user by the email
         User newUser = userService.addUser(user);
 

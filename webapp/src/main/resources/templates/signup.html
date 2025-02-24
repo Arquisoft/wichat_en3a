@@ -12,9 +12,9 @@
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" placeholder="John" required="true"/>
         <label for="password">Password:</label>
-        <input type="text" id="password" name="password" required="true"/>
+        <input type="password" id="password" name="password" required="true"/>
         <button type="submit">Sign up</button>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
 </body>
 </html>

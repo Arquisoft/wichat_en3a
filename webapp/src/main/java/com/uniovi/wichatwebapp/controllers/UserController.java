@@ -3,6 +3,8 @@ package com.uniovi.wichatwebapp.controllers;
 import com.uniovi.wichatwebapp.entities.User;
 import com.uniovi.wichatwebapp.services.UserService;
 import com.uniovi.wichatwebapp.validators.SignUpValidator;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,5 +44,14 @@ public class UserController {
             model.addAttribute("adderror");
         }
         return "redirect:login";
+    }
+
+    @RequestMapping(value = "/home")
+    public String home(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        User user = userService.getUserByEmail(email);
+        model.addAttribute("user", user);
+        return "home";
     }
 }
