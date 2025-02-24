@@ -2,6 +2,8 @@ package com.uniovi.wichatwebapp.entities;
 
 public class User {
 
+    private String id;
+
     private String name;
     private String email;
     private String password;
@@ -46,5 +48,13 @@ public class User {
 
     public void setCorrect(boolean correct) {
         this.correct = correct;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
