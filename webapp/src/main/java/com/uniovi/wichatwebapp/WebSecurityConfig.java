@@ -22,6 +22,9 @@ public class WebSecurityConfig {
     @Autowired
     private UserDetailsService userDetailsServiceImpl;
 
+    /*
+    Must change rules if access without login is necessary in any new pages
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
