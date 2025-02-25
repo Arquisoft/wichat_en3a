@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
+<head th:replace="fragments/head :: head('Home')"></head>
 <body>
     <h2>Home</h2>
     <p>Welcome, <span th:text="${user.name}"></span></p>
+    <a href="/logout">Logout</a>
 </body>
 </html>

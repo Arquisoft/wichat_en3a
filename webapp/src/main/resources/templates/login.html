@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
+<head th:replace="fragments/head :: head('Login')"></head>
 <body>
     <h2>Login</h2>
-    <form method="post" action="/login">
+    <form method="post" action="/login" class="form">
         <label for="username">Email:</label>
         <input type="text" id="username" name="username" placeholder="john@mail.com" required="true"/>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" placeholder="1234" required="true"/>
         <button type="submit">Login</button>
+        <p th:if="${param.error}" class="error">
+            Invalid username or password. Please try again.
+        </p>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
+    <a href="/signup">Signup</a>
 </body>
 </html>
