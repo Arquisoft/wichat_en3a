@@ -17,12 +17,12 @@ public class SignUpValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         User user = (User) target;
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "The email is required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "The password is required");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "The name is required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email.empty", "The email is required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.empty", "The password is required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "name.empty", "The name is required");
 
         if(!EmailValidator.getInstance().isValid(user.getEmail())) {
-            errors.rejectValue("email", "The email is not valid");
+            errors.rejectValue("email", "email.invalid", "The email is not valid");
         }
     }
 }

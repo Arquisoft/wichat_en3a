@@ -41,7 +41,8 @@ public class UserController {
         }
         boolean addResult = userService.addUser(user);
         if(!addResult){
-            model.addAttribute("adderror");
+            model.addAttribute("adderror", true);
+            return "signup";
         }
         return "redirect:login";
     }
