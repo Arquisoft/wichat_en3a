@@ -14,25 +14,39 @@ The description given till now was the same as the project that was implemented 
 
 
 === Requirements Overview
+==== The functional requirements
+About the Game service:
 
-* The system should give non-registered or unidentified users the option to register to the application
-* The user should be able to ask for hints from the LLM in each question
-* An specific approach should be use to avoid incorrect answers and hallucinations from the LLM
-* Each question must have a single correct answer and at least one incorrect answer
 * The game shall correctly show the questions and all the possible answers.
 * The game shall manage the answers given by the player as expected.
-* The LLM clue system should be implemented so it gives quality clues.
 * The user interaction with the clue system shall be managed.
-* The questions shall be obtained from Wikidata.
-* The questions shall come with an image obtained from Wikidata.
 * The application should be accessible through the web.
-* There shall be a record of the historical data of the games from logged in players (number of games, number of failed questions, …).
 * There shall be a time count down in the game questions.
+
+About the Hint service:
+
+* The user should be able to ask for hints from the LLM in each question
 * The system shall give access to information about questions through an API. 
 
+About the Question service:
+
+* Each question must have a single correct answer and at least one incorrect answer
+* The questions shall be obtained from Wikidata.
+* The questions shall come with an image obtained from Wikidata.
+
+About the Users service:
+
+* The system should give non-registered or unidentified users the option to register to the application
+ There shall be a record of the historical data of the games from logged in players (number of games, number of failed questions, …).
+
+==== The non-functional requirements
+About the Hint service:
+
+* An specific approach should be use to avoid incorrect answers and hallucinations from the LLM
+* The LLM clue system should be implemented so it gives quality clues.
 
 === Quality Goals
-
+About the Hint service:
 The implementation of tests and that the product is extensible is one of the main goals as they are one of the most important requirements of some of our stakeholders (our teachers)
 
 [options="header"]
