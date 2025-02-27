@@ -30,7 +30,10 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 | https://www.docker.com/[Docker] with https://azure.microsoft.com/[Azure] for deploying the application | We will use Docker with Azure because:
 
-- ?
+- Docker containers encapsulate the application and its dependencies, ensuring consistency across different environments (development, testing, production).
+
+- This portability allows seamless deployment on Azure, regardless of the underlying infrastructure.
+
 |===
 
 === Toplevel decomposition
