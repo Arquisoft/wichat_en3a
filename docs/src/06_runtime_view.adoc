@@ -167,9 +167,11 @@ The following diagram shows how the generation of the hints is done.
 autonumber
 participant GameService
 participant HintService
+participant WikiData
 entity LLM
 
 GameService -> HintService: ask for clue
+WikiData -> HintService : get context(images or text) about the question user wants hint from
 HintService -> LLM: give context and ask for clue
 LLM --> HintService: returns the clue
 HintService --> GameService: returns the clue
