@@ -10,7 +10,7 @@ The following diagram shows how the sign up process of a user is done.
 2. Check the credentials are valid in format.
 3. Check that the fields that need to be unique are unique.
 4. Returns if they are unique.
-5. Create the user and store it in the database.
+5. Create the user and store it in the Database.
 6. Notify to what page the user should be redirected.
 7. The user is redirected to the menu. The user can access to its statistics (interaction with the User service) and play the game.
 8. Notify that the credentials are invalid.
@@ -47,7 +47,7 @@ The following diagram shows how the login process of a user is done.
 3. Check the credentials are valid for the user.
 4. Return if the credentials are valid.
 5. The user is authenticated.
-6. The user is redirected to the menu. The user can access to its statistics (interaction with the User service) and play the game.
+6. The user is redirected to the menu. The user can access to its statistics (interaction with the UserService) and play the game.
 7. Notify that the credentials are invalid.
 8. The errors are shown and the user isn’t registered.
 
@@ -129,9 +129,9 @@ FrontEnd --> User: show the results
 The following diagram shows how the generation of the questions is done. This option loads the questions during the game directly from Wikidata.
 
 1. The GameService asks for a question.
-2. The question generation service requests data for creating the questions.
+2. The QuestionService requests data for creating the questions.
 3. Wikidata returns the question, image and options for the question.
-4. The question generation service returns all the information.
+4. The QuestionService returns all the information.
 5. The GameService stores all the information returned.
 6. The GameService returns the data to the FrontEnd
 7. The question, image and options for the question are shown
@@ -158,9 +158,9 @@ FrontEnd --> User: show the data
 The following diagram shows how the generation of the hints is done.
 
 1. The GameService (after the user asks it) asks for a hint to the current question.
-2. The hint service gives some context to the LLM.
+2. The HintService gives some context to the LLM.
 3. The LLM returns the clue.
-4. The hint service returns the clue.
+4. The HintService returns the clue.
 
 [plantuml,"Hint generation diagram",png]
 ----
