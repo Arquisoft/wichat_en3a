@@ -52,10 +52,10 @@ The implementation of tests and that the product is extensible is one of the mai
 [options="header"]
 |===
 |Goal| Description
-|Compatibility & Transferability | The system has to be compatible with different browsers and devices while ensuring an optimal experience regardless of the chosen platform. It also has to take into account different screen sizes
+|Compatibility & Transferability | The system has to be compatible with different browsers (at least Chrome, Firefox and Opera) and devices while ensuring an optimal experience regardless of the chosen platform. It also has to take into account different screen sizes (computer/laptop size, tablet size and phone size)
 |Availability| The system shall be available 99% of the time a user tries to access
-|Usability & Operability| The application is intuitive, users can learn how to fluently use the application in their first use
-|Performance| The application is able to manage a big number of users without penalizing response times
+|Usability & Operability| The application is intuitive, users can learn how to fluently use the application in their first use. The users should be able to play the game and complete it.
+|Performance| The application is able to manage a big number of users (100) without penalizing response times
 |Maintainability| The system has to be designed to facilitate the maintenance and updating
 |Functional suitability| The system can fulfill its intended goal effectively by allowing the users to register, play the game, ask for hints to the LLM and access their statistics
 |Reliability| The system has to be able to generate questions from Wikidata ensuring their accuracy and diversity. It should handle the storage of user registrations, logins and game data without errors
