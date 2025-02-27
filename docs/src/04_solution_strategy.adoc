@@ -26,11 +26,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 [options="header"]
 |===
 | Decision | Reasons
-| Use https://react.dev/[React] for developing the project | We are going to use React to develop the frontent because:
+| Use https://spring.io/projects/spring-boot[SpringBoot] at the project | We are going to use SpringBoot at the project because:
 
-- React’s component-based structure allows for modular and reusable code.
+- It gives us a lot of functionality already implemented so that we don't have to implement it ourselves.
 
-- React has a vast ecosystem of libraries, tools, and community resources.
+- It allows us to use Java, which we are very used to and prefer over JavaScript.
 
 |===
 
