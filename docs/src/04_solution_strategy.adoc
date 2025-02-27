@@ -8,17 +8,17 @@ ifndef::imagesdir[:imagesdir: ../images]
 [options="header"]
 |===
 | Decision | Reasons
-| Use SpringBoot for developing the project | We are going to use [Spring Boot](https://spring.io/projects/spring-boot) to develop the project because:
+| Use SpringBoot for developing the project | We are going to use https://spring.io/projects/spring-boot[Spring Boot] to develop the project because:
 
 - It gives us a lot of functionality already implemented so that we don't have to implement it ourselves.
 
 - It allows us to use Java, which we are very used to and prefer over JavaScript.
-| [MongoDB](https://www.mongodb.com/) as a database system | We will use [MongoDB](https://www.mongodb.com/) because:
+| https://www.mongodb.com/[MongoDB] as a database system | We will use MongoDB because:
 
 - It's already integrated in the user and authentication service
 
 - It's the more popular non-relational database, and has a more or less simple syntax
-| [Gemini](https://ai.google.dev/) as the LLM for generating hints | We will use (at least at first) Gemini because:
+| https://ai.google.dev/[Gemini] as the LLM for generating hints | We will use (at least at first) Gemini because:
 
 - It has a free tier with some limitations, but for our project it could be enough
 
@@ -28,7 +28,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 - It has a way to handle hallucinations and errors
 
-| [Docker](https://www.docker.com/) with [Azure](https://azure.microsoft.com/) for deploying the application | We will use Docker with Azure because:
+| https://www.docker.com/[Docker] with https://azure.microsoft.com/[Azure] for deploying the application | We will use Docker with Azure because:
 
 - ?
 |===
