@@ -40,7 +40,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 | Decision | Reasons
 | MVC architectural pattern | We will use MVC for the project because:
 
-- It allows to divide the application into model, view and controller and are less coupled
+- It allows us to divide the application into model, view and controller and are less coupled
 | Microservices architecture | We will use the microservices architecture because:
 
 - We can divide the project into independent services (other projects) that can be reusable
@@ -60,14 +60,14 @@ Scrum,  Pull requests revision,
 
 - Everyone have a moment to express themselves
 
-| Whastsapp group | We are using a whatsapp group as a secondary way of communication because it's a common application for all of us and it can be accessed anywhere.
+| WhatsApp group | We are using a WhatsApp group as a secondary way of communication because it's a common application for all of us and it can be accessed anywhere.
 | GitLab Flow as branching strategy | The branching strategy ‘GitLab Flow’ will be used by the development team because:
 
 - It is the branching strategy that fits better the team and project characteristics.
 
-- It's simple as it only has 3-4 types of branches. It's less complex than Gitflow but more structured than Githubflow
+- It's simple as it only has 3-4 types of branches. It's less complex than Gitflow but more structured than Github Flow.
 
-- It's well divided, and allow simultaneous work on different features
+- It's well divided, and allows simultaneous work on different features
 
 |===
 
