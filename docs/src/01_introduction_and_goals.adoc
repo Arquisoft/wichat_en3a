@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Introduction and Goals
 
-The application aims to be a web game of questions and answers following the format of the TV show ‘Saber y Ganar’. The game will show a question to the player followed by a fixed number of possible answers (the information used in the questions and answers will be obtained from Wikidata https://www.wikidata.org). The player must answer these questions by clicking on one of the answers, clicking a correct answer will increase their score and clicking a incorrect answer will decrease it. 
+The application aims to be a web game of questions and answers following the format of the TV show ‘Saber y Ganar’. The game will show a question to the player followed by a fixed number of possible answers (the information used in the questions and answers will be obtained from https://www.wikidata.org[Wikidata]. The player must answer these questions by clicking on one of the answers, clicking a correct answer will increase their score and clicking a incorrect answer will decrease it. 
 
 The description given till now was the same as the project that was implemented by the students that took the software architecture course last year. But, apart from that, this year there will be a new feature that implements a clue system using an LLM. This system will let the user decide whether to use clues or not once they have seen the question. Using the clues will result in a penalty to be decided. Some goals established for the application are (without priority order):
 
@@ -78,5 +78,5 @@ Other goals to take into account are:
 | Software architecture professors | Provide their students, the development team, with practical experience regarding software architecture by allowing them to work in an environment that emulates the flow of development of a real project . Which means that they expect us to be able to meet the standards of quality and production of a real application.
 | RTVE | Get an evolution of their quiz game and continue promoting their program all around the world
 | ChattySW | Develop an application within the given constraints and that fulfills the requirements given by the client
-| Wikidata | Offer a service allowing the development team to create the questions using an API
+| https://www.wikidata.org[Wikidata] | Offer a service allowing the development team to create the questions using an API
 |===
