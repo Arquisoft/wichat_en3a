@@ -3,42 +3,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-runtime-view]]
 == Runtime View
 
-
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Contents
-The runtime view describes concrete behavior and interactions of the system’s building blocks in form of scenarios from the following areas:
-
-* important use cases or features: how do building blocks execute them?
-* interactions at critical external interfaces: how do building blocks cooperate with users and neighboring systems?
-* operation and administration: launch, start-up, stop
-* error and exception scenarios
-
-Remark: The main criterion for the choice of possible scenarios (sequences, workflows) is their *architectural relevance*. It is *not* important to describe a large number of scenarios. You should rather document a representative selection.
-
-.Motivation
-You should understand how (instances of) building blocks of your system perform their job and communicate at runtime.
-You will mainly capture scenarios in your documentation to communicate your architecture to stakeholders that are less willing or able to read and understand the static models (building block view, deployment view).
-
-.Form
-There are many notations for describing scenarios, e.g.
-
-* numbered list of steps (in natural language)
-* activity diagrams or flow charts
-* sequence diagrams
-* BPMN or EPCs (event process chains)
-* state machines
-* ...
-
-
-.Further Information
-
-See https://docs.arc42.org/section-6/[Runtime View] in the arc42 documentation.
-
-****
-endif::arc42help[]
-
 === Sign up
 The following diagram shows how the sign up process of a user is done.
 
@@ -56,22 +20,22 @@ The following diagram shows how the sign up process of a user is done.
 ----
 autonumber
 actor User
-participant Application
-participant "Authentication service"
+participant FrontEnd
+participant UserService
 database Database
 
-User -> Application: write credentials
-Application -> "Authentication service": check credentials' format
-"Authentication service" -> Database: check uniqueness
-Database --> "Authentication service": return uniqueness
+User -> FrontEnd: write credentials
+FrontEnd -> UserService: check credentials' format
+UserService -> Database: check uniqueness
+Database --> UserService: return uniqueness
 
 alt valid credentials
-    "Authentication service" -> Database: user created
-    "Authentication service" --> Application: redirect user
-    Application --> User: show menu
+    UserService -> Database: user created
+    UserService --> FrontEnd: redirect user
+    FrontEnd --> User: show menu
 else not valid
-    "Authentication service" --> Application: notify credentials are invalid
-    Application --> User: show errors
+    UserService --> FrontEnd: notify credentials are invalid
+    FrontEnd --> User: show errors
 end
 ----
 
@@ -91,28 +55,28 @@ The following diagram shows how the login process of a user is done.
 ----
 autonumber
 actor User
-participant Application
-participant "Authentication service"
+participant FrontEnd
+participant UserService
 database Database
 
-User -> Application: write credentials
-Application -> "Authentication service": check credentials' format
-"Authentication service" -> Database: check credentials are valid
-Database --> "Authentication service": return if valid
+User -> FrontEnd: write credentials
+FrontEnd -> UserService: check credentials' format
+UserService -> Database: check credentials are valid
+Database --> UserService: return if valid
 
 alt valid credentials
-    "Authentication service" --> Application: login
-    Application --> User: redirect
+    UserService --> FrontEnd: login
+    FrontEnd --> User: redirect
 else not valid
-    "Authentication service" --> Application: notify credentials are invalid
-    Application --> User: show errors
+    UserService --> FrontEnd: notify credentials are invalid
+    FrontEnd --> User: show errors
 end
 ----
 
 === Game
 The following diagram shows how the playing of the game is done.
 
-1. Starts game.
+1. Choses the game option in the menu.
 2. The game starts.
 3. See the Question Generation section below.
 4. The data related to the question is returned.
@@ -121,136 +85,92 @@ The following diagram shows how the playing of the game is done.
 7. See the Hint Generation section below.
 8. The information related to the hint is returned.
 9. User choses an option from the four given.
-10. The game service checks if the option picked is the answer or not to the question.
-11. The game service returns if it's correct the option picked.
+10. The GameService checks if the option picked is the answer or not to the question.
+11. The GameService returns if it's correct the option picked.
 12. The user is informed if they make a good guess or not.
 13. Store the results and information of the game in the database.
-14. Returns the information of the game to the Application.
+14. Returns the information of the game to the FrontEnd.
 15. The information of the game is shown to the user.
 
 [plantuml,"Game diagram",png]
 ----
 autonumber
 actor User
-participant Application
-participant "Game service"
-participant "Hint service"
+participant FrontEnd
+participant GameService
+participant QuestionService
+participant HintService
 database Database
 
-User -> Application: starts the game
-Application -> "Game service": the game starts
+User -> FrontEnd: choses the game option
+FrontEnd -> GameService: the game starts
 loop round starts with timer (global or per round)
-    "Game service" -> Database: Question generation part
-    Database --> "Game service": return data
+    GameService -> QuestionService: [Question generation part]
+    QuestionService --> GameService: return data
     alt user asks for a hint
-        User -> Application: ask for a hint
-        Application -> "Game service": stop timer
-        Application -> "Hint service": Hint generation part
-        "Hint service" --> Application: return hint
+        User -> FrontEnd: ask for a hint
+        FrontEnd -> GameService: stop timer
+        GameService -> HintService: [Hint generation part]
+        HintService --> FrontEnd: return hint
 
     else user chooses an option
-        User -> Application: chooses an option
-        Application -> "Game service": check if correct
-        "Game service" --> Application: returns if correct
-        Application --> User: inform if correct
+        User -> FrontEnd: chooses an option
+        FrontEnd -> GameService: check if correct
+        GameService --> FrontEnd: returns if correct
+        FrontEnd --> User: inform if correct
     end
 end
-"Game service" -> Database: store results
-"Game service" --> Application: return the results
-Application --> User: show the results
+GameService -> Database: store results
+GameService --> FrontEnd: return the results
+FrontEnd --> User: show the results
 ----
 
 === Question generation
-The following diagram shows how the generation of the questions is done.
-We have 2 options for the moment.
+The following diagram shows how the generation of the questions is done. This option loads the questions during the game directly from Wikidata.
 
-==== Option 1
-This option loads the questions during the game directly from Wikidata.
-
-1. The game service asks for a question.
+1. The GameService asks for a question.
 2. The question generation service requests data for creating the questions.
 3. Wikidata returns the question, image and options for the question.
 4. The question generation service returns all the information.
-5. The game service stores all the information returned.
-6. The game service returns the data to the Application
+5. The GameService stores all the information returned.
+6. The GameService returns the data to the FrontEnd
 7. The question, image and options for the question are shown
 
 [plantuml,"Question generation 1 diagram",png]
 ----
 autonumber
 actor User
-participant Application
-participant "Game service"
-participant "Question generation service"
-entity "Wikidata API"
+participant FrontEnd
+participant GameService
+participant QuestionService
+entity WikiData
 
-"Game service" -> "Question generation service": ask for a question
-"Question generation service" -> "Wikidata API": requests data
-"Wikidata API" --> "Question generation service": returns the data
-"Question generation service" --> "Game service": returns the data
-"Game service" -> "Game service": stores the data
-"Game service" --> Application: returns the data
-Application --> User: show the data
-----
-
-==== Option 2
-This option is it can have a better performance, as you don’t depend in the game itself for the WikiData API, as the questions are loaded from the database during the game.
-
-1. Run the question generation service to load the questions from Wikidata.
-2. WikiData returns all the information related to the question.
-3. The information is stored in the database for later use.
-4. The game service asks for a question to the database
-5. The database returns all the information of a question
-6. The game service returns the data to the Application
-7. The question, image and options for the question are shown
-
-[plantuml,"Question generation 2 diagram",png]
-----
-autonumber
-actor User
-participant Application
-participant "Game service"
-participant "Question generation service"
-database Database
-entity "Wikidata API"
-
-group Before the application runs
-    "Question generation service" -> "Wikidata API": ask to load questions
-    "Wikidata API" --> "Question generation service": return questions
-    "Question generation service" -> Database: store questions
-end
-
-group During the game
-    "Game service" -> Database: ask for question
-    Database --> "Game service": returns the data
-    "Game service" --> Application: returns the data
-    Application --> User: show the data
-end
+GameService -> QuestionService: ask for a question
+QuestionService -> WikiData: requests data
+WikiData --> QuestionService: returns the data
+QuestionService --> GameService: returns the data
+GameService -> GameService: stores the data
+GameService --> FrontEnd: returns the data
+FrontEnd --> User: show the data
 ----
 
 === Hint generation
 The following diagram shows how the generation of the hints is done.
 
-1. The user asks for a hint to the current question.
-2. The application requests a hint for the current question.
-3. The hint service gives some context to the LLM.
-4. The LLM returns the clue.
-5. The hint service returns the clue.
-6. The clue is shown to the user.
+1. The GameService (after the user asks it) asks for a hint to the current question.
+2. The hint service gives some context to the LLM.
+3. The LLM returns the clue.
+4. The hint service returns the clue.
 
 [plantuml,"Hint generation diagram",png]
 ----
 autonumber
-actor User
-participant Application
-participant "Hint service"
-entity "LLM API"
+participant GameService
+participant HintService
+entity LLM
 
-User -> Application: ask for clue
-Application -> "Hint service": asks for clue
-"Hint service" -> "LLM API": give context and ask for clue
-"LLM API" --> "Hint service": returns the clue
-"Hint service" --> Application: returns the clue
-Application --> User: the clue is shown
-
+GameService -> HintService: ask for clue
+HintService -> LLM: give context and ask for clue
+LLM --> HintService: returns the clue
+HintService --> GameService: returns the clue
 ----
