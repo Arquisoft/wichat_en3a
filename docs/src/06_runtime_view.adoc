@@ -171,7 +171,7 @@ entity WikiData
 entity LLM
 
 GameService -> HintService: ask for clue
-WikiData -> HintService : get context(images or text) about the question user wants hint from
+WikiData -> HintService : get context about the question
 HintService -> LLM: give context and ask for clue
 LLM --> HintService: returns the clue
 HintService --> GameService: returns the clue
