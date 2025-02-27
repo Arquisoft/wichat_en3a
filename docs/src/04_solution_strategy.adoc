@@ -5,10 +5,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Technology breakdown
 
+==== Backend
 [options="header"]
 |===
 | Decision | Reasons
-| Use SpringBoot for developing the project | We are going to use https://spring.io/projects/spring-boot[Spring Boot] to develop the project because:
+| Use https://spring.io/projects/spring-boot[SpringBoot] at the project | We are going to use SpringBoot at the project because:
 
 - It gives us a lot of functionality already implemented so that we don't have to implement it ourselves.
 
@@ -18,23 +19,45 @@ ifndef::imagesdir[:imagesdir: ../images]
 - It's already integrated in the user and authentication service
 
 - It's the more popular non-relational database, and has a more or less simple syntax
+
+|===
+
+==== Frontend
+[options="header"]
+|===
+| Decision | Reasons
+| Use https://react.dev/[React] for developing the project | We are going to use React to develop the frontent because:
+
+- React’s component-based structure allows for modular and reusable code.
+
+- React has a vast ecosystem of libraries, tools, and community resources.
+
+|===
+
+==== LLM
+[options="header"]
+|===
+| Decision | Reasons
 | https://ai.google.dev/[Gemini] as the LLM for generating hints | We will use (at least at first) Gemini because:
 
-- It has a free tier with some limitations, but for our project it could be enough
+- It has a free api usage with limitations, but it is enough for our application.
 
-- It's already integrated in the llm service
-
-- It allows to send images 
+- It's already integrated in the llm service.
 
 - It has a way to handle hallucinations and errors
+|===
 
+==== Deployment
+[options="header"]
+|===
+| Decision | Reasons
 | https://www.docker.com/[Docker] with https://azure.microsoft.com/[Azure] for deploying the application | We will use Docker with Azure because:
 
 - Docker containers encapsulate the application and its dependencies, ensuring consistency across different environments (development, testing, production).
 
 - This portability allows seamless deployment on Azure, regardless of the underlying infrastructure.
-
 |===
+
 
 === Toplevel decomposition
 
