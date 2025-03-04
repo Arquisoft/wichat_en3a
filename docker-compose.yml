@@ -10,75 +10,34 @@ services:
     networks:
       - mynetwork
 
-  authservice:
-    container_name: authservice-wichat_en3a
-    image: ghcr.io/arquisoft/wichat_en3a/authservice:latest
-    profiles: ["dev", "prod"]
-    build: ./users/authservice
-    depends_on:
-      - mongodb
-    ports:
-      - "8002:8002"
-    networks:
-      - mynetwork
-    environment:
-      MONGODB_URI: mongodb://mongodb:27017/userdb
-
   userservice:
     container_name: userservice-wichat_en3a
     image: ghcr.io/arquisoft/wichat_en3a/userservice:latest
     profiles: ["dev", "prod"]
-    build: ./users/userservice
+    build: ./userservice
     depends_on:
       - mongodb
     ports:
-      - "8001:8001"
+      - "8100:8100"
     networks:
       - mynetwork
     environment:
-      MONGODB_URI: mongodb://mongodb:27017/userdb
-
-  llmservice:
-    container_name: llmservice-wichat_en3a
-    image: ghcr.io/arquisoft/wichat_en3a/llmservice:latest
-    profiles: ["dev", "prod"]
-    build: ./llmservice
-    ports:
-      - "8003:8003"
-    networks:
-      - mynetwork
-
-  gatewayservice:
-    container_name: gatewayservice-wichat_en3a
-    image: ghcr.io/arquisoft/wichat_en3a/gatewayservice:latest
-    profiles: ["dev", "prod"]
-    build: ./gatewayservice
-    depends_on:
-      - mongodb
-      - userservice
-      - authservice
-      - llmservice
-    ports:
-      - "8000:8000"
-    networks:
-      - mynetwork
-    environment:
-      AUTH_SERVICE_URL: http://authservice:8002
-      USER_SERVICE_URL: http://userservice:8001
-      LLM_SERVICE_URL: http://llmservice:8003
+      - MONGODB_URI=mongodb://mongodb:27017/users
 
   webapp:
     container_name: webapp-wichat_en3a
     image: ghcr.io/arquisoft/wichat_en3a/webapp:latest
     profiles: ["dev", "prod"]
-    build: 
-      context: ./webapp
-      args:
-        LLM_API_KEY: ${LLM_API_KEY}
+    build: ./webapp
     depends_on:
-      - gatewayservice
+        - mongodb
+        - userservice
+    environment:
+        - USERSERVICE_URL=http://userservice:8100
     ports:
-      - "3000:3000"
+      - "8000:8000"
+    networks:
+      - mynetwork
 
   prometheus:
     image: prom/prometheus
@@ -91,8 +50,6 @@ services:
       - prometheus_data:/prometheus
     ports:
       - "9090:9090"
-    depends_on: 
-      - gatewayservice
       
   grafana:
     image: grafana/grafana
