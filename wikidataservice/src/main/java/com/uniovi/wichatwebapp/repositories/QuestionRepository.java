@@ -13,5 +13,5 @@ public interface QuestionRepository extends MongoRepository<Question, String> {
             " ORDER BY RANDOM() LIMIT 1 ", nativeQuery = true)
     Optional<Question> findRandomQuestion(String lang);
 
-    Question findById(String id);
+    Optional<Question> findById(String id);
 }

@@ -1,4 +1,4 @@
-package main.java.com.uniovi.wichatwebapp.service;
+package com.uniovi.wichatwebapp.service;
 
 import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
@@ -11,6 +11,6 @@ public class QuestionService {
     }
 
     public Question findQuestionById(String id) {
-        return questionRepository.findById(id);
+        return questionRepository.findById(id).get();
     }
 }
