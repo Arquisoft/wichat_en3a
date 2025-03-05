@@ -6,14 +6,14 @@
     <title>Test Hint Service</title>
 </head>
 <body>
-<h1>Prueba el servicio de pistas de la IA</h1>
+<h1>Ask a question and give the answer to give you a hint to solve the question</h1>
 
 <!-- Formulario que hace un POST a /hint -->
 <form action="/test" method="POST">
-    <label for="userMessage">Mensaje del usuario:</label><br>
-    <input type="text" id="userMessage" name="userMessage" required><br><br>
+    <label for="question">Question:</label><br>
+    <input type="text" id="question" name="question" required><br><br>
 
-    <label for="answerQuestion">Respuesta de la pregunta:</label><br>
+    <label for="answerQuestion">Answer:</label><br>
     <input type="text" id="answerQuestion" name="answerQuestion" required><br><br>
 
     <button type="submit">Enviar</button>
