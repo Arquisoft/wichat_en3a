@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Hint Service</title>
+</head>
+<body>
+<h1>Prueba el servicio de pistas de la IA</h1>
+
+<!-- Formulario que hace un POST a /hint -->
+<form action="/test" method="POST">
+    <label for="userMessage">Mensaje del usuario:</label><br>
+    <input type="text" id="userMessage" name="userMessage" required><br><br>
+
+    <label for="answerQuestion">Respuesta de la pregunta:</label><br>
+    <input type="text" id="answerQuestion" name="answerQuestion" required><br><br>
+
+    <button type="submit">Enviar</button>
+</form>
+</body>
+</html>
