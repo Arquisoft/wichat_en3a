@@ -3,6 +3,7 @@ package com.uniovi.wichatwebapp.entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.*;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +43,18 @@ public class Question {
         return answers;
     }
 
+    public String getContent() {
+        return content;
+    }
 
+    public Answer getCorrectAnswer() {
+        return correctAnswer;
+    }
+    public String getLanguage(){
+        return correctAnswer.getLanguage();
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers=answers;
+    }
 }

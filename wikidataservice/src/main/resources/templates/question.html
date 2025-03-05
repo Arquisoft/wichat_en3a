@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,5 +8,19 @@
 </head>
 <body>
 <h1>The question will be here</h1>
+<h2 th:text="${question.content}"></h2>
+<div th:each="answer : ${question.answers}">
+    <button type="button" th:id="${'chooseAnswer' + answer.id}"
+            class="btn btn-success" th:text = "${answer.text}"></button>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $( "#chooseAnswer"+ "[[${answer.id}]]").click(function() {
+            $.get( "/game/chooseAnswer/[[${answer.id}]]", function() {
+
+            });
+        });
+        /*]]>*/
+    </script>
+</div>
 </body>
 </html>

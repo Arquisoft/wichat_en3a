@@ -29,4 +29,11 @@ public class Answer{
     public Answer() {
     }
 
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getText() {
+        return text;
+    }
 }
