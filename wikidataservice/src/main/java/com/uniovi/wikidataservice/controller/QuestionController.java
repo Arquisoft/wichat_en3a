@@ -1,7 +1,7 @@
-package com.uniovi.wichatwebapp.controller;
+package com.uniovi.wikidataservice.controller;
 
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.service.QuestionService;
+import com.uniovi.wikidataservice.entities.Question;
+import com.uniovi.wikidataservice.service.QuestionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

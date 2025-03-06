@@ -1,4 +1,4 @@
-package com.uniovi.wichatwebapp.wikidata;
+package com.uniovi.wikidataservice.wikidata;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

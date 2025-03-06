@@ -1,4 +1,4 @@
-package com.uniovi.wichatwebapp.wikidata;
+package com.uniovi.wikidataservice.wikidata;
 
 public class WikidataUtils {
     public final static String LINKCONCAT = "#* &%";

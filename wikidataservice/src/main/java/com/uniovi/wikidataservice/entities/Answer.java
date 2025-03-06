@@ -1,4 +1,4 @@
-package com.uniovi.wichatwebapp.entities;
+package com.uniovi.wikidataservice.entities;
 
 
 import org.springframework.data.annotation.Id;

@@ -1,14 +1,15 @@
-package com.uniovi.wichatwebapp.service;
+package com.uniovi.wikidataservice.service;
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.repositories.AnswerRepository;
-import com.uniovi.wichatwebapp.repositories.QuestionRepository;
+import com.uniovi.wikidataservice.entities.Answer;
+import com.uniovi.wikidataservice.entities.Question;
+import com.uniovi.wikidataservice.repositories.AnswerRepository;
+import com.uniovi.wikidataservice.repositories.QuestionRepository;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
