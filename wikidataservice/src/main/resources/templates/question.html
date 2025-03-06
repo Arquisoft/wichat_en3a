@@ -8,19 +8,6 @@
 </head>
 <body>
 <h1>The question will be here</h1>
-<h2 th:text="${question.content}"></h2>
-<div th:each="answer : ${question.answers}">
-    <button type="button" th:id="${'chooseAnswer' + answer.id}"
-            class="btn btn-success" th:text = "${answer.text}"></button>
-    <script th:inline="javascript">
-        /*<![CDATA[*/
-        $( "#chooseAnswer"+ "[[${answer.id}]]").click(function() {
-            $.get( "/game/chooseAnswer/[[${answer.id}]]", function() {
 
-            });
-        });
-        /*]]>*/
-    </script>
-</div>
 </body>
 </html>

@@ -1,9 +1,9 @@
-package com.uniovi.wikidataservice.service;
+package com.example.wikidata2.service;
 
-import com.uniovi.wikidataservice.entities.Answer;
-import com.uniovi.wikidataservice.entities.Question;
-import com.uniovi.wikidataservice.repositories.AnswerRepository;
-import com.uniovi.wikidataservice.repositories.QuestionRepository;
+import com.example.wikidata2.entities.Answer;
+import com.example.wikidata2.entities.Question;
+import com.example.wikidata2.repositories.AnswerRepository;
+import com.example.wikidata2.repositories.QuestionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -39,7 +39,7 @@ public class QuestionService {
      * @param question The question to load the answers for
      */
     private void loadAnswers(Question question) {
-       /* // Create the new answers list with the distractors
+        /*// Create the new answers list with the distractors
         if(question.getAnswers().size() > 1) {
             return;
         }

@@ -1,6 +1,7 @@
-package com.uniovi.wikidataservice.controller;
+package com.example.wikidata2.controller;
 
-import com.uniovi.wikidataservice.service.QuestionService;
+import com.example.wikidata2.entities.Question;
+import com.example.wikidata2.service.QuestionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
