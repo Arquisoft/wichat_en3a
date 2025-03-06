@@ -25,6 +25,16 @@ public class QuestionController {
         return "question";
     }
     @RequestMapping(
+            value = {"/question"},
+            method = {RequestMethod.GET}
+    )
+    public String getQuestion() {
+        //Question question = questionService.findQuestionById(id);
+        //model.addAttribute("question", question);
+        return "question";
+    }
+
+    @RequestMapping(
             value = {"/game/chooseAnswer/{id}"},
             method = {RequestMethod.GET}
     )
