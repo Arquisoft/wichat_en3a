@@ -36,4 +36,8 @@ public class Answer{
     public String getText() {
         return text;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

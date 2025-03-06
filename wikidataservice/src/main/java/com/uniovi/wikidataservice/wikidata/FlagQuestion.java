@@ -2,22 +2,22 @@ package com.uniovi.wikidataservice.wikidata;
 
 import com.uniovi.wikidataservice.entities.Answer;
 import com.uniovi.wikidataservice.entities.Question;
-import com.uniovi.wikidataservice.repositories.AnswerRepository;
-import com.uniovi.wikidataservice.repositories.QuestionRepository;
+import com.uniovi.wikidataservice.service.QuestionService;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class FlagQuestion extends QuestionWikidata{
     private static final String[] spanishStringsIni = {"¿Que país tiene esta bandera? ", "¿A qué país pertenece esta bandera? ", "¿De qué país es esta bandera? ", "¿Cuál es el país de esta bandera? "};
     private static final String[] englishStringsIni= {"Which country has this flag? ", "To which country belongs this flag? ", "From which country is this flag? ", "What is the country represented by this flag? "};
-    private static AnswerRepository answerRepository;
-    private static QuestionRepository questionRepository;
+    private final QuestionService questionService;
     List<String> countryLabels;
 
-    public FlagQuestion(String langCode) {
+    public FlagQuestion(String langCode, QuestionService questionService) {
         super(langCode);
+        this.questionService = questionService;
     }
 
     @Override
@@ -57,8 +57,8 @@ public class FlagQuestion extends QuestionWikidata{
                 questions.add(new Question(a, questionString));
             }
         }
-        answerRepository.saveAll(new ArrayList<>(answers));
-        questionRepository.saveAll(new ArrayList<>(questions));
+        questionService.saveAllAnswers(answers);
+        questionService.saveAllQuestions(questions);
     }
 
     private boolean needToSkip(String countryLabel, String venueLabel){
