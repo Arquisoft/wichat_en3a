@@ -12,12 +12,13 @@ import java.util.List;
 public class FlagQuestion extends QuestionWikidata{
     private static final String[] spanishStringsIni = {"¿Que país tiene esta bandera? ", "¿A qué país pertenece esta bandera? ", "¿De qué país es esta bandera? ", "¿Cuál es el país de esta bandera? "};
     private static final String[] englishStringsIni= {"Which country has this flag? ", "To which country belongs this flag? ", "From which country is this flag? ", "What is the country represented by this flag? "};
-    private final QuestionService questionService;
+
     List<String> countryLabels;
 
-    public FlagQuestion(String langCode, QuestionService questionService) {
+
+
+    public FlagQuestion(String langCode) {
         super(langCode);
-        this.questionService = questionService;
     }
 
     @Override
@@ -48,17 +49,22 @@ public class FlagQuestion extends QuestionWikidata{
 
             Answer a = new Answer(countryLabel, langCode);
             answers.add(a);
+            String questionString;
 
             if (langCode.equals("es")){
-                String questionString = spanishStringsIni[i%4] + WikidataUtils.LINKCONCAT + flagLabel;
-                questions.add(new Question(a, questionString));
+                questionString = spanishStringsIni[i%4] /*+ WikidataUtils.LINKCONCAT + flagLabel*/;
+
             } else {
-                String questionString = englishStringsIni[i%4] + WikidataUtils.LINKCONCAT + flagLabel;
-                questions.add(new Question(a, questionString));
+                questionString = englishStringsIni[i%4] /*+ WikidataUtils.LINKCONCAT + flagLabel*/;
             }
+
+            questions.add(new Question(a, questionString, flagLabel));
         }
-        questionService.saveAllAnswers(answers);
-        questionService.saveAllQuestions(questions);
+        //questionService.saveAllAnswers(answers);
+        //questionService.saveAllQuestions(questions);
+
+        qs.addAll(questions);
+        as.addAll(answers);
     }
 
     private boolean needToSkip(String countryLabel, String venueLabel){
@@ -72,5 +78,13 @@ public class FlagQuestion extends QuestionWikidata{
         }
 
         return false;
+    }
+
+    public List<Question> getQs() {
+        return qs;
+    }
+
+    public List<Answer> getAs() {
+        return as;
     }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface QuestionRepository extends MongoRepository<Question, String> {
-    @Query(value = "{ 'correctAnswerId': { $exists: true } }")
+    @Query(value = "{ 'correctAnswer': { $exists: true } }")
     List<Question> findQuestionsByCorrectAnswerIdExists();
 
     Optional<Question> findById(String id);

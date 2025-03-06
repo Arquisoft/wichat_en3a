@@ -1,5 +1,7 @@
 package com.uniovi.wikidataservice.wikidata;
 
+import com.uniovi.wikidataservice.entities.Answer;
+import com.uniovi.wikidataservice.entities.Question;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -8,6 +10,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class QuestionWikidata {
     // Query to be sent to WikiData QS
@@ -17,6 +21,10 @@ public abstract class QuestionWikidata {
     // Language code representing in what language the query must be sent. Spanish as a default value.
     protected String langCode = "es";
 
+    //List with the final questions
+    protected List<Question> qs = new ArrayList<>();
+    //List with the final answers
+    protected List<Answer> as = new ArrayList<>();
 
     /**
      * Constructor for QuestionTemplates which is also the one in charge of the whole question retrieval process for a query

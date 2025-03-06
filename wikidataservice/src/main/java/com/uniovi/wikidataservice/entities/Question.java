@@ -13,27 +13,32 @@ public class Question {
 
 
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+        //@GeneratedValue(strategy = GenerationType.IDENTITY)
+        private String id;
+        /*
         @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(name="questions_answers",
                 joinColumns=
                 @JoinColumn(name="question_id", referencedColumnName="id"),
                 inverseJoinColumns=
                 @JoinColumn(name="answer_id", referencedColumnName="id")
-        )
+        )*/
         private List<Answer> answers;
+        /*
         @ManyToOne
-        @JoinColumn(name = "correct_answer_id")
+        @JoinColumn(name = "correct_answer_id")*/
+
         private Answer correctAnswer;
         private String content;
+        private String imageUrl;
 
     public Question() {
     }
 
-    public Question(Answer correctAnswer, String content) {
+    public Question(Answer correctAnswer, String content, String imageUrl) {
         this.correctAnswer = correctAnswer;
         this.content = content;
+        this.imageUrl = imageUrl;
         this.answers = new ArrayList<>();
         this.answers.add(correctAnswer);
     }
@@ -57,7 +62,31 @@ public class Question {
         this.answers=answers;
     }
 
-    public Long getCorrectAnswerId() {
+    public String getCorrectAnswerId() {
         return correctAnswer.getId();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setCorrectAnswer(Answer correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

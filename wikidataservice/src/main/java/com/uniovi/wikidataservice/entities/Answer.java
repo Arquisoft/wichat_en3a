@@ -11,14 +11,14 @@ import java.util.List;
 )
 public class Answer{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
     private String text;
     private String language;
-    @OneToMany(mappedBy = "correctAnswer", fetch = FetchType.EAGER)
+    //@OneToMany(mappedBy = "correctAnswer", fetch = FetchType.EAGER)
     private List<Question> questions;
 
-    @ManyToMany(mappedBy = "answers", fetch = FetchType.EAGER)
+    //@ManyToMany(mappedBy = "answers", fetch = FetchType.EAGER)
     private List<Question> questionsWithThisAnswer;
 
     public Answer(String text, String language) {
@@ -37,7 +37,7 @@ public class Answer{
         return text;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 }

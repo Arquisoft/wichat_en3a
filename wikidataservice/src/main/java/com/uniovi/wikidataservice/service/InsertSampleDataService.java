@@ -3,6 +3,7 @@ package com.uniovi.wikidataservice.service;
 
 import com.uniovi.wikidataservice.entities.Question;
 import com.uniovi.wikidataservice.wikidata.FlagQuestion;
+import com.uniovi.wikidataservice.wikidata.QuestionWikidata;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,16 @@ public class InsertSampleDataService {
     }
     @PostConstruct
     public void init() {
-        for(int i = 0; i<10; i++){
-           // new FlagQuestion("en"); TODO
+
+        //Erases the database. Mainly for testing
+        questionService.eraseAll();
+
+        for(int i = 0; i<1; i++){
+            FlagQuestion fq = new FlagQuestion("en");
+
+            questionService.saveAllQuestions(fq.getQs());
+            questionService.saveAllAnswers(fq.getAs());
+
         }
 
 

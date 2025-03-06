@@ -91,4 +91,13 @@ public class QuestionService {
     public void saveAllAnswers(List<Answer> answers) {
         answerRepository.saveAll(new ArrayList<>(answers));
     }
+
+    /**
+     * Erases all the data in the database
+     * Only used for testing
+     */
+    public void eraseAll(){
+        questionRepository.deleteAll();
+        answerRepository.deleteAll();
+    }
 }
