@@ -14,6 +14,8 @@ import java.io.IOException;
 @Service
 //@PropertySource("classpath:application.properties")
 public class GenAI { //https://github.com/googleapis/java-genai
+    private final static String  GEMINI_1_5 = "gemini-1.5-flash-001";
+    private final static String  GEMINI_2_0 = "gemini-2.0-flash-001";
     private String apiKey;
     private Client client;
     private ImmutableList<SafetySetting> safetySettings;
@@ -24,49 +26,43 @@ public class GenAI { //https://github.com/googleapis/java-genai
         Dotenv dotenv = Dotenv.load(); // Cargar el archivo .env
         this.apiKey = dotenv.get("llm.apikey"); // Obtener la clave API del archivo .env
         client = Client.builder().apiKey(apiKey).build();
-
-        // Sets the safety settings in the config.
-        safetySettings =
-                ImmutableList.of(
-                        SafetySetting.builder()
-                                .category("HARM_CATEGORY_HATE_SPEECH")
-                                .threshold("BLOCK_ONLY_HIGH")
-                                .build(),
-                        SafetySetting.builder()
-                                .category("HARM_CATEGORY_DANGEROUS_CONTENT")
-                                .threshold("BLOCK_LOW_AND_ABOVE")
-                                .build());
+        this.safetySettings = initializeSafetySettings();
     }
 
     public String askPrompt(String instructions, String prompt) throws IOException, HttpException {
-        // Sets the system instruction in the config.
-        Content systemInstruction =
-                Content.builder()
-                        .parts(ImmutableList.of(Part.builder().text(instructions).build()))
-                        .build();
+        try {
+            // Sets the system instruction in the config.
+            Content systemInstruction =
+                    Content.builder()
+                            .parts(ImmutableList.of(Part.builder().text(instructions).build()))
+                            .build();
 
-        GenerateContentConfig config =
-                GenerateContentConfig.builder()
-                        .candidateCount(1)
-                        .maxOutputTokens(1024)
-                        .safetySettings(safetySettings)
-                        .systemInstruction(systemInstruction)
-                        .tools(ImmutableList.of(googleSearchTool))
-                        .build();
+            GenerateContentConfig config =
+                    GenerateContentConfig.builder()
+                            .candidateCount(1)
+                            .maxOutputTokens(1024)
+                            .safetySettings(safetySettings)
+                            .systemInstruction(systemInstruction)
+                            .tools(ImmutableList.of(googleSearchTool))
+                            .build();
 
-        GenerateContentResponse response =
-                client.models.generateContent("gemini-2.0-flash-001", prompt, config);
+            GenerateContentResponse response =
+                    client.models.generateContent(GEMINI_2_0, prompt, config);
 
-        return response.text();
+            return response.text();
+        } catch (IOException | HttpException e) {
+            throw new RuntimeException("Error calling LLM: " + e.getMessage(), e);
+        }
+
     }
 
     public String exampleAskTextInput() throws IOException, HttpException {
         GenerateContentResponse response =
-                client.models.generateContent("gemini-1.5-flash-001", "What is your name?", null);
+                client.models.generateContent(GEMINI_1_5, "What is your name?", null);
         return response.text();
     }
 
-    public void exampleAskTextAndImageInput() throws IOException, HttpException {
+    public String exampleAskTextAndImageInput() throws IOException, HttpException {
         // Create parts from builder or `fromJson` method.
         Part textPart = Part.builder().text("describe the image").build();
         Part imagePart =
@@ -77,23 +73,15 @@ public class GenAI { //https://github.com/googleapis/java-genai
                 Content.builder().role("user").parts(ImmutableList.of(textPart, imagePart)).build();
 
         GenerateContentResponse response =
-                client.models.generateContent("gemini-2.0-flash-001", content, null);
+                client.models.generateContent(GEMINI_2_0, content, null);
 
         System.out.println("Response: " + response.text());
+        return response;
     }
 
     public String exampleAskWithConfig() throws IOException, HttpException {
         // Sets the safety settings in the config.
-        ImmutableList<SafetySetting> safetySettings =
-                ImmutableList.of(
-                        SafetySetting.builder()
-                                .category("HARM_CATEGORY_HATE_SPEECH")
-                                .threshold("BLOCK_ONLY_HIGH")
-                                .build(),
-                        SafetySetting.builder()
-                                .category("HARM_CATEGORY_DANGEROUS_CONTENT")
-                                .threshold("BLOCK_LOW_AND_ABOVE")
-                                .build());
+        ImmutableList<SafetySetting> safetySettings = initializeSafetySettings();
 
         // Sets the system instruction in the config.
         Content systemInstruction =
@@ -114,8 +102,21 @@ public class GenAI { //https://github.com/googleapis/java-genai
                         .build();
 
         GenerateContentResponse response =
-                client.models.generateContent("gemini-2.0-flash-001", "Tell me the history of LLM", config);
+                client.models.generateContent(GEMINI_2_0, "Tell me the history of LLM", config);
 
         return response.text();
+    }
+
+    // Sets the safety settings
+    private ImmutableList<SafetySetting> initializeSafetySettings() {
+        return ImmutableList.of(
+                SafetySetting.builder()
+                        .category("HARM_CATEGORY_HATE_SPEECH")
+                        .threshold("BLOCK_ONLY_HIGH")
+                        .build(),
+                SafetySetting.builder()
+                        .category("HARM_CATEGORY_DANGEROUS_CONTENT")
+                        .threshold("BLOCK_LOW_AND_ABOVE")
+                        .build());
     }
 }

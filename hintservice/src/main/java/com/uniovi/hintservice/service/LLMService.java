@@ -17,7 +17,13 @@ public class LLMService {
     private final RestTemplate restTemplate = new RestTemplate();
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    private static final String setupMessage = "You are part of a web game about questions and answers...";
+    private static final String setupMessage = "You are part of a web game about questions and answers. You will be in charge of giving clues " +
+            "to the player. You will receive a question and an answer from now on in the following format <question>;<answer> " +
+            "when you receive that message you will reply with a clue taking in to account both the question and the answer." +
+            "Your replies must have the following characteristics: They must be as short as posible, they will consist of just a" +
+            "clue with no additional information, the clues must not contain the answer in them. Example of expected response\n" +
+            "you receive: 'What is the capital of France;Paris' \n" +
+            "posible answer: 'In the capital of france you can visit the Eiffel Tower' ";
     private static final Map<String, Boolean> modelSetupTracker = new HashMap<>();
     private static final Map<String, LLMConfig> llmConfigs = new HashMap<>();
 
