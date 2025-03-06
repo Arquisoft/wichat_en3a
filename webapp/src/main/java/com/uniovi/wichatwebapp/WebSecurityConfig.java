@@ -43,7 +43,7 @@ public class WebSecurityConfig {
                         .logoutSuccessUrl("/login")
                         .permitAll()
                 );
-
+        http.csrf(csrf -> csrf.disable());
         return http.build();
     }
 
