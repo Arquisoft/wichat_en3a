@@ -28,8 +28,8 @@ public class QuestionService {
         return questionRepository.findById(id).get();
     }
 
-    public void checkAnswer(String id) {
-        //TODO implement
+    public boolean checkAnswer(String id, Question question) {
+        return(question.getCorrectAnswerId().equals(id));
     }
     public void assignAnswers(){
         List<Question> questions = questionRepository.findAll();
@@ -114,6 +114,9 @@ public class QuestionService {
         answerRepository.deleteAll();
     }
 
+    public void removeQuestion(Question question){
+        questionRepository.delete(question);
+    }
 
 
 }

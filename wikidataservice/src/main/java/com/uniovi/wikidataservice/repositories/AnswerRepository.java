@@ -16,5 +16,4 @@ public interface AnswerRepository  extends MongoRepository<Answer, String> {
     @Query(value = "{ 'language': ?0 }")
     List<Answer> findAnswersByLanguage(String language);
 
-
 }

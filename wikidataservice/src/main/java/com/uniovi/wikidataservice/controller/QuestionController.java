@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class QuestionController {
@@ -18,16 +17,7 @@ public class QuestionController {
     }
 
     @RequestMapping(
-            value = {"/question/{id}"},
-            method = {RequestMethod.GET}
-    )
-    public String getQuestion(@PathVariable String id, Model model) {
-        //Question question = questionService.findQuestionById(id);
-        //model.addAttribute("question", question);
-        return "question";
-    }
-    @RequestMapping(
-            value = {"/question"},
+            value = {"/game/question"},
             method = {RequestMethod.GET}
     )
     public String getQuestion(Model model) {
@@ -41,7 +31,19 @@ public class QuestionController {
             method = {RequestMethod.GET}
     )
     public String chooseAnswer(@PathVariable String id, Model model) {
-        questionService.checkAnswer(id);
-        return "question";
+        Question question = (Question)model.getAttribute("question");
+        if(questionService.checkAnswer(id, question)){
+            questionService.removeQuestion(question);
+            return "redirect:/game/question/";
+        }
+        return "redirect:/game/wrongAnswer";
+    }
+
+    @RequestMapping(
+            value = {"/game/wrongAnswer"},
+            method = {RequestMethod.GET}
+    )
+    public String wrongAnswer() {
+        return "wrongAnswer";
     }
 }
