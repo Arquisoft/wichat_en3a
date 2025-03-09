@@ -76,7 +76,7 @@ public class GenAI { //https://github.com/googleapis/java-genai
                 client.models.generateContent(GEMINI_2_0, content, null);
 
         System.out.println("Response: " + response.text());
-        return response;
+        return response.text();
     }
 
     public String exampleAskWithConfig() throws IOException, HttpException {
