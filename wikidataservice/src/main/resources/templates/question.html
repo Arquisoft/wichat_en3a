@@ -7,6 +7,10 @@
     <title>Question</title>
 </head>
 <body>
-<h1>The question will be here</h1>
+<h1 th:text="${question.getContent()}">The question will be here</h1>
+<img th:src="${question.getImageUrl()}">
+<div th:each="answer : ${question.getAnswers()}">
+    <h2><button th:text="${answer.getText()}"></button></h2>
+</div>
 </body>
 </html>

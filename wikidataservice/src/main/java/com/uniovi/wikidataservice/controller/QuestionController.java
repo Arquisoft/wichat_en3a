@@ -1,5 +1,6 @@
 package com.uniovi.wikidataservice.controller;
 
+import com.uniovi.wikidataservice.entities.Question;
 import com.uniovi.wikidataservice.service.QuestionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,9 +30,9 @@ public class QuestionController {
             value = {"/question"},
             method = {RequestMethod.GET}
     )
-    public String getQuestion() {
-        //Question question = questionService.findQuestionById(id);
-        //model.addAttribute("question", question);
+    public String getQuestion(Model model) {
+        Question question = questionService.getRandomQuestion("en");
+        model.addAttribute("question", question);
         return "question";
     }
 
