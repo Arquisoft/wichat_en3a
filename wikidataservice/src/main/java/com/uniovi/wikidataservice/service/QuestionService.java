@@ -74,7 +74,7 @@ public class QuestionService {
 
         // Perform the join operation in the application code
         List<Question> validQuestions = questions.stream()
-                .filter(q -> answers.stream().anyMatch(a -> a.getText().equals(q.getCorrectAnswer().getText())))
+                .filter(q -> answers.stream().anyMatch(a -> a.getId().equals(q.getCorrectAnswerId())))
                 .collect(Collectors.toList());
 
         // Shuffle the list to randomize the order
@@ -84,7 +84,7 @@ public class QuestionService {
         Collections.shuffle(answers, new Random());
         for (Answer answer : answers) {
             if(count<4){
-                if(!answer.getText().equals(question.getCorrectAnswer().getText())){
+                if(!answer.getId().equals(question.getCorrectAnswerId())){
                     question.getAnswers().add(answer);
                     count++;
                 }

@@ -1,6 +1,7 @@
 package com.uniovi.wikidataservice.entities;
 
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.List;
 )
 public class Answer{
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
     private String text;
     private String language;
@@ -22,6 +23,7 @@ public class Answer{
     private List<Question> questionsWithThisAnswer;
 
     public Answer(String text, String language) {
+        this.id = new ObjectId().toString(); // Generate a new ObjectId for the id field
         this.text = text;
         this.language = language;
     }
