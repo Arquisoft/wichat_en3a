@@ -30,7 +30,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/signup", "/css/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -43,7 +43,6 @@ public class WebSecurityConfig {
                         .logoutSuccessUrl("/login")
                         .permitAll()
                 );
-        http.csrf(csrf -> csrf.disable());
         return http.build();
     }
 

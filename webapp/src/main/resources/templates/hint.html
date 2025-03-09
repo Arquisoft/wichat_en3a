@@ -15,6 +15,7 @@
 
     <label for="answerQuestion">Answer:</label><br>
     <input type="text" id="answerQuestion" name="answerQuestion" required><br><br>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
     <button type="submit">Enviar</button>
 
