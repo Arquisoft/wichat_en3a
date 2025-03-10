@@ -17,7 +17,7 @@ jobs:
       - run: mvn clean test --batch-mode
         working-directory: userservice
       - run: mvn clean test --batch-mode
-        working-directory: llmservice
+        working-directory: hintservice
       - run: mvn clean test --batch-mode
         working-directory: wikidataservice
       - run: mvn clean test --batch-mode
