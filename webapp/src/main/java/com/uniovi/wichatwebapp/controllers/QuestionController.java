@@ -17,13 +17,13 @@ public class QuestionController {
     }
 
     @RequestMapping(
-            value = {"/game/question"},
+                value = {"/game/question"},
             method = {RequestMethod.GET}
     )
     public String getQuestion(Model model) {
         Question question = questionService.getRandomQuestion();
         model.addAttribute("question", question);
-        return "/question/question";
+        return "question/question";
     }
 
     @RequestMapping(
@@ -45,7 +45,7 @@ public class QuestionController {
     )
     public String wrongAnswer() {
 
-        return "/question/wrongAnswer";
+        return "question/wrongAnswer";
     }
 
 

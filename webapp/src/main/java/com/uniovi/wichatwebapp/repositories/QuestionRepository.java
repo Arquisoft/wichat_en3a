@@ -47,7 +47,7 @@ public class QuestionRepository {
                 webClientBuilder
                         .baseUrl(baseUrl)
                         .build()
-                        .post()
+                        .get()
                         .uri(uriBuilder -> uriBuilder
                                 .path("/game/getCorrectAnswer")
                                 .queryParam("id", question.getId())
@@ -60,7 +60,7 @@ public class QuestionRepository {
                 webClientBuilder
                         .baseUrl(baseUrl)
                         .build()
-                        .post()
+                        .get()
                         .uri(uriBuilder -> uriBuilder
                                 .path("/game/getAnswer")
                                 .queryParam("id", id)
@@ -79,7 +79,7 @@ public class QuestionRepository {
         webClientBuilder
                 .baseUrl(baseUrl)
                 .build()
-                .post()
+                .get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/game/removeQuestion")
                         .queryParam("id", id)
