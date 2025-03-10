@@ -18,7 +18,6 @@
 <div th:each="answer : ${question.getAnswers()}">
     <p>
         <button type="button" id="chooseAnswerButton" class="btn btn-primary" th:text="${answer.getText()}"></button>
-
         <script th:inline="javascript">
             /*<![CDATA[*/
             $(document).ready(function() {

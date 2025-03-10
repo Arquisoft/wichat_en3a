@@ -21,13 +21,13 @@
 <img th:src="${question.getImageUrl()}">
 <div th:each="answer : ${question.getAnswers()}">
     <p>
-        <button type="button" id="chooseAnswerButton" class="btn btn-primary" th:text="${answer.getText()}"></button>
+        <button type="button" th:id="'chooseAnswerButton_' + ${answer.getId()}" class="btn btn-primary" th:text="${answer.getText()}"></button>
 
         <script th:inline="javascript">
             /*<![CDATA[*/
             $(document).ready(function() {
-                $("#chooseAnswerButton").click(function() {
-                    let answerId = [[${answer.getId()}]] ;
+                $(".btn-primary").click(function() {
+                    let answerId = $(this).attr("id").split('_')[1];
                     let urlChooseAnswer = '/game/chooseAnswer/' + answerId;
                     window.location.replace(urlChooseAnswer);
                 });
