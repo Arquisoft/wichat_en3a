@@ -1,18 +1,12 @@
-package com.uniovi.wikidataservice.entities;
+package com.uniovi.wichatwebapp.entities;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(
-        collection = "questions"
-)
+
 public class Question {
 
 
-        @Id
         //@GeneratedValue(strategy = GenerationType.IDENTITY)
         private String id;
         /*
@@ -62,9 +56,6 @@ public class Question {
         this.answers=answers;
     }
 
-    public String getCorrectAnswerId() {
-        return correctAnswer.getId();
-    }
 
     public String getId() {
         return id;

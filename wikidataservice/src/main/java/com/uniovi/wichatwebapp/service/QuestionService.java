@@ -1,9 +1,9 @@
-package com.uniovi.wikidataservice.service;
+package com.uniovi.wichatwebapp.service;
 
-import com.uniovi.wikidataservice.entities.Answer;
-import com.uniovi.wikidataservice.entities.Question;
-import com.uniovi.wikidataservice.repositories.AnswerRepository;
-import com.uniovi.wikidataservice.repositories.QuestionRepository;
+import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.repositories.AnswerRepository;
+import com.uniovi.wichatwebapp.repositories.QuestionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -119,4 +119,7 @@ public class QuestionService {
     }
 
 
+    public Answer findAnswerById(String answerId) {
+        return answerRepository.findById(answerId).get();
+    }
 }

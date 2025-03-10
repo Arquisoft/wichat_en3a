@@ -1,6 +1,6 @@
-package com.uniovi.wikidataservice.repositories;
+package com.uniovi.wichatwebapp.repositories;
 
-import com.uniovi.wikidataservice.entities.Answer;
+import com.uniovi.wichatwebapp.entities.Answer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;

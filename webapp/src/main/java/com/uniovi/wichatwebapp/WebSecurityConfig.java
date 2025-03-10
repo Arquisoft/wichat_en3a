@@ -1,4 +1,4 @@
-package com.uniovi.wikidataservice;
+package com.uniovi.wichatwebapp;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

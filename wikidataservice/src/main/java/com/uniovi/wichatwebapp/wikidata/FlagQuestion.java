@@ -1,8 +1,7 @@
-package com.uniovi.wikidataservice.wikidata;
+package com.uniovi.wichatwebapp.wikidata;
 
-import com.uniovi.wikidataservice.entities.Answer;
-import com.uniovi.wikidataservice.entities.Question;
-import com.uniovi.wikidataservice.service.QuestionService;
+import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.Question;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

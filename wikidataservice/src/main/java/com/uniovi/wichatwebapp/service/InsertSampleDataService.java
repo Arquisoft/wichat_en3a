@@ -1,9 +1,7 @@
-package com.uniovi.wikidataservice.service;
+package com.uniovi.wichatwebapp.service;
 
 
-import com.uniovi.wikidataservice.entities.Question;
-import com.uniovi.wikidataservice.wikidata.FlagQuestion;
-import com.uniovi.wikidataservice.wikidata.QuestionWikidata;
+import com.uniovi.wichatwebapp.wikidata.FlagQuestion;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 

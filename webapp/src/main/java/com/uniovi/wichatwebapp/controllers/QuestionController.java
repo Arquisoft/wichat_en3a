@@ -1,7 +1,7 @@
-package com.uniovi.wikidataservice.controller;
+package com.uniovi.wichatwebapp.controllers;
 
-import com.uniovi.wikidataservice.entities.Question;
-import com.uniovi.wikidataservice.service.QuestionService;
+import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.services.QuestionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +21,9 @@ public class QuestionController {
             method = {RequestMethod.GET}
     )
     public String getQuestion(Model model) {
-        Question question = questionService.getRandomQuestion("en");
+        Question question = questionService.getRandomQuestion();
         model.addAttribute("question", question);
-        return "question";
+        return "/question/question";
     }
 
     @RequestMapping(
@@ -44,6 +44,9 @@ public class QuestionController {
             method = {RequestMethod.GET}
     )
     public String wrongAnswer() {
-        return "wrongAnswer";
+
+        return "/question/wrongAnswer";
     }
+
+
 }

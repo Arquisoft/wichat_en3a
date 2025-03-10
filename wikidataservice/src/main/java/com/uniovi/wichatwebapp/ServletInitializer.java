@@ -1,4 +1,4 @@
-package com.uniovi.wikidataservice;
+package com.uniovi.wichatwebapp;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

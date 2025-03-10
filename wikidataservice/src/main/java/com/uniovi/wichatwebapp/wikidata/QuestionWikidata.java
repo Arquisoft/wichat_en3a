@@ -1,7 +1,7 @@
-package com.uniovi.wikidataservice.wikidata;
+package com.uniovi.wichatwebapp.wikidata;
 
-import com.uniovi.wikidataservice.entities.Answer;
-import com.uniovi.wikidataservice.entities.Question;
+import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.Question;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
