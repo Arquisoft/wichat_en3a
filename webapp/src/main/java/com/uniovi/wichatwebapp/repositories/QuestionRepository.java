@@ -43,15 +43,13 @@ public class QuestionRepository {
     }
 
     public boolean checkAnswer(Question question , String id){
+
         Answer correct =
                 webClientBuilder
                         .baseUrl(baseUrl)
                         .build()
                         .get()
-                        .uri(uriBuilder -> uriBuilder
-                                .path("/game/getCorrectAnswer")
-                                .queryParam("id", question.getId())
-                                .build())
+                        .uri(  "/game/getCorrectAnswer/"+question.getId())
                         .retrieve()
                         .bodyToMono(Answer.class)
                         .block();
@@ -61,10 +59,7 @@ public class QuestionRepository {
                         .baseUrl(baseUrl)
                         .build()
                         .get()
-                        .uri(uriBuilder -> uriBuilder
-                                .path("/game/getAnswer")
-                                .queryParam("id", id)
-                                .build())
+                        .uri("/game/getAnswer/"+ id)
                         .retrieve()
                         .bodyToMono(Answer.class)
                         .block();

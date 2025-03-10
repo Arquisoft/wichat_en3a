@@ -37,7 +37,7 @@ public class QuestionController {
         Question question = (Question)session.getAttribute("question");
         if(questionService.checkAnswer(id, question)){
             questionService.removeQuestion(question);
-            return "redirect:/game/question/";
+            return "redirect:/game/question";
         }
         return "redirect:/game/wrongAnswer";
     }
