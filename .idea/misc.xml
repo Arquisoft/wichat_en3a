@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/wikidataservice/pom.xml" />
         <option value="$PROJECT_DIR$/webapp/pom.xml" />
+        <option value="$PROJECT_DIR$/userservice/pom.xml" />
       </list>
     </option>
   </component>

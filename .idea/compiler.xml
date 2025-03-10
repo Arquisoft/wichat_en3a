@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="wichat-webapp" />
         <module name="wichat-webapp (1)" />
+        <module name="userservice" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="userservice" options="-parameters" />
       <module name="wichat-webapp" options="-parameters" />
       <module name="wichat-webapp (1)" options="-parameters" />
     </option>
