@@ -1,41 +1,69 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<html lang="en">
 <head>
+    <head th:replace="fragments/head :: head('Login')"></head>
     <meta charset="UTF-8">
     <title>Question</title>
-
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <style>
-        .btn-primary{width: 20em; /* Adjust the width in em units */
-            height: 5em; /* Adjust the height in em units */
-            padding: 1em 2em; /* Adjust the padding in em units */
-            font-size: 2rem; /* Adjust the font size in rem units */}
+        .answer-row {
+            margin: 2rem 0;
+        }
+        .answer-button {
+            width: 100%;
+            min-height: 8em;
+            margin: 0.5rem 0;
+            white-space: normal;
+            word-wrap: break-word;
+            font-size: 1.2rem;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            margin: 2rem auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: block; /* Ensure the image is treated as a block-level element */
+        }
     </style>
 </head>
-<body>
-<h1 th:text="${question.getContent()}">The question will be here</h1>
-<img th:src="${question.getImageUrl()}">
-<div th:each="answer : ${question.getAnswers()}">
-    <p>
-        <button type="button" th:id="'chooseAnswerButton_' + ${answer.getId()}" class="btn btn-primary" th:text="${answer.getText()}"></button>
+<body class="bg-light">
+<div class="container mt-5">
+    <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
 
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            $(document).ready(function() {
-                $(".btn-primary").click(function() {
-                    let answerId = $(this).attr("id").split('_')[1];
-                    let urlChooseAnswer = '/game/chooseAnswer/' + answerId;
-                    window.location.replace(urlChooseAnswer);
-                });
-            });
-            /*]]>*/
-        </script>
-    </p>
+    <img th:src="${question.getImageUrl()}" class="question-image" alt="Question image">
 
+    <div class="row answer-row">
+        <div class="col-md-6" th:each="answer, iterStat : ${question.getAnswers()}">
+            <button type="button"
+                    th:id="'chooseAnswerButton_' + ${answer.getId()}"
+                    class="btn btn-primary answer-button"
+                    th:text="${answer.getText()}"
+                    data-answer-id="${answer.getId()}">
+            </button>
+        </div>
+    </div>
 </div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        $(".answer-button").click(function() {
+            let answerId = $(this).attr("id").split('_')[1];
+            let urlChooseAnswer = '/game/chooseAnswer/' + answerId;
+            window.location.replace(urlChooseAnswer);
+        });
+    });
+    /*]]>*/
+</script>
 </body>
 </html>
