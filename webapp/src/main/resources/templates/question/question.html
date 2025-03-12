@@ -1,15 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head>
-    <head th:replace="fragments/head :: head('Login')"></head>
-    <meta charset="UTF-8">
-    <title>Question</title>
-    <!-- Add Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</head>
+<head th:replace="fragments/head :: head('Question')"></head>
 <body class="bg-light">
 <nav th:replace="fragments/nav"></nav>
 <div class="container mt-5">
@@ -27,8 +19,15 @@
             </button>
         </div>
     </div>
-</div>
+    <button th:attr="onclick='getHint(\'' + ${question.content} + '\', \'' + ${question.correctAnswer.text} + '\')'">
+        Get Hint
+    </button>
 
+    <pre id="hintResult">
+
+    </pre>
+</div>
+<script src="/script/hint.js"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function() {
