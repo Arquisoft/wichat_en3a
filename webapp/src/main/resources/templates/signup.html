@@ -2,6 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
 <head th:replace="fragments/head :: head('Signup')"></head>
 <body>
+    <nav th:replace="fragments/nav"></nav>
     <img src="/css/images/qwizz.png" width="250"/>
     <form method="post" action="/signup" th:object="${user}" class="form">
         <label for="email">Email:</label>
