@@ -1,0 +1,20 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en">
+<head th:replace="fragments/head :: head('Question')"></head>
+<body>
+<nav th:replace="fragments/nav"></nav>
+<h1 >Wrong answer</h1>
+<button type="button" id="nextQuestionButton" class="btn btn-primary" >Next question</button>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        $("#nextQuestionButton").click(function() {
+            window.location.replace("/game/question");
+        });
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

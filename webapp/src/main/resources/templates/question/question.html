@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/head :: head('Question')"></head>
+<body class="bg-light">
+<nav th:replace="fragments/nav"></nav>
+<div class="container mt-5">
+    <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
+
+    <img th:src="${question.getImageUrl()}" class="question-image" alt="Question image">
+
+    <div class="row answer-row">
+        <div class="col-md-6" th:each="answer, iterStat : ${question.getAnswers()}">
+            <button type="button"
+                    th:id="'chooseAnswerButton_' + ${answer.getId()}"
+                    class="btn btn-primary answer-button"
+                    th:text="${answer.getText()}"
+                    data-answer-id="${answer.getId()}">
+            </button>
+        </div>
+    </div>
+    <button th:attr="onclick='getHint(\'' + ${question.content} + '\', \'' + ${question.correctAnswer.text} + '\')'">
+        Get Hint
+    </button>
+
+    <pre id="hintResult">
+
+    </pre>
+</div>
+<script src="/script/hint.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(document).ready(function() {
+        $(".answer-button").click(function() {
+            let answerId = $(this).attr("id").split('_')[1];
+            let urlChooseAnswer = '/game/chooseAnswer/' + answerId;
+            window.location.replace(urlChooseAnswer);
+        });
+    });
+    /*]]>*/
+</script>
+</body>
+</html>
