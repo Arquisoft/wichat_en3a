@@ -3,32 +3,24 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-solution-strategy]]
 == Solution Strategy
 
+=== Technology breakdown
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Contents
-A short summary and explanation of the fundamental decisions and solution strategies, that shape system architecture. It includes
+[options="header"]
+|===
+| Goal / Requirement | Architectural approach | Conclusions
+| Implement LLM technologies in the game | Research shall be done to decide which LLM is more convenient for our game. A research about how to implement this technologies in a good way (so hallucinations are avoided) shall be done | The LLM that is going to be used will be decided in further stages of the development. This will be done like this because the majority of the LLMs are implemented in a pretty similar way, so we can change the model with only some small changes in the code.
+| Develop the program using GitHub. | Research about branching strategies in GitHub shall be done. All team members shall be acquainted with GitHub | The branching strategy ‘GitHub Flow’ will be used by the development team as it is the branching strategy that fits better the team and project characteristics.
+| The code should be easy to understand and to extend in the future | Design techniques and patterns shall be implemented. | 
+|===
 
-* technology decisions
-* decisions about the top-level decomposition of the system, e.g. usage of an architectural pattern or design pattern
-* decisions on how to achieve key quality goals
-* relevant organizational decisions, e.g. selecting a development process or delegating certain tasks to third parties.
+=== Organizational breakdown
 
-.Motivation
-These decisions form the cornerstones for your architecture. They are the foundation for many other detailed decisions or implementation rules.
+Up until this moment we are meeting only once a week, but we expect that that may have to change as the project evolves. We are using a whatsapp group as a secondary way of communication
 
-.Form
-Keep the explanations of such key decisions short.
+=== Quality decisions
 
-Motivate what was decided and why it was decided that way,
-based upon problem statement, quality goals and key constraints.
-Refer to details in the following sections.
-
-
-.Further Information
-
-See https://docs.arc42.org/section-4/[Solution Strategy] in the arc42 documentation.
-
-****
-endif::arc42help[]
+[options="header"]
+|===
+| Attribute pursued | Choice
+||
+|===

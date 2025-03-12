@@ -1,20 +1,12 @@
-FROM node:22
+# Using Amazon Coretto because other images have vulnerabilities
+FROM maven:3.9.9-amazoncorretto-23 AS build
+COPY . /webapp
+WORKDIR /webapp
+RUN mvn install
+RUN mvn clean package
 
-COPY . /app
-WORKDIR /app
+FROM amazoncorretto:23 AS runtime
+COPY --from=build /webapp/target/wichat-webapp-0.0.1-SNAPSHOT.jar webapp.jar
+ENTRYPOINT ["java", "-jar", "webapp.jar"]
 
-#Install the dependencies
-RUN npm install
-
-ARG API_URI="http://localhost:8000"
-ARG LLM_API_KEY
-ENV REACT_APP_API_ENDPOINT=$API_URI
-ENV REACT_APP_LLM_API_KEY=$LLM_API_KEY
-
-#Create an optimized version of the webapp
-RUN npm run build
-RUN npm install serve
-
-#Execute npm run prod to run the server
-CMD [ "npm", "run", "prod" ]
-#CMD ["npm", "start"]
+EXPOSE 8080

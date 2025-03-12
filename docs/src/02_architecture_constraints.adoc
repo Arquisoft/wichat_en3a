@@ -2,28 +2,60 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-architecture-constraints]]
 == Architecture Constraints
+The application has some constraints, these are requirements of the stakeholders or environment that we must accept. They are divided in technical constraints, organizational constraints and convention constraints.
 
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Contents
-Any requirement that constraints software architects in their freedom of design and implementation decisions or decision about the development process. These constraints sometimes go beyond individual systems and are valid for whole organizations and companies.
+=== Technical Constraints 
 
-.Motivation
-Architects should know exactly where they are free in their design decisions and where they must adhere to constraints.
-Constraints must always be dealt with; they may be negotiable, though.
+[options="header", cols="1,1"] 
 
-.Form
-Simple tables of constraints with explanations.
-If needed you can subdivide them into
-technical constraints, organizational and political constraints and
-conventions (e.g. programming or versioning guidelines, documentation or naming conventions)
+|=== 
 
+| Constraint | Limitations 
 
-.Further Information
+| Web Frontend | The system will have at least a Web frontend  
 
-See https://docs.arc42.org/section-2/[Architecture Constraints] in the arc42 documentation.
+|Wikidata  | We must use Wikidata to get information to generate the questions  
 
-****
-endif::arc42help[]
+| LLM  | An LLM will be used to generate hints for the questions  
+
+| GitHub | We must use GitHub for the version control of the project  
+
+|=== 
+
+  
+
+=== Organizational Constraints 
+
+[options="header", cols="1,1"] 
+
+|=== 
+
+| Constraints | Limitations 
+
+| Team  | The team for the project was chosen by the professors 
+
+| Weekly meetings  | There must be at least one weekly meeting 
+
+| Public repository   | The project source code will be available in a public repository  
+
+|=== 
+
+  
+
+=== Conventions 
+
+  
+
+[options="header", cols="1,1"] 
+
+|=== 
+
+| Conventions | Limitations 
+
+| Documentation architecture  | The documentation must follow Arc42  
+
+| Language   | The documentation and in general the project will be written in English  
+
+|===
+
