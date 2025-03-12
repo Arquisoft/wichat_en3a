@@ -1,6 +1,7 @@
 package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.QuestionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class QuestionController {
     private final QuestionService questionService;
+    private final GameService gameService;
 
-    public QuestionController(QuestionService questionService) {
+    public QuestionController(QuestionService questionService, GameService gameService) {
         this.questionService = questionService;
+        this.gameService = gameService;
     }
 
     @RequestMapping(
@@ -22,7 +25,9 @@ public class QuestionController {
             method = {RequestMethod.GET}
     )
     public String getQuestion(Model model, HttpSession session) {
+        gameService.newGameCheck();
 
+        model.addAttribute("points", gameService.getPoints());
         Question question = questionService.getRandomQuestion();
         model.addAttribute("question", question);
         session.setAttribute("question", question);
@@ -37,8 +42,10 @@ public class QuestionController {
         Question question = (Question)session.getAttribute("question");
         if(questionService.checkAnswer(id, question)){
             questionService.removeQuestion(question);
+            gameService.correctAnswer();
             return "redirect:/game/question";
         }
+        gameService.wrongAnswer();
         return "redirect:/game/wrongAnswer";
     }
 
@@ -46,8 +53,8 @@ public class QuestionController {
             value = {"/game/wrongAnswer"},
             method = {RequestMethod.GET}
     )
-    public String wrongAnswer() {
-
+    public String wrongAnswer(Model model) {
+        model.addAttribute("points", gameService.getPoints());
         return "question/wrongAnswer";
     }
 
