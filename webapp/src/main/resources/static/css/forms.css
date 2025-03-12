@@ -3,6 +3,7 @@
     flex-direction: column;
     gap: 0.5em;
     margin-bottom: 1em;
+    align-items: center;
 }
 
 .form input, .form button{
@@ -25,4 +26,15 @@
 
 .error{
     color: red;
+}
+
+.form input {
+    width: 80%;
+    margin: 0rem auto;
+    display: block;
+}
+.form button {
+    width: 80%;
+    margin: 0rem auto;
+    display: block;
 }

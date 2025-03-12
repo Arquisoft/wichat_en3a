@@ -1,0 +1,36 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question</title>
+    <style>
+        .btn-primary{width: 20em; /* Adjust the width in em units */
+            height: 5em; /* Adjust the height in em units */
+            padding: 1em 2em; /* Adjust the padding in em units */
+            font-size: 2rem; /* Adjust the font size in rem units */}
+    </style>
+</head>
+<body>
+<h1 th:text="${question.getContent()}">The question will be here</h1>
+<img th:src="${question.getImageUrl()}">
+<div th:each="answer : ${question.getAnswers()}">
+    <p>
+        <button type="button" id="chooseAnswerButton" class="btn btn-primary" th:text="${answer.getText()}"></button>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            $(document).ready(function() {
+                $("#chooseAnswerButton").click(function() {
+                    let answerId = [[${answer.getId()}]] ;
+                    let urlChooseAnswer = '/game/chooseAnswer/' + answerId;
+                    window.location.replace(urlChooseAnswer);
+                });
+            });
+            /*]]>*/
+        </script>
+    </p>
+
+</div>
+</body>
+</html>

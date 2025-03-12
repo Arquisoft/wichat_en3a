@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Hint Service</title>
+</head>
+<body>
+<h1>Ask a question and give the answer to give you a hint to solve the question</h1>
+
+<!-- Formulario que hace un POST a /hint -->
+<form action="/hint" method="POST">
+    <label for="question">Question:</label><br>
+    <input type="text" id="question" name="question" required><br><br>
+
+    <label for="answerQuestion">Answer:</label><br>
+    <input type="text" id="answerQuestion" name="answerQuestion" required><br><br>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <button type="submit">Enviar</button>
+
+    <pre th:if="${result!=null}" th:text="${result}"></pre>
+    <a href="/home">Home</a>
+</form>
+</body>
+</html>
