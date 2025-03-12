@@ -16,8 +16,7 @@ body {
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+    width: max-content;
     margin: 1rem;
 }
 
@@ -80,6 +79,7 @@ button:hover {
     font-size: 0.9rem;
 }
 
+
 /* Signup Link */
 a {
     display: block;
@@ -94,8 +94,73 @@ a:hover {
     text-decoration: underline;
 }
 
+
+nav {
+    display: flex!important;
+    flex-direction: row;
+    background-color: #8580f6 ;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    align-self: center;
+    margin-top: 0;
+}
+nav a:hover {
+    background-color: #575757;
+}
+body {
+    margin: 0;
+    padding-top: 50px;
+}
+.home-logo img {
+    height: 40px;
+}
+
+.btn-primary{width: 10em; /* Adjust the width in em units */
+    height: 5em; /* Adjust the height in em units */
+    padding: 1em 2em; /* Adjust the padding in em units */
+    font-size: 1.2rem; /* Adjust the font size in rem units */
+}
+.answer-row {
+    margin: 2rem 0;
+}
+.answer-button {
+    width: 100%;
+    min-height: 8em;
+    margin: 0.5rem 0;
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 1.2rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.question-image {
+    width: 30%;
+    margin: 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: block; /* Ensure the image is treated as a block-level element */
+}
+
+
+@media(max-width: 768px) {
+    .question-image {
+        width: 50%;
+    }
+}
+
+
 /* Responsive Design */
-@media (max-width: 480px) {
+@media(max-width: 480px) { 
     .form {
         padding: 1.5rem;
         margin: 1rem;
@@ -109,3 +174,4 @@ a:hover {
         padding: 0.65rem;
     }
 }
+
