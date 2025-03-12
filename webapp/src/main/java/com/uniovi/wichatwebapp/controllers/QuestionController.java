@@ -25,8 +25,6 @@ public class QuestionController {
             method = {RequestMethod.GET}
     )
     public String getQuestion(Model model, HttpSession session) {
-        gameService.newGameCheck();
-
         model.addAttribute("points", gameService.getPoints());
         Question question = questionService.getRandomQuestion();
         model.addAttribute("question", question);
