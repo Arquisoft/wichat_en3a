@@ -24,6 +24,30 @@ services:
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/users
 
+  wikidataservice:
+    container_name: wikidataservice-wichat_en3a
+    image: ghcr.io/arquisoft/wichat_en3a/wikidataservice:latest
+    profiles: ["dev", "prod"]
+    build: ./wikidataservice
+    depends_on:
+      - mongodb
+    ports:
+      - "8101:8101"
+    networks:
+      - mynetwork
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/users
+
+  hintservice:
+    container_name: hintservice-wichat_en3a
+    image: ghcr.io/arquisoft/wichat_en3a/hintservice:latest
+    profiles: ["dev", "prod"]
+    build: ./hintservice
+    ports:
+      - "8200:8200"
+    networks:
+      - mynetwork
+
   webapp:
     container_name: webapp-wichat_en3a
     image: ghcr.io/arquisoft/wichat_en3a/webapp:latest
