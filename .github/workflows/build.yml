@@ -14,6 +14,9 @@ jobs:
         with:
           distribution: 'corretto'
           java-version: '23'
+      - name: Create .env file for hintservice
+        run: |
+          echo "llm.apikey=${{ secrets.HINTSERVICE_API_KEY }}" >> hintservice/.env
       - run: mvn clean test --batch-mode
         working-directory: userservice
       - run: mvn clean test --batch-mode
