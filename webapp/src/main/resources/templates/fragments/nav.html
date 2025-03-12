@@ -1,8 +1,8 @@
-<nav th:fragment="esto">
+<nav th:fragment="esto" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <a href="/home" class="home-logo">
         <img src="/css/images/qwizzCropped.png" alt="Home">
     </a>
-    <a href="/login">Log In</a>
-    <a href="/signup">Sign Up</a>
-    <a href="/game/question">Question game</a>
+    <a href="/login" sec:authorize="!isAuthenticated()">Log In</a>
+    <a href="/signup" sec:authorize="!isAuthenticated()">Sign Up</a>
+    <a href="/game/question" sec:authorize="isAuthenticated()">Question game</a>
 </nav>
