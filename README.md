@@ -16,21 +16,13 @@ First, clone the project:
 
 ### LLM API key configuration
 
-In order to communicate with the LLM integrated in this project, we need to setup an API key. Two integrations are available in this propotipe: gemini and empaphy. The API key provided must match the LLM provider used.
+In order to communicate with the LLM integrated in this project, we need to setup an API key.
+We have to create a .env file in the hintservice directory with this format:
+llm.apikey=YOUR_API_KEY
 
-We need to create two .env files. 
-- The first one in the webapp directory (for executing the webapp using ```npm start```). The content of this .env file should be as follows:
-```
-REACT_APP_LLM_API_KEY="YOUR-API-KEY"
-```
-- The second one located in the root of the project (along the docker-compose.yml). This .env file is used for the docker-compose when launching the app with docker. The content of this .env file should be as follows:
-```
-LLM_API_KEY="YOUR-API-KEY"
-```
+Note that this file must NOT be uploaded to the github repository (they are excluded in the .gitignore).
 
-Note that these files must NOT be uploaded to the github repository (they are excluded in the .gitignore).
-
-An extra configuration for the LLM to work in the deployed version of the app is to include it as a repository secret (LLM_API_KEY). This secret will be used by GitHub Action when building and deploying the application.
+An extra configuration for the LLM to work in the deployed version of the app is to include it as a repository secret (HINTSERVICE_API_KEY). This secret will be used by GitHub Action when building and deploying the application.
 
 
 ### Launching Using docker
@@ -44,11 +36,9 @@ First, start the database. Either install and run Mongo or run it using docker:
 
 You can use also services like Mongo Altas for running a Mongo database in the cloud.
 
-Now launch the auth, user and gateway services. Just go to each directory and run `npm install` followed by `npm start`.
+Then you have to launch all the services manually (using some IDE or Maven and Java from the command line)
 
-Lastly, go to the webapp directory and launch this component with `npm install` followed by `npm start`.
-
-After all the components are launched, the app should be available in localhost in port 3000.
+After all the components are launched, the app should be available in localhost in port 8000.
 
 ## Deployment
 For the deployment, we have several options. The first and more flexible is to deploy to a virtual machine using SSH. This will work with any cloud service (or with our own server). Other options include using the container services that all the cloud services provide. This means, deploying our Docker containers directly. Here I am going to use the first approach. I am going to create a virtual machine in a cloud service and after installing docker and docker-compose, deploy our containers there using GitHub Actions and SSH.
