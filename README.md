@@ -11,7 +11,7 @@
 <p float="left">
  
 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9gk3azE5EtYdq614W5Tohw4dAQ1IKNQajdQ&s" height="100">
+<img src="https://img.icons8.com/color/512/spring-logo.png" height="100">
  
 
 <img src="https://cdn-icons-png.flaticon.com/512/226/226777.png" height="100">
