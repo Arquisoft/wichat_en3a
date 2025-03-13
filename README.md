@@ -1,11 +1,7 @@
 # wichat_en3a
 
 [![Actions Status](https://github.com/arquisoft/wichat_en3a/workflows/CI%20for%20wichat_en3a/badge.svg)](https://github.com/arquisoft/wichat_en3a/actions)
- 
-
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wichat_en3a&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wichat_en3a)
- 
-
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wichat_en3a&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wichat_en3a)
 
  
