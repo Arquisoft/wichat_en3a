@@ -1,5 +1,28 @@
 # wichat_en3a
 
+[![Actions Status](https://github.com/arquisoft/wichat_en3a/workflows/CI%20for%20wichat_en3a/badge.svg)](https://github.com/arquisoft/wichat_en3a/actions)
+ 
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wichat_en3a&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wichat_en3a)
+ 
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wichat_en3a&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wichat_en3a)
+
+ 
+
+ 
+
+<p float="left">
+ 
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9gk3azE5EtYdq614W5Tohw4dAQ1IKNQajdQ&s" height="100">
+ 
+
+<img src="https://cdn-icons-png.flaticon.com/512/226/226777.png" height="100">
+ 
+
+</p>
+
 ## Participants
 - **Laura Labrada Campos**: uo277510@uniovi.es
 - **Ana Castro Álvarez**: uo293693@uniovi.es
@@ -36,6 +59,8 @@ First, start the database. Either install and run Mongo or run it using docker:
 
 You can use also services like Mongo Altas for running a Mongo database in the cloud.
 
+You have to change the spring properties file of each service to use localhost URLs instead of Docker ones.
+
 Then you have to launch all the services manually (using some IDE or Maven and Java from the command line)
 
 After all the components are launched, the app should be available in localhost in port 8000.
@@ -48,7 +73,7 @@ The machine for deployment can be created in services like Microsoft Azure or Am
 
 - Linux machine with Ubuntu > 20.04 (the recommended is 24.04).
 - Docker installed.
-- Open ports for the applications installed (in this case, ports 3000 for the webapp and 8000 for the gateway service).
+- Open ports for the applications installed (in this case, port 8000 for the webapp).
 
 Once you have the virtual machine created, you can install **docker** using the following instructions:
 
