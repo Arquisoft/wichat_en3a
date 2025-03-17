@@ -57,11 +57,6 @@
 			<artifactId>dotenv-java</artifactId>
 			<version>3.2.0</version>
 		</dependency>
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>bson</artifactId>
-            <scope>test</scope>
-        </dependency>
 
     </dependencies>
 
