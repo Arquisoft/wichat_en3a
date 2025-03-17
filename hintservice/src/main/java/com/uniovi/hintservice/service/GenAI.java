@@ -23,8 +23,7 @@ public class GenAI { //https://github.com/googleapis/java-genai
 
     @Autowired
     public GenAI(Environment environment) {
-        Dotenv dotenv = Dotenv.load(); // Cargar el archivo .env
-        this.apiKey = dotenv.get("llm.apikey"); // Obtener la clave API del archivo .env
+        this.apiKey = System.getenv("LLM_APIKEY");
         client = Client.builder().apiKey(apiKey).build();
         this.safetySettings = initializeSafetySettings();
     }

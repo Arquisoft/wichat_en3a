@@ -45,6 +45,8 @@ services:
     build: ./hintservice
     ports:
       - "8200:8200"
+    environment:
+      - LLM_APIKEY="AIzaSyCFPIigrprk0_6zz2JJzfvBsTG0hNXSLto"
     networks:
       - mynetwork
 

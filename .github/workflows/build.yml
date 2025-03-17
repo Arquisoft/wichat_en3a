@@ -21,6 +21,8 @@ jobs:
         working-directory: userservice
       - run: mvn clean test --batch-mode
         working-directory: hintservice
+        env:
+          llm.apikey: ${{ secrets.HINTSERVICE_API_KEY }}
       - run: mvn clean test --batch-mode
         working-directory: wikidataservice
       - run: mvn clean test --batch-mode
