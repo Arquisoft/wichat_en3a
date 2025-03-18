@@ -1,11 +1,21 @@
 package com.uniovi.wichatwebapp.services;
 
+import com.uniovi.wichatwebapp.entities.Question;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GameService {
+
+    private final QuestionService questionService;
+
     private int points;
     private int questions = 0;
+    private Question currentQuestion;
+
+    public GameService(QuestionService questionService) {
+        this.questionService = questionService;
+    }
+
     public void correctAnswer(){
         points+=100;
         questions++;
@@ -17,11 +27,30 @@ public class GameService {
         points-=25;
         questions++;
     }
-    public void newGameCheck(){
+    public void start(){
         questions=0;
         points=0;
+        nextQuestion();
     }
-    public int getQuestions() {
-        return questions;
+
+    public boolean hasGameEnded(){
+        return questions>=10;
+    }
+
+    public void nextQuestion(){
+        currentQuestion = questionService.getRandomQuestion();
+        questionService.removeQuestion(currentQuestion);
+    }
+
+    public Question getCurrentQuestion() {
+        return currentQuestion;
+    }
+
+    public void checkAnswer(String id){
+        if(currentQuestion.getCorrectAnswer().getId().equals(id)){
+            correctAnswer();
+        }else{
+            wrongAnswer();
+        }
     }
 }

@@ -1,22 +1,26 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="fragments/head :: head('Question')"></head>
+<head>
+    <th:block th:insert="fragments/head :: head('Question')"></th:block>
+    <link rel="stylesheet" href="/css/questions.css"/>
+</head>
 <body class="bg-light">
 <nav th:replace="fragments/nav"></nav>
 <div class="container mt-5">
+    <script src="/script/question.js"></script>
     <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
-    <h3 th:text="'Points : ' + ${points}"></h3>
+    <h3 id="points" th:text="'Points : ' + ${points}"></h3>
 
     <img th:src="${question.getImageUrl()}" class="question-image" alt="Question image">
 
     <div class="row answer-row">
         <div class="col-md-6" th:each="answer, iterStat : ${question.getAnswers()}">
             <button type="button"
-                    th:id="'chooseAnswerButton_' + ${answer.getId()}"
+                    th:id= "${answer.getId()}"
                     class="btn btn-primary answer-button"
                     th:text="${answer.getText()}"
-                    data-answer-id="${answer.getId()}">
+                    th:attr="onclick='checkAnswer(\''+${answer.getId()}+'\')'">
             </button>
         </div>
     </div>
@@ -29,16 +33,8 @@
     </pre>
 </div>
 <script src="/script/hint.js"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    $(document).ready(function() {
-        $(".answer-button").click(function() {
-            let answerId = $(this).attr("id").split('_')[1];
-            let urlChooseAnswer = '/game/chooseAnswer/' + answerId;
-            window.location.replace(urlChooseAnswer);
-        });
-    });
-    /*]]>*/
-</script>
+
+
+
 </body>
 </html>

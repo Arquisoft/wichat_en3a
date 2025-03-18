@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head('Signup')"></head>
 <body>
     <nav th:replace="fragments/nav"></nav>
-    <img src="/css/images/qwizz.png" width="250"/>
+    <img src="/images/qwizz.png" width="250"/>
     <form method="post" action="/signup" th:object="${user}" class="form">
         <label for="email">Email:</label>
         <input type="text" id="email" name="email" placeholder="Enter your email" required="true"/>

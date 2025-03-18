@@ -1,0 +1,42 @@
+/* General body styles */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+/* Button styles */
+#backButton {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#backButton:hover {
+    background-color: #1557b0;
+}
+
+/* Centered Image */
+#image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px; /* Give space from the button */
+}
+
+#userIcon {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px; /* Adjust to fit your needs */
+}
+

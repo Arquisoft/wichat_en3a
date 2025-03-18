@@ -1,0 +1,27 @@
+
+/*Advertencia por no especificar color de primer plano -> Lo hereda de body*/
+/*Advertencia por redefinición de background-color -> Es para la animación así que hay que definirlo dos veces*/
+@keyframes wrong{
+    from{background-color: #1a73e8;}
+    to{background-color: #EC0909;}
+}
+
+/*Advertencia por no especificar color de primer plano -> Lo hereda de body*/
+/*Advertencia por redefinición de background-color -> Es para la animación así que hay que definirlo dos veces*/
+@keyframes correct{
+    from{background-color: #1a73e8;}
+    to{background-color: #48ff24;}
+}
+
+
+button.correct{
+    animation-name: correct;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
+}
+
+button.wrong{
+    animation-name: wrong;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
+}

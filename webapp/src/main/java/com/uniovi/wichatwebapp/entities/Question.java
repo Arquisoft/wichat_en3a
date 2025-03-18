@@ -6,21 +6,9 @@ import java.util.List;
 
 public class Question {
 
-
-        //@GeneratedValue(strategy = GenerationType.IDENTITY)
         private String id;
-        /*
-        @ManyToMany(fetch = FetchType.EAGER)
-        @JoinTable(name="questions_answers",
-                joinColumns=
-                @JoinColumn(name="question_id", referencedColumnName="id"),
-                inverseJoinColumns=
-                @JoinColumn(name="answer_id", referencedColumnName="id")
-        )*/
+
         private List<Answer> answers;
-        /*
-        @ManyToOne
-        @JoinColumn(name = "correct_answer_id")*/
 
         private Answer correctAnswer;
         private String content;
