@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
+  <component name="NewModuleRootManager">
+    <output url="file://$MODULE_DIR$/out/production/wichat_2" />
+    <output-test url="file://$MODULE_DIR$/out/test/wichat_2" />
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="23" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:3.4.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:3.4.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:6.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:6.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-context:6.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:6.2.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.16" level="project" />
+    <orderEntry type="library" name="Maven: com.google.auto.value:auto-value:1.11.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.genai:google-genai:0.2.0" level="project" />
+    <orderEntry type="library" name="Maven: io.github.cdimascio:dotenv-java:3.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-core:6.2.3" level="project" />
   </component>
 </module>
