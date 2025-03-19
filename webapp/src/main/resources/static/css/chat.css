@@ -1,18 +1,33 @@
+/* Contenedor principal */
+.chat-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Ajusta según sea necesario */
+    margin-left: auto; /* Alinea el contenedor a la derecha */
+}
+
 /* Estilos generales */
 .chat-container {
     height: 400px;
     font-family: Arial, sans-serif;
+    position: relative;
 }
 
 #chatBox {
     display: none;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 2px solid #8580f6; /* Borde alrededor del chat */
+    border-radius: 12px; /* Bordes redondeados */
     overflow: hidden;
+    background-color: white;
+    width: 300px; /* Ancho del chat */
+    position: absolute;
+    left: 0; /* Alineado a la izquierda */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
 .chat-header {
-    background-color: #f1f1f1;
+    background-color: #8580f6;
+    color: white;
     padding: 10px;
     text-align: center;
     font-weight: bold;
@@ -36,20 +51,27 @@
 }
 
 #userInput {
-    flex: 1;
+    flex: 1; /* Ocupa todo el espacio disponible */
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-right: 5px;
+    font-size: 14px; /* Tamaño de la fuente */
 }
 
 #sendMessage {
-    padding: 8px 15px;
-    background-color: #4285f4;
+    padding: 3px 3px; /* Padding más pequeño */
+    background-color: #8580f6;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 30px; /* Tamaño de la fuente */
+    width: 30px; /* Ancho */
+    height: 40px; /* Alto */
+    display: flex; /* Activa Flexbox */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
 }
 
 /* Estilos para los mensajes */
@@ -62,13 +84,14 @@
 }
 
 .ai-message {
-    background-color: #e3f2fd;
+    background-color: #e9e9ea;
     margin-right: auto;
 }
 
 .user-message {
-    background-color: #e1ffc7;
+    background-color: #c7c5fa;
     margin-left: auto;
+    font-weight: bold; /* Texto en negrita */
 }
 
 /* Estilos para el botón de inicio de chat con imagen */
@@ -86,6 +109,9 @@
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para el botón */
     transition: background-color 0.2s ease, border-color 0.2s ease;
+    position: absolute;
+    right: 80%; /* Posiciona el botón a la derecha */
+    bottom: 0; /* Ajusta según sea necesario */
 }
 
 /* Cambios al hacer hover */
