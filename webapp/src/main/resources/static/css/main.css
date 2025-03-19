@@ -4,10 +4,17 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+    justify-content: space-between;
     margin: 0;
     background-color: #f0f2f5;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 20em;
 }
 
 /* Form Container */
@@ -124,7 +131,6 @@ nav a:hover {
 }
 body {
     margin: 0;
-    padding-top: 50px;
 }
 .home-logo img {
     height: 40px;
@@ -156,6 +162,10 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     display: block; /* Ensure the image is treated as a block-level element */
+}
+
+.left-size-container{
+    margin-left: 0;
 }
 
 

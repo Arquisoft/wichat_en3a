@@ -29,6 +29,7 @@ public class QuestionController {
     @RequestMapping(value="/game/start")
     public String startGame(Model model) {
         gameService.start();
+        gameService.nextQuestion();
         return "redirect:/game/question";
     }
 
@@ -42,16 +43,17 @@ public class QuestionController {
         String correctId = gameService.getCurrentQuestion().getCorrectAnswer().getId();
         int points = gameService.getPoints();
 
+        gameService.nextQuestion();
+
         return new AnswerDto(correctId, points, prevPoints);
     }
 
 
     @RequestMapping(value="/game/next")
-    public String nextQuestion(Model model) {
+    public String nextQuestion() {
         if(gameService.hasGameEnded()){
             return "redirect:/game/results";
         }else{
-            gameService.nextQuestion();
             return "redirect:/game/question";
         }
     }
@@ -70,27 +72,26 @@ public class QuestionController {
     @RequestMapping(value = "/game/results")
     public String results(Model model) {
 
+        if(!gameService.hasGameEnded()){
+            return "redirect:/game/start";
+        }
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         model.addAttribute("player", username);
         model.addAttribute("points", gameService.getPoints());
+        model.addAttribute("right", gameService.getRightAnswers());
+        model.addAttribute("wrong", gameService.getWrongAnswers());
+
+        Score score = new Score(username, "Flags", gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
+        scoreService.addScore(score);
+
+        gameService.start();
 
         return "question/results";
     }
 
 
-    @RequestMapping(value="/game/save")
-    public String saveScore(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        int points = gameService.getPoints();
-
-        Score score = new Score(username, "Flags", points);
-        Score test = scoreService.addScore(score);
-
-        return "redirect:/user/scores";
-
-    }
 
 
 }

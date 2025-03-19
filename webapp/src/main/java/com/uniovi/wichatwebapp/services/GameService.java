@@ -10,6 +10,8 @@ public class GameService {
 
     private int points;
     private int questions = 0;
+    private int rightAnswers = 0;
+    private int wrongAnswers = 0;
     private Question currentQuestion;
 
     public GameService(QuestionService questionService) {
@@ -17,6 +19,7 @@ public class GameService {
     }
 
     public void correctAnswer(){
+        rightAnswers++;
         points+=100;
         questions++;
     }
@@ -24,13 +27,14 @@ public class GameService {
         return points;
     }
     public void wrongAnswer(){
+        wrongAnswers++;
         points-=25;
         questions++;
     }
     public void start(){
         questions=0;
         points=0;
-        nextQuestion();
+        //nextQuestion();
     }
 
     public boolean hasGameEnded(){
@@ -52,5 +56,13 @@ public class GameService {
         }else{
             wrongAnswer();
         }
+    }
+
+    public int getRightAnswers() {
+        return rightAnswers;
+    }
+
+    public int getWrongAnswers() {
+        return wrongAnswers;
     }
 }

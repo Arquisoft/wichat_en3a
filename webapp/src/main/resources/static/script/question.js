@@ -43,12 +43,14 @@ function animatePoints(prevPoints, finalPoints, duration){
     let totalSteps = duration / incrementTime; // Total steps for the animation
     let incrementValue = (finalPoints-prevPoints) / totalSteps; // Amount to increment on each step
 
+
+    let tolerance = 0.001;
     // Function to update the points display gradually
     let interval = setInterval(function() {
         currentPoints += incrementValue;
         pointsDisplay.innerText = "Points: "+Math.round(currentPoints).toString(); // Update the points display
 
-        if (currentPoints === finalPoints) {
+        if (Math.abs(finalPoints-currentPoints) <= tolerance) {
             clearInterval(interval); // Stop the animation when we reach the final points
             pointsDisplay.innerText = "Points: "+finalPoints; // Ensure the final value is displayed
         }

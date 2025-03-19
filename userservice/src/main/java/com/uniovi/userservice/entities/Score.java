@@ -13,19 +13,23 @@ public class Score {
     private String user;
     private String category;
     private int score;
+    private int rightAnswers;
+    private int wrongAnswers;
 
     public Score(){
     }
 
-    public Score(String user, String category, int score){
-        this("noId",user,category,score);
+    public Score (String user, String category, int score, int rightAnswers, int wrongAnswers) {
+        this("noId",user,category,score,rightAnswers,wrongAnswers);
     }
 
-    public Score(String user_id, String user, String category, int score) {
+    public Score(String user_id, String user, String category, int score, int rightAnswers, int wrongAnswers) {
         this.user_id = user_id;
         this.user = user;
         this.category = category;
         this.score = score;
+        this.rightAnswers = rightAnswers;
+        this.wrongAnswers = wrongAnswers;
     }
 
     public String getId() {
@@ -66,5 +70,21 @@ public class Score {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getRightAnswers() {
+        return rightAnswers;
+    }
+
+    public void setRightAnswers(int rightAnswers) {
+        this.rightAnswers = rightAnswers;
+    }
+
+    public int getWrongAnswers() {
+        return wrongAnswers;
+    }
+
+    public void setWrongAnswers(int wrongAnswers) {
+        this.wrongAnswers = wrongAnswers;
     }
 }

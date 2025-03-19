@@ -3,35 +3,59 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
   <th:block th:insert="fragments/head :: head('Scores')"></th:block>
-  <link rel="stylesheet" href="/css/scores.css"/>
 </head>
 <body class="bg-light">
+
 <nav th:replace="fragments/nav"></nav>
-<button id="backButton" value="Back"></button>
-<div class="container mt-5">
 
+<div class="container left-size-container">
+  <div class="row">
+    <div class="col-12">
+      <button id="backButton" class="btn btn-primary btn-sm mt-2">Back</button>
 
-  <div id="image-container">
-    <img alt="userIcon" src="/images/userIcon.jpg" id="userIcon"/>
+      <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function() {
+          $("#backButton").click(function() {
+            window.location.replace("/home");
+          });
+        });
+        /*]]>*/
+      </script>
+
+    </div>
   </div>
-  <h3>All statistics:</h3>
-  <div class="card text-center">
+</div>
+
+
+<div class="container mt-5 text-center">
+
+
+  <div id="image-container" class="d-flex justify-content-center mb-4">
+    <img alt="userIcon" src="/images/userIcon.jpg" class="img-fluid" />
+  </div>
+
+
+  <div class="card mx-auto">
+    <h3>All statistics:</h3>
     <div class="table-responsive">
       <table class="table table-hover">
         <thead>
         <tr>
           <th scope="col">Category</th>
           <th scope="col">Score</th>
+          <th scope="col">Right Answers</th>
+          <th scope="col">Wrong Answers</th>
         </tr>
         </thead>
-
         <tbody>
         <tr th:each="score : ${scores}">
           <td scope="row" th:text="${score.category}"></td>
           <td scope="row" th:text="${score.score}"></td>
+          <td scope="row" th:text="${score.rightAnswers}"></td>
+          <td scope="row" th:text="${score.wrongAnswers}"></td>
         </tr>
         </tbody>
-
       </table>
     </div>
     <div th:if="${#lists.isEmpty(scores)}">You don't have scores to show</div>
