@@ -9,31 +9,39 @@
 <nav th:replace="fragments/nav"></nav>
 <div class="container mt-5">
     <script src="/script/question.js"></script>
-    <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
-    <h3 id="points" th:text="'Points : ' + ${points}"></h3>
 
-    <img th:src="${question.getImageUrl()}" class="question-image" alt="Question image">
+    <!-- Contenedor principal para el juego y el chat -->
+    <div class="main-container">
+        <!-- Columna del juego -->
+        <div class="game-container">
+            <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
+            <h3 id="points" th:text="'Points : ' + ${points}"></h3>
 
-    <div class="row answer-row">
-        <div class="col-md-6" th:each="answer, iterStat : ${question.getAnswers()}">
-            <button type="button"
-                    th:id= "${answer.getId()}"
-                    class="btn btn-primary answer-button"
-                    th:text="${answer.getText()}"
-                    th:attr="onclick='checkAnswer(\''+${answer.getId()}+'\')'">
-            </button>
+            <!-- Fila para las respuestas y el chat -->
+            <div class="row">
+                <!-- Columna de respuestas -->
+                <div class="col-md-8">
+                    <img th:src="${question.getImageUrl()}" class="question-image" alt="Question image">
+                    <div class="row answer-row">
+                        <div class="col-md-6" th:each="answer, iterStat : ${question.getAnswers()}">
+                            <button type="button"
+                                    th:id= "${answer.getId()}"
+                                    class="btn btn-primary answer-button"
+                                    th:text="${answer.getText()}"
+                                    th:attr="onclick='checkAnswer(\''+${answer.getId()}+'\')'">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna del chat -->
+                <div class="col-md-4">
+                    <div th:replace="fragments/chat"></div>
+                </div>
+            </div>
         </div>
     </div>
-    <button th:attr="onclick='getHint(\'' + ${question.content} + '\', \'' + ${question.correctAnswer.text} + '\')'">
-        Get Hint
-    </button>
-
-    <pre id="hintResult">
-    </pre>
-
-    <div th:replace="fragments/chat"></div>
 </div>
 <script src="/script/hint.js"></script>
-
 </body>
 </html>

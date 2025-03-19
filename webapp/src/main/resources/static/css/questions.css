@@ -2,17 +2,45 @@
 /*Advertencia por no especificar color de primer plano -> Lo hereda de body*/
 /*Advertencia por redefinición de background-color -> Es para la animación así que hay que definirlo dos veces*/
 @keyframes wrong{
-    from{background-color: #1a73e8;}
+    from{background-color: #8580f6;}
     to{background-color: #EC0909;}
 }
 
 /*Advertencia por no especificar color de primer plano -> Lo hereda de body*/
 /*Advertencia por redefinición de background-color -> Es para la animación así que hay que definirlo dos veces*/
 @keyframes correct{
-    from{background-color: #1a73e8;}
-    to{background-color: #48ff24;}
+    from{background-color: #8580f6;}
+    to{background-color: #37e817;}
 }
 
+/* Estilos para los botones de respuesta */
+.answer-button {
+    width: 100%; /* Los botones ocupan el 100% del ancho de su contenedor */
+    margin-bottom: 10px; /* Espacio entre botones */
+    padding: 10px; /* Espaciado interno */
+    font-size: 14px; /* Tamaño de fuente más pequeño */
+    border-radius: 4px; /* Bordes redondeados */
+    background-color: #8580f6; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse */
+    transition: background-color 0.2s ease; /* Transición suave */
+}
+
+/* Estilos para el estado activo (clicado) de los botones */
+.answer-button:active {
+    background-color: #5652aa; /* Color más oscuro */
+}
+
+/* Hover para los botones de respuesta */
+.answer-button:hover {
+    background-color: #5652aa; /* Color más oscuro */
+}
+
+/* Estilos para botones deshabilitados */
+.answer-button:disabled {
+    background-color: #8580f6; /* Mantiene el color morado original */
+}
 
 button.correct{
     animation-name: correct;
@@ -24,4 +52,10 @@ button.wrong{
     animation-name: wrong;
     animation-duration: 1.0s;
     animation-fill-mode: forwards;
+}
+
+/* Contenedor principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
 }

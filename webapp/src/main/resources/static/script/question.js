@@ -27,9 +27,6 @@ function checkAnswer(answerId){
             animatePoints(prevPoints, points, 1500);
 
             setTimeout(nextQuestion, 1700);
-
-
-
         }
     })
 }
