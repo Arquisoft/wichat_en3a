@@ -8,11 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Conversación predefinida
     const predefinedConversation = [
-        { type: 'ai', text: '¡Hola! Soy tu asistente IA. ¿En qué puedo ayudarte hoy?' },
-        { type: 'user', text: '¿Qué puedes hacer?' },
-        { type: 'ai', text: 'Puedo responder preguntas, proporcionarte información, o simplemente conversar contigo. ¿Hay algo específico que quieras saber?' },
-        { type: 'user', text: 'Cuéntame sobre la inteligencia artificial' },
-        { type: 'ai', text: 'La inteligencia artificial (IA) es un campo de la informática que se centra en crear sistemas capaces de realizar tareas que normalmente requieren inteligencia humana. Esto incluye aprendizaje, razonamiento, resolución de problemas, percepción y comprensión del lenguaje. Las IAs modernas utilizan técnicas como el aprendizaje profundo y el procesamiento del lenguaje natural para analizar datos y tomar decisiones.' }
+        { type: 'ai', text: 'Welcome little novice! I am the wiser wizard of the universe. What you need?' },
     ];
 
     let conversationIndex = 0;
@@ -49,19 +45,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Funcionalidad para enviar mensaje (opcional)
-    function sendUserMessage() {
+    async function sendUserMessage() {
         const text = userInput.value.trim();
         if (text) {
             addMessage({ type: 'user', text: text });
             userInput.value = '';
-
-            // Simular respuesta de la IA después de un breve retraso
-            setTimeout(function () {
-                addMessage({
-                    type: 'ai',
-                    text: 'Gracias por tu mensaje. En este momento solo puedo mostrar conversaciones predefinidas.'
+            try {
+                // Enviar la pregunta al backend
+                //const response = await fetch(`/getHint?question=${encodeURIComponent(text)}&answerQuestion=default`, {
+                const response = await fetch(`/hint?question=${encodeURIComponent(text)}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                 });
-            }, 1000);
+
+                if (!response.ok) {
+                    throw new Error('Error al obtener la respuesta de la IA');
+                }
+
+                const result = await response.text();
+
+                // Mostrar la respuesta de la IA en el chat
+                addMessage({ type: 'ai', text: result });
+            } catch (error) {
+                console.error('Error:', error);
+                addMessage({ type: 'ai', text: 'Hubo un error al procesar tu solicitud.' });
+            }
         }
     }
 

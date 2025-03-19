@@ -23,6 +23,8 @@ public class HintController {
 			"you receive: 'What is the capital of France;Paris' \n" +
 			"posible answer: 'In the capital of france you can visit the Eiffel Tower' ";
 
+
+
 	@Autowired
 	private GenAI genAI;
 
@@ -33,6 +35,6 @@ public class HintController {
 
 	@GetMapping("/askHintWithInstructions")
 	public String askHint(@RequestParam String instructions, @RequestParam String question, @RequestParam String answerQuestion) throws HttpException, IOException {
-		return genAI.askPrompt(setupMessage + instructions, question+";"+answerQuestion);
+		return genAI.askPrompt(instructions, question+";"+answerQuestion);
 	}
 }
