@@ -2,7 +2,6 @@ package com.uniovi.wichatwebapp.controller;
 
 import com.uniovi.wichatwebapp.entities.Answer;
 import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.repositories.QuestionRepository;
 import com.uniovi.wichatwebapp.service.QuestionService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,8 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -24,9 +21,6 @@ class QuestionControllerTest {
 
     @InjectMocks
     private QuestionController questionController;
-
-    @Mock
-    private QuestionRepository questionRepository;
 
     @Test
     void getQuestion_ReturnsRandomQuestion() {
