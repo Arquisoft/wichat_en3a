@@ -25,6 +25,7 @@ jobs:
       uses: SonarSource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   e2e-tests:
     needs: [unit-tests]
     runs-on: ubuntu-latest
@@ -42,6 +43,7 @@ jobs:
       working-directory: wikidataservice
     - run: mvn clean verify --batch-mode
       working-directory: webapp
+
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -51,18 +53,25 @@ jobs:
     needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@v5
-      env:
-        API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
-        LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
       with:
-          name: arquisoft/wichat_en3a/webapp
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
-          workdir: webapp
-          buildargs: API_URI,LLM_API_KEY
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and Push Multi-Arch Image
+      uses: docker/build-push-action@v5
+      with:
+        context: webapp
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ghcr.io/arquisoft/wichat_en3a/webapp:latest
+        build-args: |
+          API_URI=${{ secrets.API_URI }}
+          LLM_API_KEY=${{ secrets.LLM_API_KEY }}
+
   docker-push-userservice:
     name: Push user service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -72,14 +81,22 @@ jobs:
     needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@v5
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
       with:
-        name: arquisoft/wichat_en3a/userservice
+        registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-        registry: ghcr.io
-        workdir: userservice
+    - name: Build and Push Multi-Arch Image
+      uses: docker/build-push-action@v5
+      with:
+        context: userservice
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ghcr.io/arquisoft/wichat_en3a/userservice:latest
+
   docker-push-hintservice:
     name: Push llm service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -89,14 +106,21 @@ jobs:
     needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@v5
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
       with:
-        name: arquisoft/wichat_en3a/hintservice
+        registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-        registry: ghcr.io
-        workdir: hintservice
+    - name: Build and Push Multi-Arch Image
+      uses: docker/build-push-action@v5
+      with:
+        context: hintservice
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ghcr.io/arquisoft/wichat_en3a/hintservice:latest
 
   docker-push-wikidataservice:
     name: Push wikidata service Docker Image to GitHub Packages
@@ -107,14 +131,22 @@ jobs:
     needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
-    - name: Publish to Registry
-      uses: elgohr/Publish-Docker-Github-Action@v5
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
       with:
-        name: arquisoft/wichat_en3a/wikidataservice
+        registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-        registry: ghcr.io
-        workdir: wikidataservice
+    - name: Build and Push Multi-Arch Image
+      uses: docker/build-push-action@v5
+      with:
+        context: wikidataservice
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ghcr.io/arquisoft/wichat_en3a/wikidataservice:latest
+
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
