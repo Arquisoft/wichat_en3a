@@ -131,46 +131,42 @@ class QuestionServiceTest {
 
 
     @Test
-    void assignAnswers_CheckAnswers() {
-        // Arrange
-        String questionId1 = "q1";
-        Answer correctAnswer1 = new Answer("Correct1", "en");
-        Question question1 = new Question(correctAnswer1, "Sample content", "image.jpg");
-        question1.setId(questionId1);
+    void assignAnswers_ShouldAssignAnswersCorrectly() {
+        // Arrange: Mock a question and its answers
+        String questionId = "q1";
+        Answer correctAnswer = new Answer("Correct Answer", "en");
+        correctAnswer.setId("correct-1");
+        Question question = new Question(correctAnswer, "Sample content", "image.jpg");
+        question.setId(questionId);
+        question.setAnswers(new ArrayList<>()); // Initialize empty answers list
 
-        // Add a mock answer list to simulate answers
-        Answer incorrectAnswer1 = new Answer("Incorrect1", "en");
-        Answer incorrectAnswer2 = new Answer("Incorrect2", "en");
-        Answer incorrectAnswer3 = new Answer("Incorrect3", "en");
+        // Mock distractors
+        Answer wrongAnswer1 = new Answer("Wrong Answer 1", "en");
+        wrongAnswer1.setId("wrong-1");
+        Answer wrongAnswer2 = new Answer("Wrong Answer 2", "en");
+        wrongAnswer2.setId("wrong-2");
+        Answer wrongAnswer3 = new Answer("Wrong Answer 3", "en");
+        wrongAnswer3.setId("wrong-3");
 
-        List<Answer> answers = new ArrayList<>();
-        answers.add(correctAnswer1);
-        answers.add(incorrectAnswer1);
-        answers.add(incorrectAnswer2);
-        answers.add(incorrectAnswer3);
+        List<Answer> ans = List.of(wrongAnswer1, wrongAnswer2, wrongAnswer3);
+        // Create a mutable copy of the answers list
+        List<Answer> wrongAnswers = new ArrayList<>(ans);
 
-        // Mock the repository to return a list of questions
-        when(questionRepository.findAll()).thenReturn(List.of(question1));
+        // Mock repository responses
+        when(questionRepository.findAll()).thenReturn(List.of(question)); // For assignAnswers
+        when(answerRepository.findWrongAnswers("en", "Correct Answer")).thenReturn(wrongAnswers); // For loadAnswers
 
-        // Mock the behavior of loadAnswers (if needed)
-        doAnswer(invocation -> {
-            Question q = invocation.getArgument(0);
-            q.setAnswers(answers); // Simulate loading answers into the question
-            return null;
-        }).when(questionService).loadAnswers(any(Question.class));
 
-        // Act
-        questionService.assignAnswers(); // Execute the method being tested
+        // Act: Call the method being tested
+        questionService.assignAnswers();
 
-        // Assert
-        assertThat(question1.getAnswers().size()).isEqualTo(4); // Check the number of answers
-        assertThat(questionService.checkAnswer(correctAnswer1.getId(), question1)).isTrue(); // Correct answer
-        assertThat(questionService.checkAnswer(incorrectAnswer1.getId(), question1)).isFalse(); // Incorrect answer
+        // Assert: Validate that the question has all answers (1 correct + 3 wrong)
+        assertEquals(4, question.getAnswers().size());
+        assertTrue(question.getAnswers().contains(correctAnswer)); // Ensure correct answer is included
+        assertTrue(question.getAnswers().containsAll(wrongAnswers)); // Ensure wrong answers are included
 
-        // Verify repository interactions
-        verify(questionRepository).findAll();
-        verify(questionService).loadAnswers(question1);
     }
+
 
 
     @Test
