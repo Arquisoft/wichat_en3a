@@ -65,6 +65,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: webapp
+        file: webapp/Dockerfile
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/arquisoft/wichat_en3a/webapp:latest
@@ -93,6 +94,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: userservice
+        file: userservice/Dockerfile
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/arquisoft/wichat_en3a/userservice:latest
@@ -118,6 +120,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: hintservice
+        file: hintservice/Dockerfile
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/arquisoft/wichat_en3a/hintservice:latest
@@ -143,6 +146,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: wikidataservice
+        file: wikidataservice/Dockerfile
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/arquisoft/wichat_en3a/wikidataservice:latest
