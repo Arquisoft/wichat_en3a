@@ -40,7 +40,7 @@ public class GenAI { //https://github.com/googleapis/java-genai
             GenerateContentConfig config =
                     GenerateContentConfig.builder()
                             .candidateCount(1)
-                            .maxOutputTokens(1024)
+                            .maxOutputTokens(4000)
                             .safetySettings(safetySettings)
                             .systemInstruction(systemInstruction)
                             .tools(ImmutableList.of(googleSearchTool))

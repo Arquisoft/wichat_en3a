@@ -23,8 +23,6 @@ public class HintController {
 			"you receive: 'What is the capital of France;Paris' \n" +
 			"posible answer: 'In the capital of france you can visit the Eiffel Tower' ";
 
-
-
 	@Autowired
 	private GenAI genAI;
 
