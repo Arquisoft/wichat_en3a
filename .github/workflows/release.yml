@@ -51,19 +51,18 @@ jobs:
     needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    - name: Login to GitHub Container Registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-    - name: Build and push multi-arch image
-      run: |
-        docker buildx create --use
-        docker buildx build \
-        --platform linux/amd64,linux/arm64 \
-        --push \
-        --tag ghcr.io/arquisoft/wichat_en3a/webapp:latest \
-        --file webapp/Dockerfile \
-        webapp/
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      env:
+        API_URI: http://${{ secrets.DEPLOY_HOST }}:8000
+        LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+      with:
+          name: arquisoft/wichat_en3a/webapp
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          workdir: webapp
+          buildargs: API_URI,LLM_API_KEY
   docker-push-userservice:
     name: Push user service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -73,19 +72,14 @@ jobs:
     needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    - name: Login to GitHub Container Registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-    - name: Build and push multi-arch image
-      run: |
-        docker buildx create --use
-        docker buildx build \
-        --platform linux/amd64,linux/arm64 \
-        --push \
-        --tag ghcr.io/arquisoft/wichat_en3a/userservice:latest \
-        --file userservice/Dockerfile \
-        webapp/
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wichat_en3a/userservice
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: userservice
   docker-push-hintservice:
     name: Push llm service Docker Image to GitHub Packages
     runs-on: ubuntu-latest
@@ -95,19 +89,14 @@ jobs:
     needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    - name: Login to GitHub Container Registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-    - name: Build and push multi-arch image
-      run: |
-        docker buildx create --use
-        docker buildx build \
-        --platform linux/amd64,linux/arm64 \
-        --push \
-        --tag ghcr.io/arquisoft/wichat_en3a/hintservice:latest \
-        --file hintservice/Dockerfile \
-        webapp/
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wichat_en3a/hintservice
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: hintservice
 
   docker-push-wikidataservice:
     name: Push wikidata service Docker Image to GitHub Packages
@@ -118,19 +107,14 @@ jobs:
     needs: [e2e-tests]
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    - name: Login to GitHub Container Registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-    - name: Build and push multi-arch image
-      run: |
-        docker buildx create --use
-        docker buildx build \
-        --platform linux/amd64,linux/arm64 \
-        --push \
-        --tag ghcr.io/arquisoft/wichat_en3a/wikidataservice:latest \
-        --file wikidataservice/Dockerfile \
-        webapp/
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: arquisoft/wichat_en3a/wikidataservice
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: wikidataservice
   deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
