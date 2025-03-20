@@ -16,6 +16,8 @@
         </p>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
-    <a href="/signup">Signup</a>
+    <form action="/signup" method="get">
+        <button type="submit" class="signup-button">Sign Up</button>
+    </form>
 </body>
 </html>

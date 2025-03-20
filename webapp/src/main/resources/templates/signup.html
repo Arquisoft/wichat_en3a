@@ -18,6 +18,8 @@
         <p class="error" th:if="${adderror}">The account could not be created, an account with that email might already exist</p>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
-    <a href="/login">Login</a>
+    <form action="/login" method="get">
+        <button type="submit" class="login-button">Log In</button>
+    </form>
 </body>
 </html>

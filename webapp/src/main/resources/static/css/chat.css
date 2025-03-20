@@ -77,6 +77,7 @@
 /* Estilos para los mensajes */
 .ai-message,
 .user-message {
+    color: black; /* Black text */
     padding: 8px 12px;
     margin-bottom: 10px;
     border-radius: 8px;
