@@ -41,7 +41,7 @@ public class QuestionService {
      * Load the answers for a question (The distractors and the correct one)
      * @param question The question to load the answers for
      */
-    private void loadAnswers(Question question) {
+    public void loadAnswers(Question question) {
         // Create the new answers list with the distractors
         if(question.getAnswers().size() > 1) {
             return;
@@ -122,4 +122,5 @@ public class QuestionService {
     public Answer findAnswerById(String answerId) {
         return answerRepository.findById(answerId).get();
     }
+
 }
