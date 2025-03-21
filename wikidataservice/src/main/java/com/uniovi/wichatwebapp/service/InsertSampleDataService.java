@@ -1,6 +1,7 @@
 package com.uniovi.wichatwebapp.service;
 
 
+import com.uniovi.wichatwebapp.wikidata.BrandQuestion;
 import com.uniovi.wichatwebapp.wikidata.FlagQuestion;
 import com.uniovi.wichatwebapp.wikidata.MovieQuestion;
 import jakarta.annotation.PostConstruct;
@@ -28,6 +29,10 @@ public class InsertSampleDataService {
             MovieQuestion mq = new MovieQuestion("en");
             questionService.saveAllQuestions(mq.getQs());
             questionService.saveAllAnswers(mq.getAs());
+
+            BrandQuestion bq = new BrandQuestion("en");
+            questionService.saveAllQuestions(bq.getQs());
+            questionService.saveAllAnswers(bq.getAs());
 
         }
 
