@@ -2,6 +2,7 @@ package com.uniovi.wichatwebapp.service;
 
 
 import com.uniovi.wichatwebapp.wikidata.geography.MonumentCountryQuestion;
+import com.uniovi.wichatwebapp.wikidata.geography.MonumentNameQuestion;
 import com.uniovi.wichatwebapp.wikidata.pop.BrandQuestion;
 import com.uniovi.wichatwebapp.wikidata.geography.FlagQuestion;
 import com.uniovi.wichatwebapp.wikidata.pop.MovieQuestion;
@@ -38,6 +39,11 @@ public class InsertSampleDataService {
             MonumentCountryQuestion mcq = new MonumentCountryQuestion("en");
             questionService.saveAllQuestions(mcq.getQs());
             questionService.saveAllAnswers(mcq.getAs());
+
+
+            MonumentNameQuestion mnq = new MonumentNameQuestion("en");
+            questionService.saveAllQuestions(mnq.getQs());
+            questionService.saveAllAnswers(mnq.getAs());
 
         }
 
