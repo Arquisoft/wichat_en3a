@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class QuestionWikidata {
+    public final static String DEFAULT_QUESTION_IMG ="https://th.bing.com/th/id/R.85b940b812e07d1ed7027a1bf58345fb?rik=ZHUU0V0Q7xueww&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f2%2fQuestion-Mark-PNG-File.png&ehk=SAZkPw%2biffDq0XiRVhm553BAAVUuYzHfIKm1n1GLXvg%3d&risl=&pid=ImgRaw&r=0";
     // Query to be sent to WikiData QS
     protected String sparqlQuery;
     // Response given by WikiData QS for the query sent
@@ -73,9 +74,15 @@ public abstract class QuestionWikidata {
         HttpResponse<String> response = null;
         try {
             response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) {
+                System.err.println("Error: Received HTTP code " + response.statusCode());
+                System.err.println("Response body: " + response.body());
+            }
         } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new RuntimeException("Failed to send the request", e);
         }
+
 
         JSONObject jsonResponse = new JSONObject(response.body());
         JSONArray results = jsonResponse.getJSONObject("results").getJSONArray("bindings");

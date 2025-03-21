@@ -1,7 +1,9 @@
 package com.uniovi.wichatwebapp.service;
 
 import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.AnswerCategory;
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.repositories.AnswerRepository;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,10 @@ public class QuestionService {
     }
 
     public boolean checkAnswer(String id, Question question) {
+
         return(question.getCorrectAnswerId().equals(id));
     }
+
     public void assignAnswers(){
         List<Question> questions = questionRepository.findAll();
         for (Question question : questions) {
@@ -68,8 +72,9 @@ public class QuestionService {
         questionRepository.save(question);
     }
 
-    public Question getRandomQuestion(String language) {
-        List<Answer> answers = answerRepository.findAnswersByLanguage(language);
+    public Question getRandomQuestion(String language, QuestionCategory category) {
+        List<AnswerCategory> answerCategories = matchCategories(category);
+        List<Answer> answers = answerRepository.findAnswersByLanguageAndQuestionCategory(language,answerCategories);
         List<Question> questions = questionRepository.findQuestionsByCorrectAnswerIdExists();
 
         // Perform the join operation in the application code
@@ -96,7 +101,32 @@ public class QuestionService {
         // Return one random question
         return question;
     }
-
+    public List<AnswerCategory> matchCategories(QuestionCategory questionCategory) {
+        List<AnswerCategory> answerCategories = new ArrayList<>();
+        switch (questionCategory) {
+            case SPORT:{
+                answerCategories.add(AnswerCategory.PERSON_SPORT_TEAM);
+                answerCategories.add(AnswerCategory.SPORT_TEAM_LOGO);
+                return answerCategories;
+            }
+            case GEOGRAPHY:{
+                answerCategories.add(AnswerCategory.FLAG);
+                answerCategories.add(AnswerCategory.MONUMENT_NAME);
+                answerCategories.add(AnswerCategory.MONUMENT_COUNTRY);
+                return answerCategories;
+            }
+            case POP_CULTURE:{
+                answerCategories.add(AnswerCategory.BRAND);
+                answerCategories.add(AnswerCategory.MOVIE_YEAR);
+                return answerCategories;
+            }
+            case BIOLOGY:{
+                answerCategories.add(AnswerCategory.ANIMAL);
+                return answerCategories;
+            }
+        }
+        return answerCategories;
+    }
     public void saveAllQuestions(List<Question> questions) {
         questionRepository.saveAll(new ArrayList<>(questions));
     }

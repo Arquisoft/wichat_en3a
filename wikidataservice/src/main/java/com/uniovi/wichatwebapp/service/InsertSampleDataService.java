@@ -2,6 +2,7 @@ package com.uniovi.wichatwebapp.service;
 
 
 import com.uniovi.wichatwebapp.wikidata.FlagQuestion;
+import com.uniovi.wichatwebapp.wikidata.MovieQuestion;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,10 @@ public class InsertSampleDataService {
 
             questionService.saveAllQuestions(fq.getQs());
             questionService.saveAllAnswers(fq.getAs());
+
+            MovieQuestion mq = new MovieQuestion("en");
+            questionService.saveAllQuestions(mq.getQs());
+            questionService.saveAllAnswers(mq.getAs());
 
         }
 

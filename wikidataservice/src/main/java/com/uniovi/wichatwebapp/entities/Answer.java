@@ -18,17 +18,24 @@ public class Answer{
     private String language;
     //@OneToMany(mappedBy = "correctAnswer", fetch = FetchType.EAGER)
     private List<Question> questions;
+    private AnswerCategory category;
+
+
 
     //@ManyToMany(mappedBy = "answers", fetch = FetchType.EAGER)
     private List<Question> questionsWithThisAnswer;
 
-    public Answer(String text, String language) {
-        this.id = new ObjectId().toString(); // Generate a new ObjectId for the id field
-        this.text = text;
-        this.language = language;
-    }
+
 
     public Answer() {
+    }
+
+    public Answer(String text, AnswerCategory answerCategory, String langCode) {
+
+        this.id = new ObjectId().toString(); // Generate a new ObjectId for the id field
+        this.text = text;
+        this.language = langCode;
+        this.category = answerCategory;
     }
 
     public String getLanguage() {
@@ -41,5 +48,13 @@ public class Answer{
 
     public String getId() {
         return id;
+    }
+
+    public AnswerCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(AnswerCategory category) {
+        this.category = category;
     }
 }

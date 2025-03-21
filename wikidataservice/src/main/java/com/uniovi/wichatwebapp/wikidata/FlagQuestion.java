@@ -1,7 +1,9 @@
 package com.uniovi.wichatwebapp.wikidata;
 
 import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.AnswerCategory;
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class FlagQuestion extends QuestionWikidata{
                 continue;
             }
 
-            Answer a = new Answer(countryLabel, langCode);
+            Answer a = new Answer(countryLabel, AnswerCategory.FLAG,langCode);
             answers.add(a);
             String questionString;
 
@@ -57,7 +59,7 @@ public class FlagQuestion extends QuestionWikidata{
                 questionString = englishStringsIni[i%4] /*+ WikidataUtils.LINKCONCAT + flagLabel*/;
             }
 
-            questions.add(new Question(a, questionString, flagLabel));
+            questions.add(new Question(a, questionString, flagLabel, QuestionCategory.GEOGRAPHY));
         }
         //questionService.saveAllAnswers(answers);
         //questionService.saveAllQuestions(questions);
