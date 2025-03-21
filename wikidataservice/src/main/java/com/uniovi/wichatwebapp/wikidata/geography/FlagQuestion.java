@@ -1,16 +1,18 @@
-package com.uniovi.wichatwebapp.wikidata;
+package com.uniovi.wichatwebapp.wikidata.geography;
 
 import com.uniovi.wichatwebapp.entities.Answer;
 import com.uniovi.wichatwebapp.entities.AnswerCategory;
 import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
+import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
+import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class FlagQuestion extends QuestionWikidata{
+public class FlagQuestion extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿Que país tiene esta bandera? ", "¿A qué país pertenece esta bandera? ", "¿De qué país es esta bandera? ", "¿Cuál es el país de esta bandera? "};
     private static final String[] englishStringsIni= {"Which country has this flag? ", "To which country belongs this flag? ", "From which country is this flag? ", "What is the country represented by this flag? "};
 

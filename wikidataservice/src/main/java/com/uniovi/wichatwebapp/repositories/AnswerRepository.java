@@ -12,8 +12,8 @@ import java.util.List;
 
 @Repository
 public interface AnswerRepository  extends MongoRepository<Answer, String> {
-    @Query(value = "{ 'language': ?0, 'text': { $ne: ?1 } }" )
-    List<Answer> findWrongAnswers(String lang, String answerTest);
+    @Query(value = "{ 'language': ?0, 'text': { $ne: ?1 } , 'category': ?2} ")
+    List<Answer> findWrongAnswers(String lang, String answerTest, AnswerCategory answerCategory);
 
     @Query(value = "{ 'language': ?0 }")
     List<Answer> findAnswersByLanguage(String language);

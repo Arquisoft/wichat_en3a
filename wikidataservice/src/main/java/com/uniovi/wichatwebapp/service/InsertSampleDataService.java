@@ -1,9 +1,10 @@
 package com.uniovi.wichatwebapp.service;
 
 
-import com.uniovi.wichatwebapp.wikidata.BrandQuestion;
-import com.uniovi.wichatwebapp.wikidata.FlagQuestion;
-import com.uniovi.wichatwebapp.wikidata.MovieQuestion;
+import com.uniovi.wichatwebapp.wikidata.geography.MonumentCountryQuestion;
+import com.uniovi.wichatwebapp.wikidata.pop.BrandQuestion;
+import com.uniovi.wichatwebapp.wikidata.geography.FlagQuestion;
+import com.uniovi.wichatwebapp.wikidata.pop.MovieQuestion;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,10 @@ public class InsertSampleDataService {
             BrandQuestion bq = new BrandQuestion("en");
             questionService.saveAllQuestions(bq.getQs());
             questionService.saveAllAnswers(bq.getAs());
+
+            MonumentCountryQuestion mcq = new MonumentCountryQuestion("en");
+            questionService.saveAllQuestions(mcq.getQs());
+            questionService.saveAllAnswers(mcq.getAs());
 
         }
 

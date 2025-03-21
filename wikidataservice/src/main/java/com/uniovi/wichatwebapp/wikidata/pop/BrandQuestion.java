@@ -1,9 +1,10 @@
-package com.uniovi.wichatwebapp.wikidata;
+package com.uniovi.wichatwebapp.wikidata.pop;
 
 import com.uniovi.wichatwebapp.entities.Answer;
 import com.uniovi.wichatwebapp.entities.AnswerCategory;
 import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
+import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
