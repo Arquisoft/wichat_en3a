@@ -7,9 +7,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +69,7 @@ public abstract class QuestionWikidata {
                 .uri(URI.create("https://query.wikidata.org/sparql"))
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .header("Accept", "application/json")  // Specify JSON format
-                .POST(HttpRequest.BodyPublishers.ofString("query=" + sparqlQuery))
+                .POST(HttpRequest.BodyPublishers.ofString("query=" + URLEncoder.encode(sparqlQuery, StandardCharsets.UTF_8)))
                 .build();
 
         // Send the HTTP request and get the response
@@ -88,6 +90,14 @@ public abstract class QuestionWikidata {
         JSONArray results = jsonResponse.getJSONObject("results").getJSONArray("bindings");
 
         this.results = results; // Save the results. If this method is overwritten this line MUST be kept
+    }
+
+    public List<Question> getQs() {
+        return qs;
+    }
+
+    public List<Answer> getAs() {
+        return as;
     }
 
 }

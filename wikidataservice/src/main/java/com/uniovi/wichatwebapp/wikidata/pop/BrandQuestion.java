@@ -67,12 +67,4 @@ public class BrandQuestion extends QuestionWikidata {
         qs.addAll(questions);
         as.addAll(answers);
     }
-
-    public List<Question> getQs() {
-        return qs;
-    }
-
-    public List<Answer> getAs() {
-        return as;
-    }
 }

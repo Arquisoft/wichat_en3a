@@ -6,6 +6,10 @@ import com.uniovi.wichatwebapp.wikidata.geography.MonumentNameQuestion;
 import com.uniovi.wichatwebapp.wikidata.pop.BrandQuestion;
 import com.uniovi.wichatwebapp.wikidata.geography.FlagQuestion;
 import com.uniovi.wichatwebapp.wikidata.pop.MovieQuestion;
+import com.uniovi.wichatwebapp.wikidata.sports.BasketballTeam;
+import com.uniovi.wichatwebapp.wikidata.sports.F1Team;
+import com.uniovi.wichatwebapp.wikidata.sports.FootballTeam;
+import com.uniovi.wichatwebapp.wikidata.sports.TeamLogo;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
@@ -40,10 +44,25 @@ public class InsertSampleDataService {
             questionService.saveAllQuestions(mcq.getQs());
             questionService.saveAllAnswers(mcq.getAs());
 
-
             MonumentNameQuestion mnq = new MonumentNameQuestion("en");
             questionService.saveAllQuestions(mnq.getQs());
             questionService.saveAllAnswers(mnq.getAs());
+
+            BasketballTeam bbtmq = new BasketballTeam("en");
+            questionService.saveAllQuestions(bbtmq.getQs());
+            questionService.saveAllAnswers(bbtmq.getAs());
+
+            F1Team f1tmq = new F1Team("en");
+            questionService.saveAllQuestions(f1tmq.getQs());
+            questionService.saveAllAnswers(f1tmq.getAs());
+
+            FootballTeam ftmq = new FootballTeam("en");
+            questionService.saveAllQuestions(ftmq.getQs());
+            questionService.saveAllAnswers(ftmq.getAs());
+
+            TeamLogo tlq = new TeamLogo("en");
+            questionService.saveAllQuestions(tlq.getQs());
+            questionService.saveAllAnswers(tlq.getAs());
 
         }
 

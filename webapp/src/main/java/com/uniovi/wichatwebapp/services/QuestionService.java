@@ -1,6 +1,7 @@
 package com.uniovi.wichatwebapp.services;
 
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,8 @@ public class QuestionService {
     }
 
 
-    public Question getRandomQuestion() {
-       return questionRepository.getRandomQuestion();
+    public Question getRandomQuestion(QuestionCategory category) {
+        return questionRepository.getRandomQuestion(category);
     }
 
     public boolean checkAnswer(String id, Question question) {

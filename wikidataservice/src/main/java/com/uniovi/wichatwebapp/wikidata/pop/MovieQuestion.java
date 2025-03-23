@@ -74,11 +74,4 @@ public class MovieQuestion extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    public List<Question> getQs() {
-        return qs;
-    }
-
-    public List<Answer> getAs() {
-        return as;
-    }
 }

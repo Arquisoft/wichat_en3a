@@ -136,7 +136,9 @@ public class QuestionService {
         List<AnswerCategory> answerCategories = new ArrayList<>();
         switch (questionCategory) {
             case SPORT:{
-                answerCategories.add(AnswerCategory.PERSON_SPORT_TEAM);
+                answerCategories.add(AnswerCategory.PERSON_BASKETBALL_TEAM);
+                answerCategories.add(AnswerCategory.PERSON_F1_TEAM);
+                answerCategories.add(AnswerCategory.PERSON_FOOTBALL_TEAM);
                 answerCategories.add(AnswerCategory.SPORT_TEAM_LOGO);
                 return answerCategories;
             }

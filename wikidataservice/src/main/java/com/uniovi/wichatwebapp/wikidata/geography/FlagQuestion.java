@@ -82,12 +82,4 @@ public class FlagQuestion extends QuestionWikidata {
 
         return false;
     }
-
-    public List<Question> getQs() {
-        return qs;
-    }
-
-    public List<Answer> getAs() {
-        return as;
-    }
 }
