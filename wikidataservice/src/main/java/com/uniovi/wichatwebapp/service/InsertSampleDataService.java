@@ -1,6 +1,9 @@
 package com.uniovi.wichatwebapp.service;
 
 
+import com.uniovi.wichatwebapp.wikidata.biology.AnimalLifespan;
+import com.uniovi.wichatwebapp.wikidata.biology.AnimalScientificName;
+import com.uniovi.wichatwebapp.wikidata.biology.WhatAnimal;
 import com.uniovi.wichatwebapp.wikidata.geography.MonumentCountryQuestion;
 import com.uniovi.wichatwebapp.wikidata.geography.MonumentNameQuestion;
 import com.uniovi.wichatwebapp.wikidata.pop.BrandQuestion;
@@ -64,6 +67,17 @@ public class InsertSampleDataService {
             questionService.saveAllQuestions(tlq.getQs());
             questionService.saveAllAnswers(tlq.getAs());
 
+            WhatAnimal waq = new WhatAnimal("en");
+            questionService.saveAllQuestions(waq.getQs());
+            questionService.saveAllAnswers(waq.getAs());
+
+            AnimalScientificName asnq = new AnimalScientificName("en");
+            questionService.saveAllQuestions(asnq.getQs());
+            questionService.saveAllAnswers(asnq.getAs());
+
+            AnimalLifespan anls = new AnimalLifespan("en");
+            questionService.saveAllQuestions(anls.getQs());
+            questionService.saveAllAnswers(anls.getAs());
         }
 
 

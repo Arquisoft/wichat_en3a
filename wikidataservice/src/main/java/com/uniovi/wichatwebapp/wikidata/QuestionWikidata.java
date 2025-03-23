@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class QuestionWikidata {
-    public final static String DEFAULT_QUESTION_IMG ="https://th.bing.com/th/id/R.85b940b812e07d1ed7027a1bf58345fb?rik=ZHUU0V0Q7xueww&riu=http%3a%2f%2fwww.pngall.com%2fwp-content%2fuploads%2f2%2fQuestion-Mark-PNG-File.png&ehk=SAZkPw%2biffDq0XiRVhm553BAAVUuYzHfIKm1n1GLXvg%3d&risl=&pid=ImgRaw&r=0";
+    public final static String DEFAULT_QUESTION_IMG ="https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg";
     // Query to be sent to WikiData QS
     protected String sparqlQuery;
     // Response given by WikiData QS for the query sent

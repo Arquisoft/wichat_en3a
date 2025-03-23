@@ -154,7 +154,9 @@ public class QuestionService {
                 return answerCategories;
             }
             case BIOLOGY:{
-                answerCategories.add(AnswerCategory.ANIMAL);
+                answerCategories.add(AnswerCategory.ANIMAL_NAME);
+                answerCategories.add(AnswerCategory.ANIMAL_SCIENTIFIC_NAME);
+                answerCategories.add(AnswerCategory.ANIMAL_LIFESPAN);
                 return answerCategories;
             }
         }
