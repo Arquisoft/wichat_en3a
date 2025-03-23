@@ -1,57 +1,51 @@
 package com.uniovi.wichatwebapp.services;
 
+import com.uniovi.wichatwebapp.entities.Game;
 import com.uniovi.wichatwebapp.entities.Question;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Service
+@SessionScope
 public class GameService {
 
     private final QuestionService questionService;
-
-    private int points;
-    private int questions = 0;
-    private int rightAnswers = 0;
-    private int wrongAnswers = 0;
-    private Question currentQuestion;
+    private Game game;
 
     public GameService(QuestionService questionService) {
         this.questionService = questionService;
     }
 
     public void correctAnswer(){
-        rightAnswers++;
-        points+=100;
-        questions++;
+        game.correctAnswer();
     }
     public int getPoints() {
-        return points;
+        return game.getPoints();
     }
     public void wrongAnswer(){
-        wrongAnswers++;
-        points-=25;
-        questions++;
+        game.wrongAnswer();
     }
     public void start(){
-        questions=0;
-        points=0;
-        //nextQuestion();
+        game = new Game();
+        nextQuestion();
     }
 
     public boolean hasGameEnded(){
-        return questions>=10;
+        return game.hasGameEnded();
     }
 
     public void nextQuestion(){
-        currentQuestion = questionService.getRandomQuestion();
-        questionService.removeQuestion(currentQuestion);
+        Question question = questionService.getRandomQuestion();
+        game.setCurrentQuestion(question);
+        questionService.removeQuestion(question);
     }
 
     public Question getCurrentQuestion() {
-        return currentQuestion;
+        return game.getCurrentQuestion();
     }
 
     public void checkAnswer(String id){
-        if(currentQuestion.getCorrectAnswer().getId().equals(id)){
+        if(game.checkAnswer(id)){
             correctAnswer();
         }else{
             wrongAnswer();
@@ -59,10 +53,14 @@ public class GameService {
     }
 
     public int getRightAnswers() {
-        return rightAnswers;
+        return game.getRightAnswers();
     }
 
     public int getWrongAnswers() {
-        return wrongAnswers;
+        return game.getWrongAnswers();
+    }
+
+    public Game getGame() {
+        return game;
     }
 }
