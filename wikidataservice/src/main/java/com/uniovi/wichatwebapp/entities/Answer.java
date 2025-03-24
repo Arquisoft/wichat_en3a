@@ -42,8 +42,4 @@ public class Answer{
     public String getId() {
         return id;
     }
-
-    public String setId(String id) { //For test purposes
-        return this.id = id;
-    }
 }
