@@ -32,6 +32,23 @@
     text-align: center;
     font-weight: bold;
     margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.exhausted{
+    opacity: 0.5;
+}
+
+#exitButton{
+    flex-basis: 10%;
+}
+
+#header-text{
+    flex-basis: 70%;
 }
 
 #chatMessages {

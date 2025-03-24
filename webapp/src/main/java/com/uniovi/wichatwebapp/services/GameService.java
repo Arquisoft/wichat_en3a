@@ -60,6 +60,10 @@ public class GameService {
         return game.getWrongAnswers();
     }
 
+    public int getTimer(){
+        return game.getTimer();
+    }
+
     public Game getGame() {
         return game;
     }

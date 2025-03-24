@@ -7,6 +7,7 @@ public class Game {
     private int rightAnswers = 0;
     private int wrongAnswers = 0;
     private Question currentQuestion;
+    private int timer = 30;
 
     public Game() {
 
@@ -54,5 +55,9 @@ public class Game {
 
     public void setCurrentQuestion(Question currentQuestion) {
         this.currentQuestion = currentQuestion;
+    }
+
+    public int getTimer() {
+        return timer;
     }
 }

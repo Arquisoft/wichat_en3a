@@ -59,3 +59,10 @@ button.wrong{
     display: flex;
     flex-direction: column;
 }
+
+.stats{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
