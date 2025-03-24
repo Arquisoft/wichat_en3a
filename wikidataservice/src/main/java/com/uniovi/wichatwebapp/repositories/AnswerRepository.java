@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Repository
@@ -16,8 +15,5 @@ public interface AnswerRepository  extends MongoRepository<Answer, String> {
 
     @Query(value = "{ 'language': ?0 }")
     List<Answer> findAnswersByLanguage(String language);
-
-    @Query(value = "{'_id': ?0}")
-    Optional<Answer> findById();
 
 }

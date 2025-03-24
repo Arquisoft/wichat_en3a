@@ -4,5 +4,3 @@ docs/build
 .env
 webapp/.env
 .idea
-copyfiles.sh
-concatenated_files.txt
