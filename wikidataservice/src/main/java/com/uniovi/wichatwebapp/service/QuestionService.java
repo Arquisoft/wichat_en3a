@@ -61,9 +61,13 @@ public class QuestionService {
                 answerCategory
         );
 
-        // Shuffle wrong answers and limit to 3
+        // Shuffle wrong answers and limit to 3 with different getText
         Collections.shuffle(wrongAnswers, new Random());
-        List<Answer> selectedWrongAnswers = wrongAnswers.stream().limit(3).collect(Collectors.toList());
+        List<Answer> selectedWrongAnswers = wrongAnswers.stream()
+                .distinct() // Ensure uniqueness
+                .filter(a -> a.getText() != null) // Additional safeguard if needed
+                .limit(3)
+                .collect(Collectors.toList());
 
         // Add the correct answer to the answer list
         selectedWrongAnswers.add(question.getCorrectAnswer());
@@ -113,8 +117,17 @@ public class QuestionService {
                 if (count < 4) {
                     if (!answer.getText().equals(randomQuestion.getCorrectAnswer().getText())
                             && answer.getCategory().equals(randomQuestion.getCorrectAnswer().getCategory())) {
-                        possibleAnswers.add(answer);
-                        count++;
+                        boolean isAlreadyAnswer = false;
+                        for(Answer wrongAnswer : possibleAnswers) {
+                            if (wrongAnswer.getText().equals(answer.getText())) {
+                                isAlreadyAnswer = true;
+                                break;
+                            }
+                        }
+                        if(!isAlreadyAnswer) {
+                            possibleAnswers.add(answer);
+                            count++;
+                        }
                     }
                 } else {
                     break;
