@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
+    private boolean areAssigned = false;
 
     public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
-        assignAnswers();
 
     }
 
@@ -36,6 +36,7 @@ public class QuestionService {
     }
 
     public void assignAnswers() {
+        areAssigned = true;
         List<Question> questions = questionRepository.findAll();
         for (Question question : questions) {
             loadAnswers(question);
@@ -92,6 +93,9 @@ public class QuestionService {
      * @return A random question
      */
     public Question getRandomQuestion(String language, QuestionCategory category) {
+        if(!areAssigned) {
+            assignAnswers();
+        }
         // Match categories to find applicable answers
         List<AnswerCategory> answerCategories = matchCategories(category);
         List<Answer> answers = answerRepository.findAnswersByLanguageAndQuestionCategory(language, answerCategories);
