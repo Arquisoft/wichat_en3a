@@ -1,6 +1,10 @@
 package com.uniovi.userservice;
 
 
+import com.uniovi.userservice.controller.UserController;
+import com.uniovi.userservice.entities.User;
+import com.uniovi.userservice.service.UserService;
+import org.bson.assertions.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.jupiter.api.extension.ExtendWith;
