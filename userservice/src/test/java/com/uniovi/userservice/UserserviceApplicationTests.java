@@ -17,8 +17,11 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class UserserviceApplicationTests {
 
-    @InjectMocks
+    @Mock
     private UserController uc;
+
+    @InjectMocks
+    private UserService userService;
 
     @Test
     void testAddingNewUser() {
