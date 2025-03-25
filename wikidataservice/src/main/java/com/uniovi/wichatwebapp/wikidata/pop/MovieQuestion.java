@@ -33,7 +33,7 @@ public class MovieQuestion extends QuestionWikidata {
                 "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"" + langCode + "\". } " + // Retrieves multilingual labels
                 "} " +
                 "ORDER BY RAND() " + // Randomizes the order for a scattered selection
-                "LIMIT 150 ";
+                "LIMIT 100 ";
     }
 
 

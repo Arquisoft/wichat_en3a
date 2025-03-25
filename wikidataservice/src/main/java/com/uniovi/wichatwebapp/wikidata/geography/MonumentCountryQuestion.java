@@ -30,7 +30,7 @@ public class MonumentCountryQuestion extends QuestionWikidata {
                 "  ?monument wdt:P17 ?country. " + // Retrieves the country where the monument is located
                 "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"" + langCode + "\". } " + // Retrieves multilingual labels
                 "} " +
-                "LIMIT 150 ";
+                "LIMIT 100 ";
     }
 
     @Override

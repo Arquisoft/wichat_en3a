@@ -27,7 +27,7 @@ public class BrandQuestion extends QuestionWikidata {
                 "  ?brand wdt:P154 ?logo. " + // Ensures only brands with logos are included
                 "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"" + langCode + "\". } " + // Retrieves multilingual labels
                 "} " +
-                "LIMIT 150 ";
+                "LIMIT 100 ";
     }
 
     @Override
