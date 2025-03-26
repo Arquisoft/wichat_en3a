@@ -1,5 +1,19 @@
 package com.uniovi.wichatwebapp.entities;
 
 public enum QuestionCategory {
-    SPORT, GEOGRAPHY, POP_CULTURE, BIOLOGY
+    SPORT("Sport"),
+    GEOGRAPHY("Geography"),
+    POP_CULTURE("Pop Culture"),
+    BIOLOGY("Biology");
+
+    private final String displayName;
+
+    QuestionCategory(String displayName) {
+        this.displayName = displayName;
+    }
+
+    @Override
+    public String toString() {
+        return displayName;
+    }
 }

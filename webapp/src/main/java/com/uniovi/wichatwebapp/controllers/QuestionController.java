@@ -2,11 +2,8 @@ package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.dto.AnswerDto;
 import com.uniovi.wichatwebapp.entities.Question;
-<<<<<<< HEAD
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
-=======
 import com.uniovi.wichatwebapp.entities.Score;
->>>>>>> development-gameservice-manuel
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.QuestionService;
 import com.uniovi.wichatwebapp.services.ScoreService;
@@ -20,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
-import java.util.Random;
-
 @Controller
 public class QuestionController {
     private final GameService gameService;
@@ -32,9 +27,9 @@ public class QuestionController {
         this.scoreService = scoreService;
     }
 
-    @RequestMapping(value="/game/start")
-    public String startGame(Model model) {
-        gameService.start();
+    @RequestMapping(value="/game/start/{category}")
+    public String startGame(Model model, @PathVariable QuestionCategory category) {
+        gameService.start(category);
         gameService.nextQuestion();
         return "redirect:/game/question";
     }
@@ -65,47 +60,9 @@ public class QuestionController {
     }
 
     @RequestMapping(
-            value = {"/game/question"},
+                value = {"/game/question"},
             method = {RequestMethod.GET}
     )
-<<<<<<< HEAD
-    public String getQuestion(Model model, HttpSession session) {
-        model.addAttribute("points", gameService.getPoints());
-        QuestionCategory category = (QuestionCategory)session.getAttribute("category");
-        if(category == null){
-            category = QuestionCategory.values()[new Random().nextInt(QuestionCategory.values().length)];
-        }
-        return getQuestion(category, model, session);
-    }
-
-    @RequestMapping(
-                value = {"/game/question/{category}"},
-            method = {RequestMethod.GET}
-    )
-    public String getQuestion(@PathVariable QuestionCategory category, Model model, HttpSession session) {
-        model.addAttribute("points", gameService.getPoints());
-        Question question = questionService.getRandomQuestion(category);
-        model.addAttribute("question", question);
-        if(session.getAttribute("category") == null){
-            session.setAttribute("category", category);
-        }
-        session.setAttribute("category", category);
-        session.setAttribute("question", question);
-        return "question/question";
-    }
-
-    @RequestMapping(
-            value = {"/game/chooseAnswer/{id}"},
-            method = {RequestMethod.GET}
-    )
-    public String chooseAnswer(@PathVariable String id, HttpSession session) {
-        Question question = (Question)session.getAttribute("question");
-        if(questionService.checkAnswer(id, question)){
-            questionService.removeQuestion(question);
-            gameService.correctAnswer();
-            return "redirect:/game/question/" + session.getAttribute("category");
-        }
-=======
     public String getQuestion(Model model) {
        model.addAttribute("question", gameService.getCurrentQuestion());
        model.addAttribute("points", gameService.getPoints());
@@ -115,7 +72,6 @@ public class QuestionController {
 
     @RequestMapping(value="/game/timeout")
     public String timeout() {
->>>>>>> development-gameservice-manuel
         gameService.wrongAnswer();
         return "redirect:/game/next";
     }
@@ -125,7 +81,7 @@ public class QuestionController {
     public String results(Model model) {
 
         if(!gameService.hasGameEnded()){
-            return "redirect:/game/start";
+            return "redirect:/game/start/" + gameService.getCategory().name();
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -135,10 +91,10 @@ public class QuestionController {
         model.addAttribute("right", gameService.getRightAnswers());
         model.addAttribute("wrong", gameService.getWrongAnswers());
 
-        Score score = new Score(username, "Flags", gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
+        Score score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
         scoreService.addScore(score);
 
-        gameService.start();
+        gameService.start(gameService.getCategory());
 
         return "question/results";
     }

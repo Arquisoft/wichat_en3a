@@ -32,6 +32,10 @@ public class GameService {
         nextQuestion();
     }
 
+    public QuestionCategory getCategory(){
+        return game.getCategory();
+    }
+
     public boolean hasGameEnded(){
         return game.hasGameEnded();
     }
