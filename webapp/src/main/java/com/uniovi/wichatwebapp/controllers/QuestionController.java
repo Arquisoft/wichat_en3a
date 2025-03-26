@@ -90,6 +90,7 @@ public class QuestionController {
         model.addAttribute("points", gameService.getPoints());
         model.addAttribute("right", gameService.getRightAnswers());
         model.addAttribute("wrong", gameService.getWrongAnswers());
+        model.addAttribute("category", gameService.getCategory().name());
 
         Score score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
         scoreService.addScore(score);
