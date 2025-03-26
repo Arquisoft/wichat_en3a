@@ -2,73 +2,18 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-concepts]]
 == Cross-cutting Concepts
+=== Security
+==== Authentication and Authorization
+The system manages the user's sensitive data, which means the implementation of robust authentication and authorization mechanisms is essential. We are using JWT tokens for the authentication
 
+=== Performance and Scalability
+==== Load managing
+Considering that the application's concurrent users can vary its important to take horizontal scalability when designing the architecture, that's why we are using Docker for deployment
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Content
-This section describes overall, principal regulations and solution ideas that are relevant in multiple parts (= cross-cutting) of your system.
-Such concepts are often related to multiple building blocks.
-They can include many different topics, such as
+===Usability and Accesibility
+====Intuitive interface
+The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team
 
-* models, especially domain models
-* architecture or design patterns
-* rules for using specific technology
-* principal, often technical decisions of an overarching (= cross-cutting) nature
-* implementation rules
-
-
-.Motivation
-Concepts form the basis for _conceptual integrity_ (consistency, homogeneity) of the architecture. 
-Thus, they are an important contribution to achieve inner qualities of your system.
-
-Some of these concepts cannot be assigned to individual building blocks, e.g. security or safety. 
-
-
-.Form
-The form can be varied:
-
-* concept papers with any kind of structure
-* cross-cutting model excerpts or scenarios using notations of the architecture views
-* sample implementations, especially for technical concepts
-* reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)
-
-.Structure
-A potential (but not mandatory) structure for this section could be:
-
-* Domain concepts
-* User Experience concepts (UX)
-* Safety and security concepts
-* Architecture and design patterns
-* "Under-the-hood"
-* development concepts
-* operational concepts
-
-Note: it might be difficult to assign individual concepts to one specific topic
-on this list.
-
-image::08-concepts-EN.drawio.png["Possible topics for crosscutting concepts"]
-
-
-.Further Information
-
-See https://docs.arc42.org/section-8/[Concepts] in the arc42 documentation.
-****
-endif::arc42help[]
-
-=== _<Concept 1>_
-
-_<explanation>_
-
-
-
-=== _<Concept 2>_
-
-_<explanation>_
-
-...
-
-=== _<Concept n>_
-
-_<explanation>_
+===Maintainability and Extensibility
+====Modularity
+The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components
