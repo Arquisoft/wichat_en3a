@@ -6,11 +6,6 @@
                     <img src="/images/qwizzCropped.png" alt="Home" class="nav-logo">
                 </a>
             </li>
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a href="/game/start" class="nav-link game-link" sec:authorize="isAuthenticated()">
-                    Question Game
-                </a>
-            </li>
         </ul>
 
         <ul class="navbar-nav ms-auto">
@@ -42,23 +37,6 @@
         display: flex;
         align-items: center; /* Vertically center the content */
         margin: 0 0.25rem;
-    }
-
-    .game-link {
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.9) !important;
-        display: flex !important;
-        align-items: center; /* Vertically center the text and icon */
-        padding: 0.5rem 1rem !important; /* Add padding for better spacing */
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        height: 100%; /* Ensure it takes full height of the parent */
-    }
-
-    .game-link:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        transform: translateY(-2px);
-        color: white !important;
     }
 
     .user-profile {

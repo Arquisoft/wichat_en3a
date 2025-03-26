@@ -1,77 +1,108 @@
-/* Form Container */
+/* Style for text and password inputs */
+input[name="username"],
+input[name="password"],
+input[name="name"],
+input[name="email"]{
+    background-image: url('../images/UI_Flat_Banner02a.png'); /* PNG path */
+    background-color: transparent;
+    background-size: cover;                    /* Scale image to cover input */
+    background-repeat: no-repeat;             /* Prevent image repetition */
+    background-position: center;              /* Center the image */
+    padding: 40px 60px;                      /* Add spacing for text */
+    border: none;                            /* Remove default border */
+    color: #333;                             /* Text color */
+    font-size: 20px;
+    width: 320px;                           /* Adjust width as needed */
+    height: 100px;                          /* Adjust height as needed */
+    margin-bottom: 40px
+}
+
+/* Focus effects */
+input[name="username"]:focus,
+input[name="password"]:focus,
+input[name="name"]:focus{
+    outline: none;                         /* Remove default outline */
+    box-shadow: 0 0 8px rgba(81, 203, 238, 0.6); /* Add glow on focus */
+}
+
+/* Center content vertically and horizontally */
+.centered-content {
+    min-height: 100vh;          /* Full viewport height */
+    display: flex;
+    flex-direction: column;     /* Stack logo and forms vertically */
+    align-items: center;        /* Center horizontally */
+}
+
+/* Arrange forms horizontally */
+.form-container {
+    flex-direction: column;
+    display: flex;              /* Horizontal layout */
+    gap: 40px;                 /* Space between forms */
+    margin-top: 20px;          /* Space below the logo */
+    align-items: center;   /* Align forms at the top */
+}
+
+/* Optional: Style individual forms for consistency */
 .form {
-    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-    width: max-content;
-    margin: 1rem;
-    backdrop-filter: blur(10px); /* Adds a blur effect */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;                /* Space between form elements */
+    align-items: center; /* Center all child elements horizontally */
 }
-
-/* Labels */
-.form label {
-    font-weight: 500;
-}
-
-/* Input Fields */
-.form input {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
-    border-radius: 5px;
-    font-size: 1rem;
-    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-    transition: border-color 0.3s ease;
-}
-
-
-.form input:focus {
-    outline: none;
-    border-color: #e1306c; /* Instagram's hot pink for focus */
-    box-shadow: 0 0 0 2px rgba(225, 48, 108, 0.2);
-}
-
-/* Button */
-.form button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #405de6;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-}
-
-.form button:hover {
-    opacity: 0.9;
-}
-
-/* Error Message */
-.error {
-    color: #ff6b6b; /* Light red for error messages */
-    background-color: rgba(255, 107, 107, 0.1); /* Semi-transparent background */
-    border: 1px solid rgba(255, 107, 107, 0.3); /* Light border */
-    padding: 0.75rem;
-    border-radius: 5px;
-    margin: 1rem 0;
-    font-size: 0.9rem;
-}
-
-/* Signup Link */
-a {
-    display: block;
+    /* Login Button */
+.big-button-anchor {
+    background-image: url('../images/UI_Flat_Frame01a.png'); /* Login PNG path */
+    background-size: cover;       /* Scale image to cover the button */
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 192px;               /* Adjust to match your image size */
+    height: 128px;              /* Adjust to match your image size */
+    color: black;             /* Text color (ensure visibility) */
+    font-size: 30px;
+    cursor: pointer;         /* Show pointer on hover */
     text-align: center;
-    margin-top: 1.5rem;
-    color: #e1306c; /* Instagram's hot pink for links */
-    text-decoration: none;
-    font-weight: 500;
+    line-height: 128px;  /* Match button height for vertical centering */
 }
 
-a:hover {
-    text-decoration: underline;
+.big-button {
+    background-image: url('../images/UI_Flat_Frame01a.png'); /* Login PNG path */
+    background-size: cover;       /* Scale image to cover the button */
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 192px;               /* Adjust to match your image size */
+    height: 128px;              /* Adjust to match your image size */
+    color: black;             /* Text color (ensure visibility) */
+    font-size: 30px;
+    cursor: pointer;         /* Show pointer on hover */
+}
+
+/* Sign Up Button */
+.small-button {
+    background-image: url('../images/UI_Flat_Frame01a.png'); /* Signup PNG path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 96px;
+    height: 64px;
+    color: #333;           /* Adjust text color for contrast */
+    font-size: 15px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+/* Hover Effects (Optional) */
+.login-button:hover,
+.signup-button:hover {
+    opacity: 0.9;        /* Slight transparency on hover */
+    transform: scale(1.02); /* Small scale effect */
+}
+
+.game-link {
+    color: #333; /* Fixed color */
+    text-decoration: none;
+}
+
+.game-link:hover {
+    color: #333; /* Same color on hover */
 }

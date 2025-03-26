@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
 <head th:replace="fragments/head :: head('Signup')"></head>
-<body>
-    <nav th:replace="fragments/nav"></nav>
+<body class="login-bg">
     <img src="/images/qwizz.png" width="250"/>
+    <div class="form-container">
     <form method="post" action="/signup" th:object="${user}" class="form">
-        <label for="email">Email:</label>
         <input type="text" id="email" name="email" placeholder="Enter your email" required="true"/>
         <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-        <label for="name">Name:</label>
         <input type="text" id="name" name="name" placeholder="Enter your name" required="true"/>
         <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-        <label for="password">Password:</label>
         <input type="password" id="password" name="password" placeholder="Enter your password" required="true"/>
         <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
-        <button type="submit">Sign up</button>
+        <button type="submit" class="big-button">Sign up</button>
         <p class="error" th:if="${adderror}">The account could not be created, an account with that email might already exist</p>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
+
     <form action="/login" method="get">
-        <button type="submit" class="login-button">Log In</button>
+        <button type="submit" class="small-button">Log In</button>
     </form>
+    </div>
 </body>
 </html>

@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <th:block th:insert="fragments/head :: head('Question')"></th:block>
     <link rel="stylesheet" href="/css/home.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
 </head>
-<body>
+<body class="home-bg">
 <nav th:replace="fragments/nav"></nav>
 <main class="home-container">
-    <h2 class="home-title">Home</h2>
-    <p class="welcome-message">Welcome, <span th:text="${user.name}"></span>!</p>
-    <a href="/logout" class="logout-button">Logout</a>
+    <a href="/game/start" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        New Game
+    </a>
 </main>
 </body>
 </html>
+
+
+<!--
+<h2 class="home-title">Home</h2>
+<p class="welcome-message">Welcome, <span th:text="${user.name}"></span>!</p>
+<a href="/logout" class="logout-button">Logout</a>
+-->

@@ -11,6 +11,20 @@ body {
     min-height: 100vh; /* Ensure the body covers the full viewport height */
 }
 
+/* Login page background */
+.login-bg {
+    background: url('../images/simple_natural_landscape_free_pixel_art_background.png') center/cover no-repeat;
+}
+
+/* Signup page background */
+.signup-bg {
+    background: url('../images/simple_natural_landscape_free_pixel_art_background.png') center/cover no-repeat;
+}
+
+.home-bg {
+    background: url('../images/thumb-1920-1293302.jpg') center/cover no-repeat;
+}
+
 main{
     display: flex;
     flex-direction: column;
@@ -41,22 +55,6 @@ label {
     margin-bottom: 0.5rem;
     color: #5f6368;
     font-weight: 500;
-}
-
-input {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #dadce0;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-input:focus {
-    outline: none;
-    border-color: #1a73e8;
-    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
 }
 
 button {
