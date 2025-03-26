@@ -29,12 +29,13 @@ public class MovieQuestion extends QuestionWikidata {
                 "         wdt:P495 wd:Q30. " + // Filters for U.S. movies (United States: Q30)
                 "  OPTIONAL { ?movie wdt:P18 ?poster. } " + // Retrieves the poster image if available
                 "  ?movie wdt:P166 ?award. " + // Filters for movies with awards (famous movies)
-                "  FILTER(?releaseDate >= NOW() - \"P50Y\"^^xsd:duration) " + // Filters for movies released in the last 50 years
+                "  FILTER(YEAR(?releaseDate) >= 2005 && YEAR(?releaseDate) <= 2025) " + // Filters for movies from 2005 to 2025
                 "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"" + langCode + "\". } " + // Retrieves multilingual labels
                 "} " +
-                "ORDER BY ASC(?releaseYear) " + // Sorts by release year in ascending order
-                "LIMIT 150 ";
+                "ORDER BY RAND() " + // Randomizes the order for a scattered selection
+                "LIMIT 100 ";
     }
+
 
     @Override
     public void processResults() {

@@ -29,10 +29,11 @@ public class FlagQuestion extends QuestionWikidata {
         this.sparqlQuery = "SELECT ?countryLabel ?flagLabel\n" +
                 "WHERE " +
                 "{ " +
-                "  ?country wdt:P31 wd:Q6256; " +
-                "           wdt:P41 ?flag. " +
-                "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"" + langCode + "\". } " +
-                "}";
+                "  ?country wdt:P31 wd:Q6256; " + // Filters for countries
+                "           wdt:P41 ?flag. " + // Retrieves flags
+                "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"" + langCode + "\". } " + // Retrieves multilingual labels
+                "}" +
+                "LIMIT 100"; // Limits the results to 50
     }
 
     @Override

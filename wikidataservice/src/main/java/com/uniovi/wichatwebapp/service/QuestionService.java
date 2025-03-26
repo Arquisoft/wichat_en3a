@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
+    private boolean areAssigned = false;
 
     public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
-        assignAnswers();
 
     }
 
@@ -36,6 +36,7 @@ public class QuestionService {
     }
 
     public void assignAnswers() {
+        areAssigned = true;
         List<Question> questions = questionRepository.findAll();
         for (Question question : questions) {
             loadAnswers(question);
@@ -61,9 +62,13 @@ public class QuestionService {
                 answerCategory
         );
 
-        // Shuffle wrong answers and limit to 3
+        // Shuffle wrong answers and limit to 3 with different getText
         Collections.shuffle(wrongAnswers, new Random());
-        List<Answer> selectedWrongAnswers = wrongAnswers.stream().limit(3).collect(Collectors.toList());
+        List<Answer> selectedWrongAnswers = wrongAnswers.stream()
+                .distinct() // Ensure uniqueness
+                .filter(a -> a.getText() != null) // Additional safeguard if needed
+                .limit(3)
+                .collect(Collectors.toList());
 
         // Add the correct answer to the answer list
         selectedWrongAnswers.add(question.getCorrectAnswer());
@@ -88,6 +93,9 @@ public class QuestionService {
      * @return A random question
      */
     public Question getRandomQuestion(String language, QuestionCategory category) {
+        if(!areAssigned) {
+            assignAnswers();
+        }
         // Match categories to find applicable answers
         List<AnswerCategory> answerCategories = matchCategories(category);
         List<Answer> answers = answerRepository.findAnswersByLanguageAndQuestionCategory(language, answerCategories);
@@ -113,8 +121,17 @@ public class QuestionService {
                 if (count < 4) {
                     if (!answer.getText().equals(randomQuestion.getCorrectAnswer().getText())
                             && answer.getCategory().equals(randomQuestion.getCorrectAnswer().getCategory())) {
-                        possibleAnswers.add(answer);
-                        count++;
+                        boolean isAlreadyAnswer = false;
+                        for(Answer wrongAnswer : possibleAnswers) {
+                            if (wrongAnswer.getText().equals(answer.getText())) {
+                                isAlreadyAnswer = true;
+                                break;
+                            }
+                        }
+                        if(!isAlreadyAnswer) {
+                            possibleAnswers.add(answer);
+                            count++;
+                        }
                     }
                 } else {
                     break;

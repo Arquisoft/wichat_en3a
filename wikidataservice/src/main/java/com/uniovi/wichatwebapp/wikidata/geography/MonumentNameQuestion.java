@@ -29,7 +29,7 @@ public class MonumentNameQuestion extends QuestionWikidata {
                 "  ?monument wdt:P18 ?image. " + // Retrieves the image of the monument
                 "  SERVICE wikibase:label { bd:serviceParam wikibase:language \"" + langCode + "\". } " + // Retrieves multilingual labels
                 "} " +
-                "LIMIT 150 ";
+                "LIMIT 100 ";
     }
 
     @Override
