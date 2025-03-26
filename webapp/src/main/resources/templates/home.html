@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head th:replace="fragments/head :: head('Home')"></head>
+<head>
+    <th:block th:insert="fragments/head :: head('Question')"></th:block>
+    <link rel="stylesheet" href="/css/home.css"/>
+</head>
 <body>
-    <nav th:replace="fragments/nav"></nav>
-    <h2>Home</h2>
-    <p>Welcome, <span th:text="${user.name}"></span></p>
-    <a href="/logout">Logout</a>
-    <a href="/hint">LLM</a>
+<nav th:replace="fragments/nav"></nav>
+<main class="home-container">
+    <h2 class="home-title">Home</h2>
+    <p class="welcome-message">Welcome, <span th:text="${user.name}"></span>!</p>
+    <a href="/logout" class="logout-button">Logout</a>
+</main>
 </body>
 </html>

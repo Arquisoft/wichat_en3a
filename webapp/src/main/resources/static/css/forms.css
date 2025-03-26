@@ -1,40 +1,77 @@
-.form{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-    margin-bottom: 1em;
-    align-items: center;
-}
-
-.form input, .form button{
-    border-radius: 5px;
+/* Form Container */
+.form {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Subtle shadow */
     width: max-content;
-
+    margin: 1rem;
+    backdrop-filter: blur(10px); /* Adds a blur effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
 }
 
-.form input{
-    background-color: white;
-    border: black solid 1px;
+/* Labels */
+.form label {
+    font-weight: 500;
 }
 
-.form button{
-    padding: 0.5em 1em;
-    background-color: #2c88f1;
-    color: white;
-    border: none;
-}
-
-.error{
-    color: red;
-}
-
+/* Input Fields */
 .form input {
-    width: 80%;
-    margin: 0rem auto;
-    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    transition: border-color 0.3s ease;
 }
+
+
+.form input:focus {
+    outline: none;
+    border-color: #e1306c; /* Instagram's hot pink for focus */
+    box-shadow: 0 0 0 2px rgba(225, 48, 108, 0.2);
+}
+
+/* Button */
 .form button {
-    width: 80%;
-    margin: 0rem auto;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #405de6;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.form button:hover {
+    opacity: 0.9;
+}
+
+/* Error Message */
+.error {
+    color: #ff6b6b; /* Light red for error messages */
+    background-color: rgba(255, 107, 107, 0.1); /* Semi-transparent background */
+    border: 1px solid rgba(255, 107, 107, 0.3); /* Light border */
+    padding: 0.75rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+/* Signup Link */
+a {
     display: block;
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #e1306c; /* Instagram's hot pink for links */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
 }

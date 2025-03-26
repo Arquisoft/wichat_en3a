@@ -4,7 +4,7 @@
 </head>
 <body>
     <nav th:replace="fragments/nav"></nav>
-    <img src="/css/images/qwizz.png" width="250"/>
+    <img src="/images/qwizz.png" width="250"/>
     <form method="post" action="/login" class="form">
         <label for="username">Email:</label>
         <input type="text" id="username" name="username" placeholder="Enter your email" required="true"/>
@@ -16,6 +16,8 @@
         </p>
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
-    <a href="/signup">Signup</a>
+    <form action="/signup" method="get">
+        <button type="submit" class="signup-button">Sign Up</button>
+    </form>
 </body>
 </html>

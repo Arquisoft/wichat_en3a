@@ -1,43 +1,57 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<head th:replace="fragments/head :: head('Question')"></head>
+<head>
+    <th:block th:insert="fragments/head :: head('Question')"></th:block>
+    <link rel="stylesheet" href="/css/questions.css"/>
+</head>
 <body class="bg-light">
 <nav th:replace="fragments/nav"></nav>
 <div class="container mt-5">
-    <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
-    <h3 th:text="'Points : ' + ${points}"></h3>
+    <script src="/script/question.js"></script>
 
-    <img th:src="${question.getImageUrl()}" class="question-image" alt="Question image">
+    <!-- Contenedor principal para el juego y el chat -->
+    <div class="main-container">
+        <!-- Columna del juego -->
+        <div class="game-container">
+            <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
 
-    <div class="row answer-row">
-        <div class="col-md-6" th:each="answer, iterStat : ${question.getAnswers()}">
-            <button type="button"
-                    th:id="'chooseAnswerButton_' + ${answer.getId()}"
-                    class="btn btn-primary answer-button"
-                    th:text="${answer.getText()}"
-                    data-answer-id="${answer.getId()}">
-            </button>
+            <div class="stats">
+                <h3 id="points" th:text="'Points : ' + ${points}"></h3>
+
+                <canvas id="timer"></canvas>
+            </div>
+
+            <!-- Fila para las respuestas y el chat -->
+            <div class="row">
+                <!-- Columna de respuestas -->
+                <div class="col-md-8">
+                    <img th:src="${question.getImageUrl()}" class="question-image" alt="Question image">
+                    <div class="row answer-row" id="answers">
+                        <div class="col-md-6" th:each="answer, iterStat : ${question.getAnswers()}">
+                            <button type="button"
+                                    th:id= "${answer.getId()}"
+                                    class="btn btn-primary answer-button"
+                                    th:text="${answer.getText()}"
+                                    th:attr="onclick='checkAnswer(\''+${answer.getId()}+'\')'">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna del chat -->
+                <div class="col-md-4">
+                    <div th:replace="fragments/chat"></div>
+                </div>
+            </div>
         </div>
     </div>
-    <button th:attr="onclick='getHint(\'' + ${question.content} + '\', \'' + ${question.correctAnswer.text} + '\')'">
-        Get Hint
-    </button>
-
-    <pre id="hintResult">
-
-    </pre>
 </div>
 <script src="/script/hint.js"></script>
+
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(document).ready(function() {
-        $(".answer-button").click(function() {
-            let answerId = $(this).attr("id").split('_')[1];
-            let urlChooseAnswer = '/game/chooseAnswer/' + answerId;
-            window.location.replace(urlChooseAnswer);
-        });
-    });
+        setUpTimer([[${timer}]]);
     /*]]>*/
 </script>
 </body>
