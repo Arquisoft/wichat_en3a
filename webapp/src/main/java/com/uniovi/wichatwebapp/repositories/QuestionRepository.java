@@ -23,7 +23,7 @@ public class QuestionRepository {
                 .build()
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/game/newQuestion/"+category)
+                        .path("/game/newQuestion/"+category.name())
                         .build())
                 .retrieve()
                 .bodyToMono(Question.class)
