@@ -1,0 +1,11 @@
+/* Remove the default bg-light class background */
+body.bg-light {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    background-image: url('../images/Background.png'); /* Update with your image path */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}

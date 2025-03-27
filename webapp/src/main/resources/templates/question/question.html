@@ -4,6 +4,7 @@
 <head>
     <th:block th:insert="fragments/head :: head('Question')"></th:block>
     <link rel="stylesheet" href="/css/questions.css"/>
+    <link rel="stylesheet" href="/css/nav.css"/>
 </head>
 <body class="bg-light">
 <nav th:replace="fragments/nav"></nav>
@@ -14,12 +15,14 @@
     <div class="main-container">
         <!-- Columna del juego -->
         <div class="game-container">
-            <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
+            <div class="question-text-container">
+                <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
+            </div>
 
             <div class="stats">
                 <h3 id="points" th:text="'Points : ' + ${points}"></h3>
 
-                <canvas id="timer"></canvas>
+                <canvas id="timer" class="small-timer"></canvas>
             </div>
 
             <!-- Fila para las respuestas y el chat -->

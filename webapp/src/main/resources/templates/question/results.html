@@ -1,7 +1,9 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head('Results')"></head>
-
+<head>
+  <th:block th:insert="fragments/head :: head('Results')"></th:block>
+  <link rel="stylesheet" href="/css/nav.css"/>
+</head>
 <body class="bg-light">
 <nav th:replace="fragments/nav"></nav>
 

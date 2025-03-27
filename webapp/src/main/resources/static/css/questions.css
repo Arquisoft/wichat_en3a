@@ -1,68 +1,112 @@
-
-/*Advertencia por no especificar color de primer plano -> Lo hereda de body*/
-/*Advertencia por redefinición de background-color -> Es para la animación así que hay que definirlo dos veces*/
-@keyframes wrong{
-    from{background-color: #8580f6;}
-    to{background-color: #EC0909;}
+/* Full page background */
+body.bg-light {
+    background-image: url('../images/thumb-1920-1205979.png'); /* Your background image */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
 }
 
-/*Advertencia por no especificar color de primer plano -> Lo hereda de body*/
-/*Advertencia por redefinición de background-color -> Es para la animación así que hay que definirlo dos veces*/
-@keyframes correct{
-    from{background-color: #8580f6;}
-    to{background-color: #37e817;}
+.question-image {
+    height: 200px; /* Your fixed height */
+    width: auto; /* Width adjusts to maintain ratio */
+    max-width: 100%; /* Prevent overflow */
+    display: block;
+    margin: 0 auto; /* Center horizontally */
+    object-fit: contain; /* Ensures full image is visible */
 }
 
-/* Estilos para los botones de respuesta */
 .answer-button {
-    width: 100%; /* Los botones ocupan el 100% del ancho de su contenedor */
-    margin-bottom: 10px; /* Espacio entre botones */
-    padding: 10px; /* Espaciado interno */
-    font-size: 14px; /* Tamaño de fuente más pequeño */
-    border-radius: 4px; /* Bordes redondeados */
-    background-color: #8580f6; /* Color de fondo */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    cursor: pointer; /* Cambia el cursor al pasar el mouse */
-    transition: background-color 0.2s ease; /* Transición suave */
+    /* Remove all background colors */
+    background-color: transparent !important;
+    background-image: url('../images/42ac9c3b-646e-44e0-b187-c4470d1117d5_removalai_preview.png') !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    /* Remove Bootstrap button styling */
+    border: none !important;
+    box-shadow: none !important;
+
+    /* Text styling */
+    color: black !important;
+    font-size: 1.2rem;
+
+
+    height: 264px;
+    width: 400px;
+
+    /* Hover effects */
+    transition: transform 0.2s;
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Ensures margin auto works */
 }
 
-/* Estilos para el estado activo (clicado) de los botones */
-.answer-button:active {
-    background-color: #5652aa; /* Color más oscuro */
-}
-
-/* Hover para los botones de respuesta */
+/* Remove any Bootstrap active/focus states */
+.answer-button:focus,
+.answer-button:active,
 .answer-button:hover {
-    background-color: #5652aa; /* Color más oscuro */
+    background-color: transparent !important;
+    background-image: url('../images/42ac9c3b-646e-44e0-b187-c4470d1117d5_removalai_preview.png') !important;
+    color: gray !important;
+    transform: scale(1.05);
 }
 
-/* Estilos para botones deshabilitados */
-.answer-button:disabled {
-    background-color: #8580f6; /* Mantiene el color morado original */
+/* Remove outline on focus */
+.answer-button:focus {
+    outline: none !important;
 }
 
-button.correct{
-    animation-name: correct;
-    animation-duration: 1.0s;
-    animation-fill-mode: forwards;
+/* Text container for question */
+.question-text-container {
+    color: #00FF41;
+    background-image: url('../images/Logo3.png');
+    background-size: contain;  /* Changed from cover to contain */
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 50px;
+    min-height: 280px; /* Fixed height matching your design */
+    width: 100%; /* Full width of parent container */
 }
 
-button.wrong{
-    animation-name: wrong;
-    animation-duration: 1.0s;
-    animation-fill-mode: forwards;
+/* Optional hover effect */
+.answer-button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
 }
 
 /* Contenedor principal */
 .main-container {
-    display: flex;
-    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    z-index: 900;
+    margin-top: 0;
+    padding-top: 0;
 }
 
-.stats{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
+.answer-row{
+    justify-content: center;
+}
+
+.col-md-8 {
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Ensures margin auto works */
+    justify-content: center;
+}
+
+.col-md-4 {
+    position: fixed; /* Stays in place even when scrolling */
+    right: 100px;     /* Distance from the right edge */
+    bottom: 100px;    /* Distance from the bottom */
+    width: 350px;    /* Adjust width as needed (or keep Bootstrap’s col-md-4) */
+    z-index: 1000;   /* Ensures chat stays above other content */
+}
+
+.small-timer {
+    height: 50px;  /* Visual size */
 }
