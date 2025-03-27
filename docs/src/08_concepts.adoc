@@ -2,10 +2,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-concepts]]
 == Cross-cutting Concepts
-=== Security
-==== Authentication and Authorization
-The system manages the user's sensitive data, which means the implementation of robust authentication and authorization mechanisms is essential. We are using JWT tokens for the authentication
-
 === Performance and Scalability
 ==== Load managing
 Considering that the application's concurrent users can vary its important to take horizontal scalability when designing the architecture, that's why we are using Docker for deployment
