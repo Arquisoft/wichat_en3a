@@ -15,14 +15,19 @@
         <!-- Columna del juego -->
         <div class="game-container">
             <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
-            <h3 id="points" th:text="'Points : ' + ${points}"></h3>
+
+            <div class="stats">
+                <h3 id="points" th:text="'Points : ' + ${points}"></h3>
+
+                <canvas id="timer"></canvas>
+            </div>
 
             <!-- Fila para las respuestas y el chat -->
             <div class="row">
                 <!-- Columna de respuestas -->
                 <div class="col-md-8">
                     <img th:src="${question.getImageUrl()}" class="question-image" alt="Question image">
-                    <div class="row answer-row">
+                    <div class="row answer-row" id="answers">
                         <div class="col-md-6" th:each="answer, iterStat : ${question.getAnswers()}">
                             <button type="button"
                                     th:id= "${answer.getId()}"
@@ -43,5 +48,11 @@
     </div>
 </div>
 <script src="/script/hint.js"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        setUpTimer([[${timer}]]);
+    /*]]>*/
+</script>
 </body>
 </html>

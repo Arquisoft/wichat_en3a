@@ -65,7 +65,14 @@ public class QuestionController {
     public String getQuestion(Model model) {
        model.addAttribute("question", gameService.getCurrentQuestion());
        model.addAttribute("points", gameService.getPoints());
+       model.addAttribute("timer", gameService.getTimer());
         return "question/question";
+    }
+
+    @RequestMapping(value="/game/timeout")
+    public String timeout() {
+        gameService.wrongAnswer();
+        return "redirect:/game/next";
     }
 
 

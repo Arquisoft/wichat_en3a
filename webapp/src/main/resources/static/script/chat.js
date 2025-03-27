@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const userInput = document.getElementById('userInput');
     const sendMessageBtn = document.getElementById('sendMessage');
 
+    const answers = document.getElementById("answers");
+    const exitButton = document.getElementById("exitButton");
+
     // Conversación predefinida
     const predefinedConversation = [
         { type: 'ai', text: 'Welcome little novice! I am the wiser wizard of the universe. What you need?' },
@@ -37,11 +40,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }, delay);
     }
 
+    exitButton.addEventListener("click", function (){
+        answers.removeAttribute("hidden");
+        chatBox.removeAttribute("style");
+        startChatBtn.removeAttribute("style");
+        startChatBtn.classList.add("exhausted");
+        startChatBtn.setAttribute("disabled", "true");
+        restoreTimer();
+    })
+
     // Evento al hacer clic en el botón de iniciar chat
     startChatBtn.addEventListener('click', function () {
         // Mostrar el chat
         chatBox.style.display = 'block';
         startChatBtn.style.display = 'none';
+
+        answers.setAttribute("hidden", "true");
+
+        pauseTimer();
 
         // Reiniciar el índice de conversación
         conversationIndex = 0;
