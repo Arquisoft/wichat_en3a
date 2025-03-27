@@ -42,9 +42,12 @@ services:
     container_name: hintservice-wichat_en3a
     image: ghcr.io/arquisoft/wichat_en3a/hintservice:latest
     profiles: ["dev", "prod"]
-    build: ./hintservice
+    build: 
+      context: ./hintservice
     ports:
       - "8200:8200"
+    environment:
+      - LLM_APIKEY=${HINTSERVICE_API_KEY}
     networks:
       - mynetwork
 

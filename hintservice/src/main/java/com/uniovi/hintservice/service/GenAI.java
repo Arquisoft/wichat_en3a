@@ -4,8 +4,11 @@ import autovalue.shaded.com.google.common.collect.ImmutableList;
 import com.google.genai.Client;
 import com.google.genai.types.*;
 import io.github.cdimascio.dotenv.Dotenv;
+import jakarta.annotation.PostConstruct;
+
 import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
@@ -16,15 +19,15 @@ import java.io.IOException;
 public class GenAI { //https://github.com/googleapis/java-genai
     private final static String  GEMINI_1_5 = "gemini-1.5-flash-001";
     private final static String  GEMINI_2_0 = "gemini-2.0-flash-001";
+    @Value("${LLM_APIKEY:not_working}")
     private String apiKey;
     private Client client;
     private ImmutableList<SafetySetting> safetySettings;
     private Tool googleSearchTool = Tool.builder().googleSearch(GoogleSearch.builder().build()).build(); // Sets the Google Search tool in the config.
 
-    @Autowired
-    public GenAI(Environment environment) {
-        Dotenv dotenv = Dotenv.load(); // Cargar el archivo .env
-        this.apiKey = dotenv.get("llm.apikey"); // Obtener la clave API del archivo .env
+
+    @PostConstruct
+    public void init(){
         client = Client.builder().apiKey(apiKey).build();
         this.safetySettings = initializeSafetySettings();
     }

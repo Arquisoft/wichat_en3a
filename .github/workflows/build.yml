@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - development
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -16,11 +17,13 @@ jobs:
           java-version: '23'
       - name: Create .env file for hintservice
         run: |
-          echo "llm.apikey=${{ secrets.HINTSERVICE_API_KEY }}" >> hintservice/.env
+          echo "HINTSERVICE_API_KEY=${{ secrets.LLM_API_KEY }}" > .env
       - run: mvn clean test --batch-mode
         working-directory: userservice
       - run: mvn clean test --batch-mode
         working-directory: hintservice
+        env:
+          llm.apikey: ${{ secrets.HINTSERVICE_API_KEY }}
       - run: mvn clean test --batch-mode
         working-directory: wikidataservice
       - run: mvn clean test --batch-mode
