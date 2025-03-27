@@ -2,6 +2,8 @@ package com.uniovi.wichatwebapp.repositories;
 
 import com.uniovi.wichatwebapp.entities.Answer;
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,13 +17,13 @@ public class QuestionRepository {
         this.webClientBuilder = webClientBuilder;
     }
 
-    public Question getRandomQuestion(){
+    public Question getRandomQuestion(QuestionCategory category){
         return webClientBuilder
                 .baseUrl(baseUrl) // Set base URL here or in config
                 .build()
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/game/newQuestion")
+                        .path("/game/newQuestion/"+category.name())
                         .build())
                 .retrieve()
                 .bodyToMono(Question.class)

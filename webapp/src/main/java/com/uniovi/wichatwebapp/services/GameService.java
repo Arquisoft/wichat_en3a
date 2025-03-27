@@ -2,6 +2,8 @@ package com.uniovi.wichatwebapp.services;
 
 import com.uniovi.wichatwebapp.entities.Game;
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -25,9 +27,13 @@ public class GameService {
     public void wrongAnswer(){
         game.wrongAnswer();
     }
-    public void start(){
-        game = new Game();
+    public void start(QuestionCategory category){
+        game = new Game(category);
         nextQuestion();
+    }
+
+    public QuestionCategory getCategory(){
+        return game.getCategory();
     }
 
     public boolean hasGameEnded(){
@@ -35,7 +41,7 @@ public class GameService {
     }
 
     public void nextQuestion(){
-        Question question = questionService.getRandomQuestion();
+        Question question = questionService.getRandomQuestion(game.getCategory());
         game.setCurrentQuestion(question);
         questionService.removeQuestion(question);
     }

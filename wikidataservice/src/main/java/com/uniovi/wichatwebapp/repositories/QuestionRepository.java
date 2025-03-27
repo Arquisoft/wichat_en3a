@@ -14,4 +14,5 @@ public interface QuestionRepository extends MongoRepository<Question, String> {
     List<Question> findQuestionsByCorrectAnswerIdExists();
 
     Optional<Question> findById(String id);
+
 }

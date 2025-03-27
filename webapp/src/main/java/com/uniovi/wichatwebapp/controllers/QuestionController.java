@@ -2,6 +2,7 @@ package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.dto.AnswerDto;
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.entities.Score;
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.QuestionService;
@@ -26,9 +27,9 @@ public class QuestionController {
         this.scoreService = scoreService;
     }
 
-    @RequestMapping(value="/game/start")
-    public String startGame(Model model) {
-        gameService.start();
+    @RequestMapping(value="/game/start/{category}")
+    public String startGame(Model model, @PathVariable QuestionCategory category) {
+        gameService.start(category);
         gameService.nextQuestion();
         return "redirect:/game/question";
     }
@@ -80,7 +81,7 @@ public class QuestionController {
     public String results(Model model) {
 
         if(!gameService.hasGameEnded()){
-            return "redirect:/game/start";
+            return "redirect:/game/start/" + gameService.getCategory().name();
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -89,11 +90,12 @@ public class QuestionController {
         model.addAttribute("points", gameService.getPoints());
         model.addAttribute("right", gameService.getRightAnswers());
         model.addAttribute("wrong", gameService.getWrongAnswers());
+        model.addAttribute("category", gameService.getCategory().name());
 
-        Score score = new Score(username, "Flags", gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
+        Score score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
         scoreService.addScore(score);
 
-        gameService.start();
+        gameService.start(gameService.getCategory());
 
         return "question/results";
     }

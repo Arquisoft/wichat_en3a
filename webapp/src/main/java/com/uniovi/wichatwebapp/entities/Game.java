@@ -7,10 +7,11 @@ public class Game {
     private int rightAnswers = 0;
     private int wrongAnswers = 0;
     private Question currentQuestion;
+    private QuestionCategory category;
     private int timer = 30;
 
-    public Game() {
-
+    public Game(QuestionCategory category) {
+        this.category = category;
     }
 
     public boolean checkAnswer(String id) {
@@ -59,5 +60,9 @@ public class Game {
 
     public int getTimer() {
         return timer;
+    }
+
+    public QuestionCategory getCategory() {
+        return category;
     }
 }
