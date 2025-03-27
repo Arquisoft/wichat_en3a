@@ -21,6 +21,31 @@
             ></option>
         </select>
 
+        <!-- Timer Input (in seconds) -->
+        <div class="form-group">
+            <label for="timerSeconds">Timer duration per question (seconds):</label>
+            <input type="number"
+                   id="timerSeconds"
+                   name="timerSeconds"
+                   class="form-control"
+                   min="5"
+                   value="30"
+            required>
+            <small class="form-text text-muted">Minimum 5 seconds</small>
+        </div>
+
+        <!-- Number of Questions -->
+        <div class="form-group">
+            <label for="questionCount">Number of questions:</label>
+            <input type="number"
+                   id="questionCount"
+                   name="questionCount"
+                   class="form-control"
+                   min="1"
+            value="10"
+            required>
+        </div>
+
         <!-- Botón de enviar -->
         <button type="submit">Play</button>
 

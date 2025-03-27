@@ -27,8 +27,14 @@ public class GameService {
     public void wrongAnswer(){
         game.wrongAnswer();
     }
+
     public void start(QuestionCategory category){
         game = new Game(category);
+        nextQuestion();
+    }
+
+    public void start(QuestionCategory category, int timer, int questions){
+        game = new Game(category, timer, questions);
         nextQuestion();
     }
 
@@ -68,6 +74,10 @@ public class GameService {
 
     public int getTimer(){
         return game.getTimer();
+    }
+
+    public int getQuestions(){
+        return game.getQuestions();
     }
 
     public Game getGame() {

@@ -1,7 +1,7 @@
 package com.uniovi.wichatwebapp.entities;
 
 public class Game {
-
+    private int maxNumberOfQuestions = 10;
     private int points;
     private int questions = 0;
     private int rightAnswers = 0;
@@ -14,12 +14,18 @@ public class Game {
         this.category = category;
     }
 
+    public Game(QuestionCategory category, int timer, int maxNumberOfQuestions) {
+        this.category = category;
+        this.timer = timer;
+        this.maxNumberOfQuestions = maxNumberOfQuestions;
+    }
+
     public boolean checkAnswer(String id) {
         return currentQuestion.getCorrectAnswer().getId().equals(id);
     }
 
     public boolean hasGameEnded() {
-        return questions >= 10;
+        return questions >= maxNumberOfQuestions;
     }
 
     public void correctAnswer(){
