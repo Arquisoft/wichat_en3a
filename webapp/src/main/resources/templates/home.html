@@ -8,8 +8,18 @@
 <body class="home-bg">
 <nav th:replace="fragments/nav"></nav>
 <main class="home-container">
-    <a href="/game/start" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        New Game
+    <a href="/game/start/SPORT" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        Sport Game
+    </a>
+    <a href="/game/start/GEOGRAPHY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        Geography Game
+    </a>
+    <a href="/game/start/POP_CULTURE" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        Pop culture Game
+    </a>
+
+    <a href="/game/start/BIOLOGY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        Biology Game
     </a>
 </main>
 </body>

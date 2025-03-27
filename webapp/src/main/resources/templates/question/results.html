@@ -18,7 +18,7 @@
       <p class="card-text">Wrong answers: <strong id="wrongAnswers" th:text="${wrong}"></strong></p>
 
 
-      <a href="/game/start">Play Again?</a>
+      <a th:href="'/game/start/' + ${category}">Play Again?</a>
 
       <br>
 
