@@ -60,6 +60,10 @@ public class Game {
         return currentQuestion;
     }
 
+    public int getMaxNumberOfQuestions() {
+        return maxNumberOfQuestions;
+    }
+
     public void setCurrentQuestion(Question currentQuestion) {
         this.currentQuestion = currentQuestion;
     }

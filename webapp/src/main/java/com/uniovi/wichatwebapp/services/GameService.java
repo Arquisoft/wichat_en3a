@@ -76,8 +76,8 @@ public class GameService {
         return game.getTimer();
     }
 
-    public int getQuestions(){
-        return game.getQuestions();
+    public int getMaxQuestions(){
+        return game.getMaxNumberOfQuestions();
     }
 
     public Game getGame() {

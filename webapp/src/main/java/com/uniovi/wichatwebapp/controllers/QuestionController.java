@@ -1,21 +1,15 @@
 package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.dto.AnswerDto;
-import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.entities.Score;
 import com.uniovi.wichatwebapp.services.GameService;
-import com.uniovi.wichatwebapp.services.QuestionService;
 import com.uniovi.wichatwebapp.services.ScoreService;
-import jakarta.servlet.http.HttpSession;
-import org.apache.catalina.core.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @Controller
 public class QuestionController {
@@ -114,7 +108,7 @@ public class QuestionController {
         model.addAttribute("category", gameService.getCategory().name());
 
         model.addAttribute("timer", gameService.getTimer());
-        model.addAttribute("questions", gameService.getQuestions());
+        model.addAttribute("questions", gameService.getMaxQuestions());
 
         Score score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
         scoreService.addScore(score);
