@@ -27,6 +27,20 @@ public class QuestionController {
         this.scoreService = scoreService;
     }
 
+    @RequestMapping(value="/game/personalized")
+    public String getPersonalizedGame(Model model) {
+        model.addAttribute("categories", QuestionCategory.values());
+        return "personalized";
+    }
+
+    @RequestMapping(value="/game/personalized", method = RequestMethod.POST)
+    public String createPersonalizedGame(@RequestParam QuestionCategory category) {
+        gameService.start(category);
+        gameService.nextQuestion();
+        return "redirect:/game/question";
+    }
+
+
     @RequestMapping(value="/game/start/{category}")
     public String startGame(Model model, @PathVariable QuestionCategory category) {
         gameService.start(category);

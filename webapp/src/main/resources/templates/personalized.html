@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:insert="fragments/head :: head('Question')"></th:block>
+    <link rel="stylesheet" href="/css/home.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+</head>
+<body class="home-bg">
+<nav th:replace="fragments/nav"></nav>
+<main class="home-container">
+    <form action="/game/personalized" method="POST">
+        <label for="category">Choose a category:</label>
+
+        <!-- Combobox dinámico desde Enum -->
+        <select id="category" name="category" required>
+            <option value="" disabled selected>-- Chose an option--</option>
+            <option
+                    th:each="category : ${categories}"
+                    th:value="${category.name()}"
+                    th:text="${category.toString()}"
+            ></option>
+        </select>
+
+        <!-- Botón de enviar -->
+        <button type="submit">Play</button>
+
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    </form>
+</main>
+</body>
+</html>
