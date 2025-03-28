@@ -1,11 +1,73 @@
-/* Remove the default bg-light class background */
-body.bg-light {
+/* Main body background */
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     margin: 0;
-    background-image: url('../images/Background.png'); /* Update with your image path */
+    background-image: url('../images/Background.png');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+}
+/* Add these new rules */
+.background_div {
+    background-image: url('../images/9887952c-ba20-41ab-a5d3-6981e6ec1c9d_removalai_preview.png') !important;
+    background-size: 100% 100%;
+    background-position: center;
     background-repeat: no-repeat;
+    position: relative;
+    padding: 150px 40px 100px 40px;
+    margin: -20px;
+    min-height: 600px;
+}
+
+.pure-bg-table {
+    width: 90% !important; /* Smaller than container */
+    margin: 0 auto; /* Center the table */
+    transform: none; /* Remove previous transform */
+    background: transparent !important;
+    position: relative;
+    z-index: 2;
+    min-height: auto;
+}
+
+/* Modify existing rules */
+.table-responsive {
+    padding-top: 100px; /* Increased for heading space */
+    background: transparent;
+}
+
+.transparent-card {
+    background: transparent;
+    border: none;
+}
+
+.pure-bg-table td,
+.pure-bg-table th {
+    font-size: 1rem; /* Slightly smaller text */
+    padding: 20px 15px !important; /* Adjusted padding */
+}
+
+/* Update column widths */
+.pure-bg-table th:nth-child(1),
+.pure-bg-table td:nth-child(1) { width: 28%; }
+.pure-bg-table th:nth-child(2),
+.pure-bg-table td:nth-child(2) { width: 18%; }
+.pure-bg-table th:nth-child(3),
+.pure-bg-table td:nth-child(3) { width: 24%; }
+.pure-bg-table th:nth-child(4),
+.pure-bg-table td:nth-child(4) { width: 24%; }
+
+/* Remove old background from table */
+.pure-bg-table {
+    background-image: none !important;
+}
+
+/* Adjust header positioning */
+.pure-bg-table thead {
+    top: 80px;
+}
+
+/* Update no-scores position */
+.no-scores {
+    bottom: 60px;
 }
