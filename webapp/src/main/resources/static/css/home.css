@@ -1,0 +1,32 @@
+
+
+/* Home Title */
+.home-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Welcome Message */
+.welcome-message {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Logout Button */
+.logout-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #405de6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.logout-button:hover {
+    opacity: 0.9;
+}

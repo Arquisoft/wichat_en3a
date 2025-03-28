@@ -1,6 +1,8 @@
 package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.repositories.HintRepository;
+import com.uniovi.wichatwebapp.services.GameService;
+import com.uniovi.wichatwebapp.services.HintService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,25 +16,18 @@ import java.io.IOException;
 
 @Controller
 public class HintController {
+
     @Autowired
-    private HintRepository hintRepository;
+    private GameService game;
+
+    @Autowired
+    private HintService hintService;
 
     @GetMapping("/hint")
-    public String getHintForm() {
-        return "hint";
-    }
-
-    @GetMapping("/getHint")
     @ResponseBody
-    public String getHint(@RequestParam String question, @RequestParam String answerQuestion, Model model) {
-        return hintRepository.ask(question, answerQuestion);
+    public String getHint(@RequestParam String question) {
+        return hintService.askQuestionToIA(game.getCurrentQuestion(), question);
     }
 
-    @PostMapping("/hint")
-    public String askHint(@RequestParam String question, @RequestParam String answerQuestion, Model model) {
-        String result = hintRepository.ask(question, answerQuestion);
-        model.addAttribute("result", result);
-        return "hint";
-    }
 
 }

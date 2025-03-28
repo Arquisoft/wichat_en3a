@@ -31,19 +31,25 @@ public class Question {
         private Answer correctAnswer;
         private String content;
         private String imageUrl;
+        private QuestionCategory category;
+
+
 
     public Question() {
     }
 
-    public Question(Answer correctAnswer, String content, String imageUrl) {
+
+
+    public Question(Answer correctAnswer, String content, String imageUrl, QuestionCategory questionCategory) {
         this.correctAnswer = correctAnswer;
         this.content = content;
         this.imageUrl = imageUrl;
         this.answers = new ArrayList<>();
         this.answers.add(correctAnswer);
+        this.category = questionCategory;
     }
 
-        public List<Answer> getAnswers() {
+    public List<Answer> getAnswers() {
         return answers;
     }
 
@@ -88,5 +94,13 @@ public class Question {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public QuestionCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(QuestionCategory category) {
+        this.category = category;
     }
 }

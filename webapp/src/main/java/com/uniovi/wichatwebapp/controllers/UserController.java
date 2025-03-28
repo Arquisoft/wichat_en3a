@@ -1,6 +1,8 @@
 package com.uniovi.wichatwebapp.controllers;
 
+import com.uniovi.wichatwebapp.entities.Score;
 import com.uniovi.wichatwebapp.entities.User;
+import com.uniovi.wichatwebapp.services.ScoreService;
 import com.uniovi.wichatwebapp.services.UserService;
 import com.uniovi.wichatwebapp.validators.SignUpValidator;
 import org.springframework.security.core.Authentication;
@@ -12,14 +14,19 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
 public class UserController {
     private final UserService userService;
+    private final ScoreService scoreService;
     private final SignUpValidator signUpValidator;
 
-    public UserController(UserService userService, SignUpValidator signUpValidator) {
+    public UserController(UserService userService, SignUpValidator signUpValidator
+                        , ScoreService scoreService) {
         this.userService = userService;
         this.signUpValidator = signUpValidator;
+        this.scoreService = scoreService;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -55,4 +62,15 @@ public class UserController {
         model.addAttribute("user", user);
         return "home";
     }
+
+    @RequestMapping(value = "/user/scores")
+    public String scores(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();
+        List<Score> bestScores = scoreService.getBestScores(email);
+        model.addAttribute("scores", bestScores);
+        return "user/scores";
+    }
+
+
 }

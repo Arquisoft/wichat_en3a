@@ -1,0 +1,47 @@
+.gradient-nav {
+    background-color: transparent !important;
+    background-image: none !important;
+    padding: 0.5rem 1rem;
+}
+
+.nav-logo {
+    transition: transform 0.3s ease;
+    width: 40px;  /* Reduced from previous size */
+    height: 40px; /* Reduced from previous size */
+    object-fit: contain;
+}
+
+.profile-icon {
+    width: 40px;  /* Reduced from 60px */
+    height: 40px; /* Reduced from 60px */
+    object-fit: contain;
+    padding-top: 0;
+}
+
+/* Remove any default navbar styling */
+.navbar {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    margin: 0 0.25rem;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    background-color: transparent !important;
+}
+
+/* Optional: Add slight hover effect */
+.nav-logo:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+.profile-icon:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}

@@ -32,7 +32,7 @@ public class HintController {
 	}
 
 	@GetMapping("/askHintWithInstructions")
-	public String askHint(@RequestParam String instructions, @RequestParam String question, @RequestParam String answerQuestion) throws HttpException, IOException {
-		return genAI.askPrompt(setupMessage + instructions, question+";"+answerQuestion);
+	public String askHint(@RequestParam String instructions, @RequestParam String question, @RequestParam String answerQuestion, @RequestParam String hints) throws HttpException, IOException {
+		return genAI.askPrompt(instructions, question+";"+answerQuestion +";"+hints );
 	}
 }

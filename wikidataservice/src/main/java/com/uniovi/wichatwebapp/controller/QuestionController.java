@@ -2,11 +2,9 @@ package com.uniovi.wichatwebapp.controller;
 
 import com.uniovi.wichatwebapp.entities.Answer;
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.service.QuestionService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class QuestionController {
@@ -17,11 +15,11 @@ public class QuestionController {
     }
 
     @RequestMapping(
-            value = {"/game/newQuestion"},
+            value = {"/game/newQuestion/{category}"},
             method = {RequestMethod.GET}
     )
-    public Question getQuestion() {
-        return questionService.getRandomQuestion("en");
+    public Question getQuestion(@PathVariable QuestionCategory category) {
+        return questionService.getRandomQuestion("en",category);
     }
 
     @RequestMapping(
