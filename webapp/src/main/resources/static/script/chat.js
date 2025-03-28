@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
         chatBox.style.display = 'block';
         startChatBtn.style.display = 'none';
 
-        answers.setAttribute("hidden", "true");
+        //answers.setAttribute("hidden", "true");
 
         pauseTimer();
 

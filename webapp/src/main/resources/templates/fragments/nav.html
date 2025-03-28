@@ -1,9 +1,15 @@
-<nav th:fragment="esto" class="navbar navbar-expand-lg navbar-dark gradient-nav" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<nav th:fragment="esto" class="navbar navbar-expand-lg navbar-dark gradient-nav"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <div class="navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a href="/logout" class="nav-link home-logo">
-                    <img src="/images/UI_Flat_ButtonCross01a.png" alt="Home" class="nav-logo">
+                <a th:href="${showHome} ? @{/home} : @{/logout}"
+                   class="nav-link home-logo">
+                    <!-- Static image source remains unchanged -->
+                    <img src="/images/UI_Flat_ButtonCross01a.png"
+                         alt="Navigation"
+                         class="nav-logo">
                 </a>
             </li>
         </ul>
@@ -11,7 +17,9 @@
         <ul class="navbar-nav ms-auto">
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link user-profile" href="/user/scores">
-                    <img src="/images/56f63ee2-02bb-4402-9fca-e985ffa0d704_removalai_preview.png" alt="user" class="profile-icon">
+                    <img src="/images/56f63ee2-02bb-4402-9fca-e985ffa0d704_removalai_preview.png"
+                         alt="user"
+                         class="profile-icon">
                 </a>
             </li>
         </ul>

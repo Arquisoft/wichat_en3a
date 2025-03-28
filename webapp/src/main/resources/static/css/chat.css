@@ -114,28 +114,25 @@
 
 /* Estilos para el botón de inicio de chat con imagen */
 .chat-icon-button {
-    background-color: white; /* Fondo blanco para el botón */
-    border: 3px solid #8580f6; /* Borde */
+    /* Remove white background */
+    background-color: transparent;
+    /* Add new PNG background */
+    background-image: url('../images/pixil-frame-0.png');
+    background-size: cover;
+    background-position: center;
+    /* Keep existing border and positioning */
+    /* rest of existing properties... */
+    height: 100px;
+    width: 100px;
     cursor: pointer;
-    padding: 0;
-    margin-bottom: 15px;
-    border-radius: 50%; /* Hace que el botón sea redondo */
-    width: 60px; /* Ajusta el tamaño del botón */
-    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para el botón */
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    position: absolute;
-    right: 80%; /* Posiciona el botón a la derecha */
-    bottom: 0; /* Ajusta según sea necesario */
 }
 
 /* Cambios al hacer hover */
 .chat-icon-button:hover {
-    background-color: #a6a3f8; /* Azul más claro */
-    border-color: #a6a3f8; /* Borde del mismo color que el fondo */
+    background-color: transparent; /* Azul más claro */
 }
 
 .chat-icon {
