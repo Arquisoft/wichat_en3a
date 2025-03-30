@@ -1,0 +1,147 @@
+/* Contenedor principal */
+.chat-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Ajusta según sea necesario */
+    margin-left: auto; /* Alinea el contenedor a la derecha */
+}
+
+/* Estilos generales */
+.chat-container {
+    height: 400px;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+#chatBox {
+    display: none;
+    border: 2px solid #8580f6; /* Borde alrededor del chat */
+    border-radius: 12px; /* Bordes redondeados */
+    overflow: hidden;
+    background-color: white;
+    width: 300px; /* Ancho del chat */
+    position: absolute;
+    left: 0; /* Alineado a la izquierda */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.chat-header {
+    background-color: #8580f6;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.exhausted{
+    opacity: 0.5;
+}
+
+#exitButton{
+    flex-basis: 10%;
+}
+
+#header-text{
+    flex-basis: 70%;
+}
+
+#chatMessages {
+    height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid #ddd;
+}
+
+#userInput {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 14px; /* Tamaño de la fuente */
+}
+
+#sendMessage {
+    padding: 3px 3px; /* Padding más pequeño */
+    background-color: #8580f6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 30px; /* Tamaño de la fuente */
+    width: 30px; /* Ancho */
+    height: 40px; /* Alto */
+    display: flex; /* Activa Flexbox */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+}
+
+/* Estilos para los mensajes */
+.ai-message,
+.user-message {
+    color: black; /* Black text */
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+.ai-message {
+    background-color: #e9e9ea;
+    margin-right: auto;
+}
+
+.user-message {
+    background-color: #c7c5fa;
+    margin-left: auto;
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilos para el botón de inicio de chat con imagen */
+.chat-icon-button {
+    /* Remove white background */
+    background-color: transparent;
+    /* Add new PNG background */
+    background-image: url('../images/pixil-frame-0.png');
+    background-size: cover;
+    background-position: center;
+    /* Keep existing border and positioning */
+    /* rest of existing properties... */
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cambios al hacer hover */
+.chat-icon-button:hover {
+    background-color: transparent; /* Azul más claro */
+}
+
+.chat-icon {
+    width: 50px; /* Ajusta el tamaño de la imagen */
+    height: 50px;
+    border-radius: 50%; /* Hace que la imagen sea redonda */
+    transition: transform 0.2s ease;
+}
+
+.chat-icon-button:hover .chat-icon {
+    transform: scale(1.1); /* Efecto de escala al pasar el mouse */
+}

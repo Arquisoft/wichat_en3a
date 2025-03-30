@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+  <th:block th:insert="fragments/head :: head('Scores')"></th:block>
+  <link rel="stylesheet" href="/css/nav.css"/>
+  <link rel="stylesheet" href="/css/scores.css"/>
+</head>
+<body>
+
+<nav th:replace="fragments/nav"></nav>
+
+<div class="container mt-5 text-center">
+  <div class="card mx-auto transparent-card">
+    <div class="table-responsive position-relative">
+      <div class="background_div">
+      <table class="pure-bg-table">
+
+          <thead>
+          <tr>
+            <th>Category</th>
+            <th>Score</th>
+            <th>Right Answers</th>
+            <th>Wrong Answers</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="score : ${scores}">
+            <td th:text="${score.category}"></td>
+            <td th:text="${score.score}"></td>
+            <td th:text="${score.rightAnswers}"></td>
+            <td th:text="${score.wrongAnswers}"></td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+    </div>
+    <div th:if="${#lists.isEmpty(scores)}" class="no-scores">You don't have scores to show</div>
+  </div>
+</div>
+
+</body>
+</html>

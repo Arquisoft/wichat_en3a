@@ -46,4 +46,21 @@ public class HintRepository {
                 .bodyToMono(String.class)
                 .block();
     }
+
+    public String askWithInstructions(String instructions, String question, String answer, String alreadySaidHints) {
+        return webClientBuilder
+                .baseUrl(baseUrl) // Set base URL here or in config
+                .build()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/askHintWithInstructions")
+                        .queryParam("instructions", instructions)
+                        .queryParam("question", question)
+                        .queryParam("answerQuestion", answer)
+                        .queryParam("hints", alreadySaidHints)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+    }
 }
