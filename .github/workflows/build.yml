@@ -40,11 +40,27 @@ jobs:
         run: mvn clean verify --batch-mode
         working-directory: webapp
 
-      - name: Analyze with SonarCloud
-        run: mvn sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths="
-          userservice/target/site/jacoco/jacoco.xml,
-          hintservice/target/site/jacoco/jacoco.xml,
-          wikidataservice/target/site/jacoco/jacoco.xml,
-          webapp/target/site/jacoco/jacoco.xml"
+      # SonarCloud Analysis for Each Service
+      - name: Analyze UserService with SonarCloud
+        run: mvn sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
+        working-directory: userservice
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Analyze HintService with SonarCloud
+        run: mvn sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
+        working-directory: hintservice
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Analyze WikidataService with SonarCloud
+        run: mvn sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
+        working-directory: wikidataservice
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Analyze WebApp with SonarCloud
+        run: mvn sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
+        working-directory: webapp
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
