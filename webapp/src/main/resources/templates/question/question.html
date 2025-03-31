@@ -31,12 +31,13 @@
                 <div class="col-md-8">
                     <img th:src="${question.getImageUrl()}" class="question-image" alt="Question image">
                     <div class="row answer-row" id="answers">
-                        <div class="col-md-6" th:each="answer, iterStat : ${question.getAnswers()}">
+                        <div class="col-md-6 answer-div" th:each="answer, iterStat : ${question.getAnswers()}">
                             <button type="button"
                                     th:id= "${answer.getId()}"
                                     class="btn btn-primary answer-button"
-                                    th:text="${answer.getText()}"
+
                                     th:attr="onclick='checkAnswer(\''+${answer.getId()}+'\')'">
+                                <p class="answer-text" th:text="${answer.getText()}"></p>
                             </button>
                         </div>
                     </div>

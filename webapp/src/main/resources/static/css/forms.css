@@ -8,13 +8,14 @@ input[name="email"]{
     background-size: cover;                    /* Scale image to cover input */
     background-repeat: no-repeat;             /* Prevent image repetition */
     background-position: center;              /* Center the image */
-    padding: 40px 60px;                      /* Add spacing for text */
+    padding: 40px 60px 60px;                      /* Add spacing for text */
     border: none;                            /* Remove default border */
     color: #333;                             /* Text color */
     font-size: 20px;
     width: 320px;                           /* Adjust width as needed */
     height: 100px;                          /* Adjust height as needed */
-    margin-bottom: 40px
+    margin-bottom: 40px;
+    text-align: center;
 }
 
 /* Focus effects */
@@ -58,10 +59,12 @@ input[name="name"]:focus{
     width: 192px;               /* Adjust to match your image size */
     height: 128px;              /* Adjust to match your image size */
     color: black;             /* Text color (ensure visibility) */
-    font-size: 30px;
+    font-size: 2em;
     cursor: pointer;         /* Show pointer on hover */
     text-align: center;
-    line-height: 128px;  /* Match button height for vertical centering */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .big-button {
