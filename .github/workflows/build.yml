@@ -6,29 +6,61 @@ on:
       - development
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: '23'
+
       - name: Create .env file for hintservice
         run: |
           echo "HINTSERVICE_API_KEY=${{ secrets.LLM_API_KEY }}" > .env
-      - run: mvn clean test --batch-mode
+
+      - name: Run Tests with Coverage (UserService)
+        run: mvn clean verify --batch-mode
         working-directory: userservice
-      - run: mvn clean test --batch-mode
+
+      - name: Run Tests with Coverage (HintService)
+        run: mvn clean verify --batch-mode
         working-directory: hintservice
         env:
           llm.apikey: ${{ secrets.HINTSERVICE_API_KEY }}
-      - run: mvn clean test --batch-mode
+
+      - name: Run Tests with Coverage (WikidataService)
+        run: mvn clean verify --batch-mode
         working-directory: wikidataservice
-      - run: mvn clean test --batch-mode
+
+      - name: Run Tests with Coverage (WebApp)
+        run: mvn clean verify --batch-mode
         working-directory: webapp
-      - name: Analyze with SonarCloud
-        uses: SonarSource/sonarqube-scan-action@master
+
+      # SonarCloud Analysis for Each Service
+      - name: Analyze UserService with SonarCloud
+        run: mvn sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=arquisoft -Dsonar.projectKey=Arquisoft_wichat_en3a_userservice -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
+        working-directory: userservice
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Analyze HintService with SonarCloud
+        run: mvn sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=arquisoft -Dsonar.projectKey=Arquisoft_wichat_en3a_hintservice -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
+        working-directory: hintservice
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Analyze WikidataService with SonarCloud
+        run: mvn sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=arquisoft -Dsonar.projectKey=Arquisoft_wichat_en3a_wikidataservice -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
+        working-directory: wikidataservice
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Analyze WebApp with SonarCloud
+        run: mvn sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=arquisoft -Dsonar.projectKey=Arquisoft_wichat_en3a_webapp -Dsonar.coverage.jacoco.xmlReportPaths="target/site/jacoco/jacoco.xml"
+        working-directory: webapp
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
