@@ -1,4 +1,4 @@
-package com.uniovi.userservice;
+package com.uniovi.userservice.controllers;
 
 
 import com.uniovi.userservice.controller.UserController;
@@ -15,20 +15,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
-class UserserviceApplicationTests {
-
-    @Mock
-    private UserController uc;
+class UserControllerTests {
 
     @InjectMocks
+    private UserController uc;
+
+    @Mock
     private UserService userService;
 
     @Test
     void testAddingNewUser() {
         User u = new User("Ana","ana@gmail.com","33011-ana",true);
 
-        when(uc.addUser(u)).thenReturn(u);
+        when(userService.addUser(u)).thenReturn(u);
 
         User result = uc.addUser(u);
 
@@ -39,7 +38,7 @@ class UserserviceApplicationTests {
     void testFindUserByEmail() {
         User u = new User("Ana","ana@gmail.com","33011-ana",true);
 
-        when(uc.findUser("ana@gmail.com")).thenReturn(u);
+        when(userService.findByEmail(u.getEmail())).thenReturn(u);
 
         User result = uc.findUser("ana@gmail.com");
 
