@@ -6,29 +6,45 @@ on:
       - development
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v4
         with:
           distribution: 'corretto'
           java-version: '23'
+
       - name: Create .env file for hintservice
         run: |
           echo "HINTSERVICE_API_KEY=${{ secrets.LLM_API_KEY }}" > .env
-      - run: mvn clean test --batch-mode
+
+      - name: Run Tests with Coverage (UserService)
+        run: mvn clean verify --batch-mode
         working-directory: userservice
-      - run: mvn clean test --batch-mode
+
+      - name: Run Tests with Coverage (HintService)
+        run: mvn clean verify --batch-mode
         working-directory: hintservice
         env:
           llm.apikey: ${{ secrets.HINTSERVICE_API_KEY }}
-      - run: mvn clean test --batch-mode
+
+      - name: Run Tests with Coverage (WikidataService)
+        run: mvn clean verify --batch-mode
         working-directory: wikidataservice
-      - run: mvn clean test --batch-mode
+
+      - name: Run Tests with Coverage (WebApp)
+        run: mvn clean verify --batch-mode
         working-directory: webapp
+
       - name: Analyze with SonarCloud
-        uses: SonarSource/sonarqube-scan-action@master
+        run: mvn sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths="
+          userservice/target/site/jacoco/jacoco.xml,
+          hintservice/target/site/jacoco/jacoco.xml,
+          wikidataservice/target/site/jacoco/jacoco.xml,
+          webapp/target/site/jacoco/jacoco.xml"
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
