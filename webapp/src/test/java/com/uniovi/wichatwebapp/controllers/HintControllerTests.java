@@ -1,7 +1,9 @@
 package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.Game;
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.repositories.HintRepository;
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.HintService;
@@ -37,6 +39,8 @@ public class HintControllerTests {
         String correctAnswer="Madrid";
         Question question = new Question(new Answer(correctAnswer,"en"), "Which is the capital of Spain?", "no-image");
         question.setId("1234");
+
+        gameService.getGame().setCurrentQuestion(question);
 
         when(gameService.getCurrentQuestion()).thenReturn(question);
 
