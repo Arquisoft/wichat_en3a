@@ -40,6 +40,7 @@ public class HintControllerTests {
         Question question = new Question(new Answer(correctAnswer,"en"), "Which is the capital of Spain?", "no-image");
         question.setId("1234");
 
+        gameService.start(QuestionCategory.GEOGRAPHY);
         gameService.getGame().setCurrentQuestion(question);
 
         when(gameService.getCurrentQuestion()).thenReturn(question);
