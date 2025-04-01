@@ -41,7 +41,7 @@ public class HintControllerTests {
         when(gameService.getCurrentQuestion()).thenReturn(question);
 
         //Mock a hint
-        when(hintRepository.askWithInstructions(hintService.getSetupMessageChat(), questionFromUser, correctAnswer, ""));
+        when(hintRepository.askWithInstructions(hintService.getSetupMessageChat(), questionFromUser, correctAnswer, "")).thenReturn("It's in europe");
 
         //Ask controller
         String hint = hintController.getHint(questionFromUser);
@@ -49,5 +49,7 @@ public class HintControllerTests {
         Assertions.assertNotNull(hint);
         Assertions.assertFalse(hint.contains(correctAnswer), "The response should not contain the answer to the question");
         Assertions.assertTrue(hint.length()<500, "The response should be as short as possible");
+
+        Assertions.assertTrue(hintService.alreadyGivenHints().contains(hint));
     }
 }
