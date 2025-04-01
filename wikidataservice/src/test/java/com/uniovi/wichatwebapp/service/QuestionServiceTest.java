@@ -55,33 +55,51 @@ class QuestionServiceTest {
         );
     }
 
-    /*@Test
-    void getRandomQuestion_ShouldReturnQuestionWithFourAnswers() {
-        // Mock repository responses
-        when(answerRepository.findWrongAnswers("en","Correct Answer",AnswerCategory.FLAG))
-                .thenReturn(Collections.singletonList(testQuestion));
-        when(answerRepository.findAnswersByLanguage(anyString()))
-                .thenReturn(dummyAnswers);
 
-        Question result = questionService.getRandomQuestion("en",QuestionCategory.GEOGRAPHY);
-
-        assertNotNull(result);
-        assertEquals(3, result.getAnswers().size()); // It actually gets only wrong answers.
-        assertFalse(result.getAnswers().contains(correctAnswer));
-    }*/
 
     @Test
-    void checkAnswer_ShouldReturnTrueForCorrectAnswer() {
+    void loadAnswersTest_ReturnFourAnswers() {
+        when(questionRepository.findAll()).thenReturn(Collections.singletonList(testQuestion));
+        when(answerRepository.findWrongAnswers(eq("en"), eq(correctAnswer.getText()), eq(correctAnswer.getCategory())))
+                .thenReturn(dummyAnswers);
+
+        questionService.assignAnswers();
+
+        verify(questionRepository, times(1)).findAll();
+        verify(questionRepository, times(1)).save(any(Question.class));
+
+        assertNotNull(testQuestion.getAnswers());
+        assertEquals(4, testQuestion.getAnswers().size()); // Correct answer + 3 distractors
+    }
+
+    @Test
+    void getRandomQuestionTest_ReturnFourAnswers() {
+        when(questionRepository.findQuestionsByCorrectAnswerIdExists()).thenReturn(Collections.singletonList(testQuestion));
+        when(answerRepository.findAnswersByLanguageAndQuestionCategory(eq("en"), anyList()))
+                .thenReturn(dummyAnswers);
+
+        Question randomQuestion = questionService.getRandomQuestion("en", QuestionCategory.GEOGRAPHY);
+
+        assertNotNull(randomQuestion);
+        assertEquals(testQuestion, randomQuestion);
+        assertEquals(4, randomQuestion.getAnswers().size()); // Correct answer + 3 distractors
+
+        verify(questionRepository, times(1)).findQuestionsByCorrectAnswerIdExists();
+        verify(answerRepository, times(1)).findAnswersByLanguageAndQuestionCategory(eq("en"), anyList());
+    }
+
+    @Test
+    void checkAnswerTest_ShouldReturnTrueForCorrectAnswer() {
         assertTrue(questionService.checkAnswer("correct-1", testQuestion));
     }
 
     @Test
-    void checkAnswer_ShouldReturnFalseForWrongAnswer() {
+    void checkAnswerTest_ShouldReturnFalseForWrongAnswer() {
         assertFalse(questionService.checkAnswer("wrong-1", testQuestion));
     }
 
     @Test
-    void eraseAll_ShouldDeleteAllRecords() {
+    void eraseAllTest_ShouldDeleteAllRecords() {
         questionService.eraseAll();
 
         verify(questionRepository, times(1)).deleteAll();
@@ -89,7 +107,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void createQuestion_CreatesDuplicatedQuestion() {
+    void createQuestionTest_CreatesDuplicatedQuestion() {
         String questionId = "q1";
         Answer correctAnswer = new Answer("Correct", AnswerCategory.FLAG,"en");
         Question question = new Question(correctAnswer, "Content", "image.jpg",QuestionCategory.GEOGRAPHY);
@@ -101,7 +119,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void createQuestion_CreatesCorrectQuestion() {
+    void createQuestionTest_CreatesCorrectQuestion() {
         // Arrange
         String questionId = "q1";
         Answer correctAnswer = new Answer("Correct",AnswerCategory.FLAG, "en");
@@ -116,7 +134,7 @@ class QuestionServiceTest {
     }
 
     @Test
-    void createAnswer_CreatesCorrectAnswers() {
+    void createAnswerTest_CreatesCorrectAnswers() {
         // Arrange: Create answers
         Answer a1 = new Answer("Correct",AnswerCategory.FLAG, "en");
         Answer a2 = new Answer("Correct", AnswerCategory.FLAG,"en");
@@ -133,7 +151,7 @@ class QuestionServiceTest {
 
 
     @Test
-    void assignAnswers_ShouldAssignAnswersCorrectly() {
+    void assignAnswersTest_ShouldAssignAnswersCorrectly() {
         // Arrange: Mock a question and its answers
         String questionId = "q1";
         Answer correctAnswer = new Answer("Correct Answer",AnswerCategory.FLAG, "en");
@@ -172,7 +190,7 @@ class QuestionServiceTest {
 
 
     @Test
-    void saveAllAnswers() {
+    void saveAllAnswersTest_answersSaved() {
         // Arrange: Create answers
         Answer a1 = new Answer("Correct",AnswerCategory.FLAG, "en");
         Answer a2 = new Answer("Incorrect", AnswerCategory.FLAG,"en");
@@ -194,7 +212,7 @@ class QuestionServiceTest {
 
 
     @Test
-    void saveAllQuestions() {
+    void saveAllQuestionsTest_questionsSaved() {
         // Arrange: Create questions
         String questionId1 = "quest1";
         Answer correctAnswer1 = new Answer("Correct1",AnswerCategory.FLAG, "en");

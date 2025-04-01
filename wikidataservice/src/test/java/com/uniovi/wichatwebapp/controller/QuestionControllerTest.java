@@ -25,7 +25,7 @@ class QuestionControllerTest {
     private QuestionController questionController;
 
     @Test
-    void getQuestion_ReturnsRandomQuestion() {
+    void getQuestionTest_ReturnsRandomQuestion() {
         // Arrange
         Answer correctAnswer = new Answer("Correct answer", AnswerCategory.FLAG,"en");
         Question expectedQuestion = new Question(correctAnswer, "Sample question", "image.jpg", QuestionCategory.GEOGRAPHY);
@@ -40,7 +40,7 @@ class QuestionControllerTest {
     }
 
     @Test
-    void getCorrectAnswer_ReturnsCorrectAnswerForQuestion() {
+    void getCorrectAnswerTest_ReturnsCorrectAnswerForQuestion() {
         // Arrange
         Answer correctAnswer = new Answer("Correct answer", AnswerCategory.FLAG,"en");
         Question question = new Question(correctAnswer, "Sample question", "image.jpg",QuestionCategory.GEOGRAPHY);
@@ -60,7 +60,7 @@ class QuestionControllerTest {
     }
 
     @Test
-    void getAnswer_ReturnsAnswerById() {
+    void getAnswerTest_ReturnsAnswerById() {
         // Arrange
         Answer expectedAnswer = new Answer("Test answer", AnswerCategory.FLAG,"en");
         String answerId = expectedAnswer.getId();
@@ -75,7 +75,7 @@ class QuestionControllerTest {
     }
 
     @Test
-    void removeQuestion_DeletesQuestionById() {
+    void removeQuestionTest_DeletesQuestionById() {
         // Arrange
         String questionId = "q1";
         Answer correctAnswer = new Answer("Correct",AnswerCategory.FLAG, "en");
