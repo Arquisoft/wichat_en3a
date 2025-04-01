@@ -62,7 +62,7 @@ public class HintService {
         return text;
     }
 
-    public String getSetupMessageChat(){
+    protected String getSetupMessageChat(){
         return setupMessageChat;
     }
 }
