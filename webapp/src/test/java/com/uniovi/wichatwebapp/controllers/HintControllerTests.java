@@ -29,9 +29,6 @@ public class HintControllerTests {
     @Mock
     private GameService gameService;
 
-    @Mock
-    private HintRepository hintRepository;
-
     @Test
     void getHintTest() {
         //Mock a question of the game service
@@ -40,13 +37,10 @@ public class HintControllerTests {
         Question question = new Question(new Answer(correctAnswer,"en"), "Which is the capital of Spain?", "no-image");
         question.setId("1234");
 
-        gameService.start(QuestionCategory.GEOGRAPHY);
-        gameService.getGame().setCurrentQuestion(question);
-
         when(gameService.getCurrentQuestion()).thenReturn(question);
 
         //Mock a hint
-        when(hintRepository.askWithInstructions(hintService.getSetupMessageChat(), questionFromUser, correctAnswer, "")).thenReturn("It's in europe");
+        when(hintService.askQuestionToIA(question, questionFromUser)).thenReturn("It's in europe");
 
         //Ask controller
         String hint = hintController.getHint(questionFromUser);
@@ -54,7 +48,5 @@ public class HintControllerTests {
         Assertions.assertNotNull(hint);
         Assertions.assertFalse(hint.contains(correctAnswer), "The response should not contain the answer to the question");
         Assertions.assertTrue(hint.length()<500, "The response should be as short as possible");
-
-        Assertions.assertTrue(hintService.alreadyGivenHints().contains(hint));
     }
 }

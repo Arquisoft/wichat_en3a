@@ -16,12 +16,13 @@ import java.io.IOException;
 
 @Controller
 public class HintController {
+    private final GameService game;
+    private final HintService hintService;
 
-    @Autowired
-    private GameService game;
-
-    @Autowired
-    private HintService hintService;
+    public HintController(GameService game, HintService hintService) {
+        this.game = game;
+        this.hintService = hintService;
+    }
 
     @GetMapping("/hint")
     @ResponseBody
