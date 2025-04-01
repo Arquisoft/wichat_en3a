@@ -14,14 +14,14 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 class HintserviceApplicationTests {
 
-	@Mock
+	@InjectMocks
 	private HintController hC;
 
-	@InjectMocks
-	private GenAI genAI;
+	@Mock
+    private GenAI genAI;
+
 
 	@Test
 	void testAnswerNotInHint() throws Exception{
