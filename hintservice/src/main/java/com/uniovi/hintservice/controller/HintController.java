@@ -35,4 +35,8 @@ public class HintController {
 	public String askHint(@RequestParam String instructions, @RequestParam String question, @RequestParam String answerQuestion, @RequestParam String hints) throws HttpException, IOException {
 		return genAI.askPrompt(instructions, question+";"+answerQuestion +";"+hints );
 	}
+
+	public String getSetupMessage() {
+		return setupMessage;
+	}
 }
