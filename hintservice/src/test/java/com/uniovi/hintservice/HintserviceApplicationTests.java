@@ -8,7 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.mockito.Mockito.when;
 
@@ -29,7 +28,7 @@ class HintserviceApplicationTests {
 		String answer = "Paris";
 		String response = "The Eiffel tower is in this city";
 
-		when(hC.askHint(question,answer)).thenReturn(response);
+		when(genAI.askPrompt(hC.getSetupMessage(), question+";"+answer)).thenReturn(response);
 
 		String hint = hC.askHint(question,answer);
 
@@ -43,7 +42,7 @@ class HintserviceApplicationTests {
 		String answer = "Paris";
 		String response = "The Eiffel tower is in this city";
 
-		when(hC.askHint(question,answer)).thenReturn(response);
+		when(genAI.askPrompt(hC.getSetupMessage(), question+";"+answer)).thenReturn(response);
 
 		String hint = hC.askHint(question,answer);
 
