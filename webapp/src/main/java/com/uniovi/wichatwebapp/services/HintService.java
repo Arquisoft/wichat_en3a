@@ -58,4 +58,8 @@ public class HintService {
         }
         return text;
     }
+
+    public String getSetupMessageChat(){
+        return setupMessageChat;
+    }
 }
