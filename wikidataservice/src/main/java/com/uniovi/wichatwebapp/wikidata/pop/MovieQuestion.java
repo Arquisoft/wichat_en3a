@@ -14,10 +14,14 @@ public class MovieQuestion extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿En qué año salió esta película? ", "¿Cuándo salió esta película? ", "¿Qué año fue el estreno de esta película? "};
     private static final String[] englishStringsIni = {"In what year did this movie come out? ", "When did this movie come out? ", "Which year was this movie released in? "};
 
-    private List<String> movieLabels;
+    private List<String> movieLabels= new ArrayList<>();
 
     public MovieQuestion(String langCode) {
         super(langCode);
+    }
+    //For testing
+    public MovieQuestion(){
+        super();
     }
 
     @Override
@@ -75,4 +79,8 @@ public class MovieQuestion extends QuestionWikidata {
         as.addAll(answers);
     }
 
+    //For testing
+     List<String> getMovieLabels() {
+        return movieLabels;
+    }
 }

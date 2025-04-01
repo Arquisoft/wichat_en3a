@@ -20,7 +20,10 @@ public class TeamLogo extends QuestionWikidata {
     public TeamLogo(String langCode) {
         super(langCode);
     }
-
+    //For testing
+    public TeamLogo(){
+        super();
+    }
     @Override
     protected void setQuery() {
         this.sparqlQuery =

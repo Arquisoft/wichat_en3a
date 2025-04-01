@@ -15,13 +15,16 @@ public class F1Team extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿En qué equipo está este deportista? ", "¿Cuál es el equipo de este deportista? "};
     private static final String[] englishStringsIni= {"What team is this person in? ", "What's this person's team? "};
 
-    private List<String> athleteLabels;
+    private List<String> athleteLabels= new ArrayList<>();
 
 
     public F1Team(String langCode) {
         super(langCode);
     }
 
+    //For testing
+    public F1Team() {
+    }
     @Override
     protected void setQuery() {
         this.sparqlQuery =
@@ -90,7 +93,7 @@ public class F1Team extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    private boolean needToSkip(String athleteLabel, String teamLabel) {
+     boolean needToSkip(String athleteLabel, String teamLabel) {
         if (athleteLabels.contains(athleteLabel)) {
             return true; // Avoid duplicate questions for the same monument
         }
@@ -102,6 +105,8 @@ public class F1Team extends QuestionWikidata {
 
         return false;
     }
-
-
+    //For testing
+     List<String> getAthleteLabels() {
+        return athleteLabels;
+    }
 }

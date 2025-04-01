@@ -13,10 +13,14 @@ import java.util.List;
 public class BrandQuestion extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿Qué marca tiene este logo? ", "¿De qué marca es este logo?", "¿A qué marca pertenece este logo?"};
     private static final String[] englishStringsIni = {"What brand has this logo? ", "Which brand does this logo belong to?", "Whose brand logo is this?"};
-    private List<String> brandLabels;
+    private List<String> brandLabels = new ArrayList<>();
 
     public BrandQuestion(String langCode) {
         super(langCode);
+    }
+    //For testing
+    public BrandQuestion(){
+        super();
     }
 
     @Override
@@ -66,5 +70,9 @@ public class BrandQuestion extends QuestionWikidata {
 
         qs.addAll(questions);
         as.addAll(answers);
+    }
+    //For testing
+    List<String> getBrandLabels() {
+        return brandLabels;
     }
 }

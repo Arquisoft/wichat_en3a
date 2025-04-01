@@ -15,14 +15,18 @@ public class AnimalLifespan extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿Cuál es la esperanza de vida de este animal? ", "¿Cuánto suele vivir este animal? "};
     private static final String[] englishStringsIni= {"What is the lifespan of this animal? ", "How long does this animal usually live? "};
 
-    private List<String> animalLabels;
-    private List<String> lifespans;
+    private List<String> animalLabels = new ArrayList<>();
+    private List<String> lifespans = new ArrayList<>();
 
 
     public AnimalLifespan(String langCode) {
         super(langCode);
     }
 
+    //For testing
+    public AnimalLifespan(){
+        super();
+    }
     @Override
     protected void setQuery() {
         this.sparqlQuery =
@@ -81,7 +85,7 @@ public class AnimalLifespan extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    private boolean needToSkip(String name, String lifespan) {
+    boolean needToSkip(String name, String lifespan) {
         if (animalLabels.contains(name) || lifespans.contains(lifespan)) {
             return true; // Avoid duplicate questions for the same monument
         }

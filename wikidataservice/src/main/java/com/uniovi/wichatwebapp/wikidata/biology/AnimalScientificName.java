@@ -15,14 +15,18 @@ public class AnimalScientificName extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿Cuál es el nombre científico de este animal? "};
     private static final String[] englishStringsIni= {"What is the scientific name of this animal? "};
 
-    private List<String> animalLabels;
-    private List<String> animalScientificNames;
+    private List<String> animalLabels = new ArrayList<>();
+    private List<String> animalScientificNames= new ArrayList<>();
 
 
     public AnimalScientificName(String langCode) {
         super(langCode);
     }
 
+    //For testing
+    public AnimalScientificName(){
+        super();
+    }
     @Override
     protected void setQuery() {
         this.sparqlQuery =
@@ -83,7 +87,7 @@ public class AnimalScientificName extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    private boolean needToSkip(String name, String scientificName) {
+    boolean needToSkip(String name, String scientificName) {
         if (animalLabels.contains(name) || animalScientificNames.contains(scientificName)) {
             return true; // Avoid duplicate questions for the same monument
         }

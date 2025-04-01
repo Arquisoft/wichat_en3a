@@ -15,13 +15,17 @@ public class WhatAnimal extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿Qué animal es este?", "¿Cuál es este animal?"};
     private static final String[] englishStringsIni= {"What is this animal?", "What's the name of this animal?"};
 
-    private List<String> animalLabels;
+    private List<String> animalLabels= new ArrayList<>();;
 
 
     public WhatAnimal(String langCode) {
         super(langCode);
     }
 
+    //For testing
+    public WhatAnimal(){
+        super();
+    }
     @Override
     protected void setQuery() {
         this.sparqlQuery =
@@ -83,7 +87,7 @@ public class WhatAnimal extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    private boolean needToSkip(String name) {
+    boolean needToSkip(String name) {
         if (animalLabels.contains(name)) {
             return true; // Avoid duplicate questions for the same monument
         }

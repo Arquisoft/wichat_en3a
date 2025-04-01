@@ -15,13 +15,16 @@ public class BasketballTeam extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿En qué equipo está este deportista? ", "¿Cuál es el equipo de este deportista? "};
     private static final String[] englishStringsIni= {"What team is this person in? ", "What's this person's team? "};
 
-    private List<String> athleteLabels;
+    private List<String> athleteLabels = new ArrayList<>();
 
 
     public BasketballTeam(String langCode) {
         super(langCode);
     }
-
+    //For testing
+    public BasketballTeam(){
+        super();
+    }
     @Override
     protected void setQuery() {
         this.sparqlQuery =
@@ -102,6 +105,8 @@ public class BasketballTeam extends QuestionWikidata {
 
         return false;
     }
-
-
+    //For testing
+     List<String> getAthleteLabels() {
+        return athleteLabels;
+    }
 }

@@ -18,9 +18,9 @@ import java.util.List;
 public abstract class QuestionWikidata {
     public final static String DEFAULT_QUESTION_IMG ="https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg";
     // Query to be sent to WikiData QS
-    protected String sparqlQuery;
+    public String sparqlQuery;
     // Response given by WikiData QS for the query sent
-    protected JSONArray results;
+    public JSONArray results;
     // Language code representing in what language the query must be sent. Spanish as a default value.
     protected String langCode = "es";
 
@@ -45,7 +45,10 @@ public abstract class QuestionWikidata {
             System.err.println("Error while processing the question: " + e.getMessage());
         }
     }
-
+    //For testing
+    public QuestionWikidata(){
+        setQuery();
+    }
     /**
      * Update the value of @sparqlQuery with the query to be sent.
      */
@@ -62,7 +65,7 @@ public abstract class QuestionWikidata {
      * It allows to send only one query, so it does not support questions whose answer require multiple queries.
      * CAUTION: Remember to update the results field of the field if this method gets overwritten.
      */
-    private void call() {
+    protected void call() {
         // Set up the HTTP client
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
