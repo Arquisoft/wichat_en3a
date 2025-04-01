@@ -30,6 +30,7 @@ public class QuestionRepository {
                 .block();
     }
 
+    /*
     public Question getQuestion(String id){
         return webClientBuilder
                 .baseUrl(baseUrl) // Set base URL here or in config
@@ -71,7 +72,7 @@ public class QuestionRepository {
         } else{
             return true;
         }
-    }
+    }*/
     public void removeQuestion(String id){
         webClientBuilder
                 .baseUrl(baseUrl)
