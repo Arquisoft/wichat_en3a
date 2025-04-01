@@ -111,7 +111,9 @@ public class QuestionController {
         model.addAttribute("questions", gameService.getMaxQuestions());
 
         Score score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
-        scoreService.addScore(score);
+        if(!scoreService.addScore(score)){
+            model.addAttribute("addError", true);
+        }
 
         gameService.start(gameService.getCategory());
 

@@ -15,8 +15,8 @@ public class ScoreService {
         this.scoreRepository = scoreRepository;
     }
 
-    public Score addScore(Score score) {
-        return scoreRepository.addScore(score);
+    public boolean addScore(Score score) {
+        return scoreRepository.addScore(score) != null;
     }
 
     public List<Score> getBestScores(String email) {
