@@ -57,4 +57,8 @@ public class Answer{
     public void setCategory(AnswerCategory category) {
         this.category = category;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
