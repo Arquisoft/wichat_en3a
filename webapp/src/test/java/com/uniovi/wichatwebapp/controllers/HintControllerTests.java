@@ -37,6 +37,7 @@ public class HintControllerTests {
         //Ask controller
         String hint = hintController.getHint(questionFromUser);
 
+        Assertions.assertNotNull(hint);
         Assertions.assertFalse(hint.contains(correctAnswer), "The response should not contain the answer to the question");
         Assertions.assertTrue(hint.length()<500, "The response should be as short as possible");
     }
