@@ -13,7 +13,9 @@ The application has some constraints, these are requirements of the stakeholders
 
 | Constraint | Limitations 
 
-| Web Frontend | The system will have at least a Web frontend  
+| Web Frontend | The system will have at least a Web frontend 
+
+| Deployment | The application should be deployed 
 
 |Wikidata  | We must use Wikidata to get information to generate the questions  
 

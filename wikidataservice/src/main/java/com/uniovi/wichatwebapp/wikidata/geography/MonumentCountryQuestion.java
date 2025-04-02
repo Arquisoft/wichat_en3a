@@ -92,5 +92,8 @@ public class MonumentCountryQuestion extends QuestionWikidata {
     }
 
 
-
+    //For testing
+    public List<String> getMonumentLabels() {
+        return monumentLabels;
+    }
 }

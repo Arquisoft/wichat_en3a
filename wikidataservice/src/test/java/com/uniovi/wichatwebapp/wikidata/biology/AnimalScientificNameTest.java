@@ -1,5 +1,7 @@
 package com.uniovi.wichatwebapp.wikidata.biology;
 
+import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
+import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,8 +56,44 @@ class AnimalScientificNameTest {
     }
 
     @Test
-    void needToSkipTest_Duplicates_ReturnTrue() {
-        assertFalse(animalScientificName.needToSkip("Lion", "Panthera leo")); // First time: should be false
-        assertTrue(animalScientificName.needToSkip("Lion", "Panthera leo")); // Second time: should be true
+    void processResultsTest_NoImage_AssignsDefaultImage() throws JSONException {
+        // Mock JSON Response without an image
+        JSONArray mockResults = new JSONArray("[{"
+                + "\"commonName\": {\"value\": \"Lion\"},"
+                + "\"scientificName\": {\"value\": \"Panthera leo\"}"
+                + "}]");
+
+        // Inject mock results before calling `processResults()`
+        animalScientificName.setResults(mockResults);
+
+        // Process the results
+        animalScientificName.processResults();
+
+        // Verify that the default image is assigned
+        String expectedDefaultImage = QuestionWikidata.DEFAULT_QUESTION_IMG;
+        assertTrue(
+                animalScientificName.getQs().stream().anyMatch(q -> q.getImageUrl().equals(expectedDefaultImage)),
+                "Default image was not assigned when no image was provided."
+        );
     }
+
+
+    @Test
+    void needToSkipTest_DetectsDuplicateAnimalLabels() {
+        assertFalse(animalScientificName.getAnimalLabels().contains("Lion"), "First check: should not contain Lion.");
+        animalScientificName.getAnimalLabels().add("Lion"); // Manually add for test
+        assertTrue(animalScientificName.getAnimalLabels().contains("Lion"), "Second check: should now contain Lion.");
+        assertTrue(animalScientificName.needToSkip("Lion", "Panthera leo"), "Should skip duplicate animal label.");
+    }
+    @Test
+    void needToSkipTest_SkipsInvalidEntityNames() {
+        assertTrue(WikidataUtils.isEntityName("Q12345"), "Q12345 should be recognized as an entity name.");
+        assertTrue(animalScientificName.needToSkip("Q12345", "Panthera leo"), "Should skip invalid animal name.");
+    }
+    @Test
+    void needToSkipTest_ProcessesValidEntriesCorrectly() {
+        assertFalse(animalScientificName.needToSkip("Elephant", "Loxodonta africana"), "Valid animal name should not be skipped.");
+        assertFalse(animalScientificName.needToSkip("Blue Whale", "Balaenoptera musculus"), "Valid animal name should not be skipped.");
+    }
+
 }

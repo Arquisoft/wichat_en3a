@@ -89,4 +89,8 @@ public class FlagQuestion extends QuestionWikidata {
         return false;
     }
 
+    //For testing
+    public List<String> getCountryLabels() {
+        return countryLabels;
+    }
 }

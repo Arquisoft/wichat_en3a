@@ -90,5 +90,8 @@ public class MonumentNameQuestion extends QuestionWikidata {
         return false;
     }
 
-
+    //For testing
+    public List<String> getMonumentLabels() {
+        return monumentLabels;
+    }
 }
