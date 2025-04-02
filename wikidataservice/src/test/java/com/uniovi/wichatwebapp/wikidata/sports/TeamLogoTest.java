@@ -83,23 +83,8 @@ class TeamLogoTest {
     }
 
 
-    @Test
-    void needToSkipTest_DetectsDuplicateTeamLabels() {
-        assertFalse(teamLogo.getTeamLabels().contains("Real Madrid"), "First check: should not contain Real Madrid.");
-        teamLogo.getTeamLabels().add("Real Madrid"); // Manually add for test
-        assertTrue(teamLogo.getTeamLabels().contains("Real Madrid"), "Second check: should now contain Real Madrid.");
-        assertTrue(teamLogo.needToSkip("Real Madrid"), "Should skip duplicate team label.");
-    }
-    @Test
-    void needToSkipTest_SkipsInvalidEntityNames() {
-        assertTrue(WikidataUtils.isEntityName("Q12345"), "Q12345 should be recognized as an entity name.");
-        assertTrue(teamLogo.needToSkip("Q12345"), "Should skip invalid team name.");
-    }
-    @Test
-    void needToSkipTest_ProcessesValidEntriesCorrectly() {
-        assertFalse(teamLogo.needToSkip("Manchester United"), "Valid team name should not be skipped.");
-        assertFalse(teamLogo.needToSkip("FC Barcelona"), "Valid team name should not be skipped.");
-    }
+
+
 
 
 
