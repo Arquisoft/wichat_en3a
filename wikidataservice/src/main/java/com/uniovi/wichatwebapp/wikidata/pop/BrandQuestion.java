@@ -5,6 +5,7 @@ import com.uniovi.wichatwebapp.entities.AnswerCategory;
 import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
+import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -13,10 +14,14 @@ import java.util.List;
 public class BrandQuestion extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿Qué marca tiene este logo? ", "¿De qué marca es este logo?", "¿A qué marca pertenece este logo?"};
     private static final String[] englishStringsIni = {"What brand has this logo? ", "Which brand does this logo belong to?", "Whose brand logo is this?"};
-    private List<String> brandLabels;
+    private List<String> brandLabels = new ArrayList<>();
 
     public BrandQuestion(String langCode) {
         super(langCode);
+    }
+    //For testing
+    public BrandQuestion(){
+        super();
     }
 
     @Override
@@ -41,9 +46,10 @@ public class BrandQuestion extends QuestionWikidata {
             String brandLabel = result.getJSONObject("brandLabel").getString("value");
             String logo = result.has("logo") ? result.getJSONObject("logo").getString("value") : null;
 
-            if (brandLabels.contains(brandLabel)) {
-                continue; // Skip duplicate brands
+            if (needToSkip(brandLabel)) {
+                continue;
             }
+
             brandLabels.add(brandLabel);
 
             Answer answer = new Answer(brandLabel, AnswerCategory.BRAND, langCode);
@@ -66,5 +72,24 @@ public class BrandQuestion extends QuestionWikidata {
 
         qs.addAll(questions);
         as.addAll(answers);
+    }
+
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (brandLabels.contains(parameters[0])) {
+            return true; // Avoid duplicates
+        }
+        brandLabels.add(parameters[0]);
+
+        if (WikidataUtils.isEntityName(parameters[0])) {
+            return true; // Skip invalid entries
+        }
+
+        return false;
+    }
+
+    //For testing
+    List<String> getBrandLabels() {
+        return brandLabels;
     }
 }

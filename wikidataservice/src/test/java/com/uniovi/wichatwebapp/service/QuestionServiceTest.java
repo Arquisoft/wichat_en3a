@@ -188,61 +188,183 @@ class QuestionServiceTest {
     }
 
 
-
     @Test
     void saveAllAnswersTest_answersSaved() {
         // Arrange: Create answers
-        Answer a1 = new Answer("Correct",AnswerCategory.FLAG, "en");
-        Answer a2 = new Answer("Incorrect", AnswerCategory.FLAG,"en");
-        Answer a3 = new Answer("Maybe",AnswerCategory.FLAG, "en");
+        List<Answer> answers = List.of(
+                new Answer("Correct", AnswerCategory.FLAG, "en"),
+                new Answer("Incorrect", AnswerCategory.FLAG, "en"),
+                new Answer("Maybe", AnswerCategory.FLAG, "en")
+        );
 
+        // Use an Answer to track saved answers
+        doAnswer(invocation -> {
+            List<Answer> savedAnswers = invocation.getArgument(0);
+            assertEquals(answers.size(), savedAnswers.size()); // Ensure all are saved
+            return null;
+        }).when(answerRepository).saveAll(any());
 
-        // Act: Call the method being tested
-        answerRepository.save(a1);
-        answerRepository.save(a2);
-        answerRepository.save(a3);
+        // Act
+        questionService.saveAllAnswers(answers);
 
-        // Assert: Verify that saveAllAnswers was called with the correct answers
-        verify(answerRepository).save(a1);
-        verify(answerRepository).save(a2);
-        verify(answerRepository).save(a3);
-
+        // Verify interaction with repository
+        verify(answerRepository, times(1)).saveAll(answers);
     }
-
-
 
     @Test
     void saveAllQuestionsTest_questionsSaved() {
         // Arrange: Create questions
-        String questionId1 = "quest1";
-        Answer correctAnswer1 = new Answer("Correct1",AnswerCategory.FLAG, "en");
-        Question question1 = new Question(correctAnswer1, "Content", "image.jpg",QuestionCategory.GEOGRAPHY);
-        question1.setId(questionId1);
+        List<Question> questions = List.of(
+                new Question(new Answer("Correct1", AnswerCategory.FLAG, "en"), "Content", "image.jpg", QuestionCategory.GEOGRAPHY),
+                new Question(new Answer("Correct2", AnswerCategory.FLAG, "en"), "Content", "image.jpg", QuestionCategory.GEOGRAPHY),
+                new Question(new Answer("Correct3", AnswerCategory.FLAG, "en"), "Content", "image.jpg", QuestionCategory.GEOGRAPHY)
+        );
 
-        String questionId2 = "quest2";
-        Answer correctAnswer2 = new Answer("Correct2",AnswerCategory.FLAG, "en");
-        Question question2 = new Question(correctAnswer2, "Content", "image.jpg",QuestionCategory.GEOGRAPHY);
-        question2.setId(questionId2);
+        // Use an Answer to track saved questions
+        doAnswer(invocation -> {
+            List<Question> savedQuestions = invocation.getArgument(0);
+            assertEquals(questions.size(), savedQuestions.size()); // Ensure all are saved
+            return null;
+        }).when(questionRepository).saveAll(any());
 
-        String questionId3 = "quest3";
-        Answer correctAnswer3 = new Answer("Correct3",AnswerCategory.FLAG, "en");
-        Question question3 = new Question(correctAnswer3, "Content", "image.jpg",QuestionCategory.GEOGRAPHY);
-        question3.setId(questionId3);
+        // Act
+        questionService.saveAllQuestions(questions);
 
-        questionRepository.save(question1);
-        questionRepository.save(question2);
-        questionRepository.save(question3);
-
-        // Correctly mock findById behavior
-        when(questionRepository.findById(questionId1)).thenReturn(Optional.of(question1));
-        when(questionRepository.findById(questionId2)).thenReturn(Optional.of(question2));
-        when(questionRepository.findById(questionId3)).thenReturn(Optional.of(question3));
-
-        // Act and Assert: Test the repository behavior
-        assertEquals(question1, questionRepository.findById(questionId1).get());
-        assertEquals(question2, questionRepository.findById(questionId2).get());
-        assertEquals(question3, questionRepository.findById(questionId3).get());
+        // Verify interaction with repository
+        verify(questionRepository, times(1)).saveAll(questions);
     }
 
+
+    @Test
+    void findQuestionByIdTest_QuestionFound() {
+        // Arrange: Ensure repository returns the expected question
+        when(questionRepository.findById(testQuestion.getId())).thenReturn(Optional.of(testQuestion));
+
+        // Act: Call the method being tested
+        Question retrievedQuestion = questionService.findQuestionById(testQuestion.getId());
+
+        // Assert: Validate correctness
+        assertNotNull(retrievedQuestion); // Ensure a question is returned
+        assertEquals(testQuestion, retrievedQuestion); // Ensure it's the expected question
+
+        // Verify that the repository method was called once with the correct ID
+        verify(questionRepository, times(1)).findById(testQuestion.getId());
+    }
+
+    @Test
+    void findQuestionByIdTest_QuestionNotFound() {
+
+        // Arrange: Ensure repository returns an empty Optional when the ID doesn't exist
+        String invalidId = "non-existent-id";
+        when(questionRepository.findById(invalidId)).thenReturn(Optional.empty());
+
+        // Act & Assert: Expect an exception or a null result
+        assertThrows(NoSuchElementException.class, () -> questionService.findQuestionById(invalidId));
+
+        // Verify the repository method was called correctly
+        verify(questionRepository, times(1)).findById(invalidId);
+    }
+
+
+    @Test
+    void saveQuestionTest_QuestionSaved() {
+        Question newQuestion =new Question(new Answer("Correct1", AnswerCategory.FLAG, "en"), "Content", "image.jpg", QuestionCategory.GEOGRAPHY);
+        // Act: Call the save method
+        questionService.save(newQuestion);
+
+        // Assert & Verify: Ensure the repository method is called with the correct question
+        verify(questionRepository, times(1)).save(newQuestion);
+    }
+    @Test
+    void matchCategoriesTest_ReturnsCorrectCategoriesSport() {
+        // Act
+        List<AnswerCategory> result = questionService.matchCategories(QuestionCategory.SPORT);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(4, result.size());
+        assertTrue(result.contains(AnswerCategory.PERSON_BASKETBALL_TEAM));
+        assertTrue(result.contains(AnswerCategory.PERSON_F1_TEAM));
+        assertTrue(result.contains(AnswerCategory.PERSON_FOOTBALL_TEAM));
+        assertTrue(result.contains(AnswerCategory.SPORT_TEAM_LOGO));
+    }
+
+    @Test
+    void matchCategoriesTest_ReturnsCorrectCategoriesGeography() {
+        // Act
+        List<AnswerCategory> result = questionService.matchCategories(QuestionCategory.GEOGRAPHY);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(3, result.size());
+        assertTrue(result.contains(AnswerCategory.FLAG));
+        assertTrue(result.contains(AnswerCategory.MONUMENT_NAME));
+        assertTrue(result.contains(AnswerCategory.MONUMENT_COUNTRY));
+    }
+
+    @Test
+    void matchCategoriesTest_ReturnsCorrectCategoriesPopCulture() {
+        // Act
+        List<AnswerCategory> result = questionService.matchCategories(QuestionCategory.POP_CULTURE);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertTrue(result.contains(AnswerCategory.BRAND));
+        assertTrue(result.contains(AnswerCategory.MOVIE_YEAR));
+    }
+
+    @Test
+    void matchCategoriesTest_ReturnsCorrectCategoriesBiology() {
+        // Act
+        List<AnswerCategory> result = questionService.matchCategories(QuestionCategory.BIOLOGY);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(3, result.size());
+        assertTrue(result.contains(AnswerCategory.ANIMAL_NAME));
+        assertTrue(result.contains(AnswerCategory.ANIMAL_SCIENTIFIC_NAME));
+        assertTrue(result.contains(AnswerCategory.ANIMAL_LIFESPAN));
+    }
+
+    @Test
+    void findAnswerByIdTest_AnswerFound() {
+        // Arrange: Ensure repository returns the expected answer
+        when(answerRepository.findById(correctAnswer.getId())).thenReturn(Optional.of(correctAnswer));
+
+        // Act: Call the method being tested
+        Answer retrievedAnswer = questionService.findAnswerById(correctAnswer.getId());
+
+        // Assert: Validate correctness
+        assertNotNull(retrievedAnswer); // Ensure an answer is returned
+        assertEquals(correctAnswer, retrievedAnswer); // Ensure it's the expected answer
+
+        // Verify that the repository method was called once with the correct ID
+        verify(answerRepository, times(1)).findById(correctAnswer.getId());
+    }
+
+    @Test
+    void findAnswerByIdTest_AnswerNotFound() {
+        // Arrange: Ensure repository returns an empty Optional when the ID doesn't exist
+        String invalidId = "non-existent-answer-id";
+        when(answerRepository.findById(invalidId)).thenReturn(Optional.empty());
+
+        // Act & Assert: Expect an exception since `.get()` is used on an empty Optional
+        assertThrows(NoSuchElementException.class, () -> questionService.findAnswerById(invalidId));
+
+        // Verify the repository method was called correctly
+        verify(answerRepository, times(1)).findById(invalidId);
+    }
+    @Test
+    void removeQuestionTest_QuestionDeleted() {
+        // Arrange: Use the predefined test question
+        doNothing().when(questionRepository).delete(testQuestion); // Mock delete behavior
+
+        // Act: Call the remove method
+        questionService.removeQuestion(testQuestion);
+
+        // Assert: Verify that delete was called exactly once
+        verify(questionRepository, times(1)).delete(testQuestion);
+    }
 
 }

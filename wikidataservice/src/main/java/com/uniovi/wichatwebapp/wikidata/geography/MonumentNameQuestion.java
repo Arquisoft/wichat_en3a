@@ -15,12 +15,16 @@ public class MonumentNameQuestion extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿Cómo se llama este monumento? ", "¿Qué nombre tiene este monumento? ", "¿Cuál es el nombre de este monumento? "};
     private static final String[] englishStringsIni = {"What is the name of this monument? ", "What do we call this monument? ", "Which name does this monument have? "};
 
-    private List<String> monumentLabels;
+    private List<String> monumentLabels=new ArrayList<>();
 
     public MonumentNameQuestion(String langCode) {
         super(langCode);
     }
 
+    //For testing
+    public MonumentNameQuestion(){
+        super();
+    }
     @Override
     public void setQuery() {
         this.sparqlQuery = "SELECT DISTINCT ?monument ?monumentLabel ?image " +
@@ -72,16 +76,19 @@ public class MonumentNameQuestion extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    private boolean needToSkip(String monumentLabel) {
-        if (monumentLabels.contains(monumentLabel)) {
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (monumentLabels.contains(parameters[0])) {
             return true; // Avoid duplicates
         }
-        monumentLabels.add(monumentLabel);
+        monumentLabels.add(parameters[0]);
 
-        if (WikidataUtils.isEntityName(monumentLabel)) {
+        if (WikidataUtils.isEntityName(parameters[0])) {
             return true; // Skip invalid entries
         }
 
         return false;
     }
+
+
 }

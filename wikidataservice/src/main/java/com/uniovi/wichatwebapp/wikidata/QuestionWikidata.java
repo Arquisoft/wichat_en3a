@@ -21,6 +21,19 @@ public abstract class QuestionWikidata {
     protected String sparqlQuery;
     // Response given by WikiData QS for the query sent
     protected JSONArray results;
+
+    public void setResults(JSONArray results) {
+        this.results = results;
+    }
+
+    public String getSparqlQuery() {
+        return sparqlQuery;
+    }
+
+    public JSONArray getResults() {
+        return results;
+    }
+
     // Language code representing in what language the query must be sent. Spanish as a default value.
     protected String langCode = "es";
 
@@ -45,7 +58,10 @@ public abstract class QuestionWikidata {
             System.err.println("Error while processing the question: " + e.getMessage());
         }
     }
-
+    //For testing
+    public QuestionWikidata(){
+        setQuery();
+    }
     /**
      * Update the value of @sparqlQuery with the query to be sent.
      */
@@ -62,7 +78,7 @@ public abstract class QuestionWikidata {
      * It allows to send only one query, so it does not support questions whose answer require multiple queries.
      * CAUTION: Remember to update the results field of the field if this method gets overwritten.
      */
-    private void call() {
+    protected void call() {
         // Set up the HTTP client
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -100,4 +116,5 @@ public abstract class QuestionWikidata {
         return as;
     }
 
+    protected abstract boolean needToSkip(String... parameters);
 }

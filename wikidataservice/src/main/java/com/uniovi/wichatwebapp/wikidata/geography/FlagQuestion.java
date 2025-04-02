@@ -16,7 +16,7 @@ public class FlagQuestion extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿Que país tiene esta bandera? ", "¿A qué país pertenece esta bandera? ", "¿De qué país es esta bandera? ", "¿Cuál es el país de esta bandera? "};
     private static final String[] englishStringsIni= {"Which country has this flag? ", "To which country belongs this flag? ", "From which country is this flag? ", "What is the country represented by this flag? "};
 
-    List<String> countryLabels;
+    List<String> countryLabels = new ArrayList<>();
 
 
 
@@ -24,6 +24,10 @@ public class FlagQuestion extends QuestionWikidata {
         super(langCode);
     }
 
+    //For testing
+    public FlagQuestion() {
+        super();
+    }
     @Override
     public void setQuery() {
         this.sparqlQuery = "SELECT ?countryLabel ?flagLabel\n" +
@@ -71,16 +75,18 @@ public class FlagQuestion extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    private boolean needToSkip(String countryLabel, String venueLabel){
-        if (countryLabels.contains(countryLabel)) {
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (countryLabels.contains(parameters[0])) {
             return true;
         }
-        countryLabels.add(countryLabel);
+        countryLabels.add(parameters[0]);
 
-        if (WikidataUtils.isEntityName(countryLabel) || WikidataUtils.isEntityName(venueLabel)) {
+        if (WikidataUtils.isEntityName(parameters[0]) || WikidataUtils.isEntityName(parameters[1])) {
             return true;
         }
 
         return false;
     }
+
 }
