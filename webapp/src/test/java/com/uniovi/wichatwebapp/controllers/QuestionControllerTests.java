@@ -1,10 +1,7 @@
 package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.dto.AnswerDto;
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.Game;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
+import com.uniovi.wichatwebapp.entities.*;
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.HintService;
 import com.uniovi.wichatwebapp.services.ScoreService;
@@ -14,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 
 import java.util.HashMap;
@@ -359,7 +358,74 @@ public class QuestionControllerTests {
     }
 
     @Test
-    void resultsTest() {
-        fail();
+    void resultsEndedGameTest() {
+        // Arrange
+        Map<String, Object> modelAttributes = new HashMap<>();
+        QuestionCategory category = QuestionCategory.GEOGRAPHY;
+        String username = "testUser";
+
+        // Mock authentication
+        Authentication auth = mock(Authentication.class);
+        when(auth.getName()).thenReturn(username);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+
+        // Mock model behavior
+        when(model.addAttribute(anyString(), any())).thenAnswer(invocation -> {
+            modelAttributes.put(invocation.getArgument(0), invocation.getArgument(1));
+            return model;
+        });
+
+        // Mock game service responses
+        when(gameService.hasGameEnded()).thenReturn(true);
+        when(gameService.getCategory()).thenReturn(category);
+        when(gameService.getPoints()).thenReturn(100);
+        when(gameService.getRightAnswers()).thenReturn(5);
+        when(gameService.getWrongAnswers()).thenReturn(2);
+        when(gameService.getTimer()).thenReturn(30);
+        when(gameService.getMaxQuestions()).thenReturn(10);
+
+        final Score[] score = {null};
+        // Mock score service
+        doAnswer(invocation -> {
+            score[0] = invocation.getArgument(0); // Capturamos el primer argumento
+            return null; // asumiendo que addScore() es void
+        }).when(scoreService).addScore(any(Score.class));
+
+        // Act
+        String viewName = questionController.results(model);
+
+        // Verify model attributes
+        Assertions.assertTrue(gameService.hasGameEnded());
+        Assertions.assertEquals(category.toString(), score[0].getCategory());
+        Assertions.assertEquals(username, score[0].getUser());
+        Assertions.assertEquals(100, score[0].getScore());
+        Assertions.assertEquals(5, score[0].getRightAnswers());
+        Assertions.assertEquals(2, score[0].getWrongAnswers());
+        Assertions.assertEquals(username, modelAttributes.get("player"));
+        Assertions.assertEquals(100, modelAttributes.get("points"));
+        Assertions.assertEquals(5, modelAttributes.get("right"));
+        Assertions.assertEquals(2, modelAttributes.get("wrong"));
+        Assertions.assertEquals(category.name(), modelAttributes.get("category"));
+        Assertions.assertEquals(30, modelAttributes.get("timer"));
+        Assertions.assertEquals(10, modelAttributes.get("questions"));
+
+        verify(scoreService).addScore(any(Score.class));
+        verify(gameService).start(category);
+        Assertions.assertEquals("question/results", viewName);
+    }
+
+    @Test
+    void resultsTestGameNotEnded() {
+        // Arrange
+        QuestionCategory category = QuestionCategory.GEOGRAPHY;
+        when(gameService.hasGameEnded()).thenReturn(false);
+        when(gameService.getCategory()).thenReturn(category);
+
+        // Act
+        String view = questionController.results(model);
+
+        // Assert
+        Assertions.assertEquals("redirect:/game/start/GEOGRAPHY", view);
+        verifyNoInteractions(scoreService);
     }
 }
