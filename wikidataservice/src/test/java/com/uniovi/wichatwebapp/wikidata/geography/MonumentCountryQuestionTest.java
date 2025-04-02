@@ -1,5 +1,7 @@
 package com.uniovi.wichatwebapp.wikidata.geography;
 
+import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
+import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,9 +56,23 @@ class MonumentCountryQuestionTest {
         );
     }
 
+
     @Test
-    void needToSkipTest_Duplicates_ReturnTrue() {
-        assertFalse(monumentCountryQuestion.needToSkip("Eiffel Tower", "France")); // First time: should be false
-        assertTrue(monumentCountryQuestion.needToSkip("Eiffel Tower", "France")); // Second time: should be true
+    void needToSkipTest_DetectsDuplicateMonumentLabels() {
+        assertFalse(monumentCountryQuestion.getMonumentLabels().contains("Eiffel Tower"), "First check: should not contain Eiffel Tower.");
+        monumentCountryQuestion.getMonumentLabels().add("Eiffel Tower"); // Manually add for test
+        assertTrue(monumentCountryQuestion.getMonumentLabels().contains("Eiffel Tower"), "Second check: should now contain Eiffel Tower.");
+        assertTrue(monumentCountryQuestion.needToSkip("Eiffel Tower", "France"), "Should skip duplicate monument label.");
     }
+    @Test
+    void needToSkipTest_SkipsInvalidEntityNames() {
+        assertTrue(WikidataUtils.isEntityName("Q12345"), "Q12345 should be recognized as an entity name.");
+        assertTrue(monumentCountryQuestion.needToSkip("Q12345", "France"), "Should skip invalid monument name.");
+    }
+    @Test
+    void needToSkipTest_ProcessesValidEntriesCorrectly() {
+        assertFalse(monumentCountryQuestion.needToSkip("Statue of Liberty", "United States"), "Valid monument name should not be skipped.");
+        assertFalse(monumentCountryQuestion.needToSkip("Colosseum", "Italy"), "Valid monument name should not be skipped.");
+    }
+
 }

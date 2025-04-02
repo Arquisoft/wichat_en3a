@@ -99,8 +99,13 @@ public class AnimalLifespan extends QuestionWikidata {
         return false;
     }
 
+    //For testing
+    public List<String> getAnimalLabels() {
+        return animalLabels;
+    }
 
-
-
-
+    //For testing
+    public List<String> getLifespans() {
+        return lifespans;
+    }
 }

@@ -102,6 +102,13 @@ public class AnimalScientificName extends QuestionWikidata {
     }
 
 
+    //For testing
+    public List<String> getAnimalLabels() {
+        return animalLabels;
+    }
 
-
+    //For testing
+    public List<String> getAnimalScientificNames() {
+        return animalScientificNames;
+    }
 }
