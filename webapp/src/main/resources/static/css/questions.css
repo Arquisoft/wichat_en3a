@@ -99,6 +99,7 @@ body.bg-light {
     width: 100%;
     height: 100%;
     max-width: 100%!important;
+    pointer-events: none;
 }
 
 .small-timer {
