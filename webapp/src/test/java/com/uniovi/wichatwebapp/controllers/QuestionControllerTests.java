@@ -268,8 +268,31 @@ public class QuestionControllerTests {
     }
 
     @Test
-    void nextQuestionTest() {
-        fail();
+    void nextQuestionNotEndedGameTest() {
+        Game game = new Game(QuestionCategory.GEOGRAPHY);
+
+        when(gameService.hasGameEnded()).thenAnswer(invocation -> game.hasGameEnded());
+
+        // Act
+        String view = questionController.nextQuestion();
+
+        Assertions.assertEquals("redirect:/game/question", view);
+    }
+
+    @Test
+    void nextQuestionEndedGameTest() {
+        Game game = new Game(QuestionCategory.GEOGRAPHY);
+
+        for(int i=0; i<game.getMaxNumberOfQuestions(); i++){
+            game.correctAnswer();
+        }
+
+        when(gameService.hasGameEnded()).thenAnswer(invocation -> game.hasGameEnded());
+
+        // Act
+        String view = questionController.nextQuestion();
+
+        Assertions.assertEquals("redirect:/game/results", view);
     }
 
     @Test
