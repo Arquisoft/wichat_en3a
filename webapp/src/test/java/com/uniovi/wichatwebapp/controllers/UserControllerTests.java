@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
@@ -40,6 +42,9 @@ public class UserControllerTests {
 
     @Mock
     private BindingResult bindingResult;
+
+    @Mock
+    private Authentication authentication;
 
     @Test
     void loginTest() {
@@ -135,4 +140,33 @@ public class UserControllerTests {
         Assertions.assertEquals("redirect:login", view);
     }
 
+    @Test
+    void homeTest() {
+        // Arrange
+        String email = "user@example.com";
+        String name= "Test User";
+        String password = "password123";
+
+        User user = new User(name, email, password, true);
+
+        when(authentication.getName()).thenReturn(email);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        when(userService.getUserByEmail(email)).thenReturn(user);
+
+        Map<String, Object> modelAttributes = new HashMap<>();
+        when(model.addAttribute(eq("user"), any(User.class))).thenAnswer(invocation -> {
+            modelAttributes.put(invocation.getArgument(0), invocation.getArgument(1));
+            return model;
+        });
+
+        // Act
+        userController.home(model);
+
+        // Assert
+        User modelUser = (User) modelAttributes.get("user");
+        assertThat(modelUser)
+                .isNotNull()
+                .extracting(User::getEmail, User::getName, User::getPassword)
+                .containsExactly(email, name, password);
+    }
 }
