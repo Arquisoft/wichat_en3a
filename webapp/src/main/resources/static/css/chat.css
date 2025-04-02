@@ -1,9 +1,10 @@
 /* Contenedor principal */
 .chat-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 400px; /* Ajusta según sea necesario */
-    margin-left: auto; /* Alinea el contenedor a la derecha */
+    position: absolute;
+    width: max-content;
+     /* Ajusta según sea necesario */
+    right: 5%;
+    top: 40%;
 }
 
 /* Estilos generales */
@@ -13,8 +14,24 @@
     position: relative;
 }
 
+.chat-wrapper-chat-visible{
+    right: 20%;
+}
+
+@media(max-width: 1000px){
+    .chat-wrapper-chat-visible{
+        right: 40%;
+    }
+}
+
+@media(max-width: 480px){
+    .chat-wrapper-chat-visible{
+        right: 70%;
+    }
+}
+
 #chatBox {
-    display: none;
+    visibility: hidden;
     border: 2px solid #8580f6; /* Borde alrededor del chat */
     border-radius: 12px; /* Bordes redondeados */
     overflow: hidden;
@@ -32,7 +49,6 @@
     text-align: center;
     font-weight: bold;
     margin-bottom: 10px;
-
     display: flex;
     flex-direction: row;
     align-items: center;

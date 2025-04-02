@@ -172,7 +172,6 @@ body {
 
 .answer-button {
     width: 100%;
-    min-height: 8em;
     margin: 0.5rem 0;
     white-space: normal;
     word-wrap: break-word;
@@ -199,10 +198,19 @@ body {
     margin: 0 auto;
 }
 
+@media(max-width: 1100px){
+    .answer-row{
+        width: 80%;
+    }
+}
+
 @media(max-width: 900px){
     .question-text-container h1{
         margin-top: 1em;
         font-size: 2em;
+    }
+    .answer-row{
+        width: 100%;
     }
 }
 
@@ -219,6 +227,7 @@ body {
     .answer-div{
         width: max-content;
         max-width: 100%;
+        margin: 0 auto;
     }
     .answer-button{
         display: block;
@@ -231,6 +240,14 @@ body {
         font-size: 1.5em;
         margin-top: 1.5em;
         width: 100%;
+    }
+    .chat-icon-button{
+        width: 75px!important;
+        height: 75px!important;
+    }
+    .chat-icon{
+        width: 30px!important;
+        height: 30px!important;
     }
 }
 
@@ -263,7 +280,6 @@ body {
 
     .answer-button{
         width: 100%;
-        height: 100%;
     }
 }
 

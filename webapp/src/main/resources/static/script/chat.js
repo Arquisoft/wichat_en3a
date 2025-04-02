@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const chatMessages = document.getElementById('chatMessages');
     const userInput = document.getElementById('userInput');
     const sendMessageBtn = document.getElementById('sendMessage');
+    const chatWrapper = document.getElementById("chatWrapper");
 
     const answers = document.getElementById("answers");
     const exitButton = document.getElementById("exitButton");
@@ -44,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         answers.removeAttribute("hidden");
         chatBox.removeAttribute("style");
         startChatBtn.removeAttribute("style");
+        chatWrapper.classList.remove("chat-wrapper-chat-visible");
         startChatBtn.classList.add("exhausted");
         startChatBtn.setAttribute("disabled", "true");
         restoreTimer();
@@ -52,8 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Evento al hacer clic en el botón de iniciar chat
     startChatBtn.addEventListener('click', function () {
         // Mostrar el chat
-        chatBox.style.display = 'block';
-        startChatBtn.style.display = 'none';
+        chatWrapper.classList.add("chat-wrapper-chat-visible");
+        chatBox.style.visibility = 'visible';
+        startChatBtn.style.visibility = 'hidden';
 
         answers.setAttribute("hidden", "true");
 
