@@ -217,12 +217,53 @@ public class QuestionControllerTests {
         // Act
         AnswerDto answerDto = questionController.getAnswer(answerId);
 
+        Assertions.assertEquals(0, gameService.getGame().getWrongAnswers());
         Assertions.assertEquals(1, gameService.getGame().getRightAnswers());
         Assertions.assertEquals(100, gameService.getGame().getPoints());
         Assertions.assertEquals(1, gameService.getGame().getQuestions());
         Assertions.assertNotNull(answerDto);
         Assertions.assertEquals(answerId, answerDto.getCorrectId());
         Assertions.assertEquals(100, answerDto.getPoints());
+        Assertions.assertEquals(0, answerDto.getPrevPoints());
+    }
+
+    @Test
+    void getAnswerWrongTest() {
+        String answerId ="1234";
+        Answer answer =new Answer("Madrid","en");
+        answer.setId(answerId);
+        Question mockQuestion = new Question(answer, "Which is the capital of Spain?", "no-image");
+
+        Game game = new Game(QuestionCategory.GEOGRAPHY);
+        game.setCurrentQuestion(mockQuestion);
+
+        when(gameService.getCurrentQuestion()).thenAnswer(invocation -> game.getCurrentQuestion());
+        when(gameService.getPoints()).thenAnswer(invocation -> game.getPoints());
+        when(gameService.getGame()).thenReturn(game);
+        doAnswer(invocation -> {
+            game.wrongAnswer();
+            return null;
+        }).when(gameService).wrongAnswer();
+
+        doAnswer(invocation -> {
+            if(gameService.getGame().checkAnswer("jhygtrf")){
+                gameService.correctAnswer();
+            }else {
+                gameService.wrongAnswer();
+            }
+            return null;
+        }).when(gameService).checkAnswer("jhygtrf");
+
+        // Act
+        AnswerDto answerDto = questionController.getAnswer("jhygtrf");
+
+        Assertions.assertEquals(1, gameService.getGame().getWrongAnswers());
+        Assertions.assertEquals(0, gameService.getGame().getRightAnswers());
+        Assertions.assertEquals(-25, gameService.getGame().getPoints());
+        Assertions.assertEquals(1, gameService.getGame().getQuestions());
+        Assertions.assertNotNull(answerDto);
+        Assertions.assertEquals(answerId, answerDto.getCorrectId());
+        Assertions.assertEquals(-25, answerDto.getPoints());
         Assertions.assertEquals(0, answerDto.getPrevPoints());
     }
 
