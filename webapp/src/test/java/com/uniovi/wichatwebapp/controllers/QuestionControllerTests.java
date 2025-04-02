@@ -1,5 +1,6 @@
 package com.uniovi.wichatwebapp.controllers;
 
+import com.uniovi.wichatwebapp.dto.AnswerDto;
 import com.uniovi.wichatwebapp.entities.Answer;
 import com.uniovi.wichatwebapp.entities.Game;
 import com.uniovi.wichatwebapp.entities.Question;
@@ -187,8 +188,42 @@ public class QuestionControllerTests {
     }
 
     @Test
-    void getAnswerTest() {
-        fail();
+    void getAnswerCorrectTest() {
+        String answerId ="1234";
+        Answer answer =new Answer("Madrid","en");
+        answer.setId(answerId);
+        Question mockQuestion = new Question(answer, "Which is the capital of Spain?", "no-image");
+
+        Game game = new Game(QuestionCategory.GEOGRAPHY);
+        game.setCurrentQuestion(mockQuestion);
+
+        when(gameService.getCurrentQuestion()).thenAnswer(invocation -> game.getCurrentQuestion());
+        when(gameService.getPoints()).thenAnswer(invocation -> game.getPoints());
+        when(gameService.getGame()).thenReturn(game);
+        doAnswer(invocation -> {
+            game.correctAnswer();
+            return null;
+        }).when(gameService).correctAnswer();
+
+        doAnswer(invocation -> {
+            if(gameService.getGame().checkAnswer(answerId)){
+                gameService.correctAnswer();
+            }else {
+                gameService.wrongAnswer();
+            }
+            return null;
+        }).when(gameService).checkAnswer(answerId);
+
+        // Act
+        AnswerDto answerDto = questionController.getAnswer(answerId);
+
+        Assertions.assertEquals(1, gameService.getGame().getRightAnswers());
+        Assertions.assertEquals(100, gameService.getGame().getPoints());
+        Assertions.assertEquals(1, gameService.getGame().getQuestions());
+        Assertions.assertNotNull(answerDto);
+        Assertions.assertEquals(answerId, answerDto.getCorrectId());
+        Assertions.assertEquals(100, answerDto.getPoints());
+        Assertions.assertEquals(0, answerDto.getPrevPoints());
     }
 
     @Test
