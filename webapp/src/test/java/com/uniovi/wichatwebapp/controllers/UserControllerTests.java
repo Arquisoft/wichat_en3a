@@ -1,5 +1,6 @@
 package com.uniovi.wichatwebapp.controllers;
 
+import com.uniovi.wichatwebapp.entities.Score;
 import com.uniovi.wichatwebapp.entities.User;
 import com.uniovi.wichatwebapp.services.ScoreService;
 import com.uniovi.wichatwebapp.services.UserService;
@@ -15,7 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -168,5 +171,40 @@ public class UserControllerTests {
                 .isNotNull()
                 .extracting(User::getEmail, User::getName, User::getPassword)
                 .containsExactly(email, name, password);
+    }
+
+    @Test
+    void scoresTest() {
+        // Arrange
+        String userEmail = "user@example.com";
+        List<Score> mockScores = Arrays.asList(
+                new Score(userEmail, "GEOGRAPHY", 100, 5, 2),
+                new Score(userEmail, "HISTORY", 85, 4, 3)
+        );
+
+        when(authentication.getName()).thenReturn(userEmail);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        when(scoreService.getBestScores(userEmail)).thenReturn(mockScores);
+
+        Map<String, Object> modelAttributes = new HashMap<>();
+        when(model.addAttribute(eq("scores"), anyList())).thenAnswer(invocation -> {
+            modelAttributes.put(invocation.getArgument(0), invocation.getArgument(1));
+            return model;
+        });
+
+        // Act
+        String viewName = userController.scores(model);
+
+        // Assert
+        verify(authentication).getName();
+        verify(scoreService).getBestScores(userEmail);
+
+        assertThat(modelAttributes)
+                .containsOnlyKeys("scores")
+                .extractingByKey("scores")
+                .isEqualTo(mockScores);
+
+        Assertions.assertEquals("user/scores", viewName);
     }
 }
