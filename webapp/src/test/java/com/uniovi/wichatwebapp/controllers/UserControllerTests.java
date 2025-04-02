@@ -43,4 +43,34 @@ public class UserControllerTests {
         String view = userController.login();
         Assertions.assertEquals("login", view);
     }
+
+    @Test
+    void signupTest() {
+        // Arrange
+        Map<String, Object> modelAttributes = new HashMap<>();
+
+        // Mock model.addAttribute to capture the User object
+        when(model.addAttribute(eq("user"), any(User.class))).thenAnswer(invocation -> {
+            modelAttributes.put(invocation.getArgument(0), invocation.getArgument(1));
+            return model;
+        });
+
+        // Act
+        String view = userController.signup(model);
+
+        // Verify the captured model attributes
+        assertThat(modelAttributes)
+                .containsOnlyKeys("user")
+                .extractingByKey("user")
+                .isInstanceOf(User.class)
+                .satisfies(user -> {
+                    User newUser = (User) user;
+                    assertThat(newUser.getEmail()).isNull();
+                    assertThat(newUser.getPassword()).isNull();
+                    // Add more assertions for default User state if needed
+                });
+
+        // Verify view name
+        Assertions.assertEquals("signup", view);
+    }
 }
