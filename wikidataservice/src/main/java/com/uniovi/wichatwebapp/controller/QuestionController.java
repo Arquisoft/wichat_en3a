@@ -99,7 +99,8 @@ public class QuestionController {
 
     @Operation(summary = "Removes the question matching the id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Deletes the question", content = @Content)
+            @ApiResponse(responseCode = "200", description = "Deletes the question", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Question not found", content = @Content)
     })
     @RequestMapping(
             value = {"/game/removeQuestion/{id}"},
@@ -108,6 +109,10 @@ public class QuestionController {
     public void removeQuestion(
             @Parameter(description = "Id of the question to be removed")
             @PathVariable String id){
-        questionService.removeQuestion(questionService.findQuestionById(id));
+        Question question = questionService.findQuestionById(id);
+        if(question == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found");
+        }
+        questionService.removeQuestion(question);
     }
 }
