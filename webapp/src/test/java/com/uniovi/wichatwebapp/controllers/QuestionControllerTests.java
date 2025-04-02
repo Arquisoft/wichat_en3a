@@ -297,7 +297,39 @@ public class QuestionControllerTests {
 
     @Test
     void getQuestionTest() {
-        fail();
+        // Arrange
+        Map<String, Object> modelAttributes = new HashMap<>();
+
+        // Mock model behavior to capture attributes
+        when(model.addAttribute(anyString(), any())).thenAnswer(invocation -> {
+            modelAttributes.put(invocation.getArgument(0), invocation.getArgument(1));
+            return model;
+        });
+
+        // Mock game service responses
+        Question mockQuestion = new Question(new Answer("Madrid", "en"), "Capital of Spain?", "no-image");
+        when(gameService.getCurrentQuestion()).thenReturn(mockQuestion);
+        when(gameService.getPoints()).thenReturn(100);
+        when(gameService.getTimer()).thenReturn(30);
+
+        // Act
+        String viewName = questionController.getQuestion(model);
+
+        // Assert
+        // Verify model attributes were added correctly
+        verify(model).addAttribute("question", mockQuestion);
+        verify(model).addAttribute("points", 100);
+        verify(model).addAttribute("timer", 30);
+
+        // Verify attributes in the captured map
+        assertThat(modelAttributes)
+                .containsOnlyKeys("question", "points", "timer")
+                .containsEntry("question", mockQuestion)
+                .containsEntry("points", 100)
+                .containsEntry("timer", 30);
+
+        // Verify view name
+        Assertions.assertEquals("question/question", viewName);
     }
 
     @Test
