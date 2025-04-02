@@ -1,6 +1,7 @@
 package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.Game;
 import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.services.GameService;
@@ -21,8 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class QuestionControllerTests {
@@ -55,11 +55,45 @@ public class QuestionControllerTests {
         verify(model).addAttribute("categories", QuestionCategory.values());
         assertThat(modelAttributes).containsKey("categories");
         assertThat(modelAttributes.get("categories")).isEqualTo(QuestionCategory.values());
+
+        Assertions.assertEquals("personalized", view);
     }
 
     @Test
     void createPersonalizedGameTest() {
-        fail();
+        QuestionCategory category = QuestionCategory.GEOGRAPHY;
+        int timer = 12;
+        int questionCount = 7;
+        Question mockQuestion = new Question(new Answer("Madrid","en"), "Which is the capital of Spain?", "no-image");
+
+
+        // When start() is called, set up the game and store it
+        doAnswer(invocation -> {
+            Game game = new Game(category, timer, questionCount);
+            when(gameService.getGame()).thenReturn(game); // Make getGame() return this game
+            gameService.nextQuestion();
+            return null; // start() is void
+        }).when(gameService).start(category, timer, questionCount);
+
+        doAnswer(invocation -> {
+            // This will be executed when nextQuestion() is called
+            gameService.getGame().setCurrentQuestion(mockQuestion);
+            return null; // since it's void
+        }).when(gameService).nextQuestion();
+
+        // Act
+        String view = questionController.createPersonalizedGame(category,timer, questionCount);
+
+        //Asserts
+        Assertions.assertEquals(category, gameService.getGame().getCategory());
+        Question currentQuestion=gameService.getGame().getCurrentQuestion();
+        Assertions.assertNotNull(currentQuestion);
+        Assertions.assertEquals("Madrid", currentQuestion.getCorrectAnswer().getText());
+        Assertions.assertEquals("en", currentQuestion.getCorrectAnswer().getLanguage());
+        Assertions.assertEquals("Which is the capital of Spain?", currentQuestion.getContent());
+        Assertions.assertEquals("no-image", currentQuestion.getImageUrl());
+
+        Assertions.assertEquals("redirect:/game/question", view);
     }
 
     @Test

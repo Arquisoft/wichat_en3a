@@ -30,7 +30,6 @@ public class QuestionController {
     @RequestMapping(value="/game/personalized", method = RequestMethod.POST)
     public String createPersonalizedGame(@RequestParam QuestionCategory category, @RequestParam int timerSeconds, @RequestParam int questionCount) {
         gameService.start(category, timerSeconds, questionCount);
-        gameService.nextQuestion();
         return "redirect:/game/question";
     }
 
@@ -38,14 +37,12 @@ public class QuestionController {
     @RequestMapping(value="/game/start/{category}")
     public String startGame(Model model, @PathVariable QuestionCategory category) {
         gameService.start(category);
-        gameService.nextQuestion();
         return "redirect:/game/question";
     }
 
     @RequestMapping(value="/game/start/{category}/{timer}/{questions}")
     public String startGame(@PathVariable QuestionCategory category, @PathVariable int timer, @PathVariable int questions) {
         gameService.start(category, timer, questions);
-        gameService.nextQuestion();
         return "redirect:/game/question";
     }
 
