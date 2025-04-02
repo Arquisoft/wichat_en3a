@@ -56,6 +56,7 @@ public class GenAI { //https://github.com/googleapis/java-genai
 
     }
 
+    /*
     public String exampleAskTextInput() throws IOException, HttpException {
         GenerateContentResponse response =
                 client.models.generateContent(GEMINI_1_5, "What is your name?", null);
@@ -106,7 +107,7 @@ public class GenAI { //https://github.com/googleapis/java-genai
 
         return response.text();
     }
-
+*/
     // Sets the safety settings
     private ImmutableList<SafetySetting> initializeSafetySettings() {
         return ImmutableList.of(

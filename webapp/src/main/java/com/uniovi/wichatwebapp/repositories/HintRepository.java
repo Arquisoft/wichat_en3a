@@ -15,6 +15,7 @@ public class HintRepository {
         this.webClientBuilder = webClientBuilder;
     }
 
+    /*
     public String ask(String question, String answer) {
         return webClientBuilder
                 .baseUrl(baseUrl) // Set base URL here or in config
@@ -45,6 +46,7 @@ public class HintRepository {
                 .bodyToMono(String.class)
                 .block();
     }
+    */
 
     public String askWithInstructions(String instructions, String question, String answer, String alreadySaidHints) {
         return webClientBuilder

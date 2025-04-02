@@ -19,9 +19,10 @@ public class QuestionService {
         return questionRepository.getRandomQuestion(category);
     }
 
+    /*
     public boolean checkAnswer(String id, Question question) {
         return questionRepository.checkAnswer(question,id);
-    }
+    }*/
 
     public void removeQuestion(Question question) {
         questionRepository.removeQuestion(question.getId());
