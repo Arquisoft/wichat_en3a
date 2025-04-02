@@ -35,7 +35,7 @@ public class QuestionController {
 
 
     @RequestMapping(value="/game/start/{category}")
-    public String startGame(Model model, @PathVariable QuestionCategory category) {
+    public String startGame(@PathVariable QuestionCategory category) {
         gameService.start(category);
         return "redirect:/game/question";
     }

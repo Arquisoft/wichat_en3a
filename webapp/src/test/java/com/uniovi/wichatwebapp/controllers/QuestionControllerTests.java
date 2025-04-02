@@ -86,6 +86,12 @@ public class QuestionControllerTests {
 
         //Asserts
         Assertions.assertEquals(category, gameService.getGame().getCategory());
+        Assertions.assertEquals(12, gameService.getGame().getTimer());
+        Assertions.assertEquals(7, gameService.getGame().getMaxNumberOfQuestions());
+        Assertions.assertEquals(0, gameService.getGame().getQuestions());
+        Assertions.assertEquals(0, gameService.getGame().getRightAnswers());
+        Assertions.assertEquals(0, gameService.getGame().getWrongAnswers());
+        Assertions.assertEquals(0, gameService.getGame().getPoints());
         Question currentQuestion=gameService.getGame().getCurrentQuestion();
         Assertions.assertNotNull(currentQuestion);
         Assertions.assertEquals("Madrid", currentQuestion.getCorrectAnswer().getText());
@@ -98,7 +104,43 @@ public class QuestionControllerTests {
 
     @Test
     void startGameTest() {
-        fail();
+        QuestionCategory category = QuestionCategory.GEOGRAPHY;
+        Question mockQuestion = new Question(new Answer("Madrid","en"), "Which is the capital of Spain?", "no-image");
+
+
+        // When start() is called, set up the game and store it
+        doAnswer(invocation -> {
+            Game game = new Game(category);
+            when(gameService.getGame()).thenReturn(game); // Make getGame() return this game
+            gameService.nextQuestion();
+            return null; // start() is void
+        }).when(gameService).start(category);
+
+        doAnswer(invocation -> {
+            // This will be executed when nextQuestion() is called
+            gameService.getGame().setCurrentQuestion(mockQuestion);
+            return null; // since it's void
+        }).when(gameService).nextQuestion();
+
+        // Act
+        String view = questionController.startGame(category);
+
+        //Asserts
+        Assertions.assertEquals(category, gameService.getGame().getCategory());
+        Assertions.assertEquals(30, gameService.getGame().getTimer());
+        Assertions.assertEquals(10, gameService.getGame().getMaxNumberOfQuestions());
+        Assertions.assertEquals(0, gameService.getGame().getQuestions());
+        Assertions.assertEquals(0, gameService.getGame().getRightAnswers());
+        Assertions.assertEquals(0, gameService.getGame().getWrongAnswers());
+        Assertions.assertEquals(0, gameService.getGame().getPoints());
+        Question currentQuestion=gameService.getGame().getCurrentQuestion();
+        Assertions.assertNotNull(currentQuestion);
+        Assertions.assertEquals("Madrid", currentQuestion.getCorrectAnswer().getText());
+        Assertions.assertEquals("en", currentQuestion.getCorrectAnswer().getLanguage());
+        Assertions.assertEquals("Which is the capital of Spain?", currentQuestion.getContent());
+        Assertions.assertEquals("no-image", currentQuestion.getImageUrl());
+
+        Assertions.assertEquals("redirect:/game/question", view);
     }
 
     @Test
