@@ -5,7 +5,6 @@ import com.uniovi.wichatwebapp.entities.AnswerCategory;
 import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
-import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import org.json.JSONObject;
 
 import java.util.ArrayList;

@@ -2,7 +2,6 @@ package com.uniovi.userservice.service;
 
 import com.uniovi.userservice.entities.User;
 import com.uniovi.userservice.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
