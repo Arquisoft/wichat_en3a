@@ -334,7 +334,28 @@ public class QuestionControllerTests {
 
     @Test
     void timeoutTest() {
-        fail();
+        // Arrange
+        Game game = new Game(QuestionCategory.GEOGRAPHY);
+
+        // Mock wrongAnswer() to track calls and update game state
+        doAnswer(invocation -> {
+            game.wrongAnswer();
+            return null;
+        }).when(gameService).wrongAnswer();
+
+        // Act
+        String redirect = questionController.timeout();
+
+        // Assert
+        // Verify service interactions
+        verify(gameService).wrongAnswer();
+
+        // Verify game state was updated
+        Assertions.assertEquals(1, game.getWrongAnswers());
+        Assertions.assertEquals(-25, game.getPoints());
+
+        // Verify redirect
+        Assertions.assertEquals("redirect:/game/next", redirect);
     }
 
     @Test
