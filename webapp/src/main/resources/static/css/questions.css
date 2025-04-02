@@ -102,6 +102,10 @@ body.bg-light {
     pointer-events: none;
 }
 
+#startChat{
+    pointer-events: all;
+}
+
 .small-timer {
     height: 50px;  /* Visual size */
 }

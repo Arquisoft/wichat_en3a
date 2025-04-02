@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
     startChatBtn.addEventListener('click', function () {
         // Mostrar el chat
         chatWrapper.classList.add("chat-wrapper-chat-visible");
+        chatBox.style.pointerEvents = 'all';
         chatBox.style.visibility = 'visible';
         startChatBtn.style.visibility = 'hidden';
 
