@@ -259,7 +259,8 @@ class QuestionServiceTest {
         when(questionRepository.findById(invalidId)).thenReturn(Optional.empty());
 
         // Act & Assert: Expect an exception or a null result
-        assertThrows(NoSuchElementException.class, () -> questionService.findQuestionById(invalidId));
+        //assertThrows(NoSuchElementException.class, () -> questionService.findQuestionById(invalidId));
+        assertNull(questionService.findQuestionById(invalidId));
 
         // Verify the repository method was called correctly
         verify(questionRepository, times(1)).findById(invalidId);
@@ -350,8 +351,9 @@ class QuestionServiceTest {
         when(answerRepository.findById(invalidId)).thenReturn(Optional.empty());
 
         // Act & Assert: Expect an exception since `.get()` is used on an empty Optional
-        assertThrows(NoSuchElementException.class, () -> questionService.findAnswerById(invalidId));
+        //assertThrows(NoSuchElementException.class, () -> questionService.findAnswerById(invalidId));
 
+        assertNull(questionService.findAnswerById(invalidId));
         // Verify the repository method was called correctly
         verify(answerRepository, times(1)).findById(invalidId);
     }
