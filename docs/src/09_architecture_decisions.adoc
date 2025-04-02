@@ -5,3 +5,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 === Client/Server architecture
 We are going to have an architecture with a main application with a client and server, and several servers for the external services (users, WikiData, LLM, etc.) that will act as data APIs for the main application server.
 These service servers will respond to requests by returning data that the main application will process and pass to the view.
+===MVC architectural pattern
+We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling
+===Microservices architecture
+We are going to use a microservices architecture as it allows us to divide the whole application's project into independent services that we can treat as separate projects that can be reusable
