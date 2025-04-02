@@ -15,13 +15,16 @@ public class BasketballTeam extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿En qué equipo está este deportista? ", "¿Cuál es el equipo de este deportista? "};
     private static final String[] englishStringsIni= {"What team is this person in? ", "What's this person's team? "};
 
-    private List<String> athleteLabels;
+    private List<String> athleteLabels = new ArrayList<>();
 
 
     public BasketballTeam(String langCode) {
         super(langCode);
     }
-
+    //For testing
+    public BasketballTeam(){
+        super();
+    }
     @Override
     protected void setQuery() {
         this.sparqlQuery =
@@ -90,13 +93,14 @@ public class BasketballTeam extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    private boolean needToSkip(String athleteLabel, String teamLabel) {
-        if (athleteLabels.contains(athleteLabel)) {
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (athleteLabels.contains(parameters[0])) {
             return true; // Avoid duplicate questions for the same monument
         }
-        athleteLabels.add(athleteLabel);
+        athleteLabels.add(parameters[0]);
 
-        if (WikidataUtils.isEntityName(athleteLabel) || WikidataUtils.isEntityName(teamLabel)) {
+        if (WikidataUtils.isEntityName(parameters[0]) || WikidataUtils.isEntityName(parameters[1])) {
             return true; // Skip if either name is invalid
         }
 
@@ -104,4 +108,8 @@ public class BasketballTeam extends QuestionWikidata {
     }
 
 
+    //For testing
+     List<String> getAthleteLabels() {
+        return athleteLabels;
+    }
 }
