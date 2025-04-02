@@ -1,6 +1,5 @@
 package com.uniovi.wichatwebapp.repositories;
 
-import com.uniovi.wichatwebapp.entities.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Repository;

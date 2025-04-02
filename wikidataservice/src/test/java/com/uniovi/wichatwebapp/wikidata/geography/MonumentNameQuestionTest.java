@@ -1,5 +1,7 @@
 package com.uniovi.wichatwebapp.wikidata.geography;
 
+import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
+import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,9 +55,42 @@ class MonumentNameQuestionTest {
     }
 
     @Test
-    void needToSkipTest_Duplicates_ReturnTrue() {
-        assertFalse(monumentNameQuestion.needToSkip("Eiffel Tower")); // First time: should be false
-        assertTrue(monumentNameQuestion.needToSkip("Eiffel Tower")); // Second time: should be true
+    void processResultsTest_NoImage_AssignsDefaultImage() throws JSONException {
+        // Mock JSON Response without a monument image
+        JSONArray mockResults = new JSONArray("[{"
+                + "\"monumentLabel\": {\"value\": \"Eiffel Tower\"}"
+                + "}]");
+
+        // Inject mock results before calling `processResults()`
+        monumentNameQuestion.setResults(mockResults);
+
+        // Process the results
+        monumentNameQuestion.processResults();
+
+        // Verify that the default image is assigned
+        String expectedDefaultImage = QuestionWikidata.DEFAULT_QUESTION_IMG;
+        assertTrue(
+                monumentNameQuestion.getQs().stream().anyMatch(q -> q.getImageUrl().equals(expectedDefaultImage)),
+                "Default image was not assigned when no monument image was provided."
+        );
+    }
+
+    @Test
+    void needToSkipTest_DetectsDuplicateMonumentLabels() {
+        assertFalse(monumentNameQuestion.getMonumentLabels().contains("Eiffel Tower"), "First check: should not contain Eiffel Tower.");
+        monumentNameQuestion.getMonumentLabels().add("Eiffel Tower"); // Manually add for test
+        assertTrue(monumentNameQuestion.getMonumentLabels().contains("Eiffel Tower"), "Second check: should now contain Eiffel Tower.");
+        assertTrue(monumentNameQuestion.needToSkip("Eiffel Tower"), "Should skip duplicate monument label.");
+    }
+    @Test
+    void needToSkipTest_SkipsInvalidEntityNames() {
+        assertTrue(WikidataUtils.isEntityName("Q12345"), "Q12345 should be recognized as an entity name.");
+        assertTrue(monumentNameQuestion.needToSkip("Q12345"), "Should skip invalid monument name.");
+    }
+    @Test
+    void needToSkipTest_ProcessesValidEntriesCorrectly() {
+        assertFalse(monumentNameQuestion.needToSkip("Statue of Liberty"), "Valid monument name should not be skipped.");
+        assertFalse(monumentNameQuestion.needToSkip("Colosseum"), "Valid monument name should not be skipped.");
     }
 
 }

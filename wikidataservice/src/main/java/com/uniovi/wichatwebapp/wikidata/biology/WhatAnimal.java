@@ -101,5 +101,8 @@ public class WhatAnimal extends QuestionWikidata {
         return false;
     }
 
-
+    //For testing
+    public List<String> getAnimalLabels() {
+        return animalLabels;
+    }
 }

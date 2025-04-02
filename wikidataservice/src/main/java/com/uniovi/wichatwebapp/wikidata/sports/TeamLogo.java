@@ -89,5 +89,7 @@ public class TeamLogo extends QuestionWikidata {
         return false;
     }
 
-
+    public List<String> getTeamLabels() {
+        return teamLabels;
+    }
 }

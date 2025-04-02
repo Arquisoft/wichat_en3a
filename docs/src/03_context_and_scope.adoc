@@ -9,33 +9,36 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 image::03-business_context.jpg["Business context"]
 
-* Player (user, person): the player interacts with our system by using the front-end or user interface of the
-application to play the question games.
+* User: the player interacts with our application by using the front-end of the
+application to play the question game, sign up and log in.
 
-* Our system (internal system) : our system allows the player to play the question games, and it will interact with the
+* Application : our application allows the player to play the question games, and it will interact with the
 WikiData API and LLM API by using queries to get the questions and options, and to ask for hints related to the
 questions respectively.
+It also allows to authenticated the player and allows them to see their statistics.
 
 * WikiData API: API to extract the information for generating the different questions, options and answers.
 
+* Database: Database for storing the users information.
+
 * LLM API: API to ask to an AI for hints related to the question shown to the user.
+
 
 === Technical Context
 
 
-image::03-technical_context.jpg["Technical context"]
+image::03_technical_context.png["Technical context"]
 
 The application is deployed using Docker with Azure. The whole application:
-The user interacts with the web app (front-end of the app). It will be a SpringBoot project that will contain the user
+The user interacts with the front-end of the application. It will be a SpringBoot project that will contain the user
 interfaces and ask the other parts of the application the different data that it needs. So, it acts as a Controller.
 
 The services will be:
 
-* Authentication service
-* Users service (statistics)
-* Question generation service (WikiData)
+* Users service (login and statistics)
+* Question service (WikiData)
 * Hint service (LLM)
 * Game service
 
-Many services will interact with the database (MongoDB) to add information for different entities (Questions, Users…)
+The User service will interact with the database (MongoDB) to add information for the user authentication, and their statistics for the different games he played.
 
