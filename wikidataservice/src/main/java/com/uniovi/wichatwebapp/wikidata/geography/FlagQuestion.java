@@ -75,16 +75,18 @@ public class FlagQuestion extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    boolean needToSkip(String countryLabel, String venueLabel){
-        if (countryLabels.contains(countryLabel)) {
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (countryLabels.contains(parameters[0])) {
             return true;
         }
-        countryLabels.add(countryLabel);
+        countryLabels.add(parameters[0]);
 
-        if (WikidataUtils.isEntityName(countryLabel) || WikidataUtils.isEntityName(venueLabel)) {
+        if (WikidataUtils.isEntityName(parameters[0]) || WikidataUtils.isEntityName(parameters[1])) {
             return true;
         }
 
         return false;
     }
+
 }

@@ -18,9 +18,22 @@ import java.util.List;
 public abstract class QuestionWikidata {
     public final static String DEFAULT_QUESTION_IMG ="https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg";
     // Query to be sent to WikiData QS
-    public String sparqlQuery;
+    protected String sparqlQuery;
     // Response given by WikiData QS for the query sent
-    public JSONArray results;
+    protected JSONArray results;
+
+    public void setResults(JSONArray results) {
+        this.results = results;
+    }
+
+    public String getSparqlQuery() {
+        return sparqlQuery;
+    }
+
+    public JSONArray getResults() {
+        return results;
+    }
+
     // Language code representing in what language the query must be sent. Spanish as a default value.
     protected String langCode = "es";
 
@@ -103,4 +116,5 @@ public abstract class QuestionWikidata {
         return as;
     }
 
+    protected abstract boolean needToSkip(String... parameters);
 }

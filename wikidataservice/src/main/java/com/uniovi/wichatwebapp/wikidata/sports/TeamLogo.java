@@ -14,7 +14,7 @@ import java.util.List;
 public class TeamLogo extends QuestionWikidata {
     private static final String[] spanishStringsIni = {"¿De qué equipo es este escudo?", "¿Cuál es el equipo con este escudo?", "¿A qué equipo pertenece este escudo?"};
     private static final String[] englishStringsIni= {"What team is this logo from?", "Which team has this logo?", "To which team belongs this logo?"};
-
+    private List<String> teamLabels = new ArrayList<>();
 
 
     public TeamLogo(String langCode) {
@@ -48,6 +48,9 @@ public class TeamLogo extends QuestionWikidata {
             JSONObject result = results.getJSONObject(i);
             String teamLabel = result.getJSONObject("name").getString("value");
             String image = result.has("image") ? result.getJSONObject("image").getString("value") : null; // Retrieves image if available
+            if (needToSkip(teamLabel)) {
+                continue;
+            }
 
             Answer answer = new Answer(teamLabel, AnswerCategory.SPORT_TEAM_LOGO, langCode);
             answers.add(answer);
@@ -72,6 +75,19 @@ public class TeamLogo extends QuestionWikidata {
         as.addAll(answers);
     }
 
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (teamLabels.contains(parameters[0])) {
+            return true; // Avoid duplicates
+        }
+        teamLabels.add(parameters[0]);
+
+        if (WikidataUtils.isEntityName(parameters[0])) {
+            return true; // Skip invalid entries
+        }
+
+        return false;
+    }
 
 
 }

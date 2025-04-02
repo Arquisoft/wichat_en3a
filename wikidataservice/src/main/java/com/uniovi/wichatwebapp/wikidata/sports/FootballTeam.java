@@ -94,13 +94,16 @@ public class FootballTeam extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    boolean needToSkip(String athleteLabel, String teamLabel) {
-        if (athleteLabels.contains(athleteLabel)) {
+ 
+
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (athleteLabels.contains(parameters[0])) {
             return true; // Avoid duplicate questions for the same monument
         }
-        athleteLabels.add(athleteLabel);
+        athleteLabels.add(parameters[0]);
 
-        if (WikidataUtils.isEntityName(athleteLabel) || WikidataUtils.isEntityName(teamLabel)) {
+        if (WikidataUtils.isEntityName(parameters[0]) || WikidataUtils.isEntityName(parameters[1])) {
             return true; // Skip if either name is invalid
         }
 

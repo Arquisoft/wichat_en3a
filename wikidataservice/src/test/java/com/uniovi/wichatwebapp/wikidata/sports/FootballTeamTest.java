@@ -4,12 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
+
 class FootballTeamTest {
     private FootballTeam footballTeam;
 
@@ -21,8 +19,8 @@ class FootballTeamTest {
     @Test
     void setQueryTest_QueryIsSet() {
         footballTeam.setQuery();
-        assertNotNull(footballTeam.sparqlQuery);
-        assertFalse(footballTeam.sparqlQuery.isEmpty());
+        assertNotNull(footballTeam.getSparqlQuery());
+        assertFalse(footballTeam.getSparqlQuery().isEmpty());
     }
 
     @Test
@@ -35,14 +33,14 @@ class FootballTeamTest {
                 + "}]");
 
         // Inject mock results **without calling processResults()**
-        footballTeam.results = mockResults;
+        footballTeam.setResults(mockResults);
 
         // Validate that the results field was correctly set
-        assertNotNull(footballTeam.results);
-        assertEquals(1, footballTeam.results.length());
-        assertEquals("Lionel Messi", footballTeam.results.getJSONObject(0).getJSONObject("name").getString("value"));
-        assertEquals("Inter Miami", footballTeam.results.getJSONObject(0).getJSONObject("team_name").getString("value"));
-        assertEquals("https://example.com/messi.jpg", footballTeam.results.getJSONObject(0).getJSONObject("image").getString("value"));
+        assertNotNull(footballTeam.getResults());
+        assertEquals(1, footballTeam.getResults().length());
+        assertEquals("Lionel Messi", footballTeam.getResults().getJSONObject(0).getJSONObject("name").getString("value"));
+        assertEquals("Inter Miami", footballTeam.getResults().getJSONObject(0).getJSONObject("team_name").getString("value"));
+        assertEquals("https://example.com/messi.jpg", footballTeam.getResults().getJSONObject(0).getJSONObject("image").getString("value"));
     }
 
     @Test

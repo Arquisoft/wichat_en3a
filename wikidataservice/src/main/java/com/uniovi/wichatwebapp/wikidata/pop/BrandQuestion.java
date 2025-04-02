@@ -5,6 +5,7 @@ import com.uniovi.wichatwebapp.entities.AnswerCategory;
 import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
+import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -45,9 +46,10 @@ public class BrandQuestion extends QuestionWikidata {
             String brandLabel = result.getJSONObject("brandLabel").getString("value");
             String logo = result.has("logo") ? result.getJSONObject("logo").getString("value") : null;
 
-            if (brandLabels.contains(brandLabel)) {
-                continue; // Skip duplicate brands
+            if (needToSkip(brandLabel)) {
+                continue;
             }
+
             brandLabels.add(brandLabel);
 
             Answer answer = new Answer(brandLabel, AnswerCategory.BRAND, langCode);
@@ -71,6 +73,21 @@ public class BrandQuestion extends QuestionWikidata {
         qs.addAll(questions);
         as.addAll(answers);
     }
+
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (brandLabels.contains(parameters[0])) {
+            return true; // Avoid duplicates
+        }
+        brandLabels.add(parameters[0]);
+
+        if (WikidataUtils.isEntityName(parameters[0])) {
+            return true; // Skip invalid entries
+        }
+
+        return false;
+    }
+
     //For testing
     List<String> getBrandLabels() {
         return brandLabels;

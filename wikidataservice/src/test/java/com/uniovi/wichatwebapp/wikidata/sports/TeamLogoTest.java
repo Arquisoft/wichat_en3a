@@ -4,12 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
+
 class TeamLogoTest {
     private TeamLogo teamLogo;
 
@@ -21,8 +19,8 @@ class TeamLogoTest {
     @Test
     void setQueryTest_QueryIsSet() {
         teamLogo.setQuery();
-        assertNotNull(teamLogo.sparqlQuery);
-        assertFalse(teamLogo.sparqlQuery.isEmpty());
+        assertNotNull(teamLogo.getSparqlQuery());
+        assertFalse(teamLogo.getSparqlQuery().isEmpty());
     }
 
     @Test
@@ -34,13 +32,13 @@ class TeamLogoTest {
                 + "}]");
 
         // Inject mock results **without calling processResults()**
-        teamLogo.results = mockResults;
+        teamLogo.setResults(mockResults);
 
         // Validate that the results field was correctly set
-        assertNotNull(teamLogo.results);
-        assertEquals(1, teamLogo.results.length());
-        assertEquals("Manchester United", teamLogo.results.getJSONObject(0).getJSONObject("name").getString("value"));
-        assertEquals("https://example.com/manutd-logo.jpg", teamLogo.results.getJSONObject(0).getJSONObject("image").getString("value"));
+        assertNotNull(teamLogo.getResults());
+        assertEquals(1, teamLogo.getResults().length());
+        assertEquals("Manchester United", teamLogo.getResults().getJSONObject(0).getJSONObject("name").getString("value"));
+        assertEquals("https://example.com/manutd-logo.jpg", teamLogo.getResults().getJSONObject(0).getJSONObject("image").getString("value"));
     }
 
 }

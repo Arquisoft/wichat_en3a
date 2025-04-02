@@ -76,16 +76,19 @@ public class MonumentNameQuestion extends QuestionWikidata {
         as.addAll(answers);
     }
 
-     boolean needToSkip(String monumentLabel) {
-        if (monumentLabels.contains(monumentLabel)) {
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (monumentLabels.contains(parameters[0])) {
             return true; // Avoid duplicates
         }
-        monumentLabels.add(monumentLabel);
+        monumentLabels.add(parameters[0]);
 
-        if (WikidataUtils.isEntityName(monumentLabel)) {
+        if (WikidataUtils.isEntityName(parameters[0])) {
             return true; // Skip invalid entries
         }
 
         return false;
     }
+
+
 }

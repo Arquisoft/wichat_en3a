@@ -4,12 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
+
 class F1TeamTest {
     private F1Team f1Team;
 
@@ -21,8 +19,8 @@ class F1TeamTest {
     @Test
     void setQueryTest_QueryIsSet() {
         f1Team.setQuery();
-        assertNotNull(f1Team.sparqlQuery);
-        assertFalse(f1Team.sparqlQuery.isEmpty());
+        assertNotNull(f1Team.getSparqlQuery());
+        assertFalse(f1Team.getSparqlQuery().isEmpty());
     }
 
     @Test
@@ -35,7 +33,7 @@ class F1TeamTest {
                 + "}]");
 
         // Inject mock results before calling `processResults()`
-        f1Team.results = mockResults;
+        f1Team.setResults(mockResults);
 
         // Process the results
         f1Team.processResults();

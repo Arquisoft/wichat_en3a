@@ -87,18 +87,21 @@ public class AnimalScientificName extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    boolean needToSkip(String name, String scientificName) {
-        if (animalLabels.contains(name) || animalScientificNames.contains(scientificName)) {
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (animalLabels.contains(parameters[0]) || animalScientificNames.contains(parameters[1])) {
             return true; // Avoid duplicate questions for the same monument
         }
-        animalLabels.add(name);
+        animalLabels.add(parameters[0]);
 
-        if (WikidataUtils.isEntityName(name) || WikidataUtils.isEntityName(scientificName)) {
+        if (WikidataUtils.isEntityName(parameters[0]) || WikidataUtils.isEntityName(parameters[1])) {
             return true; // Skip if either name is invalid
         }
 
         return false;
     }
+
+
 
 
 }

@@ -5,6 +5,7 @@ import com.uniovi.wichatwebapp.entities.AnswerCategory;
 import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
+import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class MovieQuestion extends QuestionWikidata {
             String releaseYear = result.getJSONObject("releaseYear").getString("value");
             String poster = result.has("poster") ? result.getJSONObject("poster").getString("value") : null; // Retrieve the poster URL if available
 
-            if (movieLabels.contains(movieLabel)) {
+            if (needToSkip(movieLabel)) {
                 continue; // Skip duplicate movies
             }
             movieLabels.add(movieLabel);
@@ -77,6 +78,20 @@ public class MovieQuestion extends QuestionWikidata {
 
         qs.addAll(questions);
         as.addAll(answers);
+    }
+
+    @Override
+    protected boolean needToSkip(String... parameters) {
+        if (movieLabels.contains(parameters[0])) {
+            return true; // Avoid duplicates
+        }
+        movieLabels.add(parameters[0]);
+
+        if (WikidataUtils.isEntityName(parameters[0])) {
+            return true; // Skip invalid entries
+        }
+
+        return false;
     }
 
     //For testing
