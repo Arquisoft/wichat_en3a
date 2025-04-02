@@ -8,20 +8,12 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 image::07_Deployment.png["Deployment"]
 
-=== Motivation
-
-A well-defined deployment view provides a clear understanding of how different system components interact and operate within the infrastructure. This ensures smooth functionality, scalability, and maintainability.
-
-=== Content
-
-The deployment view represents the technical infrastructure that supports the system’s execution. The diagram offers a high-level visualization of key components and their interactions.
-
 === Deployment Architecture Components
 
 * **User**: The end-user interacts with the system through the web application.
-* **Web Application**: The central interface that connects users to the system.
-* **Application Layer**: Manages multiple services, including:
-  ** *LLM Service*: Interfaces with an external Large Language Model (**Gemini**) to process queries.
+* **Application**: The central interface that connects users to the system.
+* **GameService**: Manages multiple services, including:
+  ** *Hint Service*: Interfaces with an external Large Language Model (**Gemini**) to process queries.
   ** *Question Service*: Handles question-related logic and interacts with the database using the **Wikidata API**.
   ** *User Service*: Manages user-related functionalities such as authentication and profile management.
-* **Database Layer**: Uses MongoDB as the primary database for storing user and question-related data.
+* **Database**: Uses MongoDB as the primary database for storing user and question-related data.
