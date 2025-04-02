@@ -4,7 +4,6 @@ import com.uniovi.wichatwebapp.entities.User;
 import com.uniovi.wichatwebapp.services.ScoreService;
 import com.uniovi.wichatwebapp.services.UserService;
 import com.uniovi.wichatwebapp.validators.SignUpValidator;
-import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +37,9 @@ public class UserControllerTests {
 
     @Mock
     private Model model;
+
+    @Mock
+    private BindingResult bindingResult;
 
     @Test
     void loginTest() {
@@ -73,4 +76,63 @@ public class UserControllerTests {
         // Verify view name
         Assertions.assertEquals("signup", view);
     }
+
+    @Test
+    void signupWithErrorTest() {
+        // Arrange
+        User user = new User();
+        user.setEmail("test@example.com");
+        user.setPassword("password123");
+
+        when(bindingResult.hasErrors()).thenReturn(true);
+
+        // Act
+        String view = userController.signup(user, model, bindingResult);
+
+        // Assert
+        verify(signUpValidator).validate(user, bindingResult);
+        verifyNoInteractions(userService);
+        Assertions.assertEquals("signup", view);
+    }
+
+    @Test
+    void signupWithUserExistsTest() {
+        // Arrange
+        User user = new User();
+        user.setEmail("existing@example.com");
+        user.setPassword("password123");
+
+        when(bindingResult.hasErrors()).thenReturn(false);
+        when(userService.addUser(user)).thenReturn(false);
+
+        // Act
+        String view = userController.signup(user, model, bindingResult);
+
+        // Assert
+        verify(signUpValidator).validate(user, bindingResult);
+        verify(userService).addUser(user);
+        verify(model).addAttribute("adderror", true);
+        Assertions.assertEquals("signup", view);
+    }
+
+    @Test
+    void signupValidUserTest() {
+        // Arrange
+        User user = new User();
+        user.setEmail("new@example.com");
+        user.setPassword("password123");
+
+        when(bindingResult.hasErrors()).thenReturn(false);
+        when(userService.addUser(user)).thenReturn(true);
+
+        // Act
+        String view = userController.signup(user, model, bindingResult);
+
+        // Assert
+        verify(signUpValidator).validate(user, bindingResult);
+        verify(userService).addUser(user);
+        verifyNoInteractions(model); // Should not add error attribute
+        Assertions.assertEquals("redirect:login", view);
+    }
+
 }
