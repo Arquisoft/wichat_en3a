@@ -4,7 +4,6 @@ import com.uniovi.userservice.entities.Score;
 import com.uniovi.userservice.entities.User;
 import com.uniovi.userservice.service.ScoreService;
 import com.uniovi.userservice.service.UserService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
