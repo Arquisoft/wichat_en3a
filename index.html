@@ -504,6 +504,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
 <ul class="sectlevel2">
 <li><a href="#_clientserver_architecture">9.1. Client/Server architecture</a></li>
+<li><a href="#_mvc_architectural_pattern">9.2. MVC architectural pattern</a></li>
+<li><a href="#_microservices_architecture">9.3. Microservices architecture</a></li>
 </ul>
 </li>
 <li><a href="#section-quality-scenarios">10. Quality Requirements</a>
@@ -1510,11 +1512,19 @@ interfaces and ask the other parts of the application the different data that it
 <h3 id="_clientserver_architecture">9.1. Client/Server architecture</h3>
 <div class="paragraph">
 <p>We are going to have an architecture with a main application with a client and server, and several servers for the external services (users, WikiData, LLM, etc.) that will act as data APIs for the main application server.
-These service servers will respond to requests by returning data that the main application will process and pass to the view.
-=== MVC architectural pattern
-We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling
-=== Microservices architecture
-We are going to use a microservices architecture as it allows us to divide the whole application&#8217;s project into independent services that we can treat as separate projects that can be reusable</p>
+These service servers will respond to requests by returning data that the main application will process and pass to the view.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mvc_architectural_pattern">9.2. MVC architectural pattern</h3>
+<div class="paragraph">
+<p>We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_microservices_architecture">9.3. Microservices architecture</h3>
+<div class="paragraph">
+<p>We are going to use a microservices architecture as it allows us to divide the whole application&#8217;s project into independent services that we can treat as separate projects that can be reusable</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
