@@ -27,7 +27,7 @@ It also allows to authenticated the player and allows them to see their statisti
 === Technical Context
 
 
-image::03_technical_context.png["Technical context"]
+image::03_technical_context_v2.png["Technical context"]
 
 The application is deployed using Docker with Oracle. The whole application:
 The user interacts with the front-end of the application. It will be a SpringBoot project that will contain the user
