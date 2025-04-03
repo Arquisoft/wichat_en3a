@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>wichat_en3a</title>
+<title>QWiZZ (wichat_en3a)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1><span class="image"><img src="./images/arc42-logo.png" alt="arc42"></span> wichat_en3a</h1>
+<h1><span class="image"><img src="./images/qwizzCropped.png" alt="quizz"></span> QWiZZ (wichat_en3a)</h1>
 <div class="details">
 <span id="revnumber">version 8.2 EN,</span>
 <span id="revdate">January 2023</span>
@@ -508,7 +508,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_microservices_architecture">9.3. Microservices architecture</a></li>
 </ul>
 </li>
-<li><a href="#section-quality-scenarios">10. Quality Requirements</a>
+<li><a href="#section-quality-scenarios">10. 10. Quality Requirements</a>
 <ul class="sectlevel2">
 <li><a href="#_quality_tree">10.1. Quality Tree</a></li>
 <li><a href="#_quality_scenarios">10.2. Quality Scenarios</a></li>
@@ -545,26 +545,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 See <a href="https://arc42.org" class="bare">https://arc42.org</a>.</p>
 </div>
 <hr>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This version of the template contains some help and explanations.
-It is used for familiarization with arc42 and the understanding of the concepts.
-For documentation of your own system you use better the <em>plain</em> version.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -633,7 +613,7 @@ For documentation of your own system you use better the <em>plain</em> version.<
 </ul>
 </div>
 <div class="paragraph">
-<p>About the Question service:</p>
+<p>About the Wikidata service:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -709,7 +689,7 @@ The implementation of tests and that the product is extensible is one of the mai
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The application is able to manage a big number of users (100) without penalizing response times</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application is able to manage a big number of users (50) without penalizing response times</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Maintainability</p></td>
@@ -928,7 +908,7 @@ It also allows to authenticated the player and allows them to see their statisti
 </div>
 </div>
 <div class="paragraph">
-<p>The application is deployed using Docker with Azure. The whole application:
+<p>The application is deployed using Docker with Oracle. The whole application:
 The user interacts with the front-end of the application. It will be a SpringBoot project that will contain the user
 interfaces and ask the other parts of the application the different data that it needs. So, it acts as a Controller.</p>
 </div>
@@ -941,7 +921,7 @@ interfaces and ask the other parts of the application the different data that it
 <p>Users service (login and statistics)</p>
 </li>
 <li>
-<p>Question service (WikiData)</p>
+<p>WikiData service (WikiData)</p>
 </li>
 <li>
 <p>Hint service (LLM)</p>
@@ -1059,6 +1039,11 @@ interfaces and ask the other parts of the application the different data that it
 <td class="tableblock halign-left valign-top"><p class="tableblock">We will use Docker with Azure because:</p>
 <p class="tableblock">- Docker containers encapsulate the application and its dependencies, ensuring consistency across different environments (development, testing, production).</p>
 <p class="tableblock">- This portability allows seamless deployment on Azure, regardless of the underlying infrastructure.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.docker.com/">Docker</a> with <a href="https://apex.oracle.com/en/platform/deployment/">Oracle</a> for deploying the application permanently</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use Docker with Oracle because:</p>
+<p class="tableblock">- It&#8217;s much more cheaper than Azure for keep the app deployed.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1187,7 +1172,7 @@ interfaces and ask the other parts of the application the different data that it
 <h3 id="_level_2">5.2. Level 2</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/05_level2.png" alt="Level 2">
+<img src="./images/05_level2_v2.png" alt="Level 2">
 </div>
 </div>
 <div class="ulist">
@@ -1205,7 +1190,7 @@ interfaces and ask the other parts of the application the different data that it
 <p>The HintService will be used to interact with an LLM in order to generate hints.</p>
 </li>
 <li>
-<p>The QuestionService will be used to generate questions based on data extracted from WikiData.</p>
+<p>The WikiDataService will be used to generate questions based on data extracted from WikiData.</p>
 </li>
 <li>
 <p>The Database will store information used in the system such as the user login details, the previous games and scores.</p>
@@ -1356,7 +1341,7 @@ interfaces and ask the other parts of the application the different data that it
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Game%20diagram.png" alt="Game diagram" width="777" height="719">
+<img src="./images/Game%20diagram.png" alt="Game diagram" width="776" height="719">
 </div>
 </div>
 </div>
@@ -1371,13 +1356,13 @@ interfaces and ask the other parts of the application the different data that it
 <p>The GameService asks for a question.</p>
 </li>
 <li>
-<p>The QuestionService requests data for creating the questions.</p>
+<p>The WikidataService requests data for creating the questions.</p>
 </li>
 <li>
 <p>Wikidata returns the question, image and options for the question.</p>
 </li>
 <li>
-<p>The QuestionService returns all the information.</p>
+<p>The WikidataService returns all the information.</p>
 </li>
 <li>
 <p>The GameService stores all the information returned.</p>
@@ -1433,7 +1418,7 @@ interfaces and ask the other parts of the application the different data that it
 <h3 id="_infrastructure_level_1">7.1. Infrastructure Level 1</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/07_Deployment.png" alt="Deployment">
+<img src="./images/07_Deployment_v2.png" alt="Deployment">
 </div>
 </div>
 </div>
@@ -1455,7 +1440,7 @@ interfaces and ask the other parts of the application the different data that it
 <p><strong>Hint Service</strong>: Interfaces with an external Large Language Model (<strong>Gemini</strong>) to process queries.</p>
 </li>
 <li>
-<p><strong>Question Service</strong>: Handles question-related logic and interacts with the database using the <strong>Wikidata API</strong>.</p>
+<p><strong>Wikidata Service</strong>: Handles question-related logic and interacts with the database using the <strong>Wikidata API</strong>.</p>
 </li>
 <li>
 <p><strong>User Service</strong>: Manages user-related functionalities such as authentication and profile management.</p>
@@ -1480,7 +1465,7 @@ interfaces and ask the other parts of the application the different data that it
 <div class="sect3">
 <h4 id="_load_managing">8.1.1. Load managing</h4>
 <div class="paragraph">
-<p>Considering that the application&#8217;s concurrent users can vary its important to take horizontal scalability when designing the architecture, that&#8217;s why we are using Docker for deployment</p>
+<p>Considering that the application&#8217;s concurrent users can vary its important to take horizontal scalability when designing the architecture, that&#8217;s why we are using Docker for deployment.</p>
 </div>
 </div>
 </div>
@@ -1489,7 +1474,7 @@ interfaces and ask the other parts of the application the different data that it
 <div class="sect3">
 <h4 id="_intuitive_interface">8.2.1. Intuitive interface</h4>
 <div class="paragraph">
-<p>The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team</p>
+<p>The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team.</p>
 </div>
 </div>
 </div>
@@ -1498,7 +1483,7 @@ interfaces and ask the other parts of the application the different data that it
 <div class="sect3">
 <h4 id="_modularity">8.3.1. Modularity</h4>
 <div class="paragraph">
-<p>The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components</p>
+<p>The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1518,20 +1503,20 @@ These service servers will respond to requests by returning data that the main a
 <div class="sect2">
 <h3 id="_mvc_architectural_pattern">9.2. MVC architectural pattern</h3>
 <div class="paragraph">
-<p>We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling</p>
+<p>We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_microservices_architecture">9.3. Microservices architecture</h3>
 <div class="paragraph">
-<p>We are going to use a microservices architecture as it allows us to divide the whole application&#8217;s project into independent services that we can treat as separate projects that can be reusable</p>
+<p>We are going to use a microservices architecture as it allows us to divide the whole application&#8217;s project into independent services that we can treat as separate projects that can be reusable.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-quality-scenarios">10. Quality Requirements</h2>
+<h2 id="section-quality-scenarios">10. 10. Quality Requirements</h2>
 <div class="sectionbody">
 <div class="sidebarblock arc42help">
 <div class="content">
@@ -1617,7 +1602,7 @@ These service servers will respond to requests by returning data that the main a
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Performance</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The user plays the game andrequests a question.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user plays the game and requests a question.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The system generates the possible answers and shows an image wasting little time.</p></td>
 </tr>
 <tr>
@@ -1780,7 +1765,7 @@ network conditions, potentially causing an unfair experience. Latency compensati
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2025-04-02 16:02:53 +0200
+Last updated 2025-04-03 10:13:01 +0200
 </div>
 </div>
 </body>
