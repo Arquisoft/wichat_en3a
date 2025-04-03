@@ -14,6 +14,7 @@
       <h2>Results</h2>
     </div>
     <div class="card-body">
+      <p class="error" th:if="${addError}">The score could not be saved</p>
       <h5 class="card-title">Player: <strong id="playerName" th:text="${player}"></strong></h5>
       <p class="card-text">Score: <strong id="playerScore" th:text="${points}"></strong></p>
       <p class="card-text">Right answers: <strong id="rightAnswers" th:text="${right}"></strong></p>

@@ -5,8 +5,11 @@ import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.entities.QuestionCategory;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
 @Repository
 public class QuestionRepository {
     private WebClient.Builder webClientBuilder;
@@ -74,14 +77,20 @@ public class QuestionRepository {
         }
     }*/
     public void removeQuestion(String id){
-        webClientBuilder
-                .baseUrl(baseUrl)
-                .build()
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/game/removeQuestion")
-                        .queryParam("id", id)
-                        .build())
-                .retrieve();
+        try{
+            webClientBuilder
+                    .baseUrl(baseUrl)
+                    .build()
+                    .get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/game/removeQuestion")
+                            .queryParam("id", id)
+                            .build())
+                    .retrieve()
+                    .onStatus(HttpStatusCode::is4xxClientError, response-> Mono.error(new RuntimeException("Error while deleting question")));
+        }catch (RuntimeException e){
+            //TODO Add error handling in frontend
+        }
+
     }
 }

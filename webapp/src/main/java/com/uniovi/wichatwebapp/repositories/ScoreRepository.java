@@ -3,8 +3,10 @@ package com.uniovi.wichatwebapp.repositories;
 import com.uniovi.wichatwebapp.entities.Score;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -22,15 +24,21 @@ public class ScoreRepository {
 
     public Score addScore(Score score) {
 
-        return webClientBuilder
-                .baseUrl(baseUrl)
-                .build()
-                .post()
-                .uri("/addScore")
-                .bodyValue(score)
-                .retrieve()
-                .bodyToMono(Score.class)
-                .block();
+        try{
+            return webClientBuilder
+                    .baseUrl(baseUrl)
+                    .build()
+                    .post()
+                    .uri("/addScore")
+                    .bodyValue(score)
+                    .retrieve()
+                    .onStatus(HttpStatusCode::is4xxClientError, response-> Mono.error(new RuntimeException("Error while adding score")))
+                    .bodyToMono(Score.class)
+                    .block();
+        }catch (RuntimeException e){
+            return null; //Service will handle the null
+        }
+
     }
 
     public List<Score> getBestScores(String email) {

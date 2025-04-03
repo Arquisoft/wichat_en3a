@@ -8,10 +8,7 @@ import com.uniovi.wichatwebapp.repositories.AnswerRepository;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +24,8 @@ public class QuestionService {
     }
 
     public Question findQuestionById(String id) {
-        return questionRepository.findById(id).get();
+        Optional<Question> question = questionRepository.findById(id);
+        return question.orElse(null);
     }
 
 
@@ -203,6 +201,7 @@ public class QuestionService {
 
 
     public Answer findAnswerById(String answerId) {
-        return answerRepository.findById(answerId).get();
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+        return optionalAnswer.orElse(null);
     }
 }

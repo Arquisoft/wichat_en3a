@@ -1,6 +1,12 @@
 package com.uniovi.hintservice.controller;
 
 import com.uniovi.hintservice.service.GenAI;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +28,39 @@ public class HintController {
 	@Autowired
 	private GenAI genAI;
 
+	@Operation(summary = "Ask for a hint to the LLM")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "Returns a hint for the question",
+		content = {@Content(mediaType = "application/json",
+		schema = @Schema(implementation = String.class))}),
+		@ApiResponse(responseCode = "500", description = "The service is unavailable", content = @Content)
+	})
 	@GetMapping("/askHint")
-	public String askHint(@RequestParam String question, @RequestParam String answerQuestion) throws HttpException, IOException {
+	public String askHint(
+			@Parameter(description = "Question asked by the user")
+			@RequestParam String question,
+			@Parameter(description = "Answer to the question shown to the user")
+			@RequestParam String answerQuestion) throws HttpException, IOException {
 		return genAI.askPrompt(setupMessage, question+";"+answerQuestion);
 	}
 
+	@Operation(summary = "Ask for a hint specifying the instructions to be given to the LLM")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Returns a hint adapted to the given instructions",
+			content = {@Content(mediaType = "application/json",
+			schema = @Schema(implementation = String.class))}),
+			@ApiResponse(responseCode = "500", description = "The service is unavailable", content = @Content)
+	})
 	@GetMapping("/askHintWithInstructions")
-	public String askHint(@RequestParam String instructions, @RequestParam String question, @RequestParam String answerQuestion, @RequestParam String hints) throws HttpException, IOException {
+	public String askHint(
+			@Parameter(description = "Instructions on how to response sent to the LLM")
+			@RequestParam String instructions,
+			@Parameter(description = "Question asked by the user")
+			@RequestParam String question,
+			@Parameter(description = "Answer to the question shown to the user")
+			@RequestParam String answerQuestion,
+			@Parameter(description = "Hints already given to the user")
+			@RequestParam String hints) throws HttpException, IOException {
 		return genAI.askPrompt(instructions, question+";"+answerQuestion +";"+hints );
 	}
 
