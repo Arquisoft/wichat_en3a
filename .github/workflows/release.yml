@@ -86,7 +86,6 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/arquisoft/wichat_en3a/webapp:latest
-        build-args: "-DskipTests"
 
   docker-push-userservice:
     name: Push user service Docker Image to GitHub Packages
