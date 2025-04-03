@@ -6,10 +6,10 @@ ifndef::imagesdir[:imagesdir: ../images]
 ==== Load managing
 Considering that the application's concurrent users can vary its important to take horizontal scalability when designing the architecture, that's why we are using Docker for deployment
 
-===Usability and Accesibility
-====Intuitive interface
+=== Usability and Accesibility
+==== Intuitive interface
 The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team
 
-===Maintainability and Extensibility
-====Modularity
+=== Maintainability and Extensibility
+==== Modularity
 The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components
