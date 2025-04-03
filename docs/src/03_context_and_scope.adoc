@@ -29,14 +29,14 @@ It also allows to authenticated the player and allows them to see their statisti
 
 image::03_technical_context.png["Technical context"]
 
-The application is deployed using Docker with Azure. The whole application:
+The application is deployed using Docker with Oracle. The whole application:
 The user interacts with the front-end of the application. It will be a SpringBoot project that will contain the user
 interfaces and ask the other parts of the application the different data that it needs. So, it acts as a Controller.
 
 The services will be:
 
 * Users service (login and statistics)
-* Question service (WikiData)
+* WikiData service (WikiData)
 * Hint service (LLM)
 * Game service
 
