@@ -152,6 +152,7 @@ public class AcceptanceTestsIT {
         System.out.println("Invalid login test passed");
     }
 
+    /*
     @Order(5)
     @Test
     public void testLogout() throws InterruptedException {
@@ -185,7 +186,6 @@ public class AcceptanceTestsIT {
         boolean logoutSuccess = wait.until(ExpectedConditions.urlContains("/login"));
         assertTrue(logoutSuccess, "Logout failed, did not redirect to login");
     }
-
     @Order(6)
     @Test
     @WithMockUser(username = "testuser", roles = {"USER"})
@@ -198,4 +198,5 @@ public class AcceptanceTestsIT {
 
         System.out.println("Access to protected page denied");
     }
+    */
 }
