@@ -37,8 +37,11 @@ public class HintService {
     private Question currentQuestion;
     private List<String> alreadyGivenHints = new ArrayList<>();
 
-    @Autowired
     private HintRepository hintRepository;
+
+    public HintService(HintRepository hintRepository) {
+        this.hintRepository = hintRepository;
+    }
 
     public String askQuestionToIA(Question question, String questionUser) {
         if(currentQuestion == null || !currentQuestion.getId().equals(question.getId())) {
@@ -57,5 +60,9 @@ public class HintService {
             text+= hint+"_";
         }
         return text;
+    }
+
+    protected String getSetupMessageChat(){
+        return setupMessageChat;
     }
 }
