@@ -35,6 +35,10 @@ jobs:
       with:
         distribution: 'corretto'
         java-version: '23'
+    - name: Start Services with Docker Compose
+      run: docker-compose --profile dev up --build -d
+    - name: Wait for Services to Start
+      run: sleep 300 
     - run: mvn clean verify --batch-mode
       working-directory: userservice
     - run: mvn clean verify --batch-mode
@@ -43,6 +47,9 @@ jobs:
       working-directory: wikidataservice
     - run: mvn clean verify --batch-mode
       working-directory: webapp
+    - name: Stop Services
+      if: always()
+      run: docker-compose --profile dev down
 
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages
