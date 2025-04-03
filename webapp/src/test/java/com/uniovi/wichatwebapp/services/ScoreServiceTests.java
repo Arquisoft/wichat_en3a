@@ -30,8 +30,8 @@ public class ScoreServiceTests {
     public void addScoreTest() {
         when(scoreRepository.addScore(any())).thenReturn(testScore);
 
-        Score score = scoreService.addScore(testScore);
-        Assertions.assertEquals(testScore, score);
+        boolean couldAdd = scoreService.addScore(testScore);
+        Assertions.assertEquals(true, couldAdd);
     }
 
     @Test
