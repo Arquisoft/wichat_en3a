@@ -1,25 +1,31 @@
-package com.uniovi.wichatwebapp;
+package com.uniovi.wichatwebapp.acceptance;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AcceptanceTests {
+public class AcceptanceTestsIT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -32,10 +38,12 @@ public class AcceptanceTests {
     private static final String TEST_USERNAME = "testuser";
     private static final String TEST_PASSWORD = "password123";
 
+    private static ChromeOptions options;
+
     @BeforeAll
     public static void setup() {
         WebDriverManager.chromedriver().setup(); // Automatically manage ChromeDriver
-        ChromeOptions options = new ChromeOptions();
+        options = new ChromeOptions();
         options.addArguments("--start-maximized", "--disable-infobars", "--remote-allow-origins=*"); // Open browser in maximized mode, disable Chrome's info bars and allow cross-origin requests
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); // Disable automation banner
         driver = new ChromeDriver(options);
@@ -50,18 +58,19 @@ public class AcceptanceTests {
         }
     }
 
+    @Order(1)
     @Test
     public void testLoginPageLoads() throws Exception {
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk());
     }
 
+    @Order(2)
     @Test
     @WithMockUser(username = TEST_USERNAME, roles = {"USER"})
     public void testSignupFlow() throws InterruptedException {
         options.setExperimentalOption("detach", true); // Keep the browser open after the test
 
-        try {
 
             // Navigate to the signup page
             driver.get(BASE_URL + "/signup");
@@ -93,11 +102,11 @@ public class AcceptanceTests {
             System.out.println("Clicked signup button");
             Thread.sleep(1000); // Wait 1 second
 
-        }
     }
 
+    @Order(3)
     @Test
-    public void testLoginWithValidCredentials() {
+    public void testLoginWithValidCredentials() throws InterruptedException {
         driver.get(BASE_URL + "/login");
         System.out.println("Navigated to Login Page");
         Thread.sleep(1000); // Wait 1 second
@@ -123,6 +132,7 @@ public class AcceptanceTests {
         Thread.sleep(1000); // Wait 1 second
     }
 
+    @Order(4)
     @Test
     public void testLoginWithInvalidCredentials() {
         driver.get("http://localhost:8000/login");
@@ -142,8 +152,9 @@ public class AcceptanceTests {
         System.out.println("Invalid login test passed");
     }
 
+    @Order(5)
     @Test
-    public void testLogout() {
+    public void testLogout() throws InterruptedException {
         // Log in first
         driver.get(BASE_URL + "/login");
 
@@ -173,6 +184,7 @@ public class AcceptanceTests {
         assertTrue(logoutSuccess, "Logout failed, did not redirect to login");
     }
 
+    @Order(6)
     @Test
     @WithMockUser(username = "testuser", roles = {"USER"})
     public void testAccessToProtectedPage() {

@@ -1,4 +1,4 @@
-package com.uniovi.wichatwebapp;
+package com.uniovi.wichatwebapp.acceptance;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,7 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class HomeAndQuestionTests {
+public class HomeAndQuestionTestsIT {
 
     @BeforeAll
     public static void setup() {
