@@ -496,9 +496,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#_concept_1">8.1. <em>&lt;Concept 1&gt;</em></a></li>
-<li><a href="#_concept_2">8.2. <em>&lt;Concept 2&gt;</em></a></li>
-<li><a href="#_concept_n">8.3. <em>&lt;Concept n&gt;</em></a></li>
+<li><a href="#_performance_and_scalability">8.1. Performance and Scalability</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
@@ -1029,10 +1027,11 @@ interfaces and ask the other parts of the application the different data that it
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://ai.google.dev/">Gemini</a> as the LLM for generating hints</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">We will use (at least at first) Gemini because:</p>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We will use Gemini because:</p>
 <p class="tableblock">- It has a free api usage with limitations, but it is enough for our application.</p>
 <p class="tableblock">- It&#8217;s already integrated in the llm service.</p>
-<p class="tableblock">- It has a way to handle hallucinations and errors</p></td>
+<p class="tableblock">- It has a way to handle hallucinations and errors.</p>
+<p class="tableblock">- It allows us to send the instructions for how the LLM should behave each time the user asks the LLM something. This also means that the user can&#8217;t just ask the LLM to ignore its instructions and give them the correct answer.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1109,8 +1108,8 @@ interfaces and ask the other parts of the application the different data that it
 <td class="tableblock halign-left valign-top"><p class="tableblock">Weekly meeting</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Up until this moment we are meeting only once a week because:</p>
 <p class="tableblock">- We can work together at class in person</p>
-<p class="tableblock">- We can be up to date with the things done, discuss the future decisions and see what problemas each teammate have</p>
-<p class="tableblock">- Everyone have a moment to express themselves</p></td>
+<p class="tableblock">- We can be up to date with the things done, discuss the future decisions and see what problems each teammate have</p>
+<p class="tableblock">- Everyone can have a moment to express themselves</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WhatsApp group</p></td>
@@ -1139,6 +1138,16 @@ interfaces and ask the other parts of the application the different data that it
 <th class="tableblock halign-left valign-top">Choice</th>
 </tr>
 </thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility &amp; Transferability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system has been developed to correctly work no matter the browser or device guaranteeing a fluid experience. We are using HTML, CSS and Bootstrap which assure that the design and features look and act similarly across the different platflorms.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability &amp; Operability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The UI has been designed taking into account usability principles taught to the team. The team has also made sure that the users can guess what the buttons all around the application do without much problem.</p></td>
+</tr>
+</tbody>
 </table>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1462,126 +1471,25 @@ interfaces and ask the other parts of the application the different data that it
 <div class="sect1">
 <h2 id="section-concepts">8. Cross-cutting Concepts</h2>
 <div class="sectionbody">
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Content</div>
-<p>This section describes overall, principal regulations and solution ideas that are relevant in multiple parts (= cross-cutting) of your system.
-Such concepts are often related to multiple building blocks.
-They can include many different topics, such as</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>models, especially domain models</p>
-</li>
-<li>
-<p>architecture or design patterns</p>
-</li>
-<li>
-<p>rules for using specific technology</p>
-</li>
-<li>
-<p>principal, often technical decisions of an overarching (= cross-cutting) nature</p>
-</li>
-<li>
-<p>implementation rules</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Concepts form the basis for <em>conceptual integrity</em> (consistency, homogeneity) of the architecture.
-Thus, they are an important contribution to achieve inner qualities of your system.</p>
-</div>
-<div class="paragraph">
-<p>Some of these concepts cannot be assigned to individual building blocks, e.g. security or safety.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>The form can be varied:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>concept papers with any kind of structure</p>
-</li>
-<li>
-<p>cross-cutting model excerpts or scenarios using notations of the architecture views</p>
-</li>
-<li>
-<p>sample implementations, especially for technical concepts</p>
-</li>
-<li>
-<p>reference to typical usage of standard frameworks (e.g. using Hibernate for object/relational mapping)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Structure</div>
-<p>A potential (but not mandatory) structure for this section could be:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Domain concepts</p>
-</li>
-<li>
-<p>User Experience concepts (UX)</p>
-</li>
-<li>
-<p>Safety and security concepts</p>
-</li>
-<li>
-<p>Architecture and design patterns</p>
-</li>
-<li>
-<p>"Under-the-hood"</p>
-</li>
-<li>
-<p>development concepts</p>
-</li>
-<li>
-<p>operational concepts</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Note: it might be difficult to assign individual concepts to one specific topic
-on this list.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/08-concepts-EN.drawio.png" alt="Possible topics for crosscutting concepts">
-</div>
-</div>
-<div class="paragraph">
-<div class="title">Further Information</div>
-<p>See <a href="https://docs.arc42.org/section-8/">Concepts</a> in the arc42 documentation.</p>
-</div>
-</div>
-</div>
 <div class="sect2">
-<h3 id="_concept_1">8.1. <em>&lt;Concept 1&gt;</em></h3>
+<h3 id="_performance_and_scalability">8.1. Performance and Scalability</h3>
+<div class="sect3">
+<h4 id="_load_managing">8.1.1. Load managing</h4>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_concept_2">8.2. <em>&lt;Concept 2&gt;</em></h3>
-<div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>Considering that the application&#8217;s concurrent users can vary its important to take horizontal scalability when designing the architecture, that&#8217;s why we are using Docker for deployment</p>
 </div>
 <div class="paragraph">
-<p>&#8230;&#8203;</p>
+<p>===Usability and Accesibility
+====Intuitive interface
+The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_concept_n">8.3. <em>&lt;Concept n&gt;</em></h3>
 <div class="paragraph">
-<p><em>&lt;explanation&gt;</em></p>
+<p>===Maintainability and Extensibility
+====Modularity
+The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components</p>
 </div>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 </div>
@@ -1592,7 +1500,11 @@ on this list.</p>
 <h3 id="_clientserver_architecture">9.1. Client/Server architecture</h3>
 <div class="paragraph">
 <p>We are going to have an architecture with a main application with a client and server, and several servers for the external services (users, WikiData, LLM, etc.) that will act as data APIs for the main application server.
-These service servers will respond to requests by returning data that the main application will process and pass to the view.</p>
+These service servers will respond to requests by returning data that the main application will process and pass to the view.
+===MVC architectural pattern
+We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling
+===Microservices architecture
+We are going to use a microservices architecture as it allows us to divide the whole application&#8217;s project into independent services that we can treat as separate projects that can be reusable</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
