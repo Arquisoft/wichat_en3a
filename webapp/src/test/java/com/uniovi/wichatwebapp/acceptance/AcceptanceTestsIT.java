@@ -169,7 +169,9 @@ public class AcceptanceTestsIT {
         emailField.sendKeys(TEST_EMAIL);
         Thread.sleep(1000); // Wait 1 second
         passwordField.sendKeys(TEST_PASSWORD);
+        Thread.sleep(1000); // Wait 1 second
         loginButton.click();
+        Thread.sleep(1000); // Wait 1 second
 
         // Ensure successful login before proceeding
         wait.until(ExpectedConditions.urlContains("/home"));
