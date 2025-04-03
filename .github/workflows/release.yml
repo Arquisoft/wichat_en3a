@@ -35,8 +35,21 @@ jobs:
       with:
         distribution: 'corretto'
         java-version: '23'
-    - name: Start Services with Docker Compose
-      run: docker-compose --profile dev up --build -d
+    - name: Start User Service
+      run: mvn spring-boot:run &
+      working-directory: userservice
+
+    - name: Start Hint Service
+      run: mvn spring-boot:run &
+      working-directory: hintservice
+
+    - name: Start Wikidata Service
+      run: mvn spring-boot:run &
+      working-directory: wikidataservice
+
+    - name: Start Web App
+      run: mvn spring-boot:run &
+      working-directory: webapp
     - name: Wait for Services to Start
       run: sleep 300 
     - run: mvn clean verify --batch-mode
@@ -47,9 +60,6 @@ jobs:
       working-directory: wikidataservice
     - run: mvn clean verify --batch-mode
       working-directory: webapp
-    - name: Stop Services
-      if: always()
-      run: docker-compose --profile dev down
 
   docker-push-webapp:
     name: Push webapp Docker Image to GitHub Packages
