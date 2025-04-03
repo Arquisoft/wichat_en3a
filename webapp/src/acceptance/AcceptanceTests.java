@@ -24,10 +24,30 @@ public class AcceptanceTests {
     @Autowired
     private MockMvc mockMvc;
 
+    private static WebDriver driver;
+    private static WebDriverWait wait;
+
+    private static final String BASE_URL = "http://localhost:8000";
+    private static final String TEST_EMAIL = "testuser@example.com";
+    private static final String TEST_USERNAME = "testuser";
+    private static final String TEST_PASSWORD = "password123";
+
     @BeforeAll
     public static void setup() {
         WebDriverManager.chromedriver().setup(); // Automatically manage ChromeDriver
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--start-maximized", "--disable-infobars", "--remote-allow-origins=*"); // Open browser in maximized mode, disable Chrome's info bars and allow cross-origin requests
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); // Disable automation banner
+        driver = new ChromeDriver(options);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         System.out.println("Running AcceptanceTests...");
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 
     @Test
@@ -37,83 +57,131 @@ public class AcceptanceTests {
     }
 
     @Test
-    @WithMockUser(username = "testuser", roles = {"USER"})
-    public void testSignupAndLoginWithSelenium() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-maximized"); // Open browser in maximized mode
-        options.addArguments("--disable-infobars"); // Disable Chrome's info bars
-        options.addArguments("--remote-allow-origins=*"); // Allow cross-origin requests
-        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); // Disable automation banner
+    @WithMockUser(username = TEST_USERNAME, roles = {"USER"})
+    public void testSignupFlow() throws InterruptedException {
         options.setExperimentalOption("detach", true); // Keep the browser open after the test
 
-        WebDriver driver = new ChromeDriver(options);
-
         try {
+
             // Navigate to the signup page
-            driver.get("http://localhost:8000/signup");
+            driver.get(BASE_URL + "/signup");
             System.out.println("Navigated to Signup Page");
             Thread.sleep(1000); // Wait 1 second
 
             // Locate signup form elements
-            WebElement emailField = driver.findElement(By.name("email")); // Match 'name' attribute
-            Thread.sleep(1000); // Wait 1 second
-            WebElement usernameField = driver.findElement(By.name("name")); // Match 'name' attribute
-            Thread.sleep(1000); // Wait 1 second
-            WebElement passwordField = driver.findElement(By.name("password")); // Match 'name' attribute
-            Thread.sleep(1000); // Wait 1 second
-            WebElement signupButton = driver.findElement(By.cssSelector("button[type='submit']")); // Match the submit button
-            Thread.sleep(1000); // Wait 1 second
+            // Match 'email' attribute
+            WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("email")));
+            // Match 'name' attribute
+            WebElement usernameField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("name")));
+            // Match 'password' attribute
+            WebElement passwordField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
+            // Match the submit button
+            WebElement signupButton = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit']")));
+
 
             // Fill out the signup form
-            emailField.sendKeys("newuser@example.com");
+            emailField.sendKeys(TEST_EMAIL);
             System.out.println("Entered email");
             Thread.sleep(1000); // Wait 1 second
-            usernameField.sendKeys("newuser");
+            usernameField.sendKeys(TEST_USERNAME);
             System.out.println("Entered username");
             Thread.sleep(1000); // Wait 1 second
-            passwordField.sendKeys("password123");
+            passwordField.sendKeys(TEST_PASSWORD);
             System.out.println("Entered password");
             Thread.sleep(1000); // Wait 1 second
             signupButton.click();
             System.out.println("Clicked signup button");
             Thread.sleep(1000); // Wait 1 second
 
-            // Navigate to the login page
-            driver.get("http://localhost:8000/login");
-            System.out.println("Navigated to Login Page");
-            Thread.sleep(1000); // Wait 1 second
-
-            // Locate login form elements
-            WebElement loginEmailField = driver.findElement(By.name("username")); // Match 'name' attribute
-            Thread.sleep(1000); // Wait 1 second
-            WebElement loginPasswordField = driver.findElement(By.name("password")); // Match 'name' attribute
-            Thread.sleep(1000); // Wait 1 second
-            WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']")); // Match the submit button
-            Thread.sleep(1000); // Wait 1 second
-
-            // Fill out the login form
-            loginEmailField.sendKeys("newuser@example.com");
-            System.out.println("Entered username");
-            Thread.sleep(1000); // Wait 1 second
-            loginPasswordField.sendKeys("password123");
-            System.out.println("Entered password");
-            Thread.sleep(1000); // Wait 1 second
-            loginButton.click();
-            System.out.println("Clicked login button");
-            Thread.sleep(1000); // Wait 1 second
-
-            // Verify the URL contains /home
-            if (driver.getCurrentUrl().contains("/home")) {
-                System.out.println("Login successful, redirected to /home");
-            } else {
-                System.out.println("Failed to redirect to /home");
-            }
-            Thread.sleep(1000); // Wait 1 second
-
-        } finally {
-            driver.quit();
         }
     }
 
+    @Test
+    public void testLoginWithValidCredentials() {
+        driver.get(BASE_URL + "/login");
+        System.out.println("Navigated to Login Page");
+        Thread.sleep(1000); // Wait 1 second
 
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
+        WebElement passwordField = driver.findElement(By.name("password"));
+        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+
+        Thread.sleep(1000); // Wait 1 second
+        emailField.sendKeys(TEST_EMAIL);
+        Thread.sleep(1000); // Wait 1 second
+        passwordField.sendKeys(TEST_PASSWORD);
+        Thread.sleep(1000); // Wait 1 second
+        loginButton.click();
+        System.out.println("Login form submitted");
+
+        // Verify successful login by checking if redirected to /home (verifies if the url contains /home)
+        if (driver.getCurrentUrl().contains("/home")) {
+            System.out.println("Login successful, redirected to /home");
+        } else {
+            System.out.println("Failed to redirect to /home");
+        }
+        Thread.sleep(1000); // Wait 1 second
+    }
+
+    @Test
+    public void testLoginWithInvalidCredentials() {
+        driver.get("http://localhost:8000/login");
+
+
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
+        WebElement passwordField = driver.findElement(By.name("password"));
+        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+
+        emailField.sendKeys("wronguser@example.com");
+        passwordField.sendKeys("wrongpassword");
+        loginButton.click();
+
+        // Check for error message
+        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("error")));
+        assertNotNull(errorMessage, "Expected error message for invalid login");
+        System.out.println("Invalid login test passed");
+    }
+
+    @Test
+    public void testLogout() {
+        // Log in first
+        driver.get(BASE_URL + "/login");
+
+        Thread.sleep(1000); // Wait 1 second
+        WebElement emailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
+        Thread.sleep(1000); // Wait 1 second
+        WebElement passwordField = driver.findElement(By.name("password"));
+        Thread.sleep(1000); // Wait 1 second
+        WebElement loginButton = driver.findElement(By.cssSelector("button[type='submit']"));
+
+        Thread.sleep(1000); // Wait 1 second
+        emailField.sendKeys(TEST_EMAIL);
+        Thread.sleep(1000); // Wait 1 second
+        passwordField.sendKeys(TEST_PASSWORD);
+        loginButton.click();
+
+        // Ensure successful login before proceeding
+        wait.until(ExpectedConditions.urlContains("/home"));
+
+        // Click the logout button
+        WebElement logoutLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='/logout']")));
+        logoutLink.click();
+        System.out.println("Clicked logout link");
+
+        // Verify redirection to the login page after logout
+        boolean logoutSuccess = wait.until(ExpectedConditions.urlContains("/login"));
+        assertTrue(logoutSuccess, "Logout failed, did not redirect to login");
+    }
+
+    @Test
+    @WithMockUser(username = "testuser", roles = {"USER"})
+    public void testAccessToProtectedPage() {
+        driver.get(BASE_URL + "/home");
+
+        // Verify redirection to the login page after try to access oritected page
+        boolean logoutSuccess = wait.until(ExpectedConditions.urlContains("/login"));
+        assertTrue(logoutSuccess, "Protected page failed, did not redirect to login");
+
+        System.out.println("Access to protected page denied");
+    }
 }
