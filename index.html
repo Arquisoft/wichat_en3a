@@ -497,21 +497,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#_performance_and_scalability">8.1. Performance and Scalability</a></li>
-<li><a href="#_usability_and_accesibility">8.2. Usability and Accesibility</a></li>
-<li><a href="#_maintainability_and_extensibility">8.3. Maintainability and Extensibility</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
 <ul class="sectlevel2">
 <li><a href="#_clientserver_architecture">9.1. Client/Server architecture</a></li>
-<li><a href="#_mvc_architectural_pattern">9.2. MVC architectural pattern</a></li>
-<li><a href="#_microservices_architecture">9.3. Microservices architecture</a></li>
 </ul>
 </li>
-<li><a href="#section-quality-scenarios">10. Quality Requirements</a>
+<li><a href="#section-quality-scenarios">10. 10. Quality Requirements</a>
 <ul class="sectlevel2">
-<li><a href="#_quality_tree">10.1. Quality Tree</a></li>
-<li><a href="#_quality_scenarios">10.2. Quality Scenarios</a></li>
+<li><a href="#_10_1_quality_tree">10.1. 10.1. Quality Tree</a></li>
+<li><a href="#_10_2_quality_scenarios">10.2. 10.2. Quality Scenarios</a></li>
 </ul>
 </li>
 <li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
@@ -1482,23 +1478,15 @@ interfaces and ask the other parts of the application the different data that it
 <div class="paragraph">
 <p>Considering that the application&#8217;s concurrent users can vary its important to take horizontal scalability when designing the architecture, that&#8217;s why we are using Docker for deployment</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_usability_and_accesibility">8.2. Usability and Accesibility</h3>
-<div class="sect3">
-<h4 id="_intuitive_interface">8.2.1. Intuitive interface</h4>
 <div class="paragraph">
-<p>The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team</p>
+<p>===Usability and Accesibility
+====Intuitive interface
+The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_maintainability_and_extensibility">8.3. Maintainability and Extensibility</h3>
-<div class="sect3">
-<h4 id="_modularity">8.3.1. Modularity</h4>
 <div class="paragraph">
-<p>The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components</p>
+<p>===Maintainability and Extensibility
+====Modularity
+The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -1512,42 +1500,31 @@ interfaces and ask the other parts of the application the different data that it
 <h3 id="_clientserver_architecture">9.1. Client/Server architecture</h3>
 <div class="paragraph">
 <p>We are going to have an architecture with a main application with a client and server, and several servers for the external services (users, WikiData, LLM, etc.) that will act as data APIs for the main application server.
-These service servers will respond to requests by returning data that the main application will process and pass to the view.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_mvc_architectural_pattern">9.2. MVC architectural pattern</h3>
-<div class="paragraph">
-<p>We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_microservices_architecture">9.3. Microservices architecture</h3>
-<div class="paragraph">
-<p>We are going to use a microservices architecture as it allows us to divide the whole application&#8217;s project into independent services that we can treat as separate projects that can be reusable</p>
+These service servers will respond to requests by returning data that the main application will process and pass to the view.
+===MVC architectural pattern
+We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling
+===Microservices architecture
+We are going to use a microservices architecture as it allows us to divide the whole application&#8217;s project into independent services that we can treat as separate projects that can be reusable</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-quality-scenarios">10. Quality Requirements</h2>
+<h2 id="section-quality-scenarios">10. 10. Quality Requirements</h2>
 <div class="sectionbody">
 <div class="sidebarblock arc42help">
 <div class="content">
 <div class="paragraph">
 <div class="title">Content</div>
-<p>This section contains all quality requirements as quality tree with scenarios. The most important ones have already been described in section 1.2. (quality goals)</p>
+<p>This section contains all quality requirements as a quality tree with scenarios. The most important ones have already been described in section 1.2. (quality goals)</p>
 </div>
 <div class="paragraph">
-<p>Here you can also capture quality requirements with lesser priority,
-which will not create high risks when they are not fully achieved.</p>
+<p>Here you can also capture quality requirements with lesser priority, which will not create high risks when they are not fully achieved.</p>
 </div>
 <div class="paragraph">
 <div class="title">Motivation</div>
-<p>Since quality requirements will have a lot of influence on architectural
-decisions you should know for every stakeholder what is really important to them,
-concrete and measurable.</p>
+<p>Since quality requirements will have a lot of influence on architectural decisions, you should know for every stakeholder what is really important to them, concrete, and measurable.</p>
 </div>
 <div class="paragraph">
 <div class="title">Further Information</div>
@@ -1556,77 +1533,90 @@ concrete and measurable.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_quality_tree">10.1. Quality Tree</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
+<h3 id="_10_1_quality_tree">10.1. 10.1. Quality Tree</h3>
 <div class="paragraph">
-<div class="title">Content</div>
-<p>The quality tree (as defined in ATAM – Architecture Tradeoff Analysis Method) with quality/evaluation scenarios as leafs.</p>
+<p>The quality tree below provides an overview of the primary and secondary quality requirements for the application.</p>
 </div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>The tree structure with priorities provides an overview for a sometimes large number of quality requirements.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>The quality tree is a high-level overview of the quality goals and requirements:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>tree-like refinement of the term "quality". Use "quality" or "usefulness" as a root</p>
-</li>
-<li>
-<p>a mind map with quality categories as main branches</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>In any case the tree should include links to the scenarios of the following section.</p>
-</div>
-</div>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Quality Attribute</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Requirement</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Performance</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- The system should generate a question, its possible answers and the image within a short time.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Availability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- A failover mechanism should allow hint generation to respond or give a controlled answer even if the LLM API is temporarily unavailable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Security</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- User data (e.g., progress history) should be securely stored.<br>
+  - The system should prevent unauthorized access to API keys.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- The codebase should follow modular architecture principles, ensuring ease of modification and debugging.<br>
+  - The system should be correctly tested.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Usability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- The web interface should be intuitive and accessible for everyone.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Reliability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- The hint system should provide accurate and relevant hints and prevent the LLM to retrieve the answer directly.<br>
+  - The system should handle incorrect answers and provide meaningful feedback to users.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
-<h3 id="_quality_scenarios">10.2. Quality Scenarios</h3>
-<div class="sidebarblock arc42help">
-<div class="content">
-<div class="paragraph">
-<div class="title">Contents</div>
-<p>Concretization of (sometimes vague or implicit) quality requirements using (quality) scenarios.</p>
-</div>
-<div class="paragraph">
-<p>These scenarios describe what should happen when a stimulus arrives at the system.</p>
-</div>
-<div class="paragraph">
-<p>For architects, two kinds of scenarios are important:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Usage scenarios (also called application scenarios or use case scenarios) describe the system’s runtime reaction to a certain stimulus. This also includes scenarios that describe the system’s efficiency or performance. Example: The system reacts to a user’s request within one second.</p>
-</li>
-<li>
-<p>Change scenarios describe a modification of the system or of its immediate environment. Example: Additional functionality is implemented or requirements for a quality attribute change.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Motivation</div>
-<p>Scenarios make quality requirements concrete and allow to
-more easily measure or decide whether they are fulfilled.</p>
-</div>
-<div class="paragraph">
-<p>Especially when you want to assess your architecture using methods like
-ATAM you need to describe your quality goals (from section 1.2)
-more precisely down to a level of scenarios that can be discussed and evaluated.</p>
-</div>
-<div class="paragraph">
-<div class="title">Form</div>
-<p>Tabular or free form text.</p>
-</div>
-</div>
-</div>
+<h3 id="_10_2_quality_scenarios">10.2. 10.2. Quality Scenarios</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 23.0769%;">
+<col style="width: 38.4615%;">
+<col style="width: 38.4616%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Scenario Type</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Expected System Response</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Performance</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The user plays the game andrequests a question.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system generates the possible answers and shows an image wasting little time.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Availability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The LLM API is temporarily unavailable.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system does not break and provides a good feedback to the user.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A new hint-generation strategy is introduced.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system integrates it with minimal modifications due to its modular architecture.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Usability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An user that is not used to play games or use computers tries the game.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The interface is clear and intuitive so the user has no problem playing the game.</p></td>
+</tr>
+</tbody>
+</table>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -1674,6 +1664,20 @@ database) may face performance bottlenecks.</p>
 <p>User registration and historical data storage introduce potential
 security vulnerabilities (e.g., data leaks, unauthorized access). Compliance with GDPR or other privacy regulations
 is also a concern.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Question Repetitiveness</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Users may encounter repetitive questions. A system for tracking previously used questions and ensuring diversity in
+topics is necessary.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time-Limited Question Challenges</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Implementing a real-time timer for answering questions may lead to synchronization issues across different devices and
+network conditions, potentially causing an unfair experience. Latency compensation mechanisms should be considered.</p>
 </div></div></td>
 </tr>
 </tbody>
