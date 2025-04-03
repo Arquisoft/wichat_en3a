@@ -3,45 +3,59 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Introduction and Goals
 
-The application aims to be a web game of questions and answers following the format of the TV show ‘Saber y Ganar’. The game will show a question to the player followed by a fixed number of possible answers (the information used in the questions and answers will be obtained from Wikidata https://www.wikidata.org). The player must answer these questions by clicking on one of the answers, clicking a correct answer will increase their score and clicking a bad answer will decrease it. 
+The application aims to be a web game of questions and answers following the format of the TV show ‘Saber y Ganar’. The game will show a question to the player followed by a fixed number of possible answers (the information used in the questions and answers will be obtained from https://www.wikidata.org[Wikidata]. The player must answer these questions by clicking on one of the answers, clicking a correct answer will increase their score and clicking a incorrect answer will decrease it. 
 
 The description given till now was the same as the project that was implemented by the students that took the software architecture course last year. But, apart from that, this year there will be a new feature that implements a clue system using an LLM. This system will let the user decide whether to use clues or not once they have seen the question. Using the clues will result in a penalty to be decided. Some goals established for the application are (without priority order):
 
 * The game should implement all the functionality of the ones developed the previous year
-* The game should integrate a clue system that uses LLM technology. 
+* The game should integrate a hint system that uses LLM technology. 
 * There should be a good quantity of questions and answers to be asked in the game. (considering that the information for this Q&As must be taken for Wikidata)
 * There shall be a log in in the application that allows users to obtain historical data from their participations.
 
 
 === Requirements Overview
+==== The functional requirements
+About the Game service:
 
-* The system should give non-registered or unidentified users the option to register to the application
-* The user should be able to ask for hints from the LLM in each question
-* An specific approach should be use to avoid incorrect answers and hallucinations from the LLM
-* Each question must have a single correct answer and at least one incorrect answer
 * The game shall correctly show the questions and all the possible answers.
 * The game shall manage the answers given by the player as expected.
-* The LLM clue system should be implemented so it gives quality clues.
 * The user interaction with the clue system shall be managed.
-* The questions shall be obtained from Wikidata.
-* The questions shall come with an image obtained from Wikidata.
 * The application should be accessible through the web.
-* There shall be a record of the historical data of the games from logged in players (number of games, number of failed questions, …).
 * There shall be a time count down in the game questions.
+
+About the Hint service:
+
+* The user should be able to ask for hints from the LLM in each question
 * The system shall give access to information about questions through an API. 
 
+About the Question service:
+
+* Each question must have a single correct answer and at least one incorrect answer
+* The questions shall be obtained from Wikidata.
+* The questions shall come with an image obtained from Wikidata.
+
+About the Users service:
+
+* The system should give non-registered or unidentified users the option to register to the application
+ There shall be a record of the historical data of the games from logged in players (number of games, number of failed questions, …).
+
+==== The non-functional requirements
+About the Hint service:
+
+* An specific approach should be use to avoid incorrect answers and hallucinations from the LLM
+* The LLM clue system should be implemented so it gives quality clues.
 
 === Quality Goals
-
+About the Hint service:
 The implementation of tests and that the product is extensible is one of the main goals as they are one of the most important requirements of some of our stakeholders (our teachers)
 
 [options="header"]
 |===
 |Goal| Description
-|Compatibility & Transferability | The system has to be compatible with different browsers and devices while ensuring an optimal experience regardless of the chosen platform. It also has to take into account different screen sizes
+|Compatibility & Transferability | The system has to be compatible with different browsers (at least Chrome, Firefox and Opera) and devices while ensuring an optimal experience regardless of the chosen platform. It also has to take into account different screen sizes (computer/laptop size, tablet size and phone size)
 |Availability| The system shall be available 99% of the time a user tries to access
-|Usability & Operability| The application is intuitive, users can learn how to fluently use the application in their first use
-|Performance| The application is able to manage a big number of users without penalizing response times
+|Usability & Operability| The application is intuitive, users can learn how to fluently use the application in their first use. The users should be able to play the game and complete it.
+|Performance| The application is able to manage a big number of users (100) without penalizing response times
 |Maintainability| The system has to be designed to facilitate the maintenance and updating
 |Functional suitability| The system can fulfill its intended goal effectively by allowing the users to register, play the game, ask for hints to the LLM and access their statistics
 |Reliability| The system has to be able to generate questions from Wikidata ensuring their accuracy and diversity. It should handle the storage of user registrations, logins and game data without errors
@@ -64,5 +78,5 @@ Other goals to take into account are:
 | Software architecture professors | Provide their students, the development team, with practical experience regarding software architecture by allowing them to work in an environment that emulates the flow of development of a real project . Which means that they expect us to be able to meet the standards of quality and production of a real application.
 | RTVE | Get an evolution of their quiz game and continue promoting their program all around the world
 | ChattySW | Develop an application within the given constraints and that fulfills the requirements given by the client
-| Wikidata | Offer a service allowing the development team to create the questions using an API
+| https://www.wikidata.org[Wikidata] | Offer a service allowing the development team to create the questions using an API
 |===

@@ -5,22 +5,101 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Technology breakdown
 
+==== Backend
 [options="header"]
 |===
-| Goal / Requirement | Architectural approach | Conclusions
-| Implement LLM technologies in the game | Research shall be done to decide which LLM is more convenient for our game. A research about how to implement this technologies in a good way (so hallucinations are avoided) shall be done | The LLM that is going to be used will be decided in further stages of the development. This will be done like this because the majority of the LLMs are implemented in a pretty similar way, so we can change the model with only some small changes in the code.
-| Develop the program using GitHub. | Research about branching strategies in GitHub shall be done. All team members shall be acquainted with GitHub | The branching strategy ‘GitHub Flow’ will be used by the development team as it is the branching strategy that fits better the team and project characteristics.
-| The code should be easy to understand and to extend in the future | Design techniques and patterns shall be implemented. | 
+| Decision | Reasons
+| Use https://spring.io/projects/spring-boot[SpringBoot] at the project | We are going to use SpringBoot at the project because:
+
+- It gives us a lot of functionality already implemented so that we don't have to implement it ourselves.
+
+- It allows us to use Java, which we are very used to and prefer over JavaScript.
+| https://www.mongodb.com/[MongoDB] as a database system | We will use MongoDB because:
+
+- It's already integrated in the user and authentication service
+
+- It's the more popular non-relational database, and has a more or less simple syntax
+
+|===
+
+==== Frontend
+[options="header"]
+|===
+| Decision | Reasons
+| Use https://spring.io/projects/spring-boot[SpringBoot] at the project | We are going to use SpringBoot at the project because:
+
+- It gives us a lot of functionality already implemented so that we don't have to implement it ourselves.
+
+- It allows us to use Java, which we are very used to and prefer over JavaScript.
+
+|===
+
+==== LLM
+[options="header"]
+|===
+| Decision | Reasons
+| https://ai.google.dev/[Gemini] as the LLM for generating hints | We will use (at least at first) Gemini because:
+
+- It has a free api usage with limitations, but it is enough for our application.
+
+- It's already integrated in the llm service.
+
+- It has a way to handle hallucinations and errors
+|===
+
+==== Deployment
+[options="header"]
+|===
+| Decision | Reasons
+| https://www.docker.com/[Docker] with https://azure.microsoft.com/[Azure] for deploying the application | We will use Docker with Azure because:
+
+- Docker containers encapsulate the application and its dependencies, ensuring consistency across different environments (development, testing, production).
+
+- This portability allows seamless deployment on Azure, regardless of the underlying infrastructure.
+|===
+
+
+=== Toplevel decomposition
+
+[options="header"]
+|===
+| Decision | Reasons
+| MVC architectural pattern | We will use MVC for the project because:
+
+- It allows us to divide the application into model, view and controller and are less coupled
+| Microservices architecture | We will use the microservices architecture because:
+
+- We can divide the project into independent services (other projects) that can be reusable
 |===
 
 === Organizational breakdown
+Scrum,  Pull requests revision,
 
-Up until this moment we are meeting only once a week, but we expect that that may have to change as the project evolves. We are using a whatsapp group as a secondary way of communication
+[options="header"]
+|===
+| Decision | Reasons
+| Weekly meeting | Up until this moment we are meeting only once a week because:
+
+- We can work together at class in person
+
+- We can be up to date with the things done, discuss the future decisions and see what problemas each teammate have
+
+- Everyone have a moment to express themselves
+
+| WhatsApp group | We are using a WhatsApp group as a secondary way of communication because it's a common application for all of us and it can be accessed anywhere.
+| GitLab Flow as branching strategy | The branching strategy ‘GitLab Flow’ will be used by the development team because:
+
+- It is the branching strategy that fits better the team and project characteristics.
+
+- It's simple as it only has 3-4 types of branches. It's less complex than Gitflow but more structured than Github Flow.
+
+- It's well divided, and allows simultaneous work on different features
+
+|===
 
 === Quality decisions
 
 [options="header"]
 |===
 | Attribute pursued | Choice
-||
 |===

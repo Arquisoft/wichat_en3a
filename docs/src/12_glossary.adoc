@@ -20,9 +20,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 |Framework
 |Set of concepts and practices used for solving a problem that can be used as a template for solving similar problems.
 
-|LLM
-|A Large Language Model is a pre-trained language model with ample knowledge about many different topics that can deliver answers in a way similar to human speech. It will be used to provide clues to the user.
-
 |Gemini
 |A LLM developed by Google. It will be one of the LLMs used in our application.  
 

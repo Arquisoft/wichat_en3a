@@ -3,13 +3,10 @@ package com.uniovi.hintservice.service;
 import autovalue.shaded.com.google.common.collect.ImmutableList;
 import com.google.genai.Client;
 import com.google.genai.types.*;
-import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.annotation.PostConstruct;
 
 import org.apache.http.HttpException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -43,7 +40,7 @@ public class GenAI { //https://github.com/googleapis/java-genai
             GenerateContentConfig config =
                     GenerateContentConfig.builder()
                             .candidateCount(1)
-                            .maxOutputTokens(1024)
+                            .maxOutputTokens(4000)
                             .safetySettings(safetySettings)
                             .systemInstruction(systemInstruction)
                             .tools(ImmutableList.of(googleSearchTool))
@@ -59,6 +56,7 @@ public class GenAI { //https://github.com/googleapis/java-genai
 
     }
 
+    /*
     public String exampleAskTextInput() throws IOException, HttpException {
         GenerateContentResponse response =
                 client.models.generateContent(GEMINI_1_5, "What is your name?", null);
@@ -109,7 +107,7 @@ public class GenAI { //https://github.com/googleapis/java-genai
 
         return response.text();
     }
-
+*/
     // Sets the safety settings
     private ImmutableList<SafetySetting> initializeSafetySettings() {
         return ImmutableList.of(

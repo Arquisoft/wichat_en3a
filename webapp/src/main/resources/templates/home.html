@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
-<head th:replace="fragments/head :: head('Home')"></head>
-<body>
-    <nav th:replace="fragments/nav"></nav>
-    <h2>Home</h2>
-    <p>Welcome, <span th:text="${user.name}"></span></p>
-    <a href="/logout">Logout</a>
-    <a href="/hint">LLM</a>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:insert="fragments/head :: head('Question')"></th:block>
+    <link rel="stylesheet" href="/css/home.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/nav.css"/>
+</head>
+<body class="home-bg">
+<nav th:replace="fragments/nav"></nav>
+<main class="home-container">
+    <a href="/game/start/SPORT" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        Sport Game
+    </a>
+    <a href="/game/start/GEOGRAPHY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        Geography Game
+    </a>
+    <a href="/game/start/POP_CULTURE" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        Pop culture Game
+    </a>
+
+    <a href="/game/start/BIOLOGY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        Biology Game
+    </a>
+
+    <a href="/game/personalized" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+        Custom Game
+    </a>
+</main>
 </body>
 </html>
+
+
+<!--
+<h2 class="home-title">Home</h2>
+<p class="welcome-message">Welcome, <span th:text="${user.name}"></span>!</p>
+<a href="/logout" class="logout-button">Logout</a>
+-->

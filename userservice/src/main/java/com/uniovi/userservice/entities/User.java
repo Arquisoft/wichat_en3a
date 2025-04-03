@@ -34,6 +34,11 @@ public class User {
         this.correct = correct;
     }
 
+    public User(String id, String name, String email, String password, boolean correct) {
+        this(name, email, password, correct);
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }

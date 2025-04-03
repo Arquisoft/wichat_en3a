@@ -2,9 +2,14 @@ package com.uniovi.wichatwebapp.repositories;
 
 import com.uniovi.wichatwebapp.entities.Answer;
 import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
 @Repository
 public class QuestionRepository {
     private WebClient.Builder webClientBuilder;
@@ -15,19 +20,20 @@ public class QuestionRepository {
         this.webClientBuilder = webClientBuilder;
     }
 
-    public Question getRandomQuestion(){
+    public Question getRandomQuestion(QuestionCategory category){
         return webClientBuilder
                 .baseUrl(baseUrl) // Set base URL here or in config
                 .build()
                 .get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/game/newQuestion")
+                        .path("/game/newQuestion/"+category.name())
                         .build())
                 .retrieve()
                 .bodyToMono(Question.class)
                 .block();
     }
 
+    /*
     public Question getQuestion(String id){
         return webClientBuilder
                 .baseUrl(baseUrl) // Set base URL here or in config
@@ -69,16 +75,22 @@ public class QuestionRepository {
         } else{
             return true;
         }
-    }
+    }*/
     public void removeQuestion(String id){
-        webClientBuilder
-                .baseUrl(baseUrl)
-                .build()
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/game/removeQuestion")
-                        .queryParam("id", id)
-                        .build())
-                .retrieve();
+        try{
+            webClientBuilder
+                    .baseUrl(baseUrl)
+                    .build()
+                    .get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/game/removeQuestion")
+                            .queryParam("id", id)
+                            .build())
+                    .retrieve()
+                    .onStatus(HttpStatusCode::is4xxClientError, response-> Mono.error(new RuntimeException("Error while deleting question")));
+        }catch (RuntimeException e){
+            //TODO Add error handling in frontend
+        }
+
     }
 }

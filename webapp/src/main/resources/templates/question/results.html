@@ -1,0 +1,36 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:insert="fragments/head :: head('Results')"></th:block>
+  <link rel="stylesheet" href="/css/nav.css"/>
+</head>
+<body class="bg-light">
+<nav th:replace="fragments/nav"></nav>
+
+<div class="container mt-5">
+  <!-- Game Results Card -->
+  <div class="card text-center">
+    <div class="card-header">
+      <h2>Results</h2>
+    </div>
+    <div class="card-body">
+      <p class="error" th:if="${addError}">The score could not be saved</p>
+      <h5 class="card-title">Player: <strong id="playerName" th:text="${player}"></strong></h5>
+      <p class="card-text">Score: <strong id="playerScore" th:text="${points}"></strong></p>
+      <p class="card-text">Right answers: <strong id="rightAnswers" th:text="${right}"></strong></p>
+      <p class="card-text">Wrong answers: <strong id="wrongAnswers" th:text="${wrong}"></strong></p>
+
+
+      <a th:href="'/game/start/'+${category}+'/'+${timer}+'/'+${questions}">Play Again?</a>
+
+      <br>
+
+      <a href="/user/scores">Check your scores</a>
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

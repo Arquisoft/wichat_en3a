@@ -1,0 +1,111 @@
+/* Full page background */
+body.bg-light {
+    background-image: url('../images/thumb-1920-1205979.png'); /* Your background image */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+.question-image {
+    height: 200px; /* Your fixed height */
+    width: auto; /* Width adjusts to maintain ratio */
+    max-width: 100%; /* Prevent overflow */
+    display: block;
+    margin: 0 auto; /* Center horizontally */
+    object-fit: contain; /* Ensures full image is visible */
+}
+
+.answer-button {
+    /* Remove all background colors */
+    background-color: transparent !important;
+    background-image: url('../images/42ac9c3b-646e-44e0-b187-c4470d1117d5_removalai_preview.png') !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    /* Remove Bootstrap button styling */
+    border: none !important;
+    box-shadow: none !important;
+
+    /* Text styling */
+    color: black !important;
+    font-size: 1.2rem;
+
+
+    height: 150px;
+    width: 400px;
+
+    /* Hover effects */
+    transition: transform 0.2s;
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Ensures margin auto works */
+}
+
+/* Remove any Bootstrap active/focus states */
+.answer-button:focus,
+.answer-button:active,
+.answer-button:hover {
+    background-color: transparent !important;
+    background-image: url('../images/42ac9c3b-646e-44e0-b187-c4470d1117d5_removalai_preview.png') !important;
+    color: gray !important;
+    transform: scale(1.05);
+}
+
+/* Remove outline on focus */
+.answer-button:focus {
+    outline: none !important;
+}
+
+/* Text container for question */
+.question-text-container {
+    color: #00FF41;
+    background-image: url('../images/Logo3.png');
+    background-size: contain;  /* Changed from cover to contain */
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 50px 50px 25px 50px;
+    min-height: 280px; /* Fixed height matching your design */
+    width: 100%; /* Full width of parent container */
+}
+
+/* Optional hover effect */
+.answer-button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Contenedor principal */
+.main-container {
+    top: 50px;
+    left: 0;
+    width: 100%;
+    z-index: 900;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.col-md-8 {
+    margin-left: auto;
+    margin-right: auto;
+    display: block; /* Ensures margin auto works */
+    justify-content: center;
+}
+
+.chat-button{
+    position:fixed;
+    width: 100%;
+    height: 100%;
+    max-width: 100%!important;
+    pointer-events: none;
+}
+
+#startChat{
+    pointer-events: all;
+}
+
+.small-timer {
+    height: 50px;  /* Visual size */
+}

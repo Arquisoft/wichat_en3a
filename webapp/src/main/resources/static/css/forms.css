@@ -1,40 +1,111 @@
-.form{
+/* Style for text and password inputs */
+input[name="username"],
+input[name="password"],
+input[name="name"],
+input[name="email"]{
+    background-image: url('../images/UI_Flat_Banner02a.png'); /* PNG path */
+    background-color: transparent;
+    background-size: cover;                    /* Scale image to cover input */
+    background-repeat: no-repeat;             /* Prevent image repetition */
+    background-position: center;              /* Center the image */
+    padding: 40px 60px 60px;                      /* Add spacing for text */
+    border: none;                            /* Remove default border */
+    color: #333;                             /* Text color */
+    font-size: 20px;
+    width: 320px;                           /* Adjust width as needed */
+    height: 100px;                          /* Adjust height as needed */
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* Focus effects */
+input[name="username"]:focus,
+input[name="password"]:focus,
+input[name="name"]:focus{
+    outline: none;                         /* Remove default outline */
+    box-shadow: 0 0 8px rgba(81, 203, 238, 0.6); /* Add glow on focus */
+}
+
+/* Center content vertically and horizontally */
+.centered-content {
+    min-height: 100vh;          /* Full viewport height */
+    display: flex;
+    flex-direction: column;     /* Stack logo and forms vertically */
+    align-items: center;        /* Center horizontally */
+}
+
+/* Arrange forms horizontally */
+.form-container {
+    flex-direction: column;
+    display: flex;              /* Horizontal layout */
+    gap: 40px;                 /* Space between forms */
+    margin-top: 20px;          /* Space below the logo */
+    align-items: center;   /* Align forms at the top */
+}
+
+/* Optional: Style individual forms for consistency */
+.form {
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
-    margin-bottom: 1em;
-    align-items: center;
+    gap: 10px;                /* Space between form elements */
+    align-items: center; /* Center all child elements horizontally */
+}
+    /* Login Button */
+.big-button-anchor {
+    background-image: url('../images/UI_Flat_Frame01a.png'); /* Login PNG path */
+    background-size: cover;       /* Scale image to cover the button */
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 192px;               /* Adjust to match your image size */
+    height: 128px;              /* Adjust to match your image size */
+    color: black;             /* Text color (ensure visibility) */
+    font-size: 2em;
+    cursor: pointer;         /* Show pointer on hover */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.form input, .form button{
-    border-radius: 5px;
-    width: max-content;
-
+.big-button {
+    background-image: url('../images/UI_Flat_Frame01a.png'); /* Login PNG path */
+    background-size: cover;       /* Scale image to cover the button */
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 192px;               /* Adjust to match your image size */
+    height: 128px;              /* Adjust to match your image size */
+    color: black;             /* Text color (ensure visibility) */
+    font-size: 30px;
+    cursor: pointer;         /* Show pointer on hover */
 }
 
-.form input{
-    background-color: white;
-    border: black solid 1px;
-}
-
-.form button{
-    padding: 0.5em 1em;
-    background-color: #2c88f1;
-    color: white;
+/* Sign Up Button */
+.small-button {
+    background-image: url('../images/UI_Flat_Frame01a.png'); /* Signup PNG path */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     border: none;
+    width: 96px;
+    height: 64px;
+    color: #333;           /* Adjust text color for contrast */
+    font-size: 15px;
+    cursor: pointer;
+    padding: 10px 20px;
 }
 
-.error{
-    color: red;
+/* Hover Effects (Optional) */
+.login-button:hover,
+.signup-button:hover {
+    opacity: 0.9;        /* Slight transparency on hover */
+    transform: scale(1.02); /* Small scale effect */
 }
 
-.form input {
-    width: 80%;
-    margin: 0rem auto;
-    display: block;
+.game-link {
+    color: #333; /* Fixed color */
+    text-decoration: none;
 }
-.form button {
-    width: 80%;
-    margin: 0rem auto;
-    display: block;
+
+.game-link:hover {
+    color: #333; /* Same color on hover */
 }

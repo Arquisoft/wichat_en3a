@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <th:block th:insert="fragments/head :: head('Question')"></th:block>
+    <link rel="stylesheet" href="/css/home.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/nav.css"/>
+</head>
+<body class="home-bg">
+<nav th:replace="fragments/nav"></nav>
+<main class="home-container">
+    <form action="/game/personalized" method="POST">
+        <label for="category">Choose a category:</label>
+
+        <!-- Combobox dinámico desde Enum -->
+        <select id="category" name="category" required>
+            <option value="" disabled selected>-- Chose an option--</option>
+            <option
+                    th:each="category : ${categories}"
+                    th:value="${category.name()}"
+                    th:text="${category.toString()}"
+            ></option>
+        </select>
+
+        <!-- Timer Input (in seconds) -->
+        <div class="form-group">
+            <label for="timerSeconds">Timer duration per question (seconds):</label>
+            <input type="number"
+                   id="timerSeconds"
+                   name="timerSeconds"
+                   class="form-control"
+                   min="5"
+                   value="30"
+            required>
+            <small class="form-subtitle">Minimum 5 seconds</small>
+        </div>
+
+        <!-- Number of Questions -->
+        <div class="form-group">
+            <label for="questionCount">Number of questions:</label>
+            <input type="number"
+                   id="questionCount"
+                   name="questionCount"
+                   class="form-control"
+                   min="1"
+            value="10"
+            required>
+        </div>
+
+        <!-- Botón de enviar -->
+        <button type="submit">Play</button>
+
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    </form>
+</main>
+</body>
+</html>
