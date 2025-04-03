@@ -19,7 +19,7 @@ See https://docs.arc42.org/section-10/[Quality Requirements] in the arc42 docume
 ****
 endif::arc42help[]
 
-=== 10.1. Quality Tree
+=== Quality Tree
 
 The quality tree below provides an overview of the primary and secondary quality requirements for the application.
 
@@ -50,14 +50,14 @@ The quality tree below provides an overview of the primary and secondary quality
   - The system should handle incorrect answers and provide meaningful feedback to users.
 |===
 
-=== 10.2. Quality Scenarios
+=== Quality Scenarios
 
 [cols="3,5,5"]
 |===
 | **Scenario Type** | **Description** | **Expected System Response**
 
 | **Performance**
-| The user plays the game andrequests a question.
+| The user plays the game and requests a question.
 | The system generates the possible answers and shows an image wasting little time.
 
 | **Availability**

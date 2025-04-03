@@ -58,6 +58,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 - Docker containers encapsulate the application and its dependencies, ensuring consistency across different environments (development, testing, production).
 
 - This portability allows seamless deployment on Azure, regardless of the underlying infrastructure.
+| https://www.docker.com/[Docker] with https://apex.oracle.com/en/platform/deployment/[Oracle] for deploying the application permanently | We will use Docker with Oracle because:
+
+- It's much more cheaper than Azure for keep the app deployed.
 |===
 
 
