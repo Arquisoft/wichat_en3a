@@ -12,21 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnimalLifespan extends QuestionWikidata {
-    private static final String[] spanishStringsIni = {"¿Cuál es la esperanza de vida de este animal? ", "¿Cuánto suele vivir este animal? "};
-    private static final String[] englishStringsIni= {"What is the lifespan of this animal? ", "How long does this animal usually live? "};
+    private static final String[] spanishStringsIni = {"¿Cuál es la esperanza de vida de %s?", "¿Cuánto suele vivir %s?"};
+    private static final String[] englishStringsIni = {"What is the lifespan of %s?", "How long does %s usually live?"};
 
     private List<String> animalLabels = new ArrayList<>();
     private List<String> lifespans = new ArrayList<>();
-
 
     public AnimalLifespan(String langCode) {
         super(langCode);
     }
 
-    //For testing
-    public AnimalLifespan(){
+    // For testing
+    public AnimalLifespan() {
         super();
     }
+
     @Override
     protected void setQuery() {
         this.sparqlQuery =
@@ -67,9 +67,9 @@ public class AnimalLifespan extends QuestionWikidata {
 
             String questionString;
             if (langCode.equals("es")) {
-                questionString = spanishStringsIni[i % spanishStringsIni.length] + name;
+                questionString = String.format(spanishStringsIni[i % spanishStringsIni.length], name);
             } else {
-                questionString = englishStringsIni[i % englishStringsIni.length] + name;
+                questionString = String.format(englishStringsIni[i % englishStringsIni.length], name);
             }
 
             if (image == null) {
@@ -77,7 +77,7 @@ public class AnimalLifespan extends QuestionWikidata {
             }
 
             Question question = new Question(answer, questionString, name, QuestionCategory.BIOLOGY);
-            question.setImageUrl(image); // Sets the monument's image
+            question.setImageUrl(image); // Sets the animal's image
             questions.add(question);
         }
 
@@ -88,7 +88,7 @@ public class AnimalLifespan extends QuestionWikidata {
     @Override
     protected boolean needToSkip(String... parameters) {
         if (animalLabels.contains(parameters[0]) || lifespans.contains(parameters[1])) {
-            return true; // Avoid duplicate questions for the same monument
+            return true; // Avoid duplicate questions for the same animal
         }
         animalLabels.add(parameters[0]);
 
@@ -99,12 +99,12 @@ public class AnimalLifespan extends QuestionWikidata {
         return false;
     }
 
-    //For testing
+    // For testing
     public List<String> getAnimalLabels() {
         return animalLabels;
     }
 
-    //For testing
+    // For testing
     public List<String> getLifespans() {
         return lifespans;
     }

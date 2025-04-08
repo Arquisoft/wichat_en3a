@@ -12,21 +12,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnimalScientificName extends QuestionWikidata {
-    private static final String[] spanishStringsIni = {"¿Cuál es el nombre científico de este animal? "};
-    private static final String[] englishStringsIni= {"What is the scientific name of this animal? "};
+    private static final String[] spanishStringsIni = {"¿Cuál es el nombre científico de %s?"};
+    private static final String[] englishStringsIni = {"What is the scientific name of %s?"};
 
     private List<String> animalLabels = new ArrayList<>();
-    private List<String> animalScientificNames= new ArrayList<>();
-
+    private List<String> animalScientificNames = new ArrayList<>();
 
     public AnimalScientificName(String langCode) {
         super(langCode);
     }
 
-    //For testing
-    public AnimalScientificName(){
+    // For testing
+    public AnimalScientificName() {
         super();
     }
+
     @Override
     protected void setQuery() {
         this.sparqlQuery =
@@ -69,9 +69,9 @@ public class AnimalScientificName extends QuestionWikidata {
 
             String questionString;
             if (langCode.equals("es")) {
-                questionString = spanishStringsIni[i % spanishStringsIni.length] + name;
+                questionString = String.format(spanishStringsIni[i % spanishStringsIni.length], name);
             } else {
-                questionString = englishStringsIni[i % englishStringsIni.length] + name;
+                questionString = String.format(englishStringsIni[i % englishStringsIni.length], name);
             }
 
             if (image == null) {
@@ -79,7 +79,7 @@ public class AnimalScientificName extends QuestionWikidata {
             }
 
             Question question = new Question(answer, questionString, name, QuestionCategory.BIOLOGY);
-            question.setImageUrl(image); // Sets the monument's image
+            question.setImageUrl(image); // Sets the animal's image
             questions.add(question);
         }
 
@@ -90,7 +90,7 @@ public class AnimalScientificName extends QuestionWikidata {
     @Override
     protected boolean needToSkip(String... parameters) {
         if (animalLabels.contains(parameters[0]) || animalScientificNames.contains(parameters[1])) {
-            return true; // Avoid duplicate questions for the same monument
+            return true; // Avoid duplicate questions for the same animal
         }
         animalLabels.add(parameters[0]);
 
@@ -101,13 +101,12 @@ public class AnimalScientificName extends QuestionWikidata {
         return false;
     }
 
-
-    //For testing
+    // For testing
     public List<String> getAnimalLabels() {
         return animalLabels;
     }
 
-    //For testing
+    // For testing
     public List<String> getAnimalScientificNames() {
         return animalScientificNames;
     }

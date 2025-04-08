@@ -1,4 +1,4 @@
-# wichat_en3a
+# QWiZZ [Play here!](https://wichat.pablordgz.es)
 
 [![Actions Status](https://github.com/arquisoft/wichat_en3a/workflows/CI%20for%20wichat_en3a/badge.svg)](https://github.com/arquisoft/wichat_en3a/actions)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arquisoft_wichat_en3a&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arquisoft_wichat_en3a)
@@ -62,7 +62,7 @@ Then you have to launch all the services manually (using some IDE or Maven and J
 After all the components are launched, the app should be available in localhost in port 8000.
 
 ## Deployment
-For the deployment, we have several options. The first and more flexible is to deploy to a virtual machine using SSH. This will work with any cloud service (or with our own server). Other options include using the container services that all the cloud services provide. This means, deploying our Docker containers directly. Here I am going to use the first approach. I am going to create a virtual machine in a cloud service and after installing docker and docker-compose, deploy our containers there using GitHub Actions and SSH.
+For the deployment, we will be using an oracle virtual machine. But we have also tried and documented the deployment into an azure virtual machine, so we have a second option in case of failure of the oracle one. This will work with any cloud service (or with our own server). Both deployment methods will follow the same approach. We are going to create a virtual machine into a cloud service and after installing docker and docker-compose, deploy our containers there using GitHub Actions and SSH.
 
 ### Machine requirements for deployment
 The machine for deployment can be created in services like Microsoft Azure or Amazon AWS. These are in general the settings that it must have:
@@ -94,21 +94,22 @@ As you can see, unitary tests of each module and e2e tests are executed before p
 The deploy action is the following:
 
 ```yml
-deploy:
+  deploy:
     name: Deploy over SSH
     runs-on: ubuntu-latest
-    needs: [docker-push-userservice,docker-push-authservice,docker-push-llmservice,docker-push-gatewayservice,docker-push-webapp]
+    needs: [docker-push-userservice,docker-push-hintservice,docker-push-wikidataservice,docker-push-webapp]
     steps:
-    - name: Deploy over SSH
-      uses: fifsky/ssh-action@master
-      with:
-        host: ${{ secrets.DEPLOY_HOST }}
-        user: ${{ secrets.DEPLOY_USER }}
-        key: ${{ secrets.DEPLOY_KEY }}
-        command: |
-          wget https://raw.githubusercontent.com/arquisoft/wichat_en3a/master/docker-compose.yml -O docker-compose.yml
-          docker compose --profile prod down
-          docker compose --profile prod up -d --pull always
+      - name: Deploy over SSH
+        uses: fifsky/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          user: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          command: |
+            wget https://raw.githubusercontent.com/arquisoft/wichat_en3a/master/docker-compose.yml -O docker-compose.yml
+            echo "HINTSERVICE_API_KEY=${{ secrets.LLM_API_KEY }}" > .env
+            docker compose --profile prod down
+            docker compose --profile prod up -d --pull always
 ```
 
 This action uses three secrets that must be configured in the repository:

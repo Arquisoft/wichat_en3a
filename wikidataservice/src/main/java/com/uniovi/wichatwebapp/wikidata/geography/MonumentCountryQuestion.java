@@ -12,17 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MonumentCountryQuestion extends QuestionWikidata {
-    private static final String[] spanishStringsIni = {"¿A qué país pertenece este monumento? ", "¿De qué país es este monumento? ", "¿Cuál es el país de este monumento? "};
-    private static final String[] englishStringsIni = {"Which country does this monument belong to? ", "To which country belongs this monument? ", "From which country is this monument? ", "What is the country of this monument? "};
+    private static final String[] spanishStringsIni = {"¿A qué país pertenece %s?", "¿De qué país es %s?", "¿Cuál es el país de %s?"};
+    private static final String[] englishStringsIni = {"Which country does %s belong to?", "To which country belongs %s?", "From which country is %s?", "What is the country of %s?"};
 
-    private List<String> monumentLabels=new ArrayList<>();
+    private List<String> monumentLabels = new ArrayList<>();
 
     public MonumentCountryQuestion(String langCode) {
         super(langCode);
     }
 
-    //For testing
-    public MonumentCountryQuestion(){
+    // For testing
+    public MonumentCountryQuestion() {
         super();
     }
 
@@ -59,9 +59,9 @@ public class MonumentCountryQuestion extends QuestionWikidata {
 
             String questionString;
             if (langCode.equals("es")) {
-                questionString = spanishStringsIni[i % spanishStringsIni.length] + monumentLabel;
+                questionString = String.format(spanishStringsIni[i % spanishStringsIni.length], monumentLabel);
             } else {
-                questionString = englishStringsIni[i % englishStringsIni.length] + monumentLabel;
+                questionString = String.format(englishStringsIni[i % englishStringsIni.length], monumentLabel);
             }
 
             if (image == null) {
@@ -91,8 +91,7 @@ public class MonumentCountryQuestion extends QuestionWikidata {
         return false;
     }
 
-
-    //For testing
+    // For testing
     public List<String> getMonumentLabels() {
         return monumentLabels;
     }
