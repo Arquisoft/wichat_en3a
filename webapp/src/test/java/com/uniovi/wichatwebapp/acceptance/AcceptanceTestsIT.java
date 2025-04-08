@@ -152,7 +152,7 @@ public class AcceptanceTestsIT {
         System.out.println("Invalid login test passed");
     }
 
-    /*
+
     @Order(5)
     @Test
     public void testLogout() throws InterruptedException {
@@ -198,5 +198,5 @@ public class AcceptanceTestsIT {
 
         System.out.println("Access to protected page denied");
     }
-    */
+
 }
