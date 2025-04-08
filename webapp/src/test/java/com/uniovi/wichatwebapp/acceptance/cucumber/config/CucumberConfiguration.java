@@ -1,4 +1,4 @@
-package com.uniovi.wichatwebapp.acceptance;
+package com.uniovi.wichatwebapp.acceptance.cucumber.config;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
