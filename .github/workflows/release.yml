@@ -36,19 +36,19 @@ jobs:
         distribution: 'corretto'
         java-version: '23'
     - name: Start User Service
-      run: mvn spring-boot:run &
+      run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
       working-directory: userservice
 
     - name: Start Hint Service
-      run: mvn spring-boot:run &
+      run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
       working-directory: hintservice
 
     - name: Start Wikidata Service
-      run: mvn spring-boot:run &
+      run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
       working-directory: wikidataservice
 
     - name: Start Web App
-      run: mvn spring-boot:run &
+      run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
       working-directory: webapp
     - name: Wait for Services to Start
       run: sleep 300 
