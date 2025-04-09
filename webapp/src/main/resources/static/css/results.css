@@ -1,0 +1,28 @@
+body.bg-light {
+    background-image: url('../images/spacebackground.jpg'); /* Set space background */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: white; /* Default text color */
+}
+
+.card {
+    background-color: transparent; /* Make card background transparent */
+    border: none; /* Remove card border */
+    box-shadow: none; /* Remove shadow */
+}
+.card-header, .card-body {
+    color: white; /* Ensure text inside the card is white */
+    background-color: transparent; /* Remove background */
+    border: none; /* Remove borders */
+}
+
+a {
+    color: white; /* Links in white */
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #ddd; /* Slightly lighter color on hover */
+}

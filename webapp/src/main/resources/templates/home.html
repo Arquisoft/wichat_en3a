@@ -9,23 +9,33 @@
 <body class="home-bg">
 <nav th:replace="fragments/nav"></nav>
 <main class="home-container">
-    <a href="/game/start/SPORT" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Sport Game
-    </a>
-    <a href="/game/start/GEOGRAPHY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Geography Game
-    </a>
-    <a href="/game/start/POP_CULTURE" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Pop culture Game
-    </a>
+    
+    
+    <div>
+        <div class="additional-frame">
+            <button class="nav-button left-button" onclick="changeText(-1)"></button>
+            <p id="frame-text">SPORT</p>
+            <button class="nav-button right-button" onclick="changeText(1)"></button>
+        </div>
+        <!-- Content inside the frame -->
+        <a href="/game/start/SPORT" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+            Sport Game
+        </a>
+        <a href="/game/start/GEOGRAPHY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+            Geography Game
+        </a>
+        <a href="/game/start/POP_CULTURE" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+            Pop culture Game
+        </a>
+        <a href="/game/start/BIOLOGY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+            Biology Game
+        </a>
+        <a href="/game/personalized" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
+            Custom Game
+        </a>
+    </div>
+    <script src="/script/home.js"></script>
 
-    <a href="/game/start/BIOLOGY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Biology Game
-    </a>
-
-    <a href="/game/personalized" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Custom Game
-    </a>
 </main>
 </body>
 </html>
