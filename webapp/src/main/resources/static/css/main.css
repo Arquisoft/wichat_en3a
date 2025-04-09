@@ -1,6 +1,13 @@
 /* General Styles */
+@font-face {
+    font-family: Minecraft;
+    src: url('../fonts/Minecraft.ttf') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Minecraft', 'Arial', 'Helvetica', sans-serif; /* Updated to remove Minecraftia */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,6 +17,14 @@ body {
     background: white;
     min-height: 100vh; /* Ensure the body covers the full viewport height */
     padding-bottom: 3em;
+}
+
+body.login-bg, .login-bg .form-container, .login-bg .form {
+    font-family: 'Minecraft', 'Arial', 'Helvetica', sans-serif !important; /* Updated to remove Minecraftia */
+}
+
+.login-bg, .form-container, .form {
+    font-family: 'Minecraft', 'Arial', 'Helvetica', sans-serif; /* Updated to remove Minecraftia */
 }
 
 /* Login page background */
@@ -29,7 +44,8 @@ body {
     background-repeat: no-repeat;
 }
 
-main{
+main {
+    font-family: 'Minecraft', 'Arial', 'Helvetica', sans-serif; /* Updated to remove Minecraftia */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,28 +53,27 @@ main{
     height: max-content;
 }
 
-
-.form-subtitle{
+.form-subtitle {
     color: #ffffff;
 }
 
-.stats{
+.stats {
     display: flex;
     flex-direction: row;
     margin: 0 auto;
     width: max-content;
 }
 
-.stats h3{
+.stats h3 {
     margin-top: 0.2em;
 }
 
-.answer-div{
+.answer-div {
     padding: 0!important;
     display: flex; /* For some reason it doesn't align if not with this */
 }
 
-.answer-row{
+.answer-row {
     width: 60%;
     margin: 0 auto;
 }
@@ -69,7 +84,6 @@ h2 {
     margin-bottom: 1.5rem;
     font-size: 2rem;
 }
-
 
 /* Form Elements */
 label {
@@ -108,17 +122,17 @@ button:hover {
     font-size: 0.9rem;
 }
 
-.answer-text{
+.answer-text {
     width: 80%;
     margin: 0 auto;
 }
 
-.correct{
+.correct {
     background-color: limegreen;
     background-blend-mode: multiply;
 }
 
-.container{
+.container {
     max-width: 100%!important;
 }
 
@@ -136,7 +150,6 @@ a:hover {
     text-decoration: underline;
 }
 
-
 nav {
     display: flex!important;
     flex-direction: row;
@@ -147,6 +160,7 @@ nav {
     left: 0;
     width: 100%;
 }
+
 nav a {
     color: white;
     text-decoration: none;
@@ -154,17 +168,21 @@ nav a {
     align-self: center;
     margin-top: 0;
 }
+
 nav a:hover {
     background-color: #575757;
 }
+
 body {
     margin: 0;
 }
+
 .home-logo img {
     height: 40px;
 }
 
-.btn-primary{width: 10em; /* Adjust the width in em units */
+.btn-primary {
+    width: 10em; /* Adjust the width in em units */
     height: 5em; /* Adjust the height in em units */
     padding: 1em 2em; /* Adjust the padding in em units */
     font-size: 1.2rem; /* Adjust the font size in rem units */
@@ -181,6 +199,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .question-image {
     width: 30%;
     margin: 2rem auto;
@@ -189,28 +208,29 @@ body {
     display: block; /* Ensure the image is treated as a block-level element */
 }
 
-.left-size-container{
+.left-size-container {
     margin-left: 0;
 }
 
-.question-text-container h1{
+.question-text-container h1 {
     width: 50%;
     margin: 0 auto;
 }
 
-@media(max-width: 1100px){
-    .answer-row{
+@media(max-width: 1100px) {
+    .answer-row {
         width: 80%;
     }
 }
 
-@media(max-width: 900px){
-    .question-text-container h1{
+@media(max-width: 900px) {
+    .question-text-container h1 {
         margin-top: 1em;
         font-size: 2em;
         width: 70%;
     }
-    .answer-row{
+
+    .answer-row {
         width: 100%;
     }
 }
@@ -219,50 +239,55 @@ body {
     .question-image {
         width: 50%;
     }
-    .question-text-container h1{
+
+    .question-text-container h1 {
         font-size: 1.8em;
     }
-    .answer-row{
+
+    .answer-row {
         flex-direction: column;
     }
-    .answer-div{
+
+    .answer-div {
         width: max-content;
         max-width: 100%;
         margin: 0 auto;
     }
-    .answer-button{
+
+    .answer-button {
         display: block;
         max-width: 100%;
     }
 }
 
-@media(max-width: 600px){
-    .question-text-container h1{
+@media(max-width: 600px) {
+    .question-text-container h1 {
         font-size: 1.5em;
         margin-top: 1.5em;
         width: 100%;
     }
-    .chat-icon-button{
+
+    .chat-icon-button {
         width: 75px!important;
         height: 75px!important;
     }
-    .chat-icon{
+
+    .chat-icon {
         width: 30px!important;
         height: 30px!important;
     }
 }
 
-@media(max-width: 525px){
-    .question-text-container h1{
+@media(max-width: 525px) {
+    .question-text-container h1 {
         font-size: 1.2em;
         margin-top: 2.5em;
     }
-    .container{
+
+    .container {
         margin-top: 0!important;
     }
 }
-
-
 
 /* Responsive Design */
 @media(max-width: 480px) {
@@ -279,18 +304,17 @@ body {
         padding: 0.65rem;
     }
 
-    .answer-button{
+    .answer-button {
         width: 100%;
     }
 }
 
-@media(max-width: 425px){
-    .question-text-container h1{
+@media(max-width: 425px) {
+    .question-text-container h1 {
         font-size: 1em;
         margin-top: 3.5em;
     }
 }
-
 
 /* Login, Signup Page is good. */
 

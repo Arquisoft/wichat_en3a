@@ -1,3 +1,5 @@
+
+
 /* Style for text and password inputs */
 input[name="username"],
 input[name="password"],
@@ -11,7 +13,6 @@ input[name="email"]{
     padding: 40px 60px 60px;                      /* Add spacing for text */
     border: none;                            /* Remove default border */
     color: #333;                             /* Text color */
-    font-size: 20px;
     width: 320px;                           /* Adjust width as needed */
     height: 100px;                          /* Adjust height as needed */
     margin-bottom: 40px;
