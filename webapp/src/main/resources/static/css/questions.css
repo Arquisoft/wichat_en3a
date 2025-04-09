@@ -8,6 +8,12 @@ body.bg-light {
     min-height: 100vh;
 }
 
+.col-md-8 {
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+}
+
 .question-image {
     height: 200px; /* Your fixed height */
     width: auto; /* Width adjusts to maintain ratio */
@@ -15,6 +21,13 @@ body.bg-light {
     display: block;
     margin: 0 auto; /* Center horizontally */
     object-fit: contain; /* Ensures full image is visible */
+}
+
+.answer-row {
+    display: flex;
+    justify-content: center; /* Center the buttons */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Full width of parent container */
 }
 
 .answer-button {
