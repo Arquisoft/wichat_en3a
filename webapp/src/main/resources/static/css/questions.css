@@ -61,9 +61,9 @@ body.bg-light {
 .answer-button:focus,
 .answer-button:active,
 .answer-button:hover {
-    background-color: transparent !important;
-    background-image: url('../images/42ac9c3b-646e-44e0-b187-c4470d1117d5_removalai_preview.png') !important;
-    color: gray !important;
+    background-color: transparent;
+    background-image: url('../images/42ac9c3b-646e-44e0-b187-c4470d1117d5_removalai_preview.png');
+    color: gray;
     transform: scale(1.05);
 }
 
@@ -257,4 +257,13 @@ body.bg-light {
     90% {
         opacity: 1;
     }
+}
+
+/* Styles for correct and wrong answers */
+.correct {
+    color: green !important;
+}
+
+.wrong {
+    color: red !important
 }
