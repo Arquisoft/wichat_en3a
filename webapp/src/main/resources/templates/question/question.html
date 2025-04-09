@@ -16,7 +16,9 @@
         <!-- Columna del juego -->
         <div class="game-container">
             <div class="question-text-container">
-                <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
+                <h1 id="questionText" class="text-center mb-4" th:data-content="${question.getContent()}">
+                    <!-- The question will be displayed here letter by letter -->
+                </h1>
             </div>
 
             <div class="stats">

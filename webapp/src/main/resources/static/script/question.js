@@ -138,3 +138,26 @@ function tickTimer(current,timer){
     ctx.strokeStyle = '#4caf50'; // Green color for the progress
     ctx.stroke();
 }
+
+function typeQuestion(text, elementId, delay = 50) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    let index = 0;
+    element.textContent = ""; // Clear existing content
+
+    const intervalId = setInterval(() => {
+        if (index < text.length) {
+            element.textContent += text[index];
+            index++;
+        } else {
+            clearInterval(intervalId);
+        }
+    }, delay);
+}
+
+// Call this function when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+    const questionText = document.getElementById("questionText").dataset.content;
+    typeQuestion(questionText, "questionText");
+});
