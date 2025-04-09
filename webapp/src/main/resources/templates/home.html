@@ -17,19 +17,11 @@
             <p id="frame-text">SPORT</p>
             <button class="nav-button right-button" onclick="changeText(1)"></button>
         </div>
-        <!-- Content inside the frame -->
-        <a href="/game/start/SPORT" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-            Sport Game
-        </a>
-        <a href="/game/start/GEOGRAPHY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-            Geography Game
-        </a>
-        <a href="/game/start/POP_CULTURE" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-            Pop culture Game
-        </a>
-        <a href="/game/start/BIOLOGY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-            Biology Game
-        </a>
+
+        <!-- Single dynamic button -->
+        <button id="startGameButton" class="game-link big-button-anchor" onclick="startGame()" sec:authorize="isAuthenticated()">
+            Start Game
+        </button>
         <a href="/game/personalized" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
             Custom Game
         </a>

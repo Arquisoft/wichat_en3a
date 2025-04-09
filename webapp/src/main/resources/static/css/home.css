@@ -37,16 +37,19 @@
     background-position: center;
     height: 200px; /* Adjust height as needed */
     width: 100%; /* Full width */
-    margin-top: 20px; /* Add spacing from the previous content */
+    margin-top: 200px; /* Add spacing from the previous content */
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     transform: scale(3);
+    margin-bottom: 200px;
+    text-align: center;
+    overflow: hidden; /* Ensure content stays within the frame */
 }
 
 #frame-text {
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: bold;
     color: white;
     text-align: center;
