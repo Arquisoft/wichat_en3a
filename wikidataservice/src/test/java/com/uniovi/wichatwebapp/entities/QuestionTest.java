@@ -33,4 +33,15 @@ class QuestionTest {
     void testCategory() {
         assertEquals(QuestionCategory.GEOGRAPHY, question.getCategory());
     }
+
+    @Test
+    void testSetters(){
+        question = new Question();
+        question.setContent("New content");
+        question.setCorrectAnswer(correctAnswer);
+        question.setCategory(QuestionCategory.GEOGRAPHY);
+        assertEquals("New content", question.getContent());
+        assertEquals(correctAnswer, question.getCorrectAnswer());
+        assertEquals(QuestionCategory.GEOGRAPHY, question.getCategory());
+    }
 }
