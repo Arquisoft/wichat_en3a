@@ -72,6 +72,12 @@ body.bg-light {
     outline: none !important;
 }
 
+/* Prevent transparency on disabled buttons */
+.answer-button:disabled {
+    opacity: 1 !important;
+    pointer-events: none;
+}
+
 /* Text container for question */
 .question-text-container {
     color: #00FF41;
