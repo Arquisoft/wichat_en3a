@@ -20,7 +20,7 @@ The last part is the Database, which represents the connection to a database whe
 
 === Level 2
 
-image::05_level2.png["Level 2"]
+image::05_level2_v2.png["Level 2"]
 
 * The Frontend is what the user will interact with, the part the user will be able to see. It will send requests to the GameService and UserService. 
 
@@ -30,6 +30,6 @@ image::05_level2.png["Level 2"]
 
 * The HintService will be used to interact with an LLM in order to generate hints. 
 
-* The QuestionService will be used to generate questions based on data extracted from WikiData. 
+* The WikiDataService will be used to generate questions based on data extracted from WikiData.
 
 * The Database will store information used in the system such as the user login details, the previous games and scores. 

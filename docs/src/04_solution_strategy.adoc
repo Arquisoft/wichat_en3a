@@ -38,13 +38,15 @@ ifndef::imagesdir[:imagesdir: ../images]
 [options="header"]
 |===
 | Decision | Reasons
-| https://ai.google.dev/[Gemini] as the LLM for generating hints | We will use (at least at first) Gemini because:
+| https://ai.google.dev/[Gemini] as the LLM for generating hints | We will use Gemini because:
 
 - It has a free api usage with limitations, but it is enough for our application.
 
 - It's already integrated in the llm service.
 
-- It has a way to handle hallucinations and errors
+- It has a way to handle hallucinations and errors.
+
+- It allows us to send the instructions for how the LLM should behave each time the user asks the LLM something. This also means that the user can't just ask the LLM to ignore its instructions and give them the correct answer.
 |===
 
 ==== Deployment
@@ -56,6 +58,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 - Docker containers encapsulate the application and its dependencies, ensuring consistency across different environments (development, testing, production).
 
 - This portability allows seamless deployment on Azure, regardless of the underlying infrastructure.
+| https://www.docker.com/[Docker] with https://apex.oracle.com/en/platform/deployment/[Oracle] for deploying the application permanently | We will use Docker with Oracle because:
+
+- It's much more cheaper than Azure for keep the app deployed.
 |===
 
 
@@ -82,9 +87,9 @@ Scrum,  Pull requests revision,
 
 - We can work together at class in person
 
-- We can be up to date with the things done, discuss the future decisions and see what problemas each teammate have
+- We can be up to date with the things done, discuss the future decisions and see what problems each teammate have
 
-- Everyone have a moment to express themselves
+- Everyone can have a moment to express themselves
 
 | WhatsApp group | We are using a WhatsApp group as a secondary way of communication because it's a common application for all of us and it can be accessed anywhere.
 | GitLab Flow as branching strategy | The branching strategy ‘GitLab Flow’ will be used by the development team because:
@@ -102,4 +107,6 @@ Scrum,  Pull requests revision,
 [options="header"]
 |===
 | Attribute pursued | Choice
+|Compatibility & Transferability | The system has been developed to correctly work no matter the browser or device guaranteeing a fluid experience. We are using HTML, CSS and Bootstrap which assure that the design and features look and act similarly across the different platflorms.
+|Usability & Operability| The UI has been designed taking into account usability principles taught to the team. The team has also made sure that the users can guess what the buttons all around the application do without much problem.
 |===

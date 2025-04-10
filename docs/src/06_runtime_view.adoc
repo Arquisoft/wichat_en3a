@@ -98,15 +98,15 @@ autonumber
 actor User
 participant FrontEnd
 participant GameService
-participant QuestionService
+participant WikidataService
 participant HintService
 database Database
 
 User -> FrontEnd: choses the game option
 FrontEnd -> GameService: the game starts
 loop round starts with timer (global or per round)
-    GameService -> QuestionService: [Question generation part]
-    QuestionService --> GameService: return data
+    GameService -> WikidataService: [Question generation part]
+    WikidataService --> GameService: return data
     alt user asks for a hint
         User -> FrontEnd: ask for a hint
         FrontEnd -> GameService: stop timer
@@ -129,9 +129,9 @@ FrontEnd --> User: show the results
 The following diagram shows how the generation of the questions is done. This option loads the questions during the game directly from Wikidata.
 
 1. The GameService asks for a question.
-2. The QuestionService requests data for creating the questions.
+2. The WikidataService requests data for creating the questions.
 3. Wikidata returns the question, image and options for the question.
-4. The QuestionService returns all the information.
+4. The WikidataService returns all the information.
 5. The GameService stores all the information returned.
 6. The GameService returns the data to the FrontEnd
 7. The question, image and options for the question are shown
@@ -142,13 +142,13 @@ autonumber
 actor User
 participant FrontEnd
 participant GameService
-participant QuestionService
+participant WikidataService
 entity WikiData
 
-GameService -> QuestionService: ask for a question
-QuestionService -> WikiData: requests data
-WikiData --> QuestionService: returns the data
-QuestionService --> GameService: returns the data
+GameService -> WikidataService: ask for a question
+WikidataService -> WikiData: requests data
+WikiData --> WikidataService: returns the data
+WikidataService --> GameService: returns the data
 GameService -> GameService: stores the data
 GameService --> FrontEnd: returns the data
 FrontEnd --> User: show the data

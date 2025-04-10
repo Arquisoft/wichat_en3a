@@ -28,7 +28,7 @@ About the Hint service:
 * The user should be able to ask for hints from the LLM in each question
 * The system shall give access to information about questions through an API. 
 
-About the Question service:
+About the Wikidata service:
 
 * Each question must have a single correct answer and at least one incorrect answer
 * The questions shall be obtained from Wikidata.
@@ -55,7 +55,7 @@ The implementation of tests and that the product is extensible is one of the mai
 |Compatibility & Transferability | The system has to be compatible with different browsers (at least Chrome, Firefox and Opera) and devices while ensuring an optimal experience regardless of the chosen platform. It also has to take into account different screen sizes (computer/laptop size, tablet size and phone size)
 |Availability| The system shall be available 99% of the time a user tries to access
 |Usability & Operability| The application is intuitive, users can learn how to fluently use the application in their first use. The users should be able to play the game and complete it.
-|Performance| The application is able to manage a big number of users (100) without penalizing response times
+|Performance| The application is able to manage a big number of users (50) without penalizing response times
 |Maintainability| The system has to be designed to facilitate the maintenance and updating
 |Functional suitability| The system can fulfill its intended goal effectively by allowing the users to register, play the game, ask for hints to the LLM and access their statistics
 |Reliability| The system has to be able to generate questions from Wikidata ensuring their accuracy and diversity. It should handle the storage of user registrations, logins and game data without errors
