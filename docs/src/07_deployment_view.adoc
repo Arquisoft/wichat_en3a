@@ -6,7 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Infrastructure Level 1
 
-image::07_Deployment.png["Deployment"]
+image::07_Deployment_v2.png["Deployment"]
 
 === Deployment Architecture Components
 
@@ -14,6 +14,6 @@ image::07_Deployment.png["Deployment"]
 * **Application**: The central interface that connects users to the system.
 * **GameService**: Manages multiple services, including:
   ** *Hint Service*: Interfaces with an external Large Language Model (**Gemini**) to process queries.
-  ** *Question Service*: Handles question-related logic and interacts with the database using the **Wikidata API**.
+  ** *Wikidata Service*: Handles question-related logic and interacts with the database using the **Wikidata API**.
   ** *User Service*: Manages user-related functionalities such as authentication and profile management.
 * **Database**: Uses MongoDB as the primary database for storing user and question-related data.
