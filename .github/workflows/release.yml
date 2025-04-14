@@ -35,6 +35,27 @@ jobs:
       with:
         distribution: 'corretto'
         java-version: '23'
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.12.0
+      with:
+        mongodb-version: '8.0'
+    - name: Start User Service
+      run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
+      working-directory: userservice
+
+    - name: Start Hint Service
+      run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
+      working-directory: hintservice
+
+    - name: Start Wikidata Service
+      run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
+      working-directory: wikidataservice
+
+    - name: Start Web App
+      run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
+      working-directory: webapp
+    - name: Wait for Services to Start
+      run: sleep 300 
     - run: mvn clean verify --batch-mode
       working-directory: userservice
     - run: mvn clean verify --batch-mode
@@ -69,9 +90,6 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ghcr.io/arquisoft/wichat_en3a/webapp:latest
-        build-args: |
-          API_URI=${{ secrets.API_URI }}
-          LLM_API_KEY=${{ secrets.LLM_API_KEY }}
 
   docker-push-userservice:
     name: Push user service Docker Image to GitHub Packages

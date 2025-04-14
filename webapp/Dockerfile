@@ -2,7 +2,7 @@
 FROM maven:3.9.9-amazoncorretto-23 AS build
 COPY . /webapp
 WORKDIR /webapp
-RUN mvn install
+RUN mvn install -DskipTests
 RUN mvn clean package
 
 FROM amazoncorretto:23 AS runtime

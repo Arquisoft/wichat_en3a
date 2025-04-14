@@ -44,7 +44,7 @@ public class AcceptanceTestsIT {
     public static void setup() {
         WebDriverManager.chromedriver().setup(); // Automatically manage ChromeDriver
         options = new ChromeOptions();
-        options.addArguments("--start-maximized", "--disable-infobars", "--remote-allow-origins=*"); // Open browser in maximized mode, disable Chrome's info bars and allow cross-origin requests
+        options.addArguments("--start-maximized", "--disable-infobars", "--remote-allow-origins=*", "--headless"); // Open browser in maximized mode, disable Chrome's info bars and allow cross-origin requests
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); // Disable automation banner
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -152,6 +152,7 @@ public class AcceptanceTestsIT {
         System.out.println("Invalid login test passed");
     }
 
+
     @Order(5)
     @Test
     public void testLogout() throws InterruptedException {
@@ -169,7 +170,9 @@ public class AcceptanceTestsIT {
         emailField.sendKeys(TEST_EMAIL);
         Thread.sleep(1000); // Wait 1 second
         passwordField.sendKeys(TEST_PASSWORD);
+        Thread.sleep(1000); // Wait 1 second
         loginButton.click();
+        Thread.sleep(1000); // Wait 1 second
 
         // Ensure successful login before proceeding
         wait.until(ExpectedConditions.urlContains("/home"));
@@ -183,7 +186,6 @@ public class AcceptanceTestsIT {
         boolean logoutSuccess = wait.until(ExpectedConditions.urlContains("/login"));
         assertTrue(logoutSuccess, "Logout failed, did not redirect to login");
     }
-
     @Order(6)
     @Test
     @WithMockUser(username = "testuser", roles = {"USER"})
@@ -196,4 +198,5 @@ public class AcceptanceTestsIT {
 
         System.out.println("Access to protected page denied");
     }
+
 }
