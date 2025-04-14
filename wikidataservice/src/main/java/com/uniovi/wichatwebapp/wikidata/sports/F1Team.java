@@ -12,19 +12,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class F1Team extends QuestionWikidata {
-    private static final String[] spanishStringsIni = {"¿En qué equipo está este deportista? ", "¿Cuál es el equipo de este deportista? "};
-    private static final String[] englishStringsIni= {"What team is this person in? ", "What's this person's team? "};
+    private static final String[] spanishStringsIni = {"¿En qué equipo está %s?", "¿Cuál es el equipo de %s?"};
+    private static final String[] englishStringsIni = {"What team is %s in?", "What's %s's team?"};
 
-    private List<String> athleteLabels= new ArrayList<>();
-
+    private List<String> athleteLabels = new ArrayList<>();
 
     public F1Team(String langCode) {
         super(langCode);
     }
 
-    //For testing
+    // For testing
     public F1Team() {
+        super();
     }
+
     @Override
     protected void setQuery() {
         this.sparqlQuery =
@@ -75,9 +76,9 @@ public class F1Team extends QuestionWikidata {
 
             String questionString;
             if (langCode.equals("es")) {
-                questionString = spanishStringsIni[i % spanishStringsIni.length] + athleteLabel;
+                questionString = String.format(spanishStringsIni[i % spanishStringsIni.length], athleteLabel);
             } else {
-                questionString = englishStringsIni[i % englishStringsIni.length] + athleteLabel;
+                questionString = String.format(englishStringsIni[i % englishStringsIni.length], athleteLabel);
             }
 
             if (image == null) {
@@ -85,7 +86,7 @@ public class F1Team extends QuestionWikidata {
             }
 
             Question question = new Question(answer, questionString, athleteLabel, QuestionCategory.SPORT);
-            question.setImageUrl(image); // Sets the monument's image
+            question.setImageUrl(image); // Sets the athlete's image
             questions.add(question);
         }
 
@@ -93,15 +94,10 @@ public class F1Team extends QuestionWikidata {
         as.addAll(answers);
     }
 
-    //For testing
-     List<String> getAthleteLabels() {
-        return athleteLabels;
-    }
-
     @Override
     protected boolean needToSkip(String... parameters) {
         if (athleteLabels.contains(parameters[0])) {
-            return true; // Avoid duplicate questions for the same monument
+            return true; // Avoid duplicate questions for the same athlete
         }
         athleteLabels.add(parameters[0]);
 
@@ -112,4 +108,8 @@ public class F1Team extends QuestionWikidata {
         return false;
     }
 
+    // For testing
+    List<String> getAthleteLabels() {
+        return athleteLabels;
+    }
 }
