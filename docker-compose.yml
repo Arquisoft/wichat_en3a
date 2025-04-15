@@ -96,14 +96,11 @@ services:
     depends_on:
       - prometheus
       - loki
-
-  
-
+      
   promtail:
     image: grafana/promtail:2.9.2
     container_name: promtail
     volumes:
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
       - ./promtail-config.yml:/etc/promtail/promtail.yaml
     command: -config.file=/etc/promtail/promtail.yaml
