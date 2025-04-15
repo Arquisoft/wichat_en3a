@@ -76,6 +76,13 @@ services:
     depends_on:
       - webapp
 
+  loki:
+    image: grafana/loki
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -84,12 +91,29 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    volumes:
+      - grafana-storage:/var/lib/grafana
     depends_on:
       - prometheus
+      - loki
+
+  
+
+  promtail:
+    image: grafana/promtail:2.9.2
+    container_name: promtail
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./promtail-config.yml:/etc/promtail/promtail.yaml
+    command: -config.file=/etc/promtail/promtail.yaml
+    depends_on:
+      - loki
 
 
 volumes:
   mongodb_data:
+  grafana-storage:
 
 networks:
   mynetwork:
