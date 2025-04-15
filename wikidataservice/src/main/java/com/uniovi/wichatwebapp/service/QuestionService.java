@@ -7,6 +7,7 @@ import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.repositories.AnswerRepository;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -203,5 +204,14 @@ public class QuestionService {
     public Answer findAnswerById(String answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         return optionalAnswer.orElse(null);
+    }
+
+    @Transactional
+    public void saveAllQuestionsBatch(List<Question> questions) {
+        questionRepository.saveAll(questions);
+    }
+    @Transactional
+    public void saveAllAnswersBatch(List<Answer> answers) {
+        answerRepository.saveAll(answers);
     }
 }
