@@ -1,9 +1,6 @@
 package com.uniovi.wichatwebapp.service;
 
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
 import com.uniovi.wichatwebapp.wikidata.biology.AnimalLifespan;
 import com.uniovi.wichatwebapp.wikidata.biology.AnimalScientificName;
 import com.uniovi.wichatwebapp.wikidata.biology.WhatAnimal;
@@ -26,50 +23,140 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-//@Service
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.stereotype.Service;
+
+@Service
 @EnableAsync
 public class InsertSampleDataMultithreadedService {
-
     private final QuestionService questionService;
+
     public InsertSampleDataMultithreadedService(QuestionService questionService) {
         this.questionService = questionService;
     }
 
     @PostConstruct
     public void init() {
+        // Erases the database. Mainly for testing
         questionService.eraseAll();
 
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
+        CompletableFuture<Void> flagQuestions = insertFlagQuestions();
+        CompletableFuture<Void> movieQuestions = insertMovieQuestions();
+        CompletableFuture<Void> brandQuestions = insertBrandQuestions();
+        CompletableFuture<Void> monumentCountryQuestions = insertMonumentCountryQuestions();
+        CompletableFuture<Void> monumentNameQuestions = insertMonumentNameQuestions();
+        CompletableFuture<Void> basketballTeamQuestions = insertBasketballTeamQuestions();
+        CompletableFuture<Void> f1TeamQuestions = insertF1TeamQuestions();
+        CompletableFuture<Void> footballTeamQuestions = insertFootballTeamQuestions();
+        CompletableFuture<Void> teamLogoQuestions = insertTeamLogoQuestions();
+        CompletableFuture<Void> whatAnimalQuestions = insertWhatAnimalQuestions();
+        CompletableFuture<Void> animalScientificNameQuestions = insertAnimalScientificNameQuestions();
+        CompletableFuture<Void> animalLifespanQuestions = insertAnimalLifespanQuestions();
 
-        futures.add(saveQuestionsAsync(new BasketballTeam("en")));
-        futures.add(saveQuestionsAsync(new F1Team("en")));
-        futures.add(saveQuestionsAsync(new FootballTeam("en")));
-        futures.add(saveQuestionsAsync(new TeamLogo("en")));
-        futures.add(saveQuestionsAsync(new FlagQuestion("en")));
-        futures.add(saveQuestionsAsync(new MovieQuestion("en")));
-        futures.add(saveQuestionsAsync(new BrandQuestion("en")));
-        futures.add(saveQuestionsAsync(new MonumentCountryQuestion("en")));
-        futures.add(saveQuestionsAsync(new MonumentNameQuestion("en")));
-        futures.add(saveQuestionsAsync(new WhatAnimal("en")));
-        futures.add(saveQuestionsAsync(new AnimalScientificName("en")));
-        futures.add(saveQuestionsAsync(new AnimalLifespan("en")));
-
-        // Wait for all tasks to complete
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        CompletableFuture.allOf(
+                flagQuestions, movieQuestions, brandQuestions, monumentCountryQuestions, monumentNameQuestions,
+                basketballTeamQuestions, f1TeamQuestions, footballTeamQuestions, teamLogoQuestions,
+                whatAnimalQuestions, animalScientificNameQuestions, animalLifespanQuestions
+        ).join();
     }
 
     @Async
-    public CompletableFuture<Void> saveQuestionsAsync(QuestionWikidata questionType) {
-        List<Question> questions = questionType.getQs();
-        List<Answer> answers = questionType.getAs();
-
-        questionService.saveAllQuestionsBatch(questions);
-        questionService.saveAllAnswersBatch(answers);
-
+    public CompletableFuture<Void> insertFlagQuestions() {
+        FlagQuestion fq = new FlagQuestion("en");
+        questionService.saveAllQuestions(fq.getQs());
+        questionService.saveAllAnswers(fq.getAs());
         return CompletableFuture.completedFuture(null);
     }
 
 
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertMovieQuestions() {
+        MovieQuestion mq = new MovieQuestion("en");
+        questionService.saveAllQuestions(mq.getQs());
+        questionService.saveAllAnswers(mq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
 
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertBrandQuestions() {
+        BrandQuestion bq = new BrandQuestion("en");
+        questionService.saveAllQuestions(bq.getQs());
+        questionService.saveAllAnswers(bq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertMonumentCountryQuestions() {
+        MonumentCountryQuestion mcq = new MonumentCountryQuestion("en");
+        questionService.saveAllQuestions(mcq.getQs());
+        questionService.saveAllAnswers(mcq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertMonumentNameQuestions() {
+        MonumentNameQuestion mnq = new MonumentNameQuestion("en");
+        questionService.saveAllQuestions(mnq.getQs());
+        questionService.saveAllAnswers(mnq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertBasketballTeamQuestions() {
+        BasketballTeam bbtmq = new BasketballTeam("en");
+        questionService.saveAllQuestions(bbtmq.getQs());
+        questionService.saveAllAnswers(bbtmq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertF1TeamQuestions() {
+        F1Team f1tmq = new F1Team("en");
+        questionService.saveAllQuestions(f1tmq.getQs());
+        questionService.saveAllAnswers(f1tmq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertFootballTeamQuestions() {
+        FootballTeam ftmq = new FootballTeam("en");
+        questionService.saveAllQuestions(ftmq.getQs());
+        questionService.saveAllAnswers(ftmq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertTeamLogoQuestions() {
+        TeamLogo tlq = new TeamLogo("en");
+        questionService.saveAllQuestions(tlq.getQs());
+        questionService.saveAllAnswers(tlq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertWhatAnimalQuestions() {
+        WhatAnimal waq = new WhatAnimal("en");
+        questionService.saveAllQuestions(waq.getQs());
+        questionService.saveAllAnswers(waq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertAnimalScientificNameQuestions() {
+        AnimalScientificName asnq = new AnimalScientificName("en");
+        questionService.saveAllQuestions(asnq.getQs());
+        questionService.saveAllAnswers(asnq.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
+
+    @Async("taskExecutor")
+    public CompletableFuture<Void> insertAnimalLifespanQuestions() {
+        AnimalLifespan anls = new AnimalLifespan("en");
+        questionService.saveAllQuestions(anls.getQs());
+        questionService.saveAllAnswers(anls.getAs());
+        return CompletableFuture.completedFuture(null);
+    }
 }
+
 
