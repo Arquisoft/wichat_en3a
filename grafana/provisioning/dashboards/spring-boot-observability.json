@@ -1,4 +1,67 @@
 {
+    "__inputs": [
+      {
+        "name": "DS_PROMETHEUS",
+        "label": "Prometheus",
+        "description": "",
+        "type": "datasource",
+        "pluginId": "prometheus",
+        "pluginName": "Prometheus"
+      },
+      {
+        "name": "DS_LOKI",
+        "label": "Loki",
+        "description": "",
+        "type": "datasource",
+        "pluginId": "loki",
+        "pluginName": "Loki"
+      }
+    ],
+    "__elements": {},
+    "__requires": [
+      {
+        "type": "panel",
+        "id": "bargauge",
+        "name": "Bar gauge",
+        "version": ""
+      },
+      {
+        "type": "grafana",
+        "id": "grafana",
+        "name": "Grafana",
+        "version": "10.1.0"
+      },
+      {
+        "type": "panel",
+        "id": "logs",
+        "name": "Logs",
+        "version": ""
+      },
+      {
+        "type": "datasource",
+        "id": "loki",
+        "name": "Loki",
+        "version": "1.0.0"
+      },
+      {
+        "type": "datasource",
+        "id": "prometheus",
+        "name": "Prometheus",
+        "version": "1.0.0"
+      },
+      {
+        "type": "panel",
+        "id": "stat",
+        "name": "Stat",
+        "version": ""
+      },
+      {
+        "type": "panel",
+        "id": "timeseries",
+        "name": "Time series",
+        "version": ""
+      }
+    ],
     "annotations": {
       "list": [
         {
@@ -24,13 +87,14 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 1,
+    "id": null,
     "links": [],
+    "liveNow": false,
     "panels": [
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "feiz8nocl4su8a"
+          "uid": "${DS_PROMETHEUS}"
         },
         "fieldConfig": {
           "defaults": {
@@ -39,7 +103,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green"
+                  "color": "green",
+                  "value": null
                 }
               ]
             },
@@ -59,7 +124,6 @@
           "graphMode": "area",
           "justifyMode": "auto",
           "orientation": "auto",
-          "percentChangeColorMode": "standard",
           "reduceOptions": {
             "calcs": [
               "lastNotNull"
@@ -67,16 +131,14 @@
             "fields": "",
             "values": false
           },
-          "showPercentChange": false,
-          "textMode": "auto",
-          "wideLayout": true
+          "textMode": "auto"
         },
-        "pluginVersion": "11.6.0",
+        "pluginVersion": "10.1.0",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "feiz8nocl4su8a"
+              "uid": "${DS_PROMETHEUS}"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -112,7 +174,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "feiz8nocl4su8a"
+          "uid": "${DS_PROMETHEUS}"
         },
         "fieldConfig": {
           "defaults": {
@@ -121,7 +183,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green"
+                  "color": "green",
+                  "value": null
                 }
               ]
             },
@@ -141,7 +204,6 @@
           "graphMode": "area",
           "justifyMode": "auto",
           "orientation": "auto",
-          "percentChangeColorMode": "standard",
           "reduceOptions": {
             "calcs": [
               "lastNotNull"
@@ -149,16 +211,14 @@
             "fields": "",
             "values": false
           },
-          "showPercentChange": false,
-          "textMode": "value_and_name",
-          "wideLayout": true
+          "textMode": "value_and_name"
         },
-        "pluginVersion": "11.6.0",
+        "pluginVersion": "10.1.0",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "feiz8nocl4su8a"
+              "uid": "${DS_PROMETHEUS}"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -202,7 +262,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "feiz8nocl4su8a"
+          "uid": "${DS_PROMETHEUS}"
         },
         "fieldConfig": {
           "defaults": {
@@ -214,7 +274,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green"
+                  "color": "green",
+                  "value": null
                 },
                 {
                   "color": "red",
@@ -235,16 +296,8 @@
         "id": 6,
         "options": {
           "displayMode": "lcd",
-          "legend": {
-            "calcs": [],
-            "displayMode": "list",
-            "placement": "bottom",
-            "showLegend": false
-          },
-          "maxVizHeight": 300,
           "minVizHeight": 10,
           "minVizWidth": 0,
-          "namePlacement": "auto",
           "orientation": "horizontal",
           "reduceOptions": {
             "calcs": [
@@ -254,15 +307,14 @@
             "values": false
           },
           "showUnfilled": true,
-          "sizing": "auto",
           "valueMode": "color"
         },
-        "pluginVersion": "11.6.0",
+        "pluginVersion": "10.1.0",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "feiz8nocl4su8a"
+              "uid": "${DS_PROMETHEUS}"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -279,7 +331,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "feiz8nocl4su8a"
+          "uid": "${DS_PROMETHEUS}"
         },
         "fieldConfig": {
           "defaults": {
@@ -291,7 +343,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green"
+                  "color": "green",
+                  "value": null
                 },
                 {
                   "color": "red",
@@ -314,7 +367,6 @@
           "graphMode": "area",
           "justifyMode": "auto",
           "orientation": "auto",
-          "percentChangeColorMode": "standard",
           "reduceOptions": {
             "calcs": [
               "lastNotNull"
@@ -322,16 +374,14 @@
             "fields": "",
             "values": false
           },
-          "showPercentChange": false,
-          "textMode": "auto",
-          "wideLayout": true
+          "textMode": "auto"
         },
-        "pluginVersion": "11.6.0",
+        "pluginVersion": "10.1.0",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "feiz8nocl4su8a"
+              "uid": "${DS_PROMETHEUS}"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -349,7 +399,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "feiz8nocl4su8a"
+          "uid": "${DS_PROMETHEUS}"
         },
         "fieldConfig": {
           "defaults": {
@@ -357,14 +407,12 @@
               "mode": "palette-classic"
             },
             "custom": {
-              "axisBorderShow": false,
               "axisCenteredZero": false,
               "axisColorMode": "text",
               "axisLabel": "",
               "axisPlacement": "auto",
               "axisSoftMax": 1,
               "barAlignment": 0,
-              "barWidthFactor": 0.6,
               "drawStyle": "line",
               "fillOpacity": 0,
               "gradientMode": "none",
@@ -395,7 +443,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "red"
+                  "color": "red",
+                  "value": null
                 },
                 {
                   "color": "green",
@@ -422,17 +471,15 @@
             "showLegend": true
           },
           "tooltip": {
-            "hideZeros": false,
             "mode": "single",
             "sort": "none"
           }
         },
-        "pluginVersion": "11.6.0",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "feiz8nocl4su8a"
+              "uid": "${DS_PROMETHEUS}"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -449,7 +496,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "feiz8nocl4su8a"
+          "uid": "${DS_PROMETHEUS}"
         },
         "fieldConfig": {
           "defaults": {
@@ -457,14 +504,12 @@
               "mode": "palette-classic"
             },
             "custom": {
-              "axisBorderShow": false,
               "axisCenteredZero": false,
               "axisColorMode": "text",
               "axisLabel": "",
               "axisPlacement": "auto",
               "axisSoftMax": 1,
               "barAlignment": 0,
-              "barWidthFactor": 0.6,
               "drawStyle": "line",
               "fillOpacity": 0,
               "gradientMode": "none",
@@ -495,7 +540,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green"
+                  "color": "green",
+                  "value": null
                 },
                 {
                   "color": "red",
@@ -522,17 +568,15 @@
             "showLegend": true
           },
           "tooltip": {
-            "hideZeros": false,
             "mode": "single",
             "sort": "none"
           }
         },
-        "pluginVersion": "11.6.0",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "feiz8nocl4su8a"
+              "uid": "${DS_PROMETHEUS}"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -549,7 +593,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "feiz8nocl4su8a"
+          "uid": "${DS_PROMETHEUS}"
         },
         "fieldConfig": {
           "defaults": {
@@ -557,13 +601,11 @@
               "mode": "palette-classic"
             },
             "custom": {
-              "axisBorderShow": false,
               "axisCenteredZero": false,
               "axisColorMode": "text",
               "axisLabel": "",
               "axisPlacement": "auto",
               "barAlignment": 0,
-              "barWidthFactor": 0.6,
               "drawStyle": "line",
               "fillOpacity": 0,
               "gradientMode": "none",
@@ -594,7 +636,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green"
+                  "color": "green",
+                  "value": null
                 },
                 {
                   "color": "red",
@@ -621,17 +664,15 @@
             "showLegend": true
           },
           "tooltip": {
-            "hideZeros": false,
             "mode": "single",
             "sort": "none"
           }
         },
-        "pluginVersion": "11.6.0",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "feiz8nocl4su8a"
+              "uid": "${DS_PROMETHEUS}"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -648,7 +689,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "feiz8nocl4su8a"
+          "uid": "${DS_PROMETHEUS}"
         },
         "fieldConfig": {
           "defaults": {
@@ -656,13 +697,11 @@
               "mode": "palette-classic"
             },
             "custom": {
-              "axisBorderShow": false,
               "axisCenteredZero": false,
               "axisColorMode": "text",
               "axisLabel": "",
               "axisPlacement": "auto",
               "barAlignment": 0,
-              "barWidthFactor": 0.6,
               "drawStyle": "line",
               "fillOpacity": 0,
               "gradientMode": "none",
@@ -693,7 +732,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green"
+                  "color": "green",
+                  "value": null
                 },
                 {
                   "color": "red",
@@ -720,17 +760,15 @@
             "showLegend": true
           },
           "tooltip": {
-            "hideZeros": false,
             "mode": "single",
             "sort": "none"
           }
         },
-        "pluginVersion": "11.6.0",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "feiz8nocl4su8a"
+              "uid": "${DS_PROMETHEUS}"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -747,7 +785,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "feiz8nocl4su8a"
+          "uid": "${DS_PROMETHEUS}"
         },
         "fieldConfig": {
           "defaults": {
@@ -755,13 +793,11 @@
               "mode": "palette-classic"
             },
             "custom": {
-              "axisBorderShow": false,
               "axisCenteredZero": false,
               "axisColorMode": "text",
               "axisLabel": "",
               "axisPlacement": "auto",
               "barAlignment": 0,
-              "barWidthFactor": 0.6,
               "drawStyle": "line",
               "fillOpacity": 0,
               "gradientMode": "none",
@@ -792,7 +828,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green"
+                  "color": "green",
+                  "value": null
                 },
                 {
                   "color": "red",
@@ -819,17 +856,15 @@
             "showLegend": true
           },
           "tooltip": {
-            "hideZeros": false,
             "mode": "single",
             "sort": "none"
           }
         },
-        "pluginVersion": "11.6.0",
         "targets": [
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "feiz8nocl4su8a"
+              "uid": "${DS_PROMETHEUS}"
             },
             "editorMode": "code",
             "exemplar": true,
@@ -846,7 +881,7 @@
       {
         "datasource": {
           "type": "loki",
-          "uid": "deiz8oe9hplvkb"
+          "uid": "${DS_LOKI}"
         },
         "fieldConfig": {
           "defaults": {
@@ -854,13 +889,11 @@
               "mode": "palette-classic"
             },
             "custom": {
-              "axisBorderShow": false,
               "axisCenteredZero": false,
               "axisColorMode": "text",
               "axisLabel": "",
               "axisPlacement": "auto",
               "barAlignment": 0,
-              "barWidthFactor": 0.6,
               "drawStyle": "bars",
               "fillOpacity": 0,
               "gradientMode": "none",
@@ -891,7 +924,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "green"
+                  "color": "green",
+                  "value": null
                 },
                 {
                   "color": "red",
@@ -963,17 +997,16 @@
             "showLegend": true
           },
           "tooltip": {
-            "hideZeros": false,
             "mode": "single",
             "sort": "none"
           }
         },
-        "pluginVersion": "11.6.0",
+        "pluginVersion": "8.4.3",
         "targets": [
           {
             "datasource": {
               "type": "loki",
-              "uid": "deiz8oe9hplvkb"
+              "uid": "${DS_LOKI}"
             },
             "editorMode": "code",
             "expr": "sum by(type) (rate({compose_service=~\"app-.*\"} | pattern `<date> <time> <_>=<trace_id> <_>=<span_id> <_>=<trace_flags> <type> <_> --- <msg>` | type != \"\" |= \"$log_keyword\" [1m]))",
@@ -988,11 +1021,7 @@
       {
         "datasource": {
           "type": "loki",
-          "uid": "deiz8oe9hplvkb"
-        },
-        "fieldConfig": {
-          "defaults": {},
-          "overrides": []
+          "uid": "${DS_LOKI}"
         },
         "gridPos": {
           "h": 9,
@@ -1003,7 +1032,6 @@
         "id": 2,
         "options": {
           "dedupStrategy": "none",
-          "enableInfiniteScrolling": false,
           "enableLogDetails": true,
           "prettifyLogMessage": false,
           "showCommonLabels": false,
@@ -1012,12 +1040,12 @@
           "sortOrder": "Descending",
           "wrapLogMessage": true
         },
-        "pluginVersion": "11.6.0",
+        "pluginVersion": "8.4.3",
         "targets": [
           {
             "datasource": {
               "type": "loki",
-              "uid": "deiz8oe9hplvkb"
+              "uid": "${DS_LOKI}"
             },
             "editorMode": "code",
             "expr": "{compose_service=~\"app-.*\"} | pattern `<date> <time> <_>=<trace_id> <_>=<span_id> <_>=<trace_flags> <type> <_> --- <msg>` | line_format \"{{.compose_service}}\\t{{.type}}\\ttrace_id={{.trace_id}}\\t{{.msg}}\" |= \"$log_keyword\"",
@@ -1030,24 +1058,23 @@
         "type": "logs"
       }
     ],
-    "preload": false,
     "refresh": "5s",
-    "schemaVersion": 41,
+    "schemaVersion": 38,
+    "style": "dark",
     "tags": [],
     "templating": {
       "list": [
         {
-          "current": {
-            "text": "",
-            "value": ""
-          },
+          "current": {},
           "datasource": {
             "type": "prometheus",
-            "uid": "feiz8nocl4su8a"
+            "uid": "${DS_PROMETHEUS}"
           },
           "definition": "label_values(application)",
+          "hide": 0,
           "includeAll": false,
           "label": "Application Name",
+          "multi": false,
           "name": "app_name",
           "options": [],
           "query": {
@@ -1056,14 +1083,18 @@
           },
           "refresh": 1,
           "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
           "type": "query"
         },
         {
           "current": {
+            "selected": false,
             "text": "",
             "value": ""
           },
           "description": "query with keyword",
+          "hide": 0,
           "label": "Log Query",
           "name": "log_keyword",
           "options": [
@@ -1074,6 +1105,7 @@
             }
           ],
           "query": "",
+          "skipUrlSync": false,
           "type": "textbox"
         }
       ]
@@ -1086,5 +1118,7 @@
     "timezone": "",
     "title": "Spring Boot Observability",
     "uid": "dLsDQIUnzb",
-    "version": 1
+    "version": 1,
+    "weekStart": "",
+    "gnetId": 17175
   }
