@@ -1,6 +1,6 @@
 package com.uniovi.userservice.repository;
 
-import com.uniovi.userservice.entities.User;
+import entities.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

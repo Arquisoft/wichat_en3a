@@ -76,9 +76,9 @@ class BrandQuestionTest {
 
     @Test
     void needToSkipTest_DetectsDuplicateBrandLabels() {
-        assertFalse(brandQuestion.getBrandLabels().contains("Nike"), "First check: should not contain Nike.");
-        brandQuestion.getBrandLabels().add("Nike"); // Manually add for test
-        assertTrue(brandQuestion.getBrandLabels().contains("Nike"), "Second check: should now contain Nike.");
+        assertFalse(brandQuestion.getAnswerLabels().contains("Nike"), "First check: should not contain Nike.");
+        brandQuestion.getAnswerLabels().add("Nike"); // Manually add for test
+        assertTrue(brandQuestion.getAnswerLabels().contains("Nike"), "Second check: should now contain Nike.");
         assertTrue(brandQuestion.needToSkip("Nike"), "Should skip duplicate brand label.");
     }
     @Test
