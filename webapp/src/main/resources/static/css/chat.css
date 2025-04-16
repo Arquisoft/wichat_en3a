@@ -14,19 +14,18 @@
     position: relative;
 }
 
-.chat-wrapper-chat-visible{
-    right: 20%;
-}
-
-@media(max-width: 1000px){
-    .chat-wrapper-chat-visible{
-        right: 40%;
+@media(max-width: 480px) {
+    .chat-wrapper-chat-visible {
+        right: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10%; /* Move higher on mobile */
     }
-}
-
-@media(max-width: 480px){
-    .chat-wrapper-chat-visible{
-        right: 70%;
+    
+    #chatBox {
+        width: 90%; /* Make chat box more responsive */
+        max-width: 300px;
+        transform: translateX(-50%);
     }
 }
 
@@ -160,4 +159,35 @@
 
 .chat-icon-button:hover .chat-icon {
     transform: scale(1.1); /* Efecto de escala al pasar el mouse */
+}
+
+@media (max-width: 768px) {
+    .chat-wrapper {
+        top: 20%; /* Move chat higher on mobile */
+        right: 2%; /* Adjust right position for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-wrapper {
+        top: 15%; /* Move even higher on smaller devices */
+        right: 1%;
+    }
+}
+
+.chat-wrapper-chat-visible {
+    right: 10%; /* Reduced from 20% for better positioning */
+    z-index: 1000; /* Ensure chat appears above other elements */
+}
+
+@media(max-width: 1000px) {
+    .chat-wrapper-chat-visible {
+        right: 5%;
+        transform: translateX(-50%); /* Center the chat box */
+        left: 50%; /* Center relative to screen */
+    }
+    
+    #chatBox {
+        transform: translateX(-50%); /* Center the chatbox */
+    }
 }

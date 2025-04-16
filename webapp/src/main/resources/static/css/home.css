@@ -48,6 +48,35 @@
     overflow: hidden; /* Ensure content stays within the frame */
 }
 
+/* Media query for tablets */
+@media screen and (max-width: 768px) {
+    .additional-frame {
+        transform: scale(2);
+        margin-top: 150px;
+        margin-bottom: 150px;
+    }
+}
+
+/* Media query for mobile phones */
+@media screen and (max-width: 480px) {
+    .additional-frame {
+        transform: scale(1.5);
+        margin-top: 100px;
+        margin-bottom: 100px;
+        height: 150px;
+    }
+}
+
+/* Media query for smaller mobile phones */
+@media screen and (max-width: 320px) {
+    .additional-frame {
+        transform: scale(1.2);
+        margin-top: 50px;
+        margin-bottom: 50px;
+        height: 120px;
+    }
+}
+
 #frame-text {
     font-size: 1rem;
     font-weight: bold;
@@ -86,3 +115,37 @@
     right: 150px; /* Position at the bottom-right corner */
     transform: scaleX(-1); /* Apply vertical symmetry */
 }
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+    .content-wrapper {
+        padding: 10px;
+    }
+}
+
+
+/* Responsive Design notes */
+/* Question.html */
+/* AI chat box doesn't appear good on mobile */
+/* Buttons needs to be 2 cols */
+
+/* Scores.html */
+/* Find another way to show the scores in mobile */
