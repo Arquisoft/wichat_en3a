@@ -1,0 +1,69 @@
+body {
+    background: #1a1a1a url('../images/hell_background.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Minecraft';
+    color: white;
+}
+
+.error-container {
+    background-color: transparent;
+    border-radius: 10px;
+    font-family: 'Minecraft';
+    padding: 2rem;
+    margin-top: 5rem;
+    text-align: center;
+}
+
+.error-container h1 {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.error-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
+
+.error-container p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #ffffff;
+}
+
+.error-container .btn {
+    font-family: 'Minecraft';
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    background-color: #03342e;
+    border: none;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.error-container .btn:hover {
+    background-color: 	#03211c;
+}
+
+@media (max-width: 768px) {
+    .error-container h1 {
+        font-size: 4rem;
+    }
+    
+    .error-container h2 {
+        font-size: 1.5rem;
+    }
+    
+    .error-container p {
+        font-size: 1rem;
+    }
+}
