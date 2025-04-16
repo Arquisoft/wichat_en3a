@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Akinator</title>
+</head>
+<body>
+  <h1>Category Akinator</h1>
+  <!-- Combobox dinámico desde Enum -->
+  <form action="/akinator" method="POST">
+    <label for="category">Choose a category:</label>
+
+    <!-- Combobox dinámico desde Enum -->
+    <select id="category" name="category" required>
+      <option value="" disabled selected>-- Chose an option--</option>
+      <option
+              th:each="category : ${categories}"
+              th:value="${category.name()}"
+              th:text="${category.toString()}"
+      ></option>
+    </select>
+
+    <label for="mode">Choose a mode:</label>
+    <select id="mode" name="mode" required>
+      <option value="" disabled selected>-- Chose an option--</option>
+      <option value="ai">AI Guesses</option>
+      <option value="player">Player Guesses</option>
+    </select>
+    <!-- Botón de enviar -->
+    <button type="submit">Play</button>
+
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+  </form>
+</body>
+</html>
