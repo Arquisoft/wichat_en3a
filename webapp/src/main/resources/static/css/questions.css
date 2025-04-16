@@ -95,15 +95,43 @@ body.bg-light {
     transform: scale(1.05);
     filter: brightness(1.1);
 }
+@media (max-width: 768px) {
+    .question-text-container{
+        margin-bottom: -50px;
+        margin-top: -200px !important;
+    }
+    .main-container {
+        padding: 0 10px;
+    }
 
-/* Contenedor principal */
-.main-container {
-    top: 50px;
-    left: 0;
-    width: 100%;
-    z-index: 900;
-    margin-top: 0;
-    padding-top: 0;
+    .game-container {
+        width: 100%;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .answer-div {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .answer-button {
+        width: 100%;
+    }
+
+    .question-image {
+        max-height: 150px;
+        width: auto;
+    }
+    .small-timer {
+        display: none;
+
+    }
 }
 
 .col-md-8 {
