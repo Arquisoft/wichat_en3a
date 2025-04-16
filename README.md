@@ -23,9 +23,10 @@
 - **Laura Labrada Campos**: uo277510@uniovi.es
 - **Ana Castro Álvarez**: uo293693@uniovi.es
 - **Paula Díaz Álvarez**: uo294067@uniovi.es
-- **Samuel de la Calle Fernandez**: uo295358@uniovi.es
+- **Samuel de la Calle Fernández**: uo295358@uniovi.es
 - **Pablo Rodríguez García**: uo293973@uniovi.es
 - **Manuel Méndez Fernández**: uo294186@uniovi.es
+- **Turabi Yıldırım**: uo311884@uniovi.es
 
 ## Quick start guide
 
@@ -37,16 +38,26 @@ First, clone the project:
 
 In order to communicate with the LLM integrated in this project, we need to setup an API key.
 We have to create a .env file in the hintservice directory with this format:
-llm.apikey=YOUR_API_KEY
+HINTSERVICE_API_KEY=YOUR_API_KEY
 
 Note that this file must NOT be uploaded to the github repository (they are excluded in the .gitignore).
 
 An extra configuration for the LLM to work in the deployed version of the app is to include it as a repository secret (HINTSERVICE_API_KEY). This secret will be used by GitHub Action when building and deploying the application.
 
-
 ### Launching Using docker
-For launching the propotipe using docker compose, just type:
+For launching the propotype using docker compose, just type:
 ```docker compose --profile dev up --build```
+
+### Monitoring
+There is a monitoring and logging solution using Prometheus, Grafana and Loki. To use this you must launch the application using Docker. You must add a variable GRAFANA_ADMIN_PASSWORD to the .env, just like with the LLM API key. The new line should look like this:
+
+GRAFANA_ADMIN_PASSWORD=YOUR_PASSWORD
+
+Just like the LLM, for the deployment via GitHub actions, this password is set in the repository secrets.
+
+The username to Grafana is admin.
+
+Grafana is accessible on port 3000.
 
 ### Component by component start
 First, start the database. Either install and run Mongo or run it using docker:
@@ -61,15 +72,19 @@ Then you have to launch all the services manually (using some IDE or Maven and J
 
 After all the components are launched, the app should be available in localhost in port 8000.
 
+## Acceptance tests
+For acceptance tests to work, all services must be running and able to communicate between them. There is an application-e2e.properties file in some of the projects so that localhost is used to accesss services instead of the Docker service's host, this is for the acceptance tests to run in GitHub Actions. The acceptance tests are configured to run in headless mode so they work in GitHub actions, but you may remove the headless parameter when running them locally.
+
 ## Deployment
-For the deployment, we will be using an oracle virtual machine. But we have also tried and documented the deployment into an azure virtual machine, so we have a second option in case of failure of the oracle one. This will work with any cloud service (or with our own server). Both deployment methods will follow the same approach. We are going to create a virtual machine into a cloud service and after installing docker and docker-compose, deploy our containers there using GitHub Actions and SSH.
+We target deployment on Azure, which has been tested and documented, but, for cost purposes, permanent deployment is done on a free Oracle VPS. Requirements for the machine for deployment to work are specified in the section below.
 
 ### Machine requirements for deployment
 The machine for deployment can be created in services like Microsoft Azure or Amazon AWS. These are in general the settings that it must have:
 
 - Linux machine with Ubuntu > 20.04 (the recommended is 24.04).
+- An x86-64 (also known as AMD64 or Intel64) or ARM64 architecture
 - Docker installed.
-- Open ports for the applications installed (in this case, port 8000 for the webapp).
+- Open ports for the applications installed (in this case, port 8000 for the webapp, and 3000 for Grafana, if you want to use it).
 
 Once you have the virtual machine created, you can install **docker** using the following instructions:
 
@@ -86,7 +101,8 @@ sudo usermod -aG docker ${USER}
 ### Continuous delivery (GitHub Actions)
 Once we have our machine ready, we could deploy by hand the application, taking our docker-compose file and executing it in the remote machine. In this repository, this process is done automatically using **GitHub Actions**. The idea is to trigger a series of actions when some condition is met in the repository. The precondition to trigger a deployment is going to be: "create a new release". The actions to execute are the following:
 
-![imagen](https://github.com/user-attachments/assets/7ead6571-0f11-4070-8fe8-1bbc2e327ad2)
+![image](https://github.com/user-attachments/assets/96d80f32-8f29-4ee1-82a9-288b6cf97b99)
+
 
 
 As you can see, unitary tests of each module and e2e tests are executed before pushing the docker images and deploying them. Using this approach we avoid deploying versions that do not pass the tests.
