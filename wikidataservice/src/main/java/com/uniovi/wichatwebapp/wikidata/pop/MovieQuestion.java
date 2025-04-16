@@ -12,16 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieQuestion extends QuestionWikidata {
-    private static final String[] spanishStringsIni = {"¿En qué año salió esta película? ", "¿Cuándo salió esta película? ", "¿Qué año fue el estreno de esta película? "};
-    private static final String[] englishStringsIni = {"In what year did this movie come out? ", "When did this movie come out? ", "Which year was this movie released in? "};
+    private static final String[] spanishStringsIni = {"¿En qué año salió %s?", "¿Cuándo salió %s?", "¿Qué año fue el estreno de %s?"};
+    private static final String[] englishStringsIni = {"In what year did %s come out?", "When did %s come out?", "Which year was %s released in?"};
 
-    private List<String> movieLabels= new ArrayList<>();
+    private List<String> movieLabels = new ArrayList<>();
 
     public MovieQuestion(String langCode) {
         super(langCode);
     }
-    //For testing
-    public MovieQuestion(){
+
+    // For testing
+    public MovieQuestion() {
         super();
     }
 
@@ -40,7 +41,6 @@ public class MovieQuestion extends QuestionWikidata {
                 "ORDER BY RAND() " + // Randomizes the order for a scattered selection
                 "LIMIT 100 ";
     }
-
 
     @Override
     public void processResults() {
@@ -64,11 +64,11 @@ public class MovieQuestion extends QuestionWikidata {
             String questionString;
 
             if (langCode.equals("es")) {
-                questionString = spanishStringsIni[i % 3] + movieLabel;
+                questionString = String.format(spanishStringsIni[i % spanishStringsIni.length], movieLabel);
             } else {
-                questionString = englishStringsIni[i % 3] + movieLabel;
+                questionString = String.format(englishStringsIni[i % englishStringsIni.length], movieLabel);
             }
-            if(poster==null){
+            if (poster == null) {
                 poster = QuestionWikidata.DEFAULT_QUESTION_IMG;
             }
             Question question = new Question(answer, questionString, movieLabel, QuestionCategory.POP_CULTURE);
@@ -94,8 +94,8 @@ public class MovieQuestion extends QuestionWikidata {
         return false;
     }
 
-    //For testing
-     List<String> getMovieLabels() {
+    // For testing
+    List<String> getMovieLabels() {
         return movieLabels;
     }
 }

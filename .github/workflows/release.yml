@@ -35,6 +35,10 @@ jobs:
       with:
         distribution: 'corretto'
         java-version: '23'
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.12.0
+      with:
+        mongodb-version: '8.0'
     - name: Start User Service
       run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
       working-directory: userservice
