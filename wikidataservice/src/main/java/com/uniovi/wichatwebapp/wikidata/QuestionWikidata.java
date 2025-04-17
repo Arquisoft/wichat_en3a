@@ -1,7 +1,10 @@
 package com.uniovi.wichatwebapp.wikidata;
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.Question;
+
+import entities.Answer;
+import entities.AnswerCategory;
+import entities.Question;
+import entities.QuestionCategory;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -37,10 +40,15 @@ public abstract class QuestionWikidata {
     // Language code representing in what language the query must be sent. Spanish as a default value.
     protected String langCode = "es";
 
+    protected static String[] spanishStringsIni;
+    protected static String[] englishStringsIni;
+
     //List with the final questions
     protected List<Question> qs = new ArrayList<>();
     //List with the final answers
     protected List<Answer> as = new ArrayList<>();
+
+    protected List<String> answerLabels = new ArrayList<>();
 
     /**
      * Constructor for QuestionTemplates which is also the one in charge of the whole question retrieval process for a query
@@ -51,6 +59,7 @@ public abstract class QuestionWikidata {
     public QuestionWikidata(String langCode) {
         try {
             this.langCode = langCode;
+            initStringsIni();
             setQuery();
             call();
             processResults();
@@ -58,20 +67,59 @@ public abstract class QuestionWikidata {
             System.err.println("Error while processing the question: " + e.getMessage());
         }
     }
+
+    protected abstract void initStringsIni();
+
     //For testing
     public QuestionWikidata(){
+        initStringsIni();
         setQuery();
     }
     /**
      * Update the value of @sparqlQuery with the query to be sent.
      */
-    protected abstract void setQuery();
+    public abstract void setQuery();
 
     /**
      * Method for the whole processing the @results given by WikiData QS as a JSON.
      * It also is in charge of storing both the processed answers and the question in all languages
      */
-    protected abstract void processResults();
+    public void processResults(){
+        List<Question> questions = new ArrayList<>();
+        List<Answer> answers = new ArrayList<>();
+
+        for (int i = 0; i < results.length(); i++) {
+            JSONObject result = results.getJSONObject(i);
+            String answerLabel = result.getJSONObject(getAnswerLabel()).getString("value");
+            answerLabel = WikidataUtils.capitalize(answerLabel);
+            String image = result.has("image") ? result.getJSONObject("image").getString("value") : DEFAULT_QUESTION_IMG;// Retrieves image if available
+
+            if(needToSkip(getSkipLabel(i))){
+                continue;
+            }
+
+            Answer answer = new Answer(answerLabel, getAnswerCategory(), langCode);
+            answers.add(answer);
+
+            String questionString = createQuestionString(i);
+
+            Question question = new Question(answer, questionString, image, getQuestionCategory());
+            questions.add(question);
+        }
+
+        qs.addAll(questions);
+        as.addAll(answers);
+    }
+
+    protected abstract String getSkipLabel(int i);
+
+    protected abstract QuestionCategory getQuestionCategory();
+
+    protected abstract String createQuestionString(int i);
+
+    protected abstract AnswerCategory getAnswerCategory();
+
+    protected abstract String getAnswerLabel();
 
     /**
      * Method in charge of the HTTP request with WikiData QS.
@@ -116,5 +164,18 @@ public abstract class QuestionWikidata {
         return as;
     }
 
-    protected abstract boolean needToSkip(String... parameters);
+    public boolean needToSkip(String... parameters){
+        if(answerLabels.contains(parameters[0])){
+            return true;
+        }
+        answerLabels.add(parameters[0]);
+        if(WikidataUtils.isEntityName(parameters[0])){
+            return true;
+        }
+        return false;
+    }
+
+    public List<String> getAnswerLabels() {
+        return answerLabels;
+    }
 }

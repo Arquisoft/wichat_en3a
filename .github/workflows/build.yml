@@ -21,6 +21,8 @@ jobs:
       - name: Create .env file for hintservice
         run: |
           echo "HINTSERVICE_API_KEY=${{ secrets.LLM_API_KEY }}" > .env
+      - run: mvn clean install
+        working-directory: entities
       - run: mvn clean test --batch-mode
         working-directory: userservice
       - run: mvn clean test --batch-mode

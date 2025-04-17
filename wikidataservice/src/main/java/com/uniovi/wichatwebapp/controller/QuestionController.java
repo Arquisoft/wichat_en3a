@@ -1,9 +1,11 @@
 package com.uniovi.wichatwebapp.controller;
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
 import com.uniovi.wichatwebapp.service.QuestionService;
+
+import entities.Answer;
+import entities.Question;
+import entities.QuestionCategory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
