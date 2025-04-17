@@ -1,14 +1,12 @@
 package com.uniovi.wichatwebapp.services;
 
+import com.uniovi.wichatwebapp.entities.Answer;
 import com.uniovi.wichatwebapp.entities.Wordle;
 import com.uniovi.wichatwebapp.repositories.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class WordleService {
@@ -19,11 +17,21 @@ public class WordleService {
     private final Map<String, Wordle> activeGames = new HashMap<>();
 
     public Wordle startNewGame(String userId) {
-        List<String> answers = answerRepository.findAll()
+        /*List<String> answers = answerRepository.findAnswersByLanguage("en")
                 .stream()
-                .map(answer -> answer.getText().toUpperCase())
-                //.filter(word -> word.length() == 5)
-                .toList();
+                .map(answer -> answer.getText().toUpperCase().trim())
+                .filter(word -> word.length() == 5 && word.matches("[A-Z]+"))
+                .toList();*/
+
+        List<Answer> test = answerRepository.findAnswersByLanguage("en");
+        System.out.println("Encontradas " + test.size() + " respuestas en inglés");
+
+        test.forEach(a -> System.out.println("- " + a.getText()));
+
+        List<String> answers = new ArrayList<String>();
+
+        answers.add("SPAIN");
+        answers.add("ITALY");
 
         if (answers.isEmpty()) {
             throw new RuntimeException("There's no available words");
@@ -38,7 +46,7 @@ public class WordleService {
     public Wordle makeGuess(String userId, String guess) {
         Wordle game = activeGames.get(userId);
         if (game == null) {
-            throw new RuntimeException("No hay partida activa.");
+            throw new RuntimeException("There's no active game");
         }
 
         game.guess(guess.toUpperCase());

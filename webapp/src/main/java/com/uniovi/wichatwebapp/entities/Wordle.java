@@ -39,6 +39,14 @@ public class Wordle {
         return maxAttempts - attempts.size();
     }
 
+    public int getMaxAttempts() {
+        return maxAttempts;
+    }
+
+    public String getTargetWord() {
+        return targetWord;
+    }
+
     public void guess(String attempt) {
         if (status != GameStatus.PLAYING || attempts.size() >= maxAttempts) {
             return;
