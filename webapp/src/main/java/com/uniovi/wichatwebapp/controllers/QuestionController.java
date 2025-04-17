@@ -1,10 +1,10 @@
 package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.dto.AnswerDto;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
-import com.uniovi.wichatwebapp.entities.Score;
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.ScoreService;
+import entities.QuestionCategory;
+import entities.Score;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

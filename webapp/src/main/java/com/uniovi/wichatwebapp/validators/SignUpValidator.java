@@ -1,6 +1,6 @@
 package com.uniovi.wichatwebapp.validators;
 
-import com.uniovi.wichatwebapp.entities.User;
+import entities.User;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -1,11 +1,12 @@
 package com.uniovi.wichatwebapp.service;
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.AnswerCategory;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
 import com.uniovi.wichatwebapp.repositories.AnswerRepository;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
+import entities.Answer;
+import entities.AnswerCategory;
+import entities.Question;
+import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

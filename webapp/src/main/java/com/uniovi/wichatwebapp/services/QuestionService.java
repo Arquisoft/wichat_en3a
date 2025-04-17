@@ -1,8 +1,8 @@
 package com.uniovi.wichatwebapp.services;
 
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
+import entities.Question;
+import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
 
 
