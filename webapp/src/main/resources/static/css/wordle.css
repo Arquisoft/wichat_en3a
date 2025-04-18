@@ -1,100 +1,100 @@
 body {
-    font-family: 'Helvetica', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #121213;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    padding-top: 40px;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 2rem;
 }
 
 .container {
-    text-align: center;
-    max-width: 400px;
+    max-width: 500px;
+    margin: auto;
 }
 
 h1 {
-    margin-bottom: 20px;
-    color: #ffffff;
-    font-size: 2rem;
+    margin-bottom: 2rem;
 }
 
-#game-board {
-    margin-bottom: 20px;
+.board {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.row {
+.word-row {
     display: flex;
     justify-content: center;
     gap: 5px;
-    margin-bottom: 5px;
 }
 
-.tile {
+.letter-box {
     width: 50px;
     height: 50px;
-    border: 2px solid #3a3a3c;
     font-size: 1.5rem;
-    text-transform: uppercase;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    color: white;
-    background-color: #121213;
-    transition: background-color 0.3s, border-color 0.3s;
+    text-transform: uppercase;
+    border-radius: 5px;
 }
 
-.tile.correct {
-    background-color: #538d4e;
-    border-color: #538d4e;
-}
-
-.tile.misplaced {
-    background-color: #b59f3b;
-    border-color: #b59f3b;
-}
-
-.tile.wrong {
+.empty-box {
     background-color: #3a3a3c;
-    border-color: #3a3a3c;
 }
 
-.tile.empty {
-    border: 2px solid #3a3a3c;
+.correct {
+    background-color: #538d4e;
+    color: white;
+}
+
+.present {
+    background-color: #b59f3b;
+    color: white;
+}
+
+.absent {
+    background-color: #3a3a3c;
+    color: white;
 }
 
 input[type="text"] {
-    font-size: 1.2rem;
+    padding: 10px;
+    font-size: 1rem;
+    width: 200px;
     text-transform: uppercase;
-    padding: 6px;
-    width: 120px;
-    text-align: center;
-    margin-right: 10px;
 }
 
 button {
-    font-size: 1.1rem;
-    padding: 6px 12px;
-    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-left: 10px;
     background-color: #538d4e;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 button:hover {
-    background-color: #3f6f39;
+    background-color: #436d3e;
 }
 
-.status {
-    margin: 15px 0;
-    font-size: 1.1rem;
+.result {
+    margin-top: 2rem;
 }
 
-.reset-btn {
-    background-color: #3a3a3c;
+.exit-button {
+    margin-top: 2rem;
+    padding: 0.8rem 1.5rem;
+    background-color: #d33;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-.reset-btn:hover {
-    background-color: #2a2a2c;
+.exit-button:hover {
+    background-color: #b22;
 }

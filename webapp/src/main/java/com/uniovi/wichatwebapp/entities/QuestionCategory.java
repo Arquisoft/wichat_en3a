@@ -16,4 +16,8 @@ public enum QuestionCategory {
     public String toString() {
         return displayName;
     }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 }

@@ -1,5 +1,6 @@
 package com.uniovi.wichatwebapp.controllers;
 
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.entities.Wordle;
 import com.uniovi.wichatwebapp.services.WordleService;
 import org.springframework.security.core.Authentication;
@@ -19,10 +20,16 @@ public class WordleController {
         this.wordleService = wordleService;
     }
 
+    @RequestMapping(value = "/wordle/select")
+    public String selectCategory(Model model) {
+        model.addAttribute("categories", QuestionCategory.values());
+        return "wordle/select-category";
+    }
+
     @RequestMapping(value = "/wordle/start")
-    public String startGame() {
+    public String startGame(@RequestParam("category") QuestionCategory category) {
         String username = getCurrentUsername();
-        wordleService.startNewGame(username);
+        wordleService.startNewGame(username, category);
         return "redirect:/wordle/game";
     }
 
