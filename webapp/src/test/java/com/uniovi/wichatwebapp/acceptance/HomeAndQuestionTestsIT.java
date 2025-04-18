@@ -25,6 +25,7 @@ public class HomeAndQuestionTestsIT {
         options.addArguments("--start-maximized"); // Open browser in maximized mode
         options.addArguments("--disable-infobars"); // Disable Chrome's info bars
         options.addArguments("--remote-allow-origins=*"); // Allow cross-origin requests
+        options.addArguments("--headless");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); // Disable automation banner
         options.setExperimentalOption("detach", true); // Keep the browser open after the test
 

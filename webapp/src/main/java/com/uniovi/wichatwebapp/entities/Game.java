@@ -1,5 +1,8 @@
 package com.uniovi.wichatwebapp.entities;
 
+import entities.Question;
+import entities.QuestionCategory;
+
 public class Game {
     private int maxNumberOfQuestions = 10;
     private int points;

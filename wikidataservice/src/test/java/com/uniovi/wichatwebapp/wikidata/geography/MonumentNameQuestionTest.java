@@ -77,9 +77,9 @@ class MonumentNameQuestionTest {
 
     @Test
     void needToSkipTest_DetectsDuplicateMonumentLabels() {
-        assertFalse(monumentNameQuestion.getMonumentLabels().contains("Eiffel Tower"), "First check: should not contain Eiffel Tower.");
-        monumentNameQuestion.getMonumentLabels().add("Eiffel Tower"); // Manually add for test
-        assertTrue(monumentNameQuestion.getMonumentLabels().contains("Eiffel Tower"), "Second check: should now contain Eiffel Tower.");
+        assertFalse(monumentNameQuestion.getAnswerLabels().contains("Eiffel Tower"), "First check: should not contain Eiffel Tower.");
+        monumentNameQuestion.getAnswerLabels().add("Eiffel Tower"); // Manually add for test
+        assertTrue(monumentNameQuestion.getAnswerLabels().contains("Eiffel Tower"), "Second check: should now contain Eiffel Tower.");
         assertTrue(monumentNameQuestion.needToSkip("Eiffel Tower"), "Should skip duplicate monument label.");
     }
     @Test

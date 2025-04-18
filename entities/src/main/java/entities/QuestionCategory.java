@@ -1,4 +1,4 @@
-package com.uniovi.wichatwebapp.entities;
+package entities;
 
 public enum QuestionCategory {
     SPORT("Sport"),
@@ -14,6 +14,10 @@ public enum QuestionCategory {
 
     @Override
     public String toString() {
+        return displayName;
+    }
+
+    public String getDisplayName() {
         return displayName;
     }
 }
