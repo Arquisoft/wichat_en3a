@@ -1,41 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 <head>
-    <title>Wordle Game</title>
-    <link rel="stylesheet" th:href="@{/css/wordle.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle</title>
+    <link rel="stylesheet" href="/css/wordle.css">
+    <link rel="stylesheet" href="/css/nav.css">
 </head>
 <body>
-<div class="container">
-    <h1>Wordle - [[${wordle.category}]]</h1>
-
-    <div class="board">
-        <div th:each="attempt : ${wordle.attempts}" class="word-row">
-                <span th:each="letter, iStat : ${T(java.util.Arrays).asList(attempt.toCharArray())}"
-                      th:text="${letter}" th:class="'letter-box ' + ${wordle.getLetterColor(iStat.index, letter)}"></span>
-        </div>
-
-        <div th:if="${!wordle.isFinished()}" class="word-row">
-            <form th:action="@{/wordle/guess}" method="post">
-                <input type="text" name="guess" maxlength="5" required autocomplete="off"/>
-                <button type="submit">Try</button>
-            </form>
-        </div>
-
-        <div th:each="i : ${#numbers.sequence(wordle.attempts.size() + 1, wordle.maxAttempts)}" class="word-row">
-            <span class="letter-box empty-box" th:each="j : ${#numbers.sequence(1, 5)}"></span>
+<nav th:replace="fragments/nav"></nav>
+<div class="game-container">
+    <h1>¡Adivina la palabra!</h1>
+    <div class="grid">
+        <div class="grid-row" th:each="attempt, attemptStat : ${attemptsSplit}">
+            <div class="grid-cell"
+                 th:each="letter, letterStat : ${attempt}"
+                 th:text="${letter}"
+                 th:classappend="${feedbackHistory[attemptStat.index][letterStat.index] == T(com.uniovi.wichatwebapp.entities.Wordle.LetterFeedback).CORRECT ? ' correct' :
+                             (feedbackHistory[attemptStat.index][letterStat.index] == T(com.uniovi.wichatwebapp.entities.Wordle.LetterFeedback).MISPLACED ? ' misplaced' : ' wrong')}">
+            </div>
         </div>
     </div>
-
-    <div th:if="${wordle.isFinished()}" class="result">
-        <p th:text="${wordle.isCorrect() ? 'You won! 🎉' : 'You lost. 😢 The word was: ' + wordle.targetWord}"></p>
-        <form th:action="@{/wordle/reset}" method="post">
-            <button type="submit">Play Again</button>
-        </form>
+    <div class="attempts-info">
+        <p>Intentos restantes: <span th:text="${wordle.remainingAttempts}">6</span></p>
+        <p>Estado del juego: <span th:text="${wordle.status}">Jugando</span></p>
     </div>
-
-    <form th:action="@{/}" method="get">
-        <button type="submit" class="exit-button">Salir</button>
+    <form action="/wordle/guess" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="text" name="guess" maxlength="5" required placeholder="Introduce tu intento">
+        <button type="submit">Adivinar</button>
     </form>
+    <form action="/wordle/reset" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit">Reiniciar Juego</button>
+    </form>
+
 </div>
 </body>
 </html>

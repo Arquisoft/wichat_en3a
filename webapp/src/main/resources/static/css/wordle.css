@@ -1,100 +1,96 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #121213;
-    color: white;
-    text-align: center;
+/* Estilos básicos para la interfaz de Wordle */
+* {
     margin: 0;
-    padding: 2rem;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.container {
-    max-width: 500px;
-    margin: auto;
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("../images/thumb-1920-1205979.png");
+    color: #333;
+}
+
+.game-container {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
 }
 
 h1 {
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
 }
 
-.board {
+.grid {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-bottom: 20px;
 }
 
-.word-row {
+.grid-row {
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 10px;
 }
 
-.letter-box {
+.grid-cell {
     width: 50px;
     height: 50px;
-    font-size: 1.5rem;
-    font-weight: bold;
     display: flex;
-    align-items: center;
     justify-content: center;
-    text-transform: uppercase;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #d3d3d3;
     border-radius: 5px;
 }
 
-.empty-box {
-    background-color: #3a3a3c;
-}
-
 .correct {
-    background-color: #538d4e;
-    color: white;
+    background-color: #6aaa64;
+    color: #fff;
 }
 
-.present {
-    background-color: #b59f3b;
-    color: white;
+.misplaced {
+    background-color: #c9b458;
+    color: #fff;
 }
 
-.absent {
-    background-color: #3a3a3c;
-    color: white;
+.wrong {
+    background-color: #787c7e;
+    color: #fff;
+}
+
+.attempts-info {
+    margin-bottom: 20px;
 }
 
 input[type="text"] {
+    width: 100px;
     padding: 10px;
-    font-size: 1rem;
-    width: 200px;
-    text-transform: uppercase;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 button {
     padding: 10px 20px;
-    font-size: 1rem;
-    margin-left: 10px;
-    background-color: #538d4e;
+    font-size: 16px;
+    background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin: 5px;
 }
 
 button:hover {
-    background-color: #436d3e;
-}
-
-.result {
-    margin-top: 2rem;
-}
-
-.exit-button {
-    margin-top: 2rem;
-    padding: 0.8rem 1.5rem;
-    background-color: #d33;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.exit-button:hover {
-    background-color: #b22;
+    background-color: #45a049;
 }

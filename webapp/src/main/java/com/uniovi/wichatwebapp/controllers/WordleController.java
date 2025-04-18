@@ -20,16 +20,10 @@ public class WordleController {
         this.wordleService = wordleService;
     }
 
-    @RequestMapping(value = "/wordle/select")
-    public String selectCategory(Model model) {
-        model.addAttribute("categories", QuestionCategory.values());
-        return "wordle/select-category";
-    }
-
     @RequestMapping(value = "/wordle/start")
-    public String startGame(@RequestParam("category") QuestionCategory category) {
+    public String startGame() {
         String username = getCurrentUsername();
-        wordleService.startNewGame(username, category);
+        wordleService.startNewGame(username);
         return "redirect:/wordle/game";
     }
 

@@ -16,10 +16,10 @@ public class WordleService {
 
     private final Map<String, Wordle> activeGames = new HashMap<>();
 
-    public Wordle startNewGame(String userId, QuestionCategory category) {
+    public Wordle startNewGame(String userId) {
         String targetWord = "";
         while(targetWord.length() != 5) {
-            targetWord = questionRepository.getRandomQuestion(category).getCorrectAnswer().getText();
+            targetWord = questionRepository.getRandomQuestion(QuestionCategory.GEOGRAPHY).getCorrectAnswer().getText();
         }
         Wordle game = new Wordle(targetWord);
         activeGames.put(userId, game);
