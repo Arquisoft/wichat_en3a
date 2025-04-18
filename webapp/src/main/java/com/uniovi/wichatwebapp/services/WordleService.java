@@ -1,6 +1,6 @@
 package com.uniovi.wichatwebapp.services;
 
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
+import entities.QuestionCategory;
 import com.uniovi.wichatwebapp.entities.Wordle;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

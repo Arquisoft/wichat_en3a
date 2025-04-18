@@ -1,6 +1,5 @@
 package com.uniovi.wichatwebapp.controllers;
 
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.entities.Wordle;
 import com.uniovi.wichatwebapp.services.WordleService;
 import org.springframework.security.core.Authentication;
