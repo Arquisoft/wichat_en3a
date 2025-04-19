@@ -48,10 +48,32 @@ public class WordleTest {
 
     @Test
     public void guessTest() {
+        //Guess in a newly started game
         mock.guess("spain");
 
         Assertions.assertFalse(mock.getAttempts().isEmpty());
         Assertions.assertFalse(mock.getFeedbackHistory().isEmpty());
         Assertions.assertEquals(Wordle.GameStatus.PLAYING, mock.getStatus());
+
+        //Guessing the correct word
+        mock.guess("italy");
+
+        Assertions.assertEquals(Wordle.GameStatus.WIN, mock.getStatus());
+
+        //Guessing in a game with a status different from PLAYING
+        mock.setStatus(Wordle.GameStatus.LOSE);
+        int remaining = mock.getRemainingAttempts();
+        mock.guess("paris");
+
+        Assertions.assertEquals(remaining, mock.getRemainingAttempts());
+
+        //Last guess of a game is wrong
+        mock.setStatus(Wordle.GameStatus.PLAYING);
+        mock.getAttempts().add("PARIS");
+        mock.getAttempts().add("PARIS");
+
+        mock.guess("Light");
+
+        Assertions.assertEquals(Wordle.GameStatus.LOSE, mock.getStatus());
     }
 }

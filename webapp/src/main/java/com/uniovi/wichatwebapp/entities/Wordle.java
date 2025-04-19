@@ -17,7 +17,7 @@ public class Wordle {
     private List<String> attempts = new ArrayList<>();
     private int maxAttempts;
     private GameStatus status = GameStatus.PLAYING;
-    private List<List<LetterFeedback>> feedbackHistory = new ArrayList<>();
+    private final List<List<LetterFeedback>> feedbackHistory = new ArrayList<>();
 
     public Wordle(String targetWord) {
         this.targetWord = targetWord.toUpperCase();
