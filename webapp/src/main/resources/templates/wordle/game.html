@@ -10,7 +10,7 @@
 <body>
 <nav th:replace="fragments/nav"></nav>
 <div class="game-container">
-    <h1>¡Adivina la palabra!</h1>
+    <h1>Guess the word!</h1>
     <div class="grid">
         <div class="grid-row" th:each="attempt, attemptStat : ${attemptsSplit}">
             <div class="grid-cell"
@@ -22,17 +22,16 @@
         </div>
     </div>
     <div class="attempts-info">
-        <p>Intentos restantes: <span th:text="${wordle.remainingAttempts}">6</span></p>
-        <p>Estado del juego: <span th:text="${wordle.status}">Jugando</span></p>
+        <p>Attemps left: <span th:text="${wordle.remainingAttempts}">6</span></p>
     </div>
     <form action="/wordle/guess" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <input type="text" name="guess" maxlength="5" required placeholder="Introduce tu intento">
-        <button type="submit">Adivinar</button>
+        <input type="text" name="guess" maxlength="5" required placeholder="Introduce">
+        <button type="submit">Send</button>
     </form>
     <form action="/wordle/reset" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <button type="submit">Reiniciar Juego</button>
+        <button type="submit">Restart</button>
     </form>
 
 </div>

@@ -31,7 +31,7 @@ public class WordleController {
         String username = getCurrentUsername();
         Wordle game = wordleService.getGame(username);
 
-        // ⬇️ Aquí añadimos la lógica para dividir cada intento en letras
+        // We divide the input in letters
         List<List<Character>> attemptsSplit = game.getAttempts().stream()
                 .map(str -> str.chars().mapToObj(c -> (char) c).toList())
                 .toList();
