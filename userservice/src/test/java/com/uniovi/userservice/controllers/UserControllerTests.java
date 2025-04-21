@@ -2,8 +2,9 @@ package com.uniovi.userservice.controllers;
 
 
 import com.uniovi.userservice.controller.UserController;
-import com.uniovi.userservice.entities.User;
+
 import com.uniovi.userservice.service.UserService;
+import entities.User;
 import org.bson.assertions.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

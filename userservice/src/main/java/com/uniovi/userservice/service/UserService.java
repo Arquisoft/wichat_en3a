@@ -1,7 +1,7 @@
 package com.uniovi.userservice.service;
 
-import com.uniovi.userservice.entities.User;
 import com.uniovi.userservice.repository.UserRepository;
+import entities.User;
 import org.springframework.stereotype.Service;
 
 /**

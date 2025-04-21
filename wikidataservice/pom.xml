@@ -89,6 +89,13 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.uniovi.sdi</groupId>
+            <artifactId>entities</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -116,6 +123,7 @@
       			  </execution>
       			</executions>
     		</plugin>
+
         </plugins>
     </build>
 </project>

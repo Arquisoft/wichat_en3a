@@ -13,6 +13,8 @@ jobs:
       with:
         distribution: 'corretto'
         java-version: '23'
+    - run: mvn clean install
+      working-directory: entities
     - run: mvn clean test --batch-mode
       working-directory: userservice
     - run: mvn clean test --batch-mode
@@ -39,6 +41,9 @@ jobs:
       uses: supercharge/mongodb-github-action@1.12.0
       with:
         mongodb-version: '8.0'
+    - name: Set up entities JAR
+      run: mvn clean install
+      working-directory: entities
     - name: Start User Service
       run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
       working-directory: userservice

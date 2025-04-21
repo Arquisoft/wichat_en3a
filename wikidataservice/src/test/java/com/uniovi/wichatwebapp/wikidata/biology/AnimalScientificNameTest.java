@@ -80,9 +80,9 @@ class AnimalScientificNameTest {
 
     @Test
     void needToSkipTest_DetectsDuplicateAnimalLabels() {
-        assertFalse(animalScientificName.getAnimalLabels().contains("Lion"), "First check: should not contain Lion.");
-        animalScientificName.getAnimalLabels().add("Lion"); // Manually add for test
-        assertTrue(animalScientificName.getAnimalLabels().contains("Lion"), "Second check: should now contain Lion.");
+        assertFalse(animalScientificName.getAnswerLabels().contains("Lion"), "First check: should not contain Lion.");
+        animalScientificName.getAnswerLabels().add("Lion"); // Manually add for test
+        assertTrue(animalScientificName.getAnswerLabels().contains("Lion"), "Second check: should now contain Lion.");
         assertTrue(animalScientificName.needToSkip("Lion", "Panthera leo"), "Should skip duplicate animal label.");
     }
     @Test
