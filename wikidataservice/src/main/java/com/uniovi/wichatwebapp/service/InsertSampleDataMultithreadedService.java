@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.CompletableFuture;
 
-@Service
+
 @EnableAsync
 public class InsertSampleDataMultithreadedService {
     private final QuestionService questionService;
