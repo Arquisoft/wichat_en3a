@@ -3,6 +3,9 @@ package com.uniovi.wichatwebapp.entities;
 import entities.Question;
 import entities.QuestionCategory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
     private int maxNumberOfQuestions = 10;
     private int points;
@@ -12,6 +15,7 @@ public class Game {
     private Question currentQuestion;
     private QuestionCategory category;
     private int timer = 30;
+    private List<Question> questionList = new ArrayList<>();
 
     public Game(QuestionCategory category) {
         this.category = category;
@@ -69,6 +73,7 @@ public class Game {
 
     public void setCurrentQuestion(Question currentQuestion) {
         this.currentQuestion = currentQuestion;
+        questionList.add(currentQuestion);
     }
 
     public int getTimer() {
@@ -77,5 +82,13 @@ public class Game {
 
     public QuestionCategory getCategory() {
         return category;
+    }
+
+    public boolean isQuestionInGame(Question question) {
+        return questionList.contains(question);
+    }
+
+    public List<Question> getQuestionList() {
+        return questionList;
     }
 }

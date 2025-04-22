@@ -76,4 +76,28 @@ public class ScoreController {
         return scoreService.findBestScores(user);
     }
 
+
+    @Operation(summary = "Gets a score by the id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Returns the score matching the id",
+            content = {@Content(mediaType = "application/json",
+            schema = @Schema(implementation = Score.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Score was not found", content = @Content)
+    })
+
+
+    @RequestMapping(value="/getScore", method = RequestMethod.GET)
+    public Score findScore(
+            @RequestParam String id){
+        Score score = scoreService.findScore(id);
+
+        if(score == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Score with that id was not found");
+        }
+
+        return score;
+
+    }
+
 }

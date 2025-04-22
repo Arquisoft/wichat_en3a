@@ -26,4 +26,8 @@ public class ScoreService {
         List<Score> scores = scoreRepository.findBestByUser(sort, user);
         return scores.size() > 10 ? scores.subList(0, 10) : scores;
     }
+
+    public Score findScore(String id){
+        return scoreRepository.findById(id).orElse(null);
+    }
 }

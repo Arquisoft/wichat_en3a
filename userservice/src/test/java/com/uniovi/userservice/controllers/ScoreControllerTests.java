@@ -92,4 +92,16 @@ class ScoreControllerTests {
 
     }
 
+    @Test
+    void testGetScoreById(){
+        Score s1 = new Score("test@test.com", "Flags", 800, 8, 2);
+        s1.setId("1");
+        //Mock score service response
+        when(scoreService.findScore("1")).thenReturn(s1);
+        //Execute controller method
+        Score result = scoreController.findScore("1");
+        //Check results
+        assertEquals(s1, result);
+    }
+
 }

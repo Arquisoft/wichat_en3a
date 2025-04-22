@@ -3,6 +3,8 @@ package entities;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "scores")
 public class Score {
 
@@ -15,6 +17,8 @@ public class Score {
     private int score;
     private int rightAnswers;
     private int wrongAnswers;
+    private List<Question> questions;
+    private int questionTime;
 
     public Score(){
     }
@@ -86,5 +90,21 @@ public class Score {
 
     public void setWrongAnswers(int wrongAnswers) {
         this.wrongAnswers = wrongAnswers;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public int getQuestionTime() {
+        return questionTime;
+    }
+
+    public void setQuestionTime(int questionTime) {
+        this.questionTime = questionTime;
     }
 }

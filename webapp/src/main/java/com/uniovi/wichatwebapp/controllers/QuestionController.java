@@ -33,6 +33,29 @@ public class QuestionController {
         return "redirect:/game/question";
     }
 
+    @RequestMapping(value="/play/{id}", method = RequestMethod.GET)
+    public String multiplayerGame(@PathVariable String id, Model model) {
+        Score score = scoreService.getScore(id);
+        if(score == null){
+            return "redirect:/home";
+        }
+        model.addAttribute("otherPlayer", score.getUser());
+        model.addAttribute("score", score.getScore());
+        model.addAttribute("category", score.getCategory());
+        model.addAttribute("questionTime", score.getQuestionTime());
+        return "multiplayer/details";
+    }
+
+    @RequestMapping(value="/game/multiplayer/start/{id}", method = RequestMethod.GET)
+    public String startMultiplayerGame(@PathVariable String id) {
+        Score score = scoreService.getScore(id);
+        if(score == null){
+            return "redirect:/home";
+        }
+        gameService.start(score.getQuestions(), QuestionCategory.valueOf(score.getCategory()));
+        return "redirect:/game/question";
+    }
+
 
     @RequestMapping(value="/game/start/{category}")
     public String startGame(@PathVariable QuestionCategory category) {
@@ -108,8 +131,11 @@ public class QuestionController {
         model.addAttribute("questions", gameService.getMaxQuestions());
 
         Score score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
+        score.setQuestions(gameService.getGame().getQuestionList());
         if(!scoreService.addScore(score)){
             model.addAttribute("addError", true);
+        } else{
+            model.addAttribute("scoreID", score.getId());
         }
 
         gameService.start(gameService.getCategory());

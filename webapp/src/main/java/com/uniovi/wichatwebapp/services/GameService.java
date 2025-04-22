@@ -2,10 +2,15 @@ package com.uniovi.wichatwebapp.services;
 
 import com.uniovi.wichatwebapp.entities.Game;
 
+import com.uniovi.wichatwebapp.services.questionstrategies.GameQuestionStrategy;
+import com.uniovi.wichatwebapp.services.questionstrategies.PredefinedQuestionsStrategy;
+import com.uniovi.wichatwebapp.services.questionstrategies.RandomQuestionStrategy;
 import entities.Question;
 import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
+
+import java.util.List;
 
 @Service
 @SessionScope
@@ -13,6 +18,7 @@ public class GameService {
 
     private final QuestionService questionService;
     private Game game;
+    private GameQuestionStrategy gameQuestionStrategy;
 
     public GameService(QuestionService questionService) {
         this.questionService = questionService;
@@ -30,11 +36,19 @@ public class GameService {
 
     public void start(QuestionCategory category){
         game = new Game(category);
+        gameQuestionStrategy = new RandomQuestionStrategy(game, questionService);
         nextQuestion();
     }
 
     public void start(QuestionCategory category, int timer, int questions){
         game = new Game(category, timer, questions);
+        gameQuestionStrategy = new RandomQuestionStrategy(game, questionService);
+        nextQuestion();
+    }
+
+    public void start(List<Question> questions, QuestionCategory category){
+        game = new Game(category);
+        gameQuestionStrategy = new PredefinedQuestionsStrategy(game, questions);
         nextQuestion();
     }
 
@@ -47,9 +61,7 @@ public class GameService {
     }
 
     public void nextQuestion(){
-        Question question = questionService.getRandomQuestion(game.getCategory());
-        game.setCurrentQuestion(question);
-        questionService.removeQuestion(question);
+        gameQuestionStrategy.nextQuestion();
     }
 
     public Question getCurrentQuestion() {

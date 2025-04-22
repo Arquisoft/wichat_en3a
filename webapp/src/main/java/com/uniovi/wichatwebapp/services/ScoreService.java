@@ -22,4 +22,8 @@ public class ScoreService {
     public List<Score> getBestScores(String email) {
         return scoreRepository.getBestScores(email);
     }
+
+    public Score getScore(String id) {
+        return scoreRepository.getScore(id);
+    }
 }
