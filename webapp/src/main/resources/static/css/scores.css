@@ -82,6 +82,10 @@ body {
 
 
 @media screen and (max-width: 768px) {
+    .container{
+        position: absolute;
+        top: 3rem;
+    }
     .desktop-text {
         display: none;
     }

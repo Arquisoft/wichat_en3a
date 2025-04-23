@@ -19,6 +19,9 @@ body {
     padding-bottom: 3em;
 }
 
+.form {
+    padding: 1.5rem;
+}
 body.login-bg, .login-bg .form-container, .login-bg .form {
     font-family: 'Minecraft', 'Arial', 'Helvetica', sans-serif !important; /* Updated to remove Minecraftia */
 }
@@ -261,6 +264,9 @@ body {
 }
 
 @media(max-width: 600px) {
+    .home-container {
+        position: absolute;
+    }
     .question-text-container h1 {
         font-size: 1.5em;
         margin-top: 1.5em;
@@ -293,7 +299,6 @@ body {
 @media(max-width: 480px) {
     .form {
         padding: 1.5rem;
-        margin: 1rem;
     }
 
     h2 {
@@ -306,6 +311,9 @@ body {
 
     .answer-button {
         width: 100%;
+    }
+    .qwizzimage{
+        margin-bottom: -100px;
     }
 }
 

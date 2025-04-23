@@ -14,20 +14,7 @@
     position: relative;
 }
 
-@media(max-width: 480px) {
-    .chat-wrapper-chat-visible {
-        right: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 10%; /* Move higher on mobile */
-    }
-    
-    #chatBox {
-        width: 90%; /* Make chat box more responsive */
-        max-width: 300px;
-        transform: translateX(-50%);
-    }
-}
+
 
 #chatBox {
     visibility: hidden;
@@ -161,11 +148,26 @@
     transform: scale(1.1); /* Efecto de escala al pasar el mouse */
 }
 
-@media (max-width: 768px) {
+@media screen and (max-aspect-ratio: 3/4) {
     .chat-wrapper {
         top: 20%; /* Move chat higher on mobile */
         right: 2%; /* Adjust right position for smaller screens */
     }
+    .chat-wrapper-chat-visible {
+        right: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 10%; /* Move higher on mobile */
+    }
+    
+    #chatBox {
+        width: 90%; /* Make chat box more responsive */
+        max-width: 300px;
+        transform: translateX(-50%);
+    }
+}
+@media (max-width: 768px) {
+
 }
 
 @media (max-width: 480px) {
