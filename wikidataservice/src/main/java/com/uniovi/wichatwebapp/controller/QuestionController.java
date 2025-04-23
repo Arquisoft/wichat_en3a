@@ -53,6 +53,33 @@ public class QuestionController {
         return questionService.getRandomQuestion("en",category);
     }
 
+
+    @Operation(summary = "Retrieves a random question from a random category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Question was returned successfully",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Question.class),
+                            examples = @ExampleObject(value = "{ \"id\": \"q123\", " +
+                                    "\"content\": \"Which country's flag is this?\", " +
+                                    "\"imageUrl\": \"https://example.com/france-flag.jpg\", " +
+                                    "\"category\": \"GEOGRAPHY\", " +
+                                    "\"answers\": [ " +
+                                    "    { \"id\": \"a1\", \"text\": \"France\", \"language\": \"en\", \"category\": \"FLAG\" }, " +
+                                    "    { \"id\": \"a2\", \"text\": \"Germany\", \"language\": \"en\", \"category\": \"FLAG\" }, " +
+                                    "    { \"id\": \"a3\", \"text\": \"Italy\", \"language\": \"en\", \"category\": \"FLAG\" }, " +
+                                    "    { \"id\": \"a4\", \"text\": \"Spain\", \"language\": \"en\", \"category\": \"FLAG\" } " +
+                                    "], " +
+                                    "\"correctAnswer\": { \"id\": \"a1\", \"text\": \"France\", \"language\": \"en\", \"category\": \"FLAG\" } " +
+                                    "}"))}),
+    })
+    @RequestMapping(
+            value = {"/game/newQuestion/NO_CATEGORY"},
+            method = {RequestMethod.GET}
+    )
+    public Question getRandomCategoryQuestion() {
+        return questionService.getRandomQuestionNoCategory("en");
+    }
+
     @Operation(summary = "Gets the correct answers for a question given its ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Answer for the question",
