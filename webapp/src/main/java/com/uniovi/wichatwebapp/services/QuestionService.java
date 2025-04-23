@@ -23,7 +23,9 @@ public class QuestionService {
     public boolean checkAnswer(String id, Question question) {
         return questionRepository.checkAnswer(question,id);
     }*/
-
+    public Question getRandomQuestionNoCategory(){
+        return questionRepository.getRandomQuestionNoCategory();
+    }
     public void removeQuestion(Question question) {
         questionRepository.removeQuestion(question.getId());
     }

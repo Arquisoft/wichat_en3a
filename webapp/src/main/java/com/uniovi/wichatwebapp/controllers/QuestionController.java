@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 public class QuestionController {
     private final GameService gameService;
@@ -30,6 +31,13 @@ public class QuestionController {
     @RequestMapping(value="/game/personalized", method = RequestMethod.POST)
     public String createPersonalizedGame(@RequestParam QuestionCategory category, @RequestParam int timerSeconds, @RequestParam int questionCount) {
         gameService.start(category, timerSeconds, questionCount);
+        return "redirect:/game/question";
+    }
+
+
+    @RequestMapping(value="/game/start/CATEGORIES", method = RequestMethod.POST)
+    public String createCategoriesGame( ) {
+        gameService.startMultipleCategories();
         return "redirect:/game/question";
     }
 

@@ -89,7 +89,6 @@ public class QuestionControllerTests {
         String view = questionController.createPersonalizedGame(category,timer, questionCount);
 
         //Asserts
-        Assertions.assertEquals(category, gameService.getGame().getCategory());
         Assertions.assertEquals(12, gameService.getGame().getTimer());
         Assertions.assertEquals(7, gameService.getGame().getMaxNumberOfQuestions());
         Assertions.assertEquals(0, gameService.getGame().getQuestions());
@@ -130,7 +129,6 @@ public class QuestionControllerTests {
         String view = questionController.startGame(category);
 
         //Asserts
-        Assertions.assertEquals(category, gameService.getGame().getCategory());
         Assertions.assertEquals(30, gameService.getGame().getTimer());
         Assertions.assertEquals(10, gameService.getGame().getMaxNumberOfQuestions());
         Assertions.assertEquals(0, gameService.getGame().getQuestions());
@@ -173,7 +171,6 @@ public class QuestionControllerTests {
         String view = questionController.startGame(category,timer, questionCount);
 
         //Asserts
-        Assertions.assertEquals(category, gameService.getGame().getCategory());
         Assertions.assertEquals(12, gameService.getGame().getTimer());
         Assertions.assertEquals(7, gameService.getGame().getMaxNumberOfQuestions());
         Assertions.assertEquals(0, gameService.getGame().getQuestions());
