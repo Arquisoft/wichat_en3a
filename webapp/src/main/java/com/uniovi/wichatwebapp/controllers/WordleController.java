@@ -39,6 +39,9 @@ public class WordleController {
         model.addAttribute("wordle", game);
         model.addAttribute("attemptsSplit", attemptsSplit);
         model.addAttribute("feedbackHistory", game.getFeedbackHistory());
+        if (wordleService.getGame(username).getRemainingAttempts() == 0 && wordleService.getGame(username).getStatus() == Wordle.GameStatus.LOSE) {
+            model.addAttribute("solutionWord", wordleService.getGame(username).getTargetWord());
+        }
 
         return "wordle/game";
     }
@@ -47,7 +50,10 @@ public class WordleController {
     @RequestMapping(value = "/wordle/guess", method = RequestMethod.POST)
     public String makeGuess(@RequestParam String guess) {
         String username = getCurrentUsername();
-        wordleService.makeGuess(username, guess);
+        if(guess.length() == 5) {
+            wordleService.makeGuess(username, guess);
+        }
+
         return "redirect:/wordle/game";
     }
 

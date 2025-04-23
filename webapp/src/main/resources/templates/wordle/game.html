@@ -22,11 +22,14 @@
         </div>
     </div>
     <div class="attempts-info">
-        <p>Attemps left: <span th:text="${wordle.remainingAttempts}">6</span></p>
+        <p>Attempts left: <span th:text="${wordle.remainingAttempts}">6</span></p>
+    </div>
+    <div class="solution-message" th:if="${solutionWord}">
+        <p>Game over, the word was: <strong th:text="${solutionWord}">PALABRA</strong></p>
     </div>
     <form action="/wordle/guess" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <input type="text" name="guess" maxlength="5" required placeholder="Introduce">
+        <input type="text" name="guess" minlength="5" maxlength="5" required placeholder="Introduce">
         <button type="submit">Send</button>
     </form>
     <form action="/wordle/reset" method="post">
