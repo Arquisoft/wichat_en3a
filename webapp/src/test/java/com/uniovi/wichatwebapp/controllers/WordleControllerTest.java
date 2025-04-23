@@ -67,11 +67,20 @@ public class WordleControllerTest {
 
     @Test
     public void makeGuessTest() {
-        String guess = "madrid";
+        //The word has 5 letters
+        String guess = "aireo";
 
         String result = wordleController.makeGuess(guess);
 
         Mockito.verify(wordleService).makeGuess(username, guess);
+        Assertions.assertEquals("redirect:/wordle/game", result);
+
+        //The word has nay other length
+        guess = "madrid";
+
+        result = wordleController.makeGuess(guess);
+
+        Mockito.verify(wordleService, Mockito.never()).makeGuess(username,guess);
         Assertions.assertEquals("redirect:/wordle/game", result);
     }
 
