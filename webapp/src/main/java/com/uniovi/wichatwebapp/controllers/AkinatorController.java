@@ -51,9 +51,25 @@ public class AkinatorController {
         return "redirect:/akinator/game";
     }
 
+    @RequestMapping(value="/akinator/probablyYes", method = RequestMethod.POST)
+    public String answeredProbablyYes(Model model) {
+        gameService.answer("Probably yes");
+        model.addAttribute("ai", gameService.getAiMessage());
+        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        return "redirect:/akinator/game";
+    }
+
     @RequestMapping(value="/akinator/dontKnow", method = RequestMethod.POST)
     public String answeredDontKnow(Model model) {
         gameService.answer("No");
+        model.addAttribute("ai", gameService.getAiMessage());
+        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        return "redirect:/akinator/game";
+    }
+
+    @RequestMapping(value="/akinator/probablyNo", method = RequestMethod.POST)
+    public String answeredProbablyNo(Model model) {
+        gameService.answer("Probably no");
         model.addAttribute("ai", gameService.getAiMessage());
         model.addAttribute("aiGuesses", gameService.isAiGuessing());
         return "redirect:/akinator/game";
