@@ -12,6 +12,8 @@ body {
     align-items: center;
     height: 100vh;
     background-image: url("../images/thumb-1920-1205979.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     color: #333;
 }
 
