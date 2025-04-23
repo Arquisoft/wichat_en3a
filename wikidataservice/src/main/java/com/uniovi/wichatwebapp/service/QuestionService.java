@@ -8,6 +8,7 @@ import entities.AnswerCategory;
 import entities.Question;
 import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -204,5 +205,14 @@ public class QuestionService {
     public Answer findAnswerById(String answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         return optionalAnswer.orElse(null);
+    }
+
+    @Transactional
+    public void saveAllQuestionsBatch(List<Question> questions) {
+        questionRepository.saveAll(questions);
+    }
+    @Transactional
+    public void saveAllAnswersBatch(List<Answer> answers) {
+        answerRepository.saveAll(answers);
     }
 }
