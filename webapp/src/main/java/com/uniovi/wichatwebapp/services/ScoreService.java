@@ -1,7 +1,7 @@
 package com.uniovi.wichatwebapp.services;
 
-import com.uniovi.wichatwebapp.entities.Score;
 import com.uniovi.wichatwebapp.repositories.ScoreRepository;
+import entities.Score;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

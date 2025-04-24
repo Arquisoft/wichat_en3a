@@ -1,7 +1,8 @@
 package com.uniovi.userservice.service;
 
-import com.uniovi.userservice.entities.Score;
+
 import com.uniovi.userservice.repository.ScoreRepository;
+import entities.Score;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
