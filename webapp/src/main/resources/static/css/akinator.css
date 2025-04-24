@@ -2,6 +2,37 @@
     font-size: 16px; /* Base para rem (1rem = 16px por defecto) */
 }
 
+.akinator-container {
+    background-image: url('../images/ruins_background.png'); /* Your background image */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+#oracle-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem; /* Espacio entre la imagen y el texto */
+    flex-wrap: wrap; /* Para que sea adaptable en pantallas pequeñas */
+
+    background-color: white;     /* Fondo blanco */
+    border-radius: 1rem;         /* Esquinas redondeadas */
+    padding: 1rem;               /* Espacio interior */
+}
+
+p {
+    display: grid;
+    place-items: center;
+    margin: 0;
+    text-align: center; /* Alinea el texto al centro */
+}
+
+.oracle-text {
+    font-weight: bold;
+}
+
 /* Contenedor principal */
 .guess-container {
     display: flex;
