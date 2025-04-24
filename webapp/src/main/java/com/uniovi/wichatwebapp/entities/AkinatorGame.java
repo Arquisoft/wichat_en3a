@@ -45,4 +45,8 @@ public abstract class AkinatorGame {
         }
         return stringBuilder.toString();
     }
+
+    public void endGame() {
+
+    }
 }

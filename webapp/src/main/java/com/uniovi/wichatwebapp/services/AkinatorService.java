@@ -22,8 +22,11 @@ public class AkinatorService {
             game = new AkinatorIAGuessesGame(category);
             game.setAiMessage(askToAiQuestion()); //ask question to the user
         } else {
-            Question question = questionService.getRandomQuestion(category);
-            String solution=question.getCorrectAnswer().getText();
+            String solution="";
+            do {
+                Question question = questionService.getRandomQuestion(category);
+                 solution = question.getCorrectAnswer().getText();
+            } while (solution.matches("\\d+(\\.\\d+)?"));
             game = new AkinatorPlayerGuessesGame(category, solution);
             game.setAiMessage("Make a question");
         }
@@ -56,5 +59,9 @@ public class AkinatorService {
     public void answer(String option) { //AI is guessing
         game.addQuestionsAndAnswers(getAiMessage(), option);
         game.setAiMessage(askToAiQuestion()); //ask to player another hint
+    }
+
+    public void endGame() {
+        game.endGame();
     }
 }

@@ -16,6 +16,11 @@ public class AkinatorPlayerGuessesGame extends AkinatorGame{
     }
 
     @Override
+    public void endGame() {
+        setAiMessage("The solution is: " + solution);
+    }
+
+    @Override
     public String getSetUpMessageChat() {
         return "You are part of a web game with same style as Akinator. Your role is to answer 'Yes' or 'No' to the questions the user gives you. The user is trying to guess the solution (which is "+solution+"). " +
                 "You will receive a message in the following format: `<question made by the user>;;<already given questions by you and answers of the user. They are separated by '_' character. The format is the question first, and then the answer after to that question >`. " +

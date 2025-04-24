@@ -43,6 +43,14 @@ public class AkinatorController {
         return "redirect:/akinator/game";
     }
 
+    @RequestMapping(value="/akinator/end", method = RequestMethod.POST)
+    public String endGame(Model model) {
+        gameService.endGame();
+        model.addAttribute("ai", gameService.getAiMessage());
+        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        return "redirect:/akinator/game";
+    }
+
     @RequestMapping(value="/akinator/yes", method = RequestMethod.POST)
     public String answeredYes(Model model) {
         gameService.answer("Yes");
