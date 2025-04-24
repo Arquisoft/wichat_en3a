@@ -27,10 +27,19 @@ public class AkinatorService {
             String solution="";
             do {
                 Question question = questionService.getRandomQuestion(category);
-                 solution = question.getCorrectAnswer().getText();
-            } while (solution.matches("\\d+(\\.\\d+)?"));
+                solution = question.getCorrectAnswer().getText();
+            } while (isNumeric(solution));
             game = new AkinatorPlayerGuessesGame(category, solution);
             game.setAiMessage("Make a question");
+        }
+    }
+
+    boolean isNumeric(String s) {
+        try {
+            Double.parseDouble(s); // or Integer.parseInt(s) if you want only integers
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 

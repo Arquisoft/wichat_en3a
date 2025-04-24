@@ -30,64 +30,61 @@ public class AkinatorController {
 
     @RequestMapping(value="/akinator/game")
     public String getAkinatorGame(Model model) {
+        setModel(model);
+        return "akinator/game";
+    }
+
+    private void setModel(Model model) {
         model.addAttribute("ai", gameService.getAiMessage());
         model.addAttribute("aiGuesses", gameService.isAiGuessing());
-        return "akinator/game";
     }
 
     @RequestMapping(value="/akinator/askQuestion", method = RequestMethod.POST)
     public String askQuestion(Model model, @RequestParam String question) {
         gameService.askQuestion(question);
-        model.addAttribute("ai", gameService.getAiMessage());
-        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        setModel(model);
         return "redirect:/akinator/game";
     }
 
     @RequestMapping(value="/akinator/end", method = RequestMethod.POST)
     public String endGame(Model model) {
         gameService.endGame();
-        model.addAttribute("ai", gameService.getAiMessage());
-        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        setModel(model);
         return "redirect:/akinator/game";
     }
 
     @RequestMapping(value="/akinator/yes", method = RequestMethod.POST)
     public String answeredYes(Model model) {
         gameService.answer("Yes");
-        model.addAttribute("ai", gameService.getAiMessage());
-        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        setModel(model);
         return "redirect:/akinator/game";
     }
 
     @RequestMapping(value="/akinator/probablyYes", method = RequestMethod.POST)
     public String answeredProbablyYes(Model model) {
         gameService.answer("Probably yes");
-        model.addAttribute("ai", gameService.getAiMessage());
-        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        setModel(model);
         return "redirect:/akinator/game";
     }
 
     @RequestMapping(value="/akinator/dontKnow", method = RequestMethod.POST)
     public String answeredDontKnow(Model model) {
         gameService.answer("No");
-        model.addAttribute("ai", gameService.getAiMessage());
-        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        setModel(model);
         return "redirect:/akinator/game";
     }
 
     @RequestMapping(value="/akinator/probablyNo", method = RequestMethod.POST)
     public String answeredProbablyNo(Model model) {
         gameService.answer("Probably no");
-        model.addAttribute("ai", gameService.getAiMessage());
-        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        setModel(model);
         return "redirect:/akinator/game";
     }
 
     @RequestMapping(value="/akinator/no", method = RequestMethod.POST)
     public String answeredNo(Model model) {
         gameService.answer("No");
-        model.addAttribute("ai", gameService.getAiMessage());
-        model.addAttribute("aiGuesses", gameService.isAiGuessing());
+        setModel(model);
         return "redirect:/akinator/game";
     }
 }
