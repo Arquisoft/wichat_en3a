@@ -1,0 +1,36 @@
+:root {
+    font-size: 16px; /* Base para rem (1rem = 16px por defecto) */
+}
+
+/* Contenedor principal */
+.guess-container {
+    display: flex;
+    gap: 0.5rem;                /* 8px → 0.5rem */
+    width: 90%;                 /* Ocupa el 90% del padre (responsive) */
+    max-width: 31.25rem;        /* 500px → 31.25rem (500/16) */
+    margin: 0 auto;
+    padding: 0.75rem;           /* 12px → 0.75rem */
+}
+
+/* Input */
+#question {
+    flex: 1;
+    padding: 0.625rem 0.9375rem; /* 10px 15px → 0.625rem 0.9375rem */
+    border: 0.125rem solid #405de6; /* 2px → 0.125rem */
+    border-radius: 0.5rem;       /* 8px → 0.5rem */
+    font-size: 1rem;            /* 16px → 1rem */
+    outline: none;
+    transition: border 0.3s;
+}
+
+/* Botón */
+#questionSubmit {
+    padding: 0.625rem 1.25rem;   /* 10px 20px → 0.625rem 1.25rem */
+    background-color: #405de6;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;       /* 8px → 0.5rem */
+    font-size: 1rem;             /* 16px → 1rem */
+    cursor: pointer;
+    transition: background 0.3s;
+}
