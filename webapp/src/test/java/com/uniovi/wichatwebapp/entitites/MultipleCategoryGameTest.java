@@ -1,29 +1,27 @@
 package com.uniovi.wichatwebapp.entitites;
 
-import com.uniovi.wichatwebapp.entities.Game;
+import com.uniovi.wichatwebapp.entities.GameMultipleCategories;
 import com.uniovi.wichatwebapp.services.QuestionService;
 import entities.Answer;
 import entities.Question;
-import entities.QuestionCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GameTest {
-    private Game game;
+public class MultipleCategoryGameTest {
+    private GameMultipleCategories game;
     private QuestionService questionService;
     private Question question;
-    private QuestionCategory category;
 
     @BeforeEach
     void setUp() {
-        game = new Game(QuestionCategory.GEOGRAPHY);
+        game = new GameMultipleCategories();
         questionService = mock(QuestionService.class);
         Answer correctAnswer = new Answer("Paris", "en");
         correctAnswer.setId("correct123");
         question = new Question(correctAnswer, "Capital of France?", "no-image");
-        when(questionService.getRandomQuestion(category)).thenReturn(question);
+        when(questionService.getRandomQuestionNoCategory()).thenReturn(question);
     }
 
     @Test
@@ -33,4 +31,3 @@ public class GameTest {
         verify(questionService).removeQuestion(question);
     }
 }
-
