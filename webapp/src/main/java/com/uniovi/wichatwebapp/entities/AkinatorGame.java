@@ -1,6 +1,7 @@
 package com.uniovi.wichatwebapp.entities;
 
 import ch.qos.logback.core.joran.sanity.Pair;
+import entities.QuestionCategory;
 
 import java.util.HashMap;
 import java.util.Map;

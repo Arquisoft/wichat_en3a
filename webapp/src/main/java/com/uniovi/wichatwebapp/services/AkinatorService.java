@@ -2,6 +2,8 @@ package com.uniovi.wichatwebapp.services;
 
 import com.uniovi.wichatwebapp.entities.*;
 import com.uniovi.wichatwebapp.repositories.HintRepository;
+import entities.Question;
+import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 

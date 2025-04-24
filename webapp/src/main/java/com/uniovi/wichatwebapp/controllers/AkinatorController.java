@@ -1,6 +1,6 @@
 package com.uniovi.wichatwebapp.controllers;
 
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
+import entities.QuestionCategory;
 import com.uniovi.wichatwebapp.services.AkinatorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

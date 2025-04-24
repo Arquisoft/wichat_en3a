@@ -1,6 +1,6 @@
 package com.uniovi.wichatwebapp.entities;
 
-import com.uniovi.wichatwebapp.services.QuestionService;
+import entities.QuestionCategory;
 
 public class AkinatorPlayerGuessesGame extends AkinatorGame{
     private String solution;
