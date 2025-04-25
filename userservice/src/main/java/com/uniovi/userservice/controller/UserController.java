@@ -1,7 +1,7 @@
 package com.uniovi.userservice.controller;
 
-import com.uniovi.userservice.entities.User;
 import com.uniovi.userservice.service.UserService;
+import entities.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -1,9 +1,8 @@
 package com.uniovi.wichatwebapp.services;
 
-import com.uniovi.wichatwebapp.controllers.HintController;
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.repositories.HintRepository;
+import entities.Answer;
+import entities.Question;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

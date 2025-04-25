@@ -1,5 +1,9 @@
 package com.uniovi.wichatwebapp.entities;
 
+import entities.Answer;
+import entities.AnswerCategory;
+import entities.Question;
+import entities.QuestionCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +35,17 @@ class QuestionTest {
 
     @Test
     void testCategory() {
+        assertEquals(QuestionCategory.GEOGRAPHY, question.getCategory());
+    }
+
+    @Test
+    void testSetters(){
+        question = new Question();
+        question.setContent("New content");
+        question.setCorrectAnswer(correctAnswer);
+        question.setCategory(QuestionCategory.GEOGRAPHY);
+        assertEquals("New content", question.getContent());
+        assertEquals(correctAnswer, question.getCorrectAnswer());
         assertEquals(QuestionCategory.GEOGRAPHY, question.getCategory());
     }
 }
