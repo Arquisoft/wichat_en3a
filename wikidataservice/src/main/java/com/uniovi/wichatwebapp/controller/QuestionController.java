@@ -1,8 +1,7 @@
 package com.uniovi.wichatwebapp.controller;
 
 
-import com.uniovi.wichatwebapp.errorHandling.exceptions.AnswerNotFound;
-import com.uniovi.wichatwebapp.errorHandling.exceptions.QuestionNotFoundException;
+import com.uniovi.wichatwebapp.errorHandling.exceptions.*;
 import com.uniovi.wichatwebapp.service.QuestionService;
 
 import entities.Answer;
