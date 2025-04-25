@@ -18,7 +18,7 @@
             </div>
             <br>
             <!--<h3>User</h3>-->
-            <div th:unless="${aiGuesses and (ai.split('The solution').length <= 1)}">
+            <div th:if="${!aiGuesses and (ai.split('The solution').length <= 1)}">
                 <form action="/akinator/askQuestion" method="POST">
                     <div class="guess-container">
                         <input type="text" id="question" name="question" placeholder="Ask a question...">
