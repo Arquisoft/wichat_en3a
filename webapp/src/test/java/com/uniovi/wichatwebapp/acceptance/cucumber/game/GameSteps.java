@@ -52,20 +52,20 @@ public class GameSteps extends BaseStep {
 
     @When("They start a custom game with 1 question and the first category")
     public void user_start_game(){
-        PO_HomeView.selectGameCategory(driver, wait, "Custom Game");
+        PO_HomeView.selectCustomGame(driver, wait);
         PO_GameView.fillCustomGameForm(driver, 1, 30, 1);
     }
 
     @When("They start a custom game with 1 question and the first category, and they select an answer")
     public void user_plays_game(){
-        PO_HomeView.selectGameCategory(driver, wait, "Custom Game");
+        PO_HomeView.selectCustomGame(driver, wait);
         PO_GameView.fillCustomGameForm(driver, 1, 30, 1);
         PO_GameView.selectAnswer(driver, wait,1);
     }
 
     @When("They finish a game and click on Play Again")
     public void user_replays_game(){
-        PO_HomeView.selectGameCategory(driver, wait, "Custom Game");
+        PO_HomeView.selectCustomGame(driver, wait);
         PO_GameView.fillCustomGameForm(driver, 1, 30, 1);
         PO_GameView.selectAnswer(driver, wait,1);
         PO_GameView.selectPlayAgainGame(driver, wait);
@@ -73,7 +73,7 @@ public class GameSteps extends BaseStep {
 
     @When("They finish a game and click on Check your scores")
     public void user_checkResults_game(){
-        PO_HomeView.selectGameCategory(driver, wait, "Custom Game");
+        PO_HomeView.selectCustomGame(driver, wait);
         PO_GameView.fillCustomGameForm(driver, 1, 30, 1);
         PO_GameView.selectAnswer(driver, wait,1);
         PO_GameView.selectCheckResultsGame(driver, wait);
