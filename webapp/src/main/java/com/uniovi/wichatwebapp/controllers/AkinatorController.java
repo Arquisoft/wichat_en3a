@@ -23,7 +23,7 @@ public class AkinatorController {
     }
 
     @RequestMapping(value="/akinator", method = RequestMethod.POST)
-    public String createGame(Model model, @RequestParam QuestionCategory category, @RequestParam String mode) {
+    public String createGame(@RequestParam QuestionCategory category, @RequestParam String mode) {
         gameService.start(category, mode);
         return "redirect:/akinator/game";
     }
@@ -69,7 +69,7 @@ public class AkinatorController {
 
     @RequestMapping(value="/akinator/dontKnow", method = RequestMethod.POST)
     public String answeredDontKnow(Model model) {
-        gameService.answer("No");
+        gameService.answer("Don't know");
         setModel(model);
         return "redirect:/akinator/game";
     }
