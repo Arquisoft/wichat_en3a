@@ -1,14 +1,18 @@
-package com.uniovi.wichatwebapp.entities;
+package com.uniovi.wichatwebapp.entitites;
 
+import com.uniovi.wichatwebapp.entities.AkinatorGame;
 import entities.QuestionCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class AkinatorGameTest {
 
     // Test concrete implementation of AkinatorGame
