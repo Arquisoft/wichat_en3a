@@ -14,7 +14,6 @@ class AkinatorIAGuessesGameTest {
 
     private AkinatorIAGuessesGame game;
     private final QuestionCategory testCategory = QuestionCategory.GEOGRAPHY;
-    private final int initialQuestionsLeft = 20;
 
     @BeforeEach
     void setUp() {
