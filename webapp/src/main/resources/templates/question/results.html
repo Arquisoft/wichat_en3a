@@ -1,11 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:insert="fragments/head :: head('Results')"></th:block>
-  <link rel="stylesheet" href="/css/nav.css"/>
-  <link rel="stylesheet" href="/css/results.css"/> <!-- Link to the new CSS file -->
-  <link rel="stylesheet" href="/css/loading.css"/> <script src="/script/loading.js"></script>
-
+  <th:block th:insert="fragments/head"></th:block>
+  <link rel="stylesheet" href="/css/results.css"/>
 </head>
 <body class="bg-light">
 <nav th:replace="fragments/nav"></nav>
