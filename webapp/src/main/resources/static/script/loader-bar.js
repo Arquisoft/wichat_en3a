@@ -1,13 +1,45 @@
+let loaderBar = null;
+let totalBlocks = 0;
+let interval = 0;
+let currentBlock = 8;
+let intervalId = null;
+
 function setUpLoaderBar(timer) {
-    const loaderBar = document.querySelector('.loader-bar');
+    loaderBar = document.querySelector('.loader-bar');
     if (!loaderBar) return;
 
-    const totalBlocks = loaderBar.children.length;
-    const interval = timer / (totalBlocks-8) * 1000; // Calculate interval in milliseconds
+    totalBlocks = loaderBar.children.length;
+    interval = (timer / (totalBlocks - 8)) * 1000; // milliseconds
+    currentBlock = 8;
+    startLoader();
+}
 
-    let currentBlock = 8;
+function startLoader() {
+    if (!loaderBar) return;
 
-    const intervalId = setInterval(() => {
+    clearInterval(intervalId);
+    currentBlock = 8;
+
+    intervalId = setInterval(() => {
+        if (currentBlock < totalBlocks) {
+            loaderBar.children[currentBlock].classList.remove('hidden');
+            currentBlock++;
+        } else {
+            clearInterval(intervalId);
+        }
+    }, interval);
+}
+
+function stopLoader() {
+    clearInterval(intervalId);
+}
+
+function resumeLoader() {
+    if (!loaderBar) return;
+
+    clearInterval(intervalId);
+
+    intervalId = setInterval(() => {
         if (currentBlock < totalBlocks) {
             loaderBar.children[currentBlock].classList.remove('hidden');
             currentBlock++;
