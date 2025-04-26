@@ -1,4 +1,8 @@
+let loaderBarIntervalId; // Global variable to store the interval ID
+let storedTimer; // New variable to store the initial timer value
+
 function setUpLoaderBar(timer) {
+    storedTimer = timer; // Store the timer value
     const loaderBar = document.querySelector('.loader-bar');
     if (!loaderBar) return;
 
@@ -7,12 +11,27 @@ function setUpLoaderBar(timer) {
 
     let currentBlock = 8;
 
-    const intervalId = setInterval(() => {
+    loaderBarIntervalId = setInterval(() => { // Store interval ID globally
         if (currentBlock < totalBlocks) {
             loaderBar.children[currentBlock].classList.remove('hidden');
             currentBlock++;
         } else {
-            clearInterval(intervalId);
+            clearInterval(loaderBarIntervalId);
         }
     }, interval);
+}
+
+// New function to stop the loader bar
+function stopLoaderBar() {
+    if (loaderBarIntervalId) {
+        clearInterval(loaderBarIntervalId);
+        loaderBarIntervalId = null;
+    }
+}
+
+// Modified function to resume the loader bar using stored timer value
+function resumeLoaderBar() {
+    if (storedTimer) {
+        setUpLoaderBar(storedTimer);
+    }
 }

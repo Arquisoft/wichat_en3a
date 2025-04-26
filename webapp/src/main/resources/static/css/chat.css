@@ -147,6 +147,11 @@
     transform: scale(1.1); /* Efecto de escala al pasar el mouse */
 }
 
+.chat-wrapper-chat-visible {
+    right: 20%;
+    transform: translateX(-50%); /* Center the chat box */
+}
+
 @media (max-width: 480px) {
     .chat-wrapper {
         top: 15%; /* Move even higher on smaller devices */
