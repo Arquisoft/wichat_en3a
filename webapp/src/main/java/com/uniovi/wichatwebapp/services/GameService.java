@@ -3,7 +3,7 @@ package com.uniovi.wichatwebapp.services;
 import com.uniovi.wichatwebapp.entities.AbstractGame;
 import com.uniovi.wichatwebapp.entities.Game;
 
-import com.uniovi.wichatwebapp.entities.GameMultipleCategories;
+import com.uniovi.wichatwebapp.entities.GameAllCategories;
 import entities.Question;
 import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
@@ -42,8 +42,8 @@ public class GameService {
         game.nextQuestion(questionService);
     }
 
-    public void startMultipleCategories(){
-        game = new GameMultipleCategories();
+    public void startAllCategoriesGame(){
+        game = new GameAllCategories();
         this.category=null;
         game.nextQuestion(questionService);
     }

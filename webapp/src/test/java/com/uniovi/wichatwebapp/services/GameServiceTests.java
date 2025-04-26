@@ -1,7 +1,6 @@
 package com.uniovi.wichatwebapp.services;
 
 import com.uniovi.wichatwebapp.entities.AbstractGame;
-import com.uniovi.wichatwebapp.entities.Game;
 import entities.Answer;
 import entities.Question;
 import entities.QuestionCategory;
@@ -22,9 +21,7 @@ public class GameServiceTests {
 
     @Mock
     private QuestionService questionService;
-    private QuestionCategory category=QuestionCategory.GEOGRAPHY;
-    private int timer=20;
-    private int numberOfQuestions=7;
+    private final QuestionCategory category=QuestionCategory.GEOGRAPHY;
 
     @Test
     public void startDefaultTest(){
@@ -75,7 +72,9 @@ public class GameServiceTests {
     public void startCustomizedTest(){
         Assertions.assertNull(gameService.getGame());
 
-        gameService.start(category, timer,numberOfQuestions);
+        int timer = 20;
+        int numberOfQuestions = 7;
+        gameService.start(category, timer, numberOfQuestions);
 
         AbstractGame game = gameService.getGame();
         Assertions.assertNotNull(game);
@@ -94,7 +93,7 @@ public class GameServiceTests {
         Assertions.assertEquals(timer, game.getTimer());
         Assertions.assertEquals(timer, gameService.getTimer());
 
-        gameService.start(category, timer,numberOfQuestions);
+        gameService.start(category, timer, numberOfQuestions);
         Assertions.assertNotNull(gameService.getGame());
         Assertions.assertNotEquals(game, gameService.getGame());
         game = gameService.getGame();
@@ -111,6 +110,41 @@ public class GameServiceTests {
         Assertions.assertNull(gameService.getCurrentQuestion());
         Assertions.assertEquals(timer, game.getTimer());
         Assertions.assertEquals(timer, gameService.getTimer());
+    }
+    @Test
+    public void startAllCategoriesGameTest() {
+        Assertions.assertNull(gameService.getGame());
+
+        gameService.startAllCategoriesGame();
+
+        AbstractGame game = gameService.getGame();
+        Assertions.assertNotNull(game);
+
+        Assertions.assertEquals(0, game.getPoints());
+        Assertions.assertEquals(0, gameService.getPoints());
+        Assertions.assertEquals(0, game.getQuestions());
+        Assertions.assertEquals(0, game.getRightAnswers());
+        Assertions.assertEquals(0, game.getWrongAnswers());
+        Assertions.assertEquals(0, gameService.getRightAnswers());
+        Assertions.assertEquals(0, gameService.getWrongAnswers());
+        Assertions.assertNull(game.getCurrentQuestion());
+        Assertions.assertNull(gameService.getCurrentQuestion());
+        Assertions.assertNull(gameService.getCategory());
+
+        gameService.startAllCategoriesGame();
+        Assertions.assertNotNull(gameService.getGame());
+        Assertions.assertNotEquals(game, gameService.getGame());
+        game = gameService.getGame();
+        Assertions.assertEquals(0, game.getPoints());
+        Assertions.assertEquals(0, gameService.getPoints());
+        Assertions.assertEquals(0, game.getQuestions());
+        Assertions.assertEquals(0, game.getRightAnswers());
+        Assertions.assertEquals(0, game.getWrongAnswers());
+        Assertions.assertEquals(0, gameService.getRightAnswers());
+        Assertions.assertEquals(0, gameService.getWrongAnswers());
+        Assertions.assertNull(game.getCurrentQuestion());
+        Assertions.assertNull(gameService.getCurrentQuestion());
+        Assertions.assertNull(gameService.getCategory());
     }
 
     @Test

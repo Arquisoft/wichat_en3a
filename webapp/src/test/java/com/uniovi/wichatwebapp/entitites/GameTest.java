@@ -7,8 +7,10 @@ import entities.Question;
 import entities.QuestionCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 public class GameTest {
     private Game game;
@@ -18,7 +20,8 @@ public class GameTest {
 
     @BeforeEach
     void setUp() {
-        game = new Game(QuestionCategory.GEOGRAPHY);
+        category = QuestionCategory.GEOGRAPHY; // Assign the category here
+        game = new Game(category);
         questionService = mock(QuestionService.class);
         Answer correctAnswer = new Answer("Paris", "en");
         correctAnswer.setId("correct123");
@@ -32,5 +35,11 @@ public class GameTest {
         assertEquals(question, game.getCurrentQuestion());
         verify(questionService).removeQuestion(question);
     }
+
+    @Test
+    void testGetQuestionCategory() {
+        assertEquals(category,game.getCategory());
+    }
 }
+
 

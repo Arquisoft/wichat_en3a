@@ -3,7 +3,7 @@ package com.uniovi.wichatwebapp.entities;
 import com.uniovi.wichatwebapp.services.QuestionService;
 import entities.Question;
 
-public class GameMultipleCategories extends AbstractGame{
+public class GameAllCategories extends AbstractGame{
 
 
     @Override

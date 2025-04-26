@@ -36,8 +36,8 @@ public class QuestionController {
 
 
     @RequestMapping(value="/game/start/CATEGORIES", method = RequestMethod.POST)
-    public String createCategoriesGame( ) {
-        gameService.startMultipleCategories();
+    public String createAllCategoriesGame( ) {
+        gameService.startAllCategoriesGame();
         return "redirect:/game/question";
     }
 

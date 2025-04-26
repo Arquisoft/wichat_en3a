@@ -1,6 +1,6 @@
 package com.uniovi.wichatwebapp.entitites;
 
-import com.uniovi.wichatwebapp.entities.GameMultipleCategories;
+import com.uniovi.wichatwebapp.entities.GameAllCategories;
 import com.uniovi.wichatwebapp.services.QuestionService;
 import entities.Answer;
 import entities.Question;
@@ -9,14 +9,14 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MultipleCategoryGameTest {
-    private GameMultipleCategories game;
+public class GameAllCategoriesTest {
+    private GameAllCategories game;
     private QuestionService questionService;
     private Question question;
 
     @BeforeEach
     void setUp() {
-        game = new GameMultipleCategories();
+        game = new GameAllCategories();
         questionService = mock(QuestionService.class);
         Answer correctAnswer = new Answer("Paris", "en");
         correctAnswer.setId("correct123");
