@@ -10,7 +10,6 @@ function checkAnswer(answerId){
         type: 'GET',
         data: {answerId: answerId},
         success: function (response){
-
             if(typeof interval !== "undefined" && interval !== null){
                 clearInterval(interval);
             }
@@ -18,8 +17,8 @@ function checkAnswer(answerId){
             let buttons = document.querySelectorAll(".answer-button");
 
             buttons.forEach(button=>{
-                button.disabled = true;
-            })
+                button.disabled = true; // Disable buttons but do not change transparency
+            });
 
             let correctId = response.correctId;
             let points = response.points;
@@ -36,12 +35,11 @@ function checkAnswer(answerId){
                 }
             }
 
-
             animatePoints(prevPoints, points, 1500);
 
             setTimeout(nextQuestion, 1700);
         }
-    })
+    });
 }
 
 function animatePoints(prevPoints, finalPoints, duration){
@@ -138,3 +136,26 @@ function tickTimer(current,timer){
     ctx.strokeStyle = '#4caf50'; // Green color for the progress
     ctx.stroke();
 }
+
+function typeQuestion(text, elementId, delay = 50) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    let index = 0;
+    element.textContent = ""; // Clear existing content
+
+    const intervalId = setInterval(() => {
+        if (index < text.length) {
+            element.textContent += text[index];
+            index++;
+        } else {
+            clearInterval(intervalId);
+        }
+    }, delay);
+}
+
+// Call this function when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+    const questionText = document.getElementById("questionText").dataset.content;
+    typeQuestion(questionText, "questionText");
+});
