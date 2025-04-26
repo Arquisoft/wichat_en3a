@@ -1,18 +1,50 @@
+let loaderBar = null;
+let totalBlocks = 0;
+let intervalBar = 0;
+let currentBlock = 8;
+let intervalBarId = null;
+
 function setUpLoaderBar(timer) {
-    const loaderBar = document.querySelector('.loader-bar');
+    loaderBar = document.querySelector('.loader-bar');
     if (!loaderBar) return;
 
-    const totalBlocks = loaderBar.children.length;
-    const interval = timer / (totalBlocks-8) * 1000; // Calculate interval in milliseconds
+    totalBlocks = loaderBar.children.length;
+    intervalBar = (timer / (totalBlocks - 8)) * 1000; // milliseconds
+    currentBlock = 8;
+    startLoader();
+}
 
-    let currentBlock = 8;
+function startLoader() {
+    if (!loaderBar) return;
 
-    const intervalId = setInterval(() => {
+    clearInterval(intervalBarId);
+    currentBlock = 8;
+
+    intervalBarId = setInterval(() => {
         if (currentBlock < totalBlocks) {
             loaderBar.children[currentBlock].classList.remove('hidden');
             currentBlock++;
         } else {
-            clearInterval(intervalId);
+            clearInterval(intervalBarId);
         }
-    }, interval);
+    }, intervalBar);
+}
+
+function stopLoader() {
+    clearInterval(intervalBarId);
+}
+
+function resumeLoader() {
+    if (!loaderBar) return;
+
+    clearInterval(intervalBarId);
+
+    intervalBarId = setInterval(() => {
+        if (currentBlock < totalBlocks) {
+            loaderBar.children[currentBlock].classList.remove('hidden');
+            currentBlock++;
+        } else {
+            clearInterval(intervalBarId);
+        }
+    }, intervalBar);
 }

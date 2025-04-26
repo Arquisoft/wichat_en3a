@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
         startChatBtn.classList.add("exhausted");
         startChatBtn.setAttribute("disabled", "true");
         restoreTimer();
+        resumeLoader();
     })
 
     // Evento al hacer clic en el botón de iniciar chat
@@ -62,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         answers.setAttribute("hidden", "true");
 
         pauseTimer();
+        stopLoader();
 
         // Reiniciar el índice de conversación
         conversationIndex = 0;
