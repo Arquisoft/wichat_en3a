@@ -1,3 +1,5 @@
+
+
 /* Style for text and password inputs */
 input[name="username"],
 input[name="password"],
@@ -11,7 +13,6 @@ input[name="email"]{
     padding: 40px 60px 60px;                      /* Add spacing for text */
     border: none;                            /* Remove default border */
     color: #333;                             /* Text color */
-    font-size: 20px;
     width: 320px;                           /* Adjust width as needed */
     height: 100px;                          /* Adjust height as needed */
     margin-bottom: 40px;
@@ -36,11 +37,10 @@ input[name="name"]:focus{
 
 /* Arrange forms horizontally */
 .form-container {
-    flex-direction: column;
-    display: flex;              /* Horizontal layout */
     gap: 40px;                 /* Space between forms */
     margin-top: 20px;          /* Space below the logo */
     align-items: center;   /* Align forms at the top */
+    flex-direction: column;
 }
 
 /* Optional: Style individual forms for consistency */
@@ -108,4 +108,25 @@ input[name="name"]:focus{
 
 .game-link:hover {
     color: #333; /* Same color on hover */
+}
+/* Responsive Design */
+@media(max-width: 480px) {
+    .form {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    input, button {
+        padding: 0.65rem;
+    }
+
+    .answer-button {
+        width: 100%;
+    }
+    .qwizzimage{
+        margin-bottom: -100px;
+    }
 }
