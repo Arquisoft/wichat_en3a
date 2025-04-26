@@ -8,35 +8,35 @@
     <link rel="stylesheet" href="/css/nav.css">
 </head>
 <body>
-<nav th:replace="fragments/nav"></nav>
-<div class="game-container">
-    <h1>Guess the word!</h1>
-    <div class="grid">
-        <div class="grid-row" th:each="attempt, attemptStat : ${attemptsSplit}">
-            <div class="grid-cell"
-                 th:each="letter, letterStat : ${attempt}"
-                 th:text="${letter}"
-                 th:classappend="${feedbackHistory[attemptStat.index][letterStat.index] == T(com.uniovi.wichatwebapp.entities.Wordle.LetterFeedback).CORRECT ? ' correct' :
-                             (feedbackHistory[attemptStat.index][letterStat.index] == T(com.uniovi.wichatwebapp.entities.Wordle.LetterFeedback).MISPLACED ? ' misplaced' : ' wrong')}">
+    <nav th:replace="fragments/nav"></nav>
+    <div class="game-container">
+        <h1>Guess the word!</h1>
+        <div class="grid">
+            <div class="grid-row" th:each="attempt, attemptStat : ${attemptsSplit}">
+                <div class="grid-cell"
+                     th:each="letter, letterStat : ${attempt}"
+                     th:text="${letter}"
+                     th:classappend="${feedbackHistory[attemptStat.index][letterStat.index] == T(com.uniovi.wichatwebapp.entities.Wordle.LetterFeedback).CORRECT ? ' correct' :
+                                 (feedbackHistory[attemptStat.index][letterStat.index] == T(com.uniovi.wichatwebapp.entities.Wordle.LetterFeedback).MISPLACED ? ' misplaced' : ' wrong')}">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="attempts-info">
-        <p>Attempts left: <span th:text="${wordle.remainingAttempts}">6</span></p>
-    </div>
-    <div class="solution-message" th:if="${solutionWord}">
-        <p>Game over, the word was: <strong th:text="${solutionWord}">PALABRA</strong></p>
-    </div>
-    <form action="/wordle/guess" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <input type="text" name="guess" minlength="5" maxlength="5" required placeholder="Introduce">
-        <button type="submit">Send</button>
-    </form>
-    <form action="/wordle/reset" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <button type="submit">Restart</button>
-    </form>
+        <div class="attempts-info">
+            <p>Attempts left: <span th:text="${wordle.remainingAttempts}">6</span></p>
+        </div>
+        <div class="solution-message" th:if="${solutionWord}">
+            <p>Game over, the word was: <strong th:text="${solutionWord}">PALABRA</strong></p>
+        </div>
+        <form action="/wordle/guess" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="text" name="guess" minlength="5" maxlength="5" required placeholder="Introduce">
+            <button type="submit">Send</button>
+        </form>
+        <form action="/wordle/reset" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit">Restart</button>
+        </form>
 
-</div>
+    </div>
 </body>
 </html>

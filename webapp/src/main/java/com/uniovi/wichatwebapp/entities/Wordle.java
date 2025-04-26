@@ -1,7 +1,6 @@
 package com.uniovi.wichatwebapp.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Wordle {
 
@@ -81,17 +80,32 @@ public class Wordle {
     }
 
     private List<LetterFeedback> getFeedback(String attempt) {
-        List<LetterFeedback> feedback = new ArrayList<>();
+        List<LetterFeedback> feedback = new ArrayList<>(Collections.nCopies(attempt.length(), LetterFeedback.WRONG));
+        Map<Character, Integer> letterCounts = new HashMap<>();
+
+        // Contar letras del target
+        for (char c : targetWord.toCharArray()) {
+            letterCounts.put(c, letterCounts.getOrDefault(c, 0) + 1);
+        }
+
+        // Primera pasada: marcar las correctas
         for (int i = 0; i < attempt.length(); i++) {
             char c = attempt.charAt(i);
             if (c == targetWord.charAt(i)) {
-                feedback.add(LetterFeedback.CORRECT);
-            } else if (targetWord.contains(String.valueOf(c))) {
-                feedback.add(LetterFeedback.MISPLACED);
-            } else {
-                feedback.add(LetterFeedback.WRONG);
+                feedback.set(i, LetterFeedback.CORRECT);
+                letterCounts.put(c, letterCounts.get(c) - 1);
             }
         }
+
+        // Segunda pasada: marcar misplaced
+        for (int i = 0; i < attempt.length(); i++) {
+            char c = attempt.charAt(i);
+            if (feedback.get(i) == LetterFeedback.WRONG && letterCounts.getOrDefault(c, 0) > 0) {
+                feedback.set(i, LetterFeedback.MISPLACED);
+                letterCounts.put(c, letterCounts.get(c) - 1);
+            }
+        }
+
         return feedback;
     }
 

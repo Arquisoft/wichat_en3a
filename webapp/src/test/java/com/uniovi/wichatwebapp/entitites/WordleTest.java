@@ -9,6 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @ExtendWith(MockitoExtension.class)
 public class WordleTest {
 
@@ -21,10 +23,10 @@ public class WordleTest {
 
     @Test
     public void constructorTest() {
-        Assertions.assertEquals("italy", mock.getTargetWord().toLowerCase());
-        Assertions.assertEquals(5, mock.getMaxAttempts());
+        assertEquals("italy", mock.getTargetWord().toLowerCase());
+        assertEquals(5, mock.getMaxAttempts());
         Assertions.assertTrue(mock.getAttempts().isEmpty());
-        Assertions.assertEquals(Wordle.GameStatus.PLAYING, mock.getStatus());
+        assertEquals(Wordle.GameStatus.PLAYING, mock.getStatus());
         Assertions.assertTrue(mock.getFeedbackHistory().isEmpty());
     }
 
@@ -40,10 +42,10 @@ public class WordleTest {
         mock.setMaxAttempts(newMaxAttempts);
         mock.setStatus(newStatus);
 
-        Assertions.assertEquals("greece", mock.getTargetWord().toLowerCase());
-        Assertions.assertEquals(6, mock.getMaxAttempts());
-        Assertions.assertEquals(newAttemps, mock.getAttempts());
-        Assertions.assertEquals(Wordle.GameStatus.LOSE, mock.getStatus());
+        assertEquals("greece", mock.getTargetWord().toLowerCase());
+        assertEquals(6, mock.getMaxAttempts());
+        assertEquals(newAttemps, mock.getAttempts());
+        assertEquals(Wordle.GameStatus.LOSE, mock.getStatus());
     }
 
     @Test
@@ -53,19 +55,19 @@ public class WordleTest {
 
         Assertions.assertFalse(mock.getAttempts().isEmpty());
         Assertions.assertFalse(mock.getFeedbackHistory().isEmpty());
-        Assertions.assertEquals(Wordle.GameStatus.PLAYING, mock.getStatus());
+        assertEquals(Wordle.GameStatus.PLAYING, mock.getStatus());
 
         //Guessing the correct word
         mock.guess("italy");
 
-        Assertions.assertEquals(Wordle.GameStatus.WIN, mock.getStatus());
+        assertEquals(Wordle.GameStatus.WIN, mock.getStatus());
 
         //Guessing in a game with a status different from PLAYING
         mock.setStatus(Wordle.GameStatus.LOSE);
         int remaining = mock.getRemainingAttempts();
         mock.guess("paris");
 
-        Assertions.assertEquals(remaining, mock.getRemainingAttempts());
+        assertEquals(remaining, mock.getRemainingAttempts());
 
         //Last guess of a game is wrong
         mock.setStatus(Wordle.GameStatus.PLAYING);
@@ -74,6 +76,6 @@ public class WordleTest {
 
         mock.guess("Light");
 
-        Assertions.assertEquals(Wordle.GameStatus.LOSE, mock.getStatus());
+        assertEquals(Wordle.GameStatus.LOSE, mock.getStatus());
     }
 }
