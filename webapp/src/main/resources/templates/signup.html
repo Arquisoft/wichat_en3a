@@ -4,7 +4,7 @@
 <body class="login-bg">
     <img src="/images/qwizz.png" class="qwizzimage" width="250"/>
     <div class="form-container">
-    <form method="post" action="/signup" th:object="${user}" class="form">
+    <form method="post" action="/signup" th:object="${user}" class="form" onsubmit="waitingCursor()">
         <input type="text" id="email" name="email" placeholder="Enter your email" required="true"/>
         <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
         <input type="text" id="name" name="name" placeholder="Enter your name" required="true"/>
@@ -16,7 +16,7 @@
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </form>
 
-    <form action="/login" method="get" class="form">
+    <form action="/login" method="get" class="form" onsubmit="waitingCursor()">
         <button type="submit" class="small-button">Log In</button>
     </form>
     </div>

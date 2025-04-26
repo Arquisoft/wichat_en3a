@@ -5,11 +5,13 @@
     <link rel="stylesheet" href="/css/home.css"/>
     <link rel="stylesheet" href="/css/main.css"/>
     <link rel="stylesheet" href="/css/nav.css"/>
+    <script src="/script/chat.js"></script>
+    <link rel="stylesheet" href="/css/loading.css"/> <script src="/script/loading.js"></script>
 </head>
 <body class="home-bg">
 <nav th:replace="fragments/nav"></nav>
 <main class="personalized-home-container">
-    <form action="/game/personalized" method="POST">
+    <form action="/game/personalized" method="POST" onsubmit="waitingCursor()">
         <label for="category">Choose a category:</label>
 
         <!-- Combobox dinámico desde Enum -->

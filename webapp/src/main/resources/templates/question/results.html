@@ -4,6 +4,8 @@
   <th:block th:insert="fragments/head :: head('Results')"></th:block>
   <link rel="stylesheet" href="/css/nav.css"/>
   <link rel="stylesheet" href="/css/results.css"/> <!-- Link to the new CSS file -->
+  <link rel="stylesheet" href="/css/loading.css"/> <script src="/script/loading.js"></script>
+
 </head>
 <body class="bg-light">
 <nav th:replace="fragments/nav"></nav>
@@ -22,11 +24,11 @@
       <p class="card-text">Wrong answers: <strong id="wrongAnswers" th:text="${wrong}"></strong></p>
 
 
-      <a th:href="'/game/start/'+${category}+'/'+${timer}+'/'+${questions}">Play Again?</a>
+      <a th:href="'/game/start/'+${category}+'/'+${timer}+'/'+${questions}" onclick="waitingCursor()">Play Again?</a>
 
       <br>
 
-      <a href="/user/scores">Check your scores</a>
+      <a href="/user/scores" onclick="waitingCursor()">Check your scores</a>
 
     </div>
 

@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/css/main.css"/>
     <link rel="stylesheet" href="/css/nav.css"/>
     <link rel="stylesheet" href="/css/akinator.css"/>
+    <script src="/script/chat.js"></script>
+    <link rel="stylesheet" href="/css/loading.css"/> <script src="/script/loading.js"></script>
+
 </head>
 <body class="akinator-container">
     <nav th:replace="fragments/nav"></nav>
@@ -19,36 +22,36 @@
             <br>
             <!--<h3>User</h3>-->
             <div th:if="${!aiGuesses and (ai.split('The solution').length <= 1)}">
-                <form action="/akinator/askQuestion" method="POST">
+                <form action="/akinator/askQuestion" method="POST" onsubmit="waitingCursor()">
                     <div class="guess-container">
                         <input type="text" id="question" name="question" placeholder="Ask a question...">
                         <button id="questionSubmit" type="submit">↵</button>
                     </div>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 </form>
-                <form action="/akinator/end" method="POST">
+                <form action="/akinator/end" method="POST" onsubmit="waitingCursor()">
                     <button type="submit">End game</button>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 </form>
             </div>
             <div th:if="${aiGuesses && (ai.split('My guess').length <= 1)}">
-                <form action="/akinator/yes" method="POST">
+                <form action="/akinator/yes" method="POST" onsubmit="waitingCursor()">
                     <button type="submit">Yes</button>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 </form>
-                <form action="/akinator/probablyYes" method="POST">
+                <form action="/akinator/probablyYes" method="POST" onsubmit="waitingCursor()">
                     <button type="submit">Probably yes</button>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 </form>
-                <form action="/akinator/dontKnow" method="POST">
+                <form action="/akinator/dontKnow" method="POST" onsubmit="waitingCursor()">
                     <button type="submit">Don't know</button>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 </form>
-                <form action="/akinator/probablyNo" method="POST">
+                <form action="/akinator/probablyNo" method="POST" onsubmit="waitingCursor()">
                     <button type="submit">Probably no</button>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 </form>
-                <form action="/akinator/no" method="POST">
+                <form action="/akinator/no" method="POST" onsubmit="waitingCursor()">
                     <button type="submit">No</button>
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 </form>

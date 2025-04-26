@@ -6,24 +6,11 @@
   <link rel="stylesheet" href="/css/home.css"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <link rel="stylesheet" href="/css/nav.css"/>
+  <link rel="stylesheet" href="/css/loading.css"/>
+  <script src="/script/loading.js"></script>
 
-  <style>
-    body.waiting {
-      cursor: wait !important;
-    }
-
-    body.waiting button,
-    body.waiting input,
-    body.waiting * {
-      cursor: wait !important;
-    }
-  </style>
-  <script>
-    function waitingCursor() {
-      document.body.classList.add('waiting');
-    }
-  </script>
 </head>
+
 <body class="home-bg">
   <nav th:replace="fragments/nav"></nav>
   <main class="menu-container">
