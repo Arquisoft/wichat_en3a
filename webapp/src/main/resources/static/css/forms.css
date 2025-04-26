@@ -89,9 +89,9 @@ input[name="name"]:focus{
     width: 96px;
     height: 64px;
     color: #333;           /* Adjust text color for contrast */
-    font-size: 15px;
     cursor: pointer;
     padding: 10px 20px;
+    font-size: 1.1rem;
 }
 
 /* Hover Effects (Optional) */
