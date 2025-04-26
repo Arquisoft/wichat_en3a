@@ -5,11 +5,13 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, sans-serif;
+main {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+body {
     height: 100vh;
     background-image: url("../images/thumb-1920-1205979.png");
     background-size: cover;
@@ -95,9 +97,4 @@ button {
 
 button:hover {
     background-color: #45a049;
-}
-
-nav {
-    display: flex;
-    flex-direction: row;
 }
