@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -152,7 +153,10 @@ public class UserControllerTests {
         User user = new User(name, email, password, true);
 
         when(authentication.getName()).thenReturn(email);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.clearContext();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication); // your mocked auth
+        SecurityContextHolder.setContext(context);
         when(userService.getUserByEmail(email)).thenReturn(user);
 
         Map<String, Object> modelAttributes = new HashMap<>();
@@ -190,7 +194,10 @@ public class UserControllerTests {
         );
 
         when(authentication.getName()).thenReturn(userEmail);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.clearContext();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication); // your mocked auth
+        SecurityContextHolder.setContext(context);
 
         when(scoreService.getBestScores(userEmail)).thenReturn(mockScores);
 
