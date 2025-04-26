@@ -39,8 +39,15 @@ public class WordleController {
         model.addAttribute("wordle", game);
         model.addAttribute("attemptsSplit", attemptsSplit);
         model.addAttribute("feedbackHistory", game.getFeedbackHistory());
+
         if (wordleService.getGame(username).getRemainingAttempts() == 0 && wordleService.getGame(username).getStatus() == Wordle.GameStatus.LOSE) {
             model.addAttribute("solutionWord", wordleService.getGame(username).getTargetWord());
+        }
+
+        if (game.getStatus() == Wordle.GameStatus.WIN) {
+            model.addAttribute("hasWon", true);
+        } else {
+            model.addAttribute("hasWon", false);
         }
 
         return "wordle/game";

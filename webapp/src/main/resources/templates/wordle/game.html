@@ -11,6 +11,9 @@
     <nav th:replace="fragments/nav"></nav>
     <div class="game-container">
         <h1>Guess the word!</h1>
+        <div th:if="${hasWon}">
+            <h2>Congratulations, you guessed the word</h2>
+        </div>
         <div class="grid">
             <div class="grid-row" th:each="attempt, attemptStat : ${attemptsSplit}">
                 <div class="grid-cell"

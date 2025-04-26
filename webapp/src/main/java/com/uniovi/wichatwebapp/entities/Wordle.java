@@ -83,12 +83,10 @@ public class Wordle {
         List<LetterFeedback> feedback = new ArrayList<>(Collections.nCopies(attempt.length(), LetterFeedback.WRONG));
         Map<Character, Integer> letterCounts = new HashMap<>();
 
-        // Contar letras del target
         for (char c : targetWord.toCharArray()) {
             letterCounts.put(c, letterCounts.getOrDefault(c, 0) + 1);
         }
 
-        // Primera pasada: marcar las correctas
         for (int i = 0; i < attempt.length(); i++) {
             char c = attempt.charAt(i);
             if (c == targetWord.charAt(i)) {
@@ -97,7 +95,6 @@ public class Wordle {
             }
         }
 
-        // Segunda pasada: marcar misplaced
         for (int i = 0; i < attempt.length(); i++) {
             char c = attempt.charAt(i);
             if (feedback.get(i) == LetterFeedback.WRONG && letterCounts.getOrDefault(c, 0) > 0) {
