@@ -1,15 +1,15 @@
 let loaderBar = null;
 let totalBlocks = 0;
-let interval = 0;
+let intervalBar = 0;
 let currentBlock = 8;
-let intervalId = null;
+let intervalBarId = null;
 
 function setUpLoaderBar(timer) {
     loaderBar = document.querySelector('.loader-bar');
     if (!loaderBar) return;
 
     totalBlocks = loaderBar.children.length;
-    interval = (timer / (totalBlocks - 8)) * 1000; // milliseconds
+    intervalBar = (timer / (totalBlocks - 8)) * 1000; // milliseconds
     currentBlock = 8;
     startLoader();
 }
@@ -17,34 +17,34 @@ function setUpLoaderBar(timer) {
 function startLoader() {
     if (!loaderBar) return;
 
-    clearInterval(intervalId);
+    clearInterval(intervalBarId);
     currentBlock = 8;
 
-    intervalId = setInterval(() => {
+    intervalBarId = setInterval(() => {
         if (currentBlock < totalBlocks) {
             loaderBar.children[currentBlock].classList.remove('hidden');
             currentBlock++;
         } else {
-            clearInterval(intervalId);
+            clearInterval(intervalBarId);
         }
-    }, interval);
+    }, intervalBar);
 }
 
 function stopLoader() {
-    clearInterval(intervalId);
+    clearInterval(intervalBarId);
 }
 
 function resumeLoader() {
     if (!loaderBar) return;
 
-    clearInterval(intervalId);
+    clearInterval(intervalBarId);
 
-    intervalId = setInterval(() => {
+    intervalBarId = setInterval(() => {
         if (currentBlock < totalBlocks) {
             loaderBar.children[currentBlock].classList.remove('hidden');
             currentBlock++;
         } else {
-            clearInterval(intervalId);
+            clearInterval(intervalBarId);
         }
-    }, interval);
+    }, intervalBar);
 }
