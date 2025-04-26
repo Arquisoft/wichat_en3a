@@ -1,4 +1,4 @@
-package entities;
+package com.uniovi.wichatwebapp.entities;
 
 
 import org.bson.types.ObjectId;
@@ -28,11 +28,6 @@ public class Answer{
 
 
     public Answer() {
-    }
-
-    public Answer(String text, String langCode){
-        this.text = text;
-        this.language = langCode;
     }
 
     public Answer(String text, AnswerCategory answerCategory, String langCode) {

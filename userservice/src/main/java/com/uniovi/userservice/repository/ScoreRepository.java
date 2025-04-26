@@ -1,7 +1,6 @@
 package com.uniovi.userservice.repository;
 
-
-import entities.Score;
+import com.uniovi.userservice.entities.Score;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;

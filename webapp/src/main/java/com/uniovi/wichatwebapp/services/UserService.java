@@ -1,7 +1,7 @@
 package com.uniovi.wichatwebapp.services;
 
+import com.uniovi.wichatwebapp.entities.User;
 import com.uniovi.wichatwebapp.repositories.UserRepository;
-import entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

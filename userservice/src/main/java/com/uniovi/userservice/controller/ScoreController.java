@@ -1,10 +1,9 @@
 package com.uniovi.userservice.controller;
 
-
+import com.uniovi.userservice.entities.Score;
+import com.uniovi.userservice.entities.User;
 import com.uniovi.userservice.service.ScoreService;
 import com.uniovi.userservice.service.UserService;
-import entities.Score;
-import entities.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import io.swagger.v3.oas.annotations.Operation;

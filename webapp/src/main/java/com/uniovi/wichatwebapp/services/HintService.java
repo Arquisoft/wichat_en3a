@@ -1,7 +1,8 @@
 package com.uniovi.wichatwebapp.services;
 
+import com.uniovi.wichatwebapp.entities.Question;
 import com.uniovi.wichatwebapp.repositories.HintRepository;
-import entities.Question;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

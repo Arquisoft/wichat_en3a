@@ -59,9 +59,9 @@ class MonumentCountryQuestionTest {
 
     @Test
     void needToSkipTest_DetectsDuplicateMonumentLabels() {
-        assertFalse(monumentCountryQuestion.getAnswerLabels().contains("Eiffel Tower"), "First check: should not contain Eiffel Tower.");
-        monumentCountryQuestion.getAnswerLabels().add("Eiffel Tower"); // Manually add for test
-        assertTrue(monumentCountryQuestion.getAnswerLabels().contains("Eiffel Tower"), "Second check: should now contain Eiffel Tower.");
+        assertFalse(monumentCountryQuestion.getMonumentLabels().contains("Eiffel Tower"), "First check: should not contain Eiffel Tower.");
+        monumentCountryQuestion.getMonumentLabels().add("Eiffel Tower"); // Manually add for test
+        assertTrue(monumentCountryQuestion.getMonumentLabels().contains("Eiffel Tower"), "Second check: should now contain Eiffel Tower.");
         assertTrue(monumentCountryQuestion.needToSkip("Eiffel Tower", "France"), "Should skip duplicate monument label.");
     }
     @Test

@@ -1,14 +1,12 @@
 package com.uniovi.wichatwebapp.service;
 
-
+import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.AnswerCategory;
+import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.repositories.AnswerRepository;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
-import entities.Answer;
-import entities.AnswerCategory;
-import entities.Question;
-import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
-import java.util.Random;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -112,7 +110,7 @@ public class QuestionService {
         Collections.shuffle(validQuestions, new Random());
 
         if (!validQuestions.isEmpty()) {
-            Question randomQuestion = validQuestions.getFirst(); // Get the first random question
+            Question randomQuestion = validQuestions.get(0); // Get the first random question
 
             // Ensure the question has a set of valid answers (correct and distractors)
             List<Answer> possibleAnswers = new ArrayList<>();
@@ -205,21 +203,5 @@ public class QuestionService {
     public Answer findAnswerById(String answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         return optionalAnswer.orElse(null);
-    }
-/*
-    @Transactional
-    public void saveAllQuestionsBatch(List<Question> questions) {
-        questionRepository.saveAll(questions);
-    }
-    @Transactional
-    public void saveAllAnswersBatch(List<Answer> answers) {
-        answerRepository.saveAll(answers);
-    }
-*/
-    public Question getRandomQuestionNoCategory(String language) {
-        Random random = new Random();
-        QuestionCategory[] categories = QuestionCategory.values();
-        QuestionCategory randomCategory = categories[random.nextInt(categories.length)];
-        return getRandomQuestion(language,randomCategory);
     }
 }

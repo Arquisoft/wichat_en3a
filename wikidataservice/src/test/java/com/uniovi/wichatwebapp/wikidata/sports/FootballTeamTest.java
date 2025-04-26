@@ -86,15 +86,16 @@ class FootballTeamTest {
 
     @Test
     void needToSkipTest_DetectsDuplicateAthleteLabels() {
-        assertFalse(footballTeam.getAnswerLabels().contains("Lionel Messi"), "First check: should not contain Messi.");
-        footballTeam.getAnswerLabels().add("Lionel Messi"); // Manually add for test
-        assertTrue(footballTeam.getAnswerLabels().contains("Lionel Messi"), "Second check: should now contain Messi.");
+        assertFalse(footballTeam.getAthleteLabels().contains("Lionel Messi"), "First check: should not contain Messi.");
+        footballTeam.getAthleteLabels().add("Lionel Messi"); // Manually add for test
+        assertTrue(footballTeam.getAthleteLabels().contains("Lionel Messi"), "Second check: should now contain Messi.");
         assertTrue(footballTeam.needToSkip("Lionel Messi", "Inter Miami"), "Should skip duplicate athlete label.");
     }
     @Test
     void needToSkipTest_SkipsInvalidEntityNames() {
         assertTrue(WikidataUtils.isEntityName("Q12345"), "Q12345 should be recognized as an entity name.");
         assertTrue(footballTeam.needToSkip("Q12345", "Inter Miami"), "Should skip invalid athlete name.");
+        assertTrue(footballTeam.needToSkip("Lionel Messi", "Q67890"), "Should skip invalid team name.");
     }
     @Test
     void needToSkipTest_ProcessesValidEntriesCorrectly() {
