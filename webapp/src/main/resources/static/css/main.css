@@ -1,13 +1,13 @@
 /* General Styles */
 @font-face {
-    font-family: Minecraft;
-    src: url('../fonts/Minecraft.ttf') format('woff2');
+    font-family: PixelOperator;
+    src: url('../fonts/PixelOperator-Bold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 body {
-    font-family: 'Minecraft', 'Arial', 'Helvetica', sans-serif; /* Updated to remove Minecraftia */
+    font-family: 'PixelOperator', 'Arial', 'Helvetica', sans-serif; /* Updated to remove Minecraftia */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,11 +23,11 @@ body {
     padding: 1.5rem;
 }
 body.login-bg, .login-bg .form-container, .login-bg .form {
-    font-family: 'Minecraft', 'Arial', 'Helvetica', sans-serif !important; /* Updated to remove Minecraftia */
+    font-family: 'PixelOperator', 'Arial', 'Helvetica', sans-serif !important; /* Updated to remove Minecraftia */
 }
 
 .login-bg, .form-container, .form {
-    font-family: 'Minecraft', 'Arial', 'Helvetica', sans-serif; /* Updated to remove Minecraftia */
+    font-family: 'PixelOperator', 'Arial', 'Helvetica', sans-serif; /* Updated to remove Minecraftia */
 }
 
 /* Login page background */
@@ -48,7 +48,7 @@ body.login-bg, .login-bg .form-container, .login-bg .form {
 }
 
 main {
-    font-family: 'Minecraft', 'Arial', 'Helvetica', sans-serif; /* Updated to remove Minecraftia */
+    font-family: 'PixelOperator', 'Arial', 'Helvetica', sans-serif; /* Updated to remove Minecraftia */
     display: flex;
     flex-direction: column;
     align-items: center;
