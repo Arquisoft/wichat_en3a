@@ -63,6 +63,11 @@ public class UserController {
         return "home";
     }
 
+    @RequestMapping(value = "/")
+    public String baseUrl(){
+        return "redirect:home";
+    }
+
     @RequestMapping(value = "/user/scores")
     public String scores(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
