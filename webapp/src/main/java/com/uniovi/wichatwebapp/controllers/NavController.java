@@ -13,7 +13,7 @@ public class NavController {
     @ModelAttribute
     public void addNavigationAttributes(HttpServletRequest request, Model model) {
         String path = request.getServletPath();
-        boolean showHome = path.startsWith("/game") || path.startsWith("/user");
+        boolean showHome = path.startsWith("/game") || path.startsWith("/user") || path.startsWith("/akinator");
         model.addAttribute("showHome", showHome);
     }
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <th:block th:insert="fragments/head :: head('Question')"></th:block>
+  <link rel="stylesheet" href="/css/home.css"/>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <link rel="stylesheet" href="/css/nav.css"/>
+
+  <style>
+    body.waiting {
+      cursor: wait !important;
+    }
+
+    body.waiting button,
+    body.waiting input,
+    body.waiting * {
+      cursor: wait !important;
+    }
+  </style>
+  <script>
+    function waitingCursor() {
+      document.body.classList.add('waiting');
+    }
+  </script>
+</head>
+<body class="home-bg">
+  <nav th:replace="fragments/nav"></nav>
+  <main class="menu-container">
+    <h1>Oracle’s Veil</h1>
+    <!-- Combobox dinámico desde Enum -->
+    <form action="/akinator" method="POST" onsubmit="waitingCursor()">
+      <label for="category">Choose a category:</label>
+
+      <!-- Combobox dinámico desde Enum -->
+      <select id="category" name="category" required>
+        <option value="" disabled selected>-- Chose an option--</option>
+        <option
+                th:each="category : ${categories}"
+                th:value="${category.name()}"
+                th:text="${category.toString()}"
+        ></option>
+      </select>
+
+      <label for="mode">Choose a mode:</label>
+      <select id="mode" name="mode" required>
+        <option value="" disabled selected>-- Chose an option--</option>
+        <option value="ai">Oracle Guesses</option>
+        <option value="player">Player Guesses</option>
+      </select>
+
+      <p></p>
+      <!-- Botón de enviar -->
+      <button type="submit">Play</button>
+
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    </form>
+  </main>
+</body>
+</html>
