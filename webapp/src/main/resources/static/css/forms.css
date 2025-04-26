@@ -59,7 +59,7 @@ input[name="name"]:focus{
     width: 192px;               /* Adjust to match your image size */
     height: 128px;              /* Adjust to match your image size */
     color: black;             /* Text color (ensure visibility) */
-    font-size: 2em;
+    font-size: 1.7em;
     cursor: pointer;         /* Show pointer on hover */
     text-align: center;
     display: flex;
