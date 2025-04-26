@@ -35,7 +35,7 @@ public class QuestionController {
     }
 
 
-    @RequestMapping(value="/game/start/CATEGORIES", method = RequestMethod.POST)
+    @RequestMapping(value="/game/categories/start", method = RequestMethod.GET)
     public String createAllCategoriesGame( ) {
         gameService.startAllCategoriesGame();
         return "redirect:/game/question";
