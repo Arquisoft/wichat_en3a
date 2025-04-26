@@ -1,10 +1,10 @@
 package com.uniovi.wichatwebapp.controllers;
 
+import com.uniovi.wichatwebapp.entities.Score;
+import com.uniovi.wichatwebapp.entities.User;
 import com.uniovi.wichatwebapp.services.ScoreService;
 import com.uniovi.wichatwebapp.services.UserService;
 import com.uniovi.wichatwebapp.validators.SignUpValidator;
-import entities.Score;
-import entities.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 

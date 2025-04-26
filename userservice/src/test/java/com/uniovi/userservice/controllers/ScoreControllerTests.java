@@ -2,11 +2,10 @@ package com.uniovi.userservice.controllers;
 
 
 import com.uniovi.userservice.controller.ScoreController;
-
+import com.uniovi.userservice.entities.Score;
+import com.uniovi.userservice.entities.User;
 import com.uniovi.userservice.service.ScoreService;
 import com.uniovi.userservice.service.UserService;
-import entities.Score;
-import entities.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,7 +1,9 @@
 package com.uniovi.wichatwebapp.repositories;
 
-import entities.Question;
-import entities.QuestionCategory;
+import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Repository;
@@ -30,18 +32,7 @@ public class QuestionRepository {
                 .bodyToMono(Question.class)
                 .block();
     }
-    public Question getRandomQuestionNoCategory(){
-        return webClientBuilder
-                .baseUrl(baseUrl) // Set base URL here or in config
-                .build()
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/game/newQuestion/NO_CATEGORY")
-                        .build())
-                .retrieve()
-                .bodyToMono(Question.class)
-                .block();
-    }
+
     /*
     public Question getQuestion(String id){
         return webClientBuilder

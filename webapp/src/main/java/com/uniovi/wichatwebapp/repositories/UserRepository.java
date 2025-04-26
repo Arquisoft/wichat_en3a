@@ -1,6 +1,6 @@
 package com.uniovi.wichatwebapp.repositories;
 
-import entities.User;
+import com.uniovi.wichatwebapp.entities.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;

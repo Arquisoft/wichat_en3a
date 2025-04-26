@@ -63,9 +63,9 @@ class FlagQuestionTest {
     }
     @Test
     void needToSkipTest_DetectsDuplicateCountryLabels() {
-        assertFalse(flagQuestion.getAnswerLabels().contains("Spain"), "First check: should not contain Spain.");
-        flagQuestion.getAnswerLabels().add("Spain"); // Manually add for test
-        assertTrue(flagQuestion.getAnswerLabels().contains("Spain"), "Second check: should now contain Spain.");
+        assertFalse(flagQuestion.getCountryLabels().contains("Spain"), "First check: should not contain Spain.");
+        flagQuestion.getCountryLabels().add("Spain"); // Manually add for test
+        assertTrue(flagQuestion.getCountryLabels().contains("Spain"), "Second check: should now contain Spain.");
         assertTrue(flagQuestion.needToSkip("Spain", "https://example.com/spain-flag.jpg"), "Should skip duplicate country label.");
     }
 

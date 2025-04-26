@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class AnimalLifespanTest {
-    private QuestionWikidata animalLifespan;
+    private AnimalLifespan animalLifespan;
 
     @BeforeEach
     void setUp() {
@@ -81,9 +81,9 @@ class AnimalLifespanTest {
 
     @Test
     void needToSkipTest_DetectsDuplicateAnimalLabels() {
-        assertFalse(animalLifespan.getAnswerLabels().contains("Lion"), "First check: should not contain Lion.");
-        animalLifespan.getAnswerLabels().add("Lion"); // Manually add for test
-        assertTrue(animalLifespan.getAnswerLabels().contains("Lion"), "Second check: should now contain Lion.");
+        assertFalse(animalLifespan.getAnimalLabels().contains("Lion"), "First check: should not contain Lion.");
+        animalLifespan.getAnimalLabels().add("Lion"); // Manually add for test
+        assertTrue(animalLifespan.getAnimalLabels().contains("Lion"), "Second check: should now contain Lion.");
         assertTrue(animalLifespan.needToSkip("Lion", "15 years"), "Should skip duplicate animal label.");
     }
     @Test

@@ -1,9 +1,9 @@
 package com.uniovi.userservice.services;
 
 
+import com.uniovi.userservice.entities.User;
 import com.uniovi.userservice.repository.UserRepository;
 import com.uniovi.userservice.service.UserService;
-import entities.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

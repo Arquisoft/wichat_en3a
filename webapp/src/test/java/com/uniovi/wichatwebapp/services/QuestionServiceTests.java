@@ -1,9 +1,9 @@
 package com.uniovi.wichatwebapp.services;
 
+import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
-import entities.Answer;
-import entities.Question;
-import entities.QuestionCategory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

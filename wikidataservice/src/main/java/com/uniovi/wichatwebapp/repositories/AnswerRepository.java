@@ -1,8 +1,7 @@
 package com.uniovi.wichatwebapp.repositories;
 
-
-import entities.Answer;
-import entities.AnswerCategory;
+import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.AnswerCategory;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;

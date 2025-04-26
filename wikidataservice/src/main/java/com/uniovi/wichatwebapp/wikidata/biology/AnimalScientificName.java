@@ -1,22 +1,25 @@
 package com.uniovi.wichatwebapp.wikidata.biology;
 
+import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.AnswerCategory;
+import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
+import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
+import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
+import org.json.JSONObject;
 
-import com.uniovi.wichatwebapp.wikidata.ComposeQuestion;
-import entities.AnswerCategory;
-import entities.QuestionCategory;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public class AnimalScientificName extends ComposeQuestion {
+public class AnimalScientificName extends QuestionWikidata {
+    private static final String[] spanishStringsIni = {"¿Cuál es el nombre científico de %s?"};
+    private static final String[] englishStringsIni = {"What is the scientific name of %s?"};
+
+    private List<String> animalLabels = new ArrayList<>();
+    private List<String> animalScientificNames = new ArrayList<>();
 
     public AnimalScientificName(String langCode) {
         super(langCode);
-    }
-
-    @Override
-    protected void initStringsIni() {
-        spanishStringsIni = new String[]{"¿Cuál es el nombre científico de %s?"};
-        englishStringsIni = new String[]{"What is the scientific name of %s?"};
     }
 
     // For testing
@@ -25,7 +28,7 @@ public class AnimalScientificName extends ComposeQuestion {
     }
 
     @Override
-    public void setQuery() {
+    protected void setQuery() {
         this.sparqlQuery =
                 "SELECT DISTINCT ?commonName ?image ?scientificName WHERE {\n" +
                         "  ?animal wdt:P1034 ?foodSource .\n" +
@@ -43,26 +46,68 @@ public class AnimalScientificName extends ComposeQuestion {
                         "LIMIT 100";
     }
 
-
     @Override
-    protected QuestionCategory getQuestionCategory() {
-        return QuestionCategory.BIOLOGY;
+    protected void processResults() {
+        animalLabels = new ArrayList<>();
+        animalScientificNames = new ArrayList<>();
+        List<Question> questions = new ArrayList<>();
+        List<Answer> answers = new ArrayList<>();
+
+        for (int i = 0; i < results.length(); i++) {
+            JSONObject result = results.getJSONObject(i);
+            String name = result.getJSONObject("commonName").getString("value");
+            String scientificName = result.getJSONObject("scientificName").getString("value");
+            name = WikidataUtils.capitalize(name);
+            String image = result.has("image") ? result.getJSONObject("image").getString("value") : null; // Retrieves image if available
+
+            if (needToSkip(name, scientificName)) {
+                continue;
+            }
+
+            Answer answer = new Answer(scientificName, AnswerCategory.ANIMAL_SCIENTIFIC_NAME, langCode);
+            answers.add(answer);
+
+            String questionString;
+            if (langCode.equals("es")) {
+                questionString = String.format(spanishStringsIni[i % spanishStringsIni.length], name);
+            } else {
+                questionString = String.format(englishStringsIni[i % englishStringsIni.length], name);
+            }
+
+            if (image == null) {
+                image = QuestionWikidata.DEFAULT_QUESTION_IMG; // Set default image if none available
+            }
+
+            Question question = new Question(answer, questionString, name, QuestionCategory.BIOLOGY);
+            question.setImageUrl(image); // Sets the animal's image
+            questions.add(question);
+        }
+
+        qs.addAll(questions);
+        as.addAll(answers);
     }
 
     @Override
-    protected String getQuestionLabel() {
-        return "commonName";
+    protected boolean needToSkip(String... parameters) {
+        if (animalLabels.contains(parameters[0]) || animalScientificNames.contains(parameters[1])) {
+            return true; // Avoid duplicate questions for the same animal
+        }
+        animalLabels.add(parameters[0]);
+
+        if (WikidataUtils.isEntityName(parameters[0]) || WikidataUtils.isEntityName(parameters[1])) {
+            return true; // Skip if either name is invalid
+        }
+
+        return false;
     }
 
-    @Override
-    protected AnswerCategory getAnswerCategory() {
-        return AnswerCategory.ANIMAL_SCIENTIFIC_NAME;
+    // For testing
+    public List<String> getAnimalLabels() {
+        return animalLabels;
     }
 
-    @Override
-    protected String getAnswerLabel() {
-        return "scientificName";
+    // For testing
+    public List<String> getAnimalScientificNames() {
+        return animalScientificNames;
     }
-
-
 }

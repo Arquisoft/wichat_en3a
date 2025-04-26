@@ -1,12 +1,11 @@
 package com.uniovi.wichatwebapp.service;
 
-
+import com.uniovi.wichatwebapp.entities.Answer;
+import com.uniovi.wichatwebapp.entities.AnswerCategory;
+import com.uniovi.wichatwebapp.entities.Question;
+import com.uniovi.wichatwebapp.entities.QuestionCategory;
 import com.uniovi.wichatwebapp.repositories.AnswerRepository;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
-import entities.Answer;
-import entities.AnswerCategory;
-import entities.Question;
-import entities.QuestionCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +15,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)  // No Spring context!
@@ -366,77 +367,6 @@ class QuestionServiceTest {
 
         // Assert: Verify that delete was called exactly once
         verify(questionRepository, times(1)).delete(testQuestion);
-    }
-
-    @Test
-    void getRandomQuestionNoCategoryTest_returnsAQuestionFromRandomCategory() {
-        // Create test data for each category with correct and incorrect answers
-        List<Question> questions = List.of(
-                new Question(new Answer("Correct1", AnswerCategory.ANIMAL_LIFESPAN, "en"), "Content", "image.jpg", QuestionCategory.BIOLOGY),
-                new Question(new Answer("Correct2", AnswerCategory.SPORT_TEAM_LOGO, "en"), "Content", "image.jpg", QuestionCategory.SPORT),
-                new Question(new Answer("Correct3", AnswerCategory.BRAND, "en"), "Content", "image.jpg", QuestionCategory.POP_CULTURE),
-                new Question(new Answer("Correct4", AnswerCategory.FLAG, "en"), "Content", "image.jpg", QuestionCategory.GEOGRAPHY)
-        );
-
-        // Set IDs for correct answers
-        questions.get(0).getCorrectAnswer().setId("correct1");
-        questions.get(1).getCorrectAnswer().setId("correct2");
-        questions.get(2).getCorrectAnswer().setId("correct3");
-        questions.get(3).getCorrectAnswer().setId("correct4");
-
-        // Create dummy incorrect answers for each category and include correct answers
-        List<Answer> dummyAnswers = Arrays.asList(
-                new Answer("Wrong 1", AnswerCategory.ANIMAL_LIFESPAN, "en"),
-                new Answer("Wrong 2", AnswerCategory.ANIMAL_LIFESPAN, "en"),
-                new Answer("Wrong 3", AnswerCategory.ANIMAL_LIFESPAN, "en"),
-                new Answer("Wrong 4", AnswerCategory.SPORT_TEAM_LOGO, "en"),
-                new Answer("Wrong 5", AnswerCategory.SPORT_TEAM_LOGO, "en"),
-                new Answer("Wrong 6", AnswerCategory.SPORT_TEAM_LOGO, "en"),
-                new Answer("Wrong 7", AnswerCategory.BRAND, "en"),
-                new Answer("Wrong 8", AnswerCategory.BRAND, "en"),
-                new Answer("Wrong 9", AnswerCategory.BRAND, "en"),
-                new Answer("Wrong 10", AnswerCategory.FLAG, "en"),
-                new Answer("Wrong 11", AnswerCategory.FLAG, "en"),
-                new Answer("Wrong 12", AnswerCategory.FLAG, "en"),
-                questions.get(0).getCorrectAnswer(), // Correct answer for BIOLOGY
-                questions.get(1).getCorrectAnswer(), // Correct answer for SPORT
-                questions.get(2).getCorrectAnswer(), // Correct answer for POP_CULTURE
-                questions.get(3).getCorrectAnswer()  // Correct answer for GEOGRAPHY
-        );
-
-        // Set IDs for dummy answers
-        dummyAnswers.get(0).setId("wrong1");
-        dummyAnswers.get(1).setId("wrong2");
-        dummyAnswers.get(2).setId("wrong3");
-        dummyAnswers.get(3).setId("wrong4");
-        dummyAnswers.get(4).setId("wrong5");
-        dummyAnswers.get(5).setId("wrong6");
-        dummyAnswers.get(6).setId("wrong7");
-        dummyAnswers.get(7).setId("wrong8");
-        dummyAnswers.get(8).setId("wrong9");
-        dummyAnswers.get(9).setId("wrong10");
-        dummyAnswers.get(10).setId("wrong11");
-        dummyAnswers.get(11).setId("wrong12");
-
-
-        // Mock the repository methods to return the test data
-        when(questionRepository.findQuestionsByCorrectAnswerIdExists()).thenReturn(questions);
-        when(answerRepository.findAnswersByLanguageAndQuestionCategory(eq("en"), anyList()))
-                .thenReturn(dummyAnswers);
-
-        // Call the method to test
-        Question randomQuestion = questionService.getRandomQuestionNoCategory("en");
-
-        // Debug statement to check the random question
-        System.out.println("Random Question: " + randomQuestion);
-
-        // Assertions to verify the results
-        assertNotNull(randomQuestion, "Random question should not be null");
-        assertEquals(4, randomQuestion.getAnswers().size(), "Random question should have 4 answers"); // Correct answer + 3 distractors
-
-        // Verify interactions with the repositories
-        verify(questionRepository, times(1)).findQuestionsByCorrectAnswerIdExists();
-        verify(answerRepository, times(1)).findAnswersByLanguageAndQuestionCategory(eq("en"), anyList());
     }
 
 }

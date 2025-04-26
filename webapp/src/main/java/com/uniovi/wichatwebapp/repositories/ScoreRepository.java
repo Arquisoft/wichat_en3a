@@ -1,6 +1,6 @@
 package com.uniovi.wichatwebapp.repositories;
 
-import entities.Score;
+import com.uniovi.wichatwebapp.entities.Score;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;
