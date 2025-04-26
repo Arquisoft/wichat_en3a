@@ -79,9 +79,9 @@ class MovieQuestionTest {
 
     @Test
     void needToSkipTest_DetectsDuplicateMovieLabels() {
-        assertFalse(movieQuestion.getMovieLabels().contains("Inception"), "First check: should not contain Inception.");
-        movieQuestion.getMovieLabels().add("Inception"); // Manually add for test
-        assertTrue(movieQuestion.getMovieLabels().contains("Inception"), "Second check: should now contain Inception.");
+        assertFalse(movieQuestion.getAnswerLabels().contains("Inception"), "First check: should not contain Inception.");
+        movieQuestion.getAnswerLabels().add("Inception"); // Manually add for test
+        assertTrue(movieQuestion.getAnswerLabels().contains("Inception"), "Second check: should now contain Inception.");
         assertTrue(movieQuestion.needToSkip("Inception"), "Should skip duplicate movie label.");
     }
     @Test
