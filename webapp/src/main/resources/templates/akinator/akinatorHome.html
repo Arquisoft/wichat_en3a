@@ -6,13 +6,30 @@
   <link rel="stylesheet" href="/css/home.css"/>
   <link rel="stylesheet" href="/css/main.css"/>
   <link rel="stylesheet" href="/css/nav.css"/>
+
+  <style>
+    body.waiting {
+      cursor: wait !important;
+    }
+
+    body.waiting button,
+    body.waiting input,
+    body.waiting * {
+      cursor: wait !important;
+    }
+  </style>
+  <script>
+    function waitingCursor() {
+      document.body.classList.add('waiting');
+    }
+  </script>
 </head>
 <body class="home-bg">
   <nav th:replace="fragments/nav"></nav>
-  <main class="home-container">
+  <main class="menu-container">
     <h1>Oracle’s Veil</h1>
     <!-- Combobox dinámico desde Enum -->
-    <form action="/akinator" method="POST">
+    <form action="/akinator" method="POST" onsubmit="waitingCursor()">
       <label for="category">Choose a category:</label>
 
       <!-- Combobox dinámico desde Enum -->

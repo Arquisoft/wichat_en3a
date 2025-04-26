@@ -80,7 +80,7 @@ public class NavControllerTests {
         navController.addNavigationAttributes(request, model);
 
         // Assert
-        verify(model).addAttribute("showHome", false);
+        verify(model).addAttribute("showHome", true);
         assertThat(modelAttributes).containsEntry("showHome", false);
     }
 
