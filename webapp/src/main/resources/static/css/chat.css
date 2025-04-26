@@ -10,25 +10,11 @@
 /* Estilos generales */
 .chat-container {
     height: 400px;
-    font-family: Arial, sans-serif;
+    font-family: Minecraft, Arial, sans-serif;
     position: relative;
 }
 
-.chat-wrapper-chat-visible{
-    right: 20%;
-}
 
-@media(max-width: 1000px){
-    .chat-wrapper-chat-visible{
-        right: 40%;
-    }
-}
-
-@media(max-width: 480px){
-    .chat-wrapper-chat-visible{
-        right: 70%;
-    }
-}
 
 #chatBox {
     visibility: hidden;
@@ -38,7 +24,6 @@
     background-color: white;
     width: 300px; /* Ancho del chat */
     position: absolute;
-    left: 0; /* Alineado a la izquierda */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
@@ -160,4 +145,23 @@
 
 .chat-icon-button:hover .chat-icon {
     transform: scale(1.1); /* Efecto de escala al pasar el mouse */
+}
+
+@media (max-width: 480px) {
+    .chat-wrapper {
+        top: 15%; /* Move even higher on smaller devices */
+        right: 1%;
+    }
+}
+
+@media(max-width: 1000px) {
+    .chat-wrapper-chat-visible {
+        right: 5%;
+        transform: translateX(-50%); /* Center the chat box */
+        left: 50%; /* Center relative to screen */
+    }
+    
+    #chatBox {
+        transform: translateX(-50%); /* Center the chatbox */
+    }
 }
