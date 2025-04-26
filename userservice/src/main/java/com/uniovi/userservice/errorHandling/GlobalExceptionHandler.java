@@ -1,7 +1,6 @@
 package com.uniovi.userservice.errorHandling;
 
-import com.uniovi.userservice.errorHandling.exceptions.EmailInUseException;
-import com.uniovi.userservice.errorHandling.exceptions.UserNotFoundException;
+import com.uniovi.userservice.errorHandling.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
