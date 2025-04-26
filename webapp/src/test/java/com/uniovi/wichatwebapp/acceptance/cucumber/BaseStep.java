@@ -25,8 +25,8 @@ public abstract class BaseStep {
     protected static void setUpDriver(){
         WebDriverManager.chromedriver().setup(); // Automatically manage ChromeDriver
         options = new ChromeOptions();
-        //options.addArguments("--start-maximized", "--disable-infobars", "--remote-allow-origins=*", "--headless"); // Open browser in maximized mode, disable Chrome's info bars and allow cross-origin requests
-        //options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); // Disable automation banner
+        options.addArguments("--start-maximized", "--disable-infobars", "--remote-allow-origins=*", "--headless"); // Open browser in maximized mode, disable Chrome's info bars and allow cross-origin requests
+        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"}); // Disable automation banner
         driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         options.setExperimentalOption("detach", true); // Keep the browser open after the test
