@@ -25,6 +25,7 @@
     width: 300px; /* Ancho del chat */
     position: absolute;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transform: translateX(-50%);
 }
 
 .chat-header {
