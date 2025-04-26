@@ -24,7 +24,6 @@
     background-color: white;
     width: 300px; /* Ancho del chat */
     position: absolute;
-    left: 0; /* Alineado a la izquierda */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
@@ -148,38 +147,11 @@
     transform: scale(1.1); /* Efecto de escala al pasar el mouse */
 }
 
-@media screen and (max-aspect-ratio: 3/4) {
-    .chat-wrapper {
-        top: 20%; /* Move chat higher on mobile */
-        right: 2%; /* Adjust right position for smaller screens */
-    }
-    .chat-wrapper-chat-visible {
-        right: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 10%; /* Move higher on mobile */
-    }
-    
-    #chatBox {
-        width: 90%; /* Make chat box more responsive */
-        max-width: 300px;
-        transform: translateX(-50%);
-    }
-}
-@media (max-width: 768px) {
-
-}
-
 @media (max-width: 480px) {
     .chat-wrapper {
         top: 15%; /* Move even higher on smaller devices */
         right: 1%;
     }
-}
-
-.chat-wrapper-chat-visible {
-    right: 10%; /* Reduced from 20% for better positioning */
-    z-index: 1000; /* Ensure chat appears above other elements */
 }
 
 @media(max-width: 1000px) {
