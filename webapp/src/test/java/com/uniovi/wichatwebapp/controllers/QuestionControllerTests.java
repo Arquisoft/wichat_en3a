@@ -3,8 +3,11 @@ package com.uniovi.wichatwebapp.controllers;
 import com.uniovi.wichatwebapp.dto.AnswerDto;
 import com.uniovi.wichatwebapp.entities.*;
 import com.uniovi.wichatwebapp.services.GameService;
-import com.uniovi.wichatwebapp.services.HintService;
 import com.uniovi.wichatwebapp.services.ScoreService;
+import entities.Answer;
+import entities.Question;
+import entities.QuestionCategory;
+import entities.Score;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Fail.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -85,7 +87,6 @@ public class QuestionControllerTests {
         String view = questionController.createPersonalizedGame(category,timer, questionCount);
 
         //Asserts
-        Assertions.assertEquals(category, gameService.getGame().getCategory());
         Assertions.assertEquals(12, gameService.getGame().getTimer());
         Assertions.assertEquals(7, gameService.getGame().getMaxNumberOfQuestions());
         Assertions.assertEquals(0, gameService.getGame().getQuestions());
@@ -126,7 +127,6 @@ public class QuestionControllerTests {
         String view = questionController.startGame(category);
 
         //Asserts
-        Assertions.assertEquals(category, gameService.getGame().getCategory());
         Assertions.assertEquals(30, gameService.getGame().getTimer());
         Assertions.assertEquals(10, gameService.getGame().getMaxNumberOfQuestions());
         Assertions.assertEquals(0, gameService.getGame().getQuestions());
@@ -169,7 +169,6 @@ public class QuestionControllerTests {
         String view = questionController.startGame(category,timer, questionCount);
 
         //Asserts
-        Assertions.assertEquals(category, gameService.getGame().getCategory());
         Assertions.assertEquals(12, gameService.getGame().getTimer());
         Assertions.assertEquals(7, gameService.getGame().getMaxNumberOfQuestions());
         Assertions.assertEquals(0, gameService.getGame().getQuestions());
@@ -177,6 +176,45 @@ public class QuestionControllerTests {
         Assertions.assertEquals(0, gameService.getGame().getWrongAnswers());
         Assertions.assertEquals(0, gameService.getGame().getPoints());
         Question currentQuestion=gameService.getGame().getCurrentQuestion();
+        Assertions.assertNotNull(currentQuestion);
+        Assertions.assertEquals("Madrid", currentQuestion.getCorrectAnswer().getText());
+        Assertions.assertEquals("en", currentQuestion.getCorrectAnswer().getLanguage());
+        Assertions.assertEquals("Which is the capital of Spain?", currentQuestion.getContent());
+        Assertions.assertEquals("no-image", currentQuestion.getImageUrl());
+
+        Assertions.assertEquals("redirect:/game/question", view);
+    }
+    @Test
+    void createAllCategoriesGameTest() {
+        Question mockQuestion = new Question(new Answer("Madrid", "en"), "Which is the capital of Spain?", "no-image");
+
+        // When startAllCategoriesGame() is called, set up the game and store it
+        doAnswer(invocation -> {
+            GameAllCategories game = new GameAllCategories();
+            when(gameService.getGame()).thenReturn(game); // Make getGame() return this game
+            gameService.nextQuestion();
+            return null; // startAllCategoriesGame() is void
+        }).when(gameService).startAllCategoriesGame();
+
+        doAnswer(invocation -> {
+            // This will be executed when nextQuestion() is called
+            gameService.getGame().setCurrentQuestion(mockQuestion);
+            return null; // since it's void
+        }).when(gameService).nextQuestion();
+
+        // Act
+        String view = questionController.createAllCategoriesGame();
+
+        // Asserts
+        Assertions.assertEquals(0, gameService.getGame().getPoints());
+        Assertions.assertEquals(0, gameService.getPoints());
+        Assertions.assertEquals(0, gameService.getGame().getQuestions());
+        Assertions.assertEquals(0, gameService.getGame().getRightAnswers());
+        Assertions.assertEquals(0, gameService.getGame().getWrongAnswers());
+        Assertions.assertEquals(0, gameService.getRightAnswers());
+        Assertions.assertEquals(0, gameService.getWrongAnswers());
+        Assertions.assertNull(gameService.getCategory());
+        Question currentQuestion = gameService.getGame().getCurrentQuestion();
         Assertions.assertNotNull(currentQuestion);
         Assertions.assertEquals("Madrid", currentQuestion.getCorrectAnswer().getText());
         Assertions.assertEquals("en", currentQuestion.getCorrectAnswer().getLanguage());

@@ -1,7 +1,12 @@
-package com.uniovi.wichatwebapp.entities;
+package entities;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "scores")
 public class Score {
 
+    @Id
     private String id;
 
     private String user_id;

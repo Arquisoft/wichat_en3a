@@ -1,10 +1,11 @@
 package com.uniovi.wichatwebapp.controller;
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.AnswerCategory;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
 import com.uniovi.wichatwebapp.service.QuestionService;
+import entities.Answer;
+import entities.AnswerCategory;
+import entities.Question;
+import entities.QuestionCategory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -91,6 +92,25 @@ class QuestionControllerTest {
         verify(questionService).findQuestionById(questionId);
         verify(questionService).removeQuestion(question);
     }
+
+
+
+    @Test
+    void getRandomCategoryQuestionTest_ReturnsRandomQuestion() {
+        // Arrange
+        Answer correctAnswer = new Answer("Correct answer", AnswerCategory.FLAG, "en");
+        Question expectedQuestion = new Question(correctAnswer, "Sample question", "image.jpg", QuestionCategory.GEOGRAPHY);
+        when(questionService.getRandomQuestionNoCategory("en")).thenReturn(expectedQuestion);
+
+        // Act
+        Question result = questionController.getRandomCategoryQuestion();
+
+        // Assert
+        assertThat(result).isEqualTo(expectedQuestion);
+        verify(questionService).getRandomQuestionNoCategory("en");
+    }
+
+
 
 
 }

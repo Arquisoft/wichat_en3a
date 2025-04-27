@@ -1,23 +1,26 @@
 package com.uniovi.wichatwebapp.services;
 
+import com.uniovi.wichatwebapp.entities.AbstractGame;
 import com.uniovi.wichatwebapp.entities.Game;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
 
+import com.uniovi.wichatwebapp.entities.GameAllCategories;
+import entities.Question;
+import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
+
+
 
 @Service
 @SessionScope
 public class GameService {
 
     private final QuestionService questionService;
-    private Game game;
-
+    private AbstractGame game;
     public GameService(QuestionService questionService) {
         this.questionService = questionService;
     }
-
+    private QuestionCategory category;
     public void correctAnswer(){
         game.correctAnswer();
     }
@@ -30,16 +33,25 @@ public class GameService {
 
     public void start(QuestionCategory category){
         game = new Game(category);
+        this.category = category;
         nextQuestion();
     }
 
     public void start(QuestionCategory category, int timer, int questions){
         game = new Game(category, timer, questions);
-        nextQuestion();
+        game.nextQuestion(questionService);
     }
 
+    public void startAllCategoriesGame(){
+        game = new GameAllCategories();
+        this.category=null;
+        game.nextQuestion(questionService);
+    }
+
+
+
     public QuestionCategory getCategory(){
-        return game.getCategory();
+        return category;
     }
 
     public boolean hasGameEnded(){
@@ -47,9 +59,7 @@ public class GameService {
     }
 
     public void nextQuestion(){
-        Question question = questionService.getRandomQuestion(game.getCategory());
-        game.setCurrentQuestion(question);
-        questionService.removeQuestion(question);
+        game.nextQuestion(questionService);
     }
 
     public Question getCurrentQuestion() {
@@ -80,7 +90,9 @@ public class GameService {
         return game.getMaxNumberOfQuestions();
     }
 
-    public Game getGame() {
+    public AbstractGame getGame() {
         return game;
     }
+
+
 }

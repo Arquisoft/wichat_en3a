@@ -1,4 +1,4 @@
-package com.uniovi.wichatwebapp.entities;
+package entities;
 
 public enum QuestionCategory {
     SPORT("Sport"),
