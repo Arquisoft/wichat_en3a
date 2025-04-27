@@ -16,7 +16,7 @@ body.bg-light {
 .card-header, .card-body {
     color: white; /* Ensure text inside the card is white */
     background-color: #121429;
-    border-radius: 10px 10px 0 0 !important;
+    border-radius: 0.5rem !important;
     padding: 15px 20px; /* Espaciado interno */
     margin: 0; /* Eliminar márgenes por defecto */
     border: none; /* Remove borders */
