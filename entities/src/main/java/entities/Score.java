@@ -21,6 +21,7 @@ public class Score {
     private int wrongAnswers;
     private List<Question> questions;
     private int questionTime;
+    private String email;
 
     public Score(){
     }
@@ -36,6 +37,14 @@ public class Score {
         this.score = score;
         this.rightAnswers = rightAnswers;
         this.wrongAnswers = wrongAnswers;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getId() {

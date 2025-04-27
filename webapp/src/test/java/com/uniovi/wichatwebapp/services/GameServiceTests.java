@@ -266,7 +266,7 @@ public class GameServiceTests {
         mockScore.setQuestions(List.of(new Question(new Answer("Berlin", "en"), "Capital of Germany?", "no-image")));
         mockScore.setQuestionTime(20);
 
-        gameService.start(mockScore.getQuestions(), QuestionCategory.GEOGRAPHY, mockScore);
+        gameService.start(QuestionCategory.GEOGRAPHY, mockScore);
 
         AbstractGame game = gameService.getGame();
         Assertions.assertNotNull(game);
@@ -282,7 +282,7 @@ public class GameServiceTests {
         mockScore.setQuestions(List.of());
         mockScore.setQuestionTime(15);
 
-        gameService.start(mockScore.getQuestions(), QuestionCategory.BIOLOGY, mockScore);
+        gameService.start(QuestionCategory.BIOLOGY, mockScore);
 
         AbstractGame game = gameService.getGame();
         Assertions.assertNotNull(game);
@@ -306,7 +306,7 @@ public class GameServiceTests {
         mockScore.setQuestions(List.of(new Question(new Answer("5", "en"), "2+3=?", "no-image")));
         mockScore.setQuestionTime(10);
 
-        gameService.start(mockScore.getQuestions(), QuestionCategory.SPORT, mockScore);
+        gameService.start(QuestionCategory.SPORT, mockScore);
 
         Assertions.assertTrue(gameService.isMultiplayer());
     }

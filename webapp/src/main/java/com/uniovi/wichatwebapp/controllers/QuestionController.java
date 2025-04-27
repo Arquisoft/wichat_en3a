@@ -66,7 +66,7 @@ public class QuestionController {
         if(score == null){
             return "redirect:/home";
         }
-        gameService.start(score.getQuestions(), QuestionCategory.valueOf(score.getCategory().toUpperCase()), score);
+        gameService.start(QuestionCategory.valueOf(score.getCategory().toUpperCase()), score);
         return "redirect:/game/question";
     }
 
@@ -133,8 +133,9 @@ public class QuestionController {
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        model.addAttribute("player", userService.getUserByEmail(username).getName());
+        String email = auth.getName();
+        String username = userService.getUserByEmail(email).getName();
+        model.addAttribute("player", username);
         model.addAttribute("points", gameService.getPoints());
         model.addAttribute("right", gameService.getRightAnswers());
         model.addAttribute("wrong", gameService.getWrongAnswers());
@@ -151,6 +152,7 @@ public class QuestionController {
             score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
 
         }
+        score.setEmail(email);
         score.setQuestions(gameService.getGame().getQuestionList());
         score.setQuestionTime(gameService.getTimer());
         Score addedScore = scoreService.addScore(score);

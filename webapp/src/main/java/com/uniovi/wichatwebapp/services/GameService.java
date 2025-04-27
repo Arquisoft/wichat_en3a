@@ -47,11 +47,12 @@ public class GameService {
         game.nextQuestion(questionService);
     }
 
-    public void start(List<Question> questions, QuestionCategory category, Score score){
-        game = new MultiPlayerGame(questions, category, score.getScore());
+    public void start(QuestionCategory category, Score score){
+        game = new MultiPlayerGame(score.getQuestions(), category, score.getScore());
         this.isMultiplayer = true;
         this.category = category;
         game.setTimer(score.getQuestionTime());
+        game.setMaxNumberOfQuestions(score.getQuestions().size() - 1);
         game.nextQuestion(questionService);
     }
 

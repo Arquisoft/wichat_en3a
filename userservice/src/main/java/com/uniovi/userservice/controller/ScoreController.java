@@ -55,7 +55,7 @@ public class ScoreController {
         )
             @RequestBody Score score) {
 
-        User user = userService.findByEmail(score.getUser());
+        User user = userService.findByEmail(score.getEmail());
         if(user.isCorrect()){
             score.setUser_id(user.getId());
             Score addedScore = scoreService.addScore(score);

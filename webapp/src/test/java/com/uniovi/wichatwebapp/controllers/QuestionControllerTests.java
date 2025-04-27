@@ -587,7 +587,7 @@ public class QuestionControllerTests {
 
         String viewName = questionController.startMultiplayerGame(gameId);
 
-        verify(gameService).start(mockScore.getQuestions(), QuestionCategory.GEOGRAPHY, mockScore);
+        verify(gameService).start(QuestionCategory.GEOGRAPHY, mockScore);
         Assertions.assertEquals("redirect:/game/question", viewName);
     }
 
