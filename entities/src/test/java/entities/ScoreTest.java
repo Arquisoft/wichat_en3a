@@ -1,4 +1,4 @@
-package com.uniovi.wichatwebapp.entitites;
+package entities;
 
 import entities.Question;
 import entities.Score;

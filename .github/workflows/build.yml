@@ -24,6 +24,8 @@ jobs:
       - run: mvn clean install
         working-directory: entities
       - run: mvn clean test --batch-mode
+        working-directory: entities
+      - run: mvn clean test --batch-mode
         working-directory: userservice
       - run: mvn clean test --batch-mode
         working-directory: hintservice
