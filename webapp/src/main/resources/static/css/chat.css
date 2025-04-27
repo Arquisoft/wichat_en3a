@@ -47,10 +47,12 @@
 
 #exitButton{
     flex-basis: 10%;
+    background-color: #c4272f;
 }
 
 #header-text{
     flex-basis: 70%;
+    font-size: 1.5rem;
 }
 
 #chatMessages {
@@ -75,7 +77,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-right: 5px;
-    font-size: 14px; /* Tamaño de la fuente */
+    font-size: 1rem; /* Tamaño de la fuente */
 }
 
 #sendMessage {
@@ -101,6 +103,7 @@
     margin-bottom: 10px;
     border-radius: 8px;
     max-width: 80%;
+    font-size: 1rem;
 }
 
 .ai-message {

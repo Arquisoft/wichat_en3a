@@ -64,7 +64,7 @@ main {
 .stats {
     display: flex;
     flex-direction: row;
-    margin: 0 auto;
+    margin: 0.5em auto 0 auto;
     width: max-content;
 }
 
@@ -216,9 +216,15 @@ body {
     margin-left: 0;
 }
 
+.question-text-container {
+    display: grid;
+    grid-template-rows: 3fr 1fr; /* 75% para pregunta, 25% para stats */
+    gap: 2.5rem;
+}
+
 .question-text-container h1 {
-    width: 50%;
-    margin: 0 auto;
+    width: 90%;
+    margin: 2.8rem auto 0 auto;;
 }
 
 input {
@@ -229,27 +235,106 @@ input {
     .answer-row {
         width: 80%;
     }
+
+    .question-text-container h1 {
+        margin-top: 4rem;
+        font-size: 2em;
+    }
+
+    .question-text-container {
+        gap: 1rem;
+    }
 }
 
-@media(max-width: 900px) {
+@media(max-width: 1000px) {
     .question-text-container h1 {
-        margin-top: 1em;
+        margin-top: 3rem;
         font-size: 2em;
-        width: 70%;
     }
 
     .answer-row {
         width: 100%;
     }
+
+    .question-text-container {
+        gap: 0;
+    }
+
+    .stats {
+        margin-top: 0.5em
+    }
+
+    .loader-bar {
+        height: 100px;
+    }
+    .stats h3 {
+        font-size: 1.5em;
+    }
+
+    .mt-5{
+        margin-top:0 !important;
+    }
+}
+
+@media(max-width: 900px) {
+    .question-text-container h1 {
+        margin-top: 2.5rem;
+        font-size: 2em;
+    }
+
+    .answer-row {
+        width: 100%;
+    }
+
+    .question-text-container {
+        gap: 0;
+    }
+
+    .stats {
+        margin-top: 0
+    }
+
+    .loader-bar {
+        height: 100px;
+    }
+    .stats h3 {
+        font-size: 1.5em;
+    }
 }
 
 @media(max-width: 768px) {
+    .mt-5{
+        margin-top:3rem !important;
+    }
+
     .question-image {
         width: 50%;
     }
 
     .question-text-container h1 {
-        font-size: 1.8em;
+        font-size: 1.6em;
+        margin-top: 1.5em;
+        width: 100%;
+    }
+
+    .question-text-container {
+        grid-template-rows: 1fr 1fr; /* 75% para pregunta, 25% para stats */
+    }
+
+    .loader-bar {
+        height: 100px;
+    }
+    .stats h3 {
+        font-size: 1.2em;
+        margin:0;
+    }
+
+    .stats {
+        margin-top:3rem;
+        gap:5px;
+    }
+    .row {
+        margin-top: 15px;
     }
 
     .answer-row {
@@ -266,16 +351,9 @@ input {
         display: block;
         max-width: 100%;
     }
-}
 
-@media(max-width: 600px) {
     .home-container {
         position: absolute;
-    }
-    .question-text-container h1 {
-        font-size: 1.5em;
-        margin-top: 1.5em;
-        width: 100%;
     }
 
     .chat-icon-button {
@@ -289,10 +367,37 @@ input {
     }
 }
 
-@media(max-width: 525px) {
+@media(max-width: 700px) {
+    .question-text-container h1 {
+        margin-top: 2.5em;
+    }
+
+    .stats {
+        margin-top:2.5rem;
+    }
+}
+
+@media(max-width: 600px) {
+    .question-text-container h1 {
+        margin-top: 2em;
+    }
+
+    .stats {
+        margin-top:2rem;
+    }
+}
+
+@media(max-width: 530px) {
     .question-text-container h1 {
         font-size: 1.2em;
-        margin-top: 2.5em;
+        margin-top: 3em;
+    }
+
+    .stats {
+        margin-top:1.5rem;
+    }
+    .stats h3 {
+        font-size: 1em;
     }
 
     .container {
@@ -320,6 +425,18 @@ input {
     .qwizzimage{
         margin-bottom: -100px;
     }
+
+    .question-text-container {
+        grid-template-rows: 0.5fr 0.5fr;
+    }
+
+    .question-text-container h1 {
+        margin-top:3.25em;
+    }
+
+    .stats {
+        margin-top: 0.8rem;
+    }
 }
 
 @media(max-width: 425px) {
@@ -328,23 +445,3 @@ input {
         margin-top: 3.5em;
     }
 }
-
-
-/* Login, Signup Page is good. */
-
-/* TODO: Change fonts at whole project. */
-
-/* Home Page */
-/* TODO: Change home page to be like at the template. */
-
-/* Questions page */
-/* TODO: At questions page buttons need to be more apart. */
-/* TODO: At questions page, AI button needs to be lower. */
-/* TODO: At questions page, Question needs to not overflow the background. */
-
-/* Results page */
-/* TODO: Create a template for this page. */
-/* TODO: Change according to the template */
-
-/* Responsiveness */
-/* TODO: After you do the above write todo list for responsiveness. */
