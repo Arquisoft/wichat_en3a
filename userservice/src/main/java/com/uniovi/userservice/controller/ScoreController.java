@@ -1,9 +1,11 @@
 package com.uniovi.userservice.controller;
 
-import com.uniovi.userservice.entities.Score;
-import com.uniovi.userservice.entities.User;
+
+import com.uniovi.userservice.errorHandling.exceptions.UserNotFoundException;
 import com.uniovi.userservice.service.ScoreService;
 import com.uniovi.userservice.service.UserService;
+import entities.Score;
+import entities.User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,7 +39,8 @@ public class ScoreController {
                     schema = @Schema(implementation = Score.class))
                 }
             ),
-            @ApiResponse(responseCode = "409", description = "Score could not be added", content = @Content)
+            @ApiResponse(responseCode = "409", description = "Score could not be added", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Service unavailable", content = @Content)
     })
     @RequestMapping(value="/addScore", method = RequestMethod.POST)
     public Score addScore(@io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -57,7 +60,7 @@ public class ScoreController {
             score.setUser_id(user.getId());
             scoreService.addScore(score);
         }else{
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "User with that email could not be found");
+            throw new UserNotFoundException(score.getUser());
         }
 
         return score;
@@ -69,6 +72,7 @@ public class ScoreController {
             @ApiResponse(responseCode = "200", description = "Returns a list with the 10 best scores",
             content = {@Content(mediaType = "application/json",
                     array = @ArraySchema(schema = @Schema(implementation = Score.class)))}),
+            @ApiResponse(responseCode = "500", description = "Service unavailable", content = @Content)
     })
     @RequestMapping(value = "/getBestScores", method = RequestMethod.GET)
     public List<Score> getBestScores(@RequestParam String user) {

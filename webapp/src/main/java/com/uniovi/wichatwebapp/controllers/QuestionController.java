@@ -1,15 +1,16 @@
 package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.dto.AnswerDto;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
-import com.uniovi.wichatwebapp.entities.Score;
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.ScoreService;
+import entities.QuestionCategory;
+import entities.Score;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 
 @Controller
 public class QuestionController {
@@ -30,6 +31,13 @@ public class QuestionController {
     @RequestMapping(value="/game/personalized", method = RequestMethod.POST)
     public String createPersonalizedGame(@RequestParam QuestionCategory category, @RequestParam int timerSeconds, @RequestParam int questionCount) {
         gameService.start(category, timerSeconds, questionCount);
+        return "redirect:/game/question";
+    }
+
+
+    @RequestMapping(value="/game/categories/start", method = RequestMethod.GET)
+    public String createAllCategoriesGame( ) {
+        gameService.startAllCategoriesGame();
         return "redirect:/game/question";
     }
 
@@ -102,22 +110,30 @@ public class QuestionController {
         model.addAttribute("points", gameService.getPoints());
         model.addAttribute("right", gameService.getRightAnswers());
         model.addAttribute("wrong", gameService.getWrongAnswers());
-        model.addAttribute("category", gameService.getCategory().name());
-
         model.addAttribute("timer", gameService.getTimer());
         model.addAttribute("questions", gameService.getMaxQuestions());
+        Score score;
+        if(gameService.getCategory()==null){
+            model.addAttribute("category","All topics");
+            score = new Score(username, "All topics", gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
 
-        Score score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
-        if(!scoreService.addScore(score)){
+        }
+        else {
+            model.addAttribute("category", gameService.getCategory().name());
+            score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
+
+        }
+         if(!scoreService.addScore(score)){
             model.addAttribute("addError", true);
         }
-
-        gameService.start(gameService.getCategory());
+        if(gameService.getCategory()==null){
+            gameService.startAllCategoriesGame();
+        }
+        else{
+            gameService.start(gameService.getCategory());
+        }
 
         return "question/results";
     }
-
-
-
 
 }

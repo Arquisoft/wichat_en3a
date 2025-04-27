@@ -2,17 +2,17 @@ package com.uniovi.userservice.controllers;
 
 
 import com.uniovi.userservice.controller.ScoreController;
-import com.uniovi.userservice.entities.Score;
-import com.uniovi.userservice.entities.User;
+
 import com.uniovi.userservice.service.ScoreService;
 import com.uniovi.userservice.service.UserService;
+import com.uniovi.userservice.errorHandling.exceptions.*;
+import entities.Score;
+import entities.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -62,9 +62,8 @@ class ScoreControllerTests {
         try{
             Score result = scoreController.addScore(s); //must fail and throw exception
             fail();
-        } catch (ResponseStatusException e) {
-            assertEquals(HttpStatus.CONFLICT, e.getStatusCode());
-            assertEquals("User with that email could not be found", e.getReason());
+        } catch (UserNotFoundException e) {
+            assertEquals("User with email test@test.com not found", e.getMessage());
         }
 
 

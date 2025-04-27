@@ -1,7 +1,7 @@
 package com.uniovi.wichatwebapp.entitites;
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.Question;
+import entities.Answer;
+import entities.Question;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

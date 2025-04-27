@@ -1,0 +1,59 @@
+body.bg-light {
+    background-image: url('../images/assets_task_01jsphmbyke3d8719ph1my668z_1745587253_img_0.webp'); /* Set space background */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: white; /* Default text color */
+}
+
+.card {
+    background-color: transparent; /* Make card background transparent */
+    border: none; /* Remove card border */
+    box-shadow: none; /* Remove shadow */
+    align-items: center;
+}
+.card-header, .card-body {
+    color: white; /* Ensure text inside the card is white */
+    background-color: #121429;
+    border-radius: 0.5rem !important;
+    padding: 15px 20px; /* Espaciado interno */
+    margin: 0; /* Eliminar márgenes por defecto */
+    border: none; /* Remove borders */
+    width: 25%;
+}
+.card-title {
+    font-size: 1.5rem;
+}
+a {
+    color: white; /* Links in white */
+    text-decoration: underline;
+}
+
+a {
+    color: #b251da;
+    font-size:1.1rem;
+}
+
+h2 {
+    margin-bottom: 0;
+    font-size: 3rem;
+    color: #b251da;
+}
+
+.card-text {
+    font-size:1.1rem;
+}
+
+
+@media(max-width: 850px) {
+    .card-header, .card-body {
+        width: 50%;
+    }
+}
+
+@media(max-width: 450px) {
+    .card-header, .card-body {
+        width: 75%;
+    }
+}

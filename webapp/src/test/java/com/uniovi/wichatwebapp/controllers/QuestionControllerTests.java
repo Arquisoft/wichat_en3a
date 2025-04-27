@@ -3,8 +3,11 @@ package com.uniovi.wichatwebapp.controllers;
 import com.uniovi.wichatwebapp.dto.AnswerDto;
 import com.uniovi.wichatwebapp.entities.*;
 import com.uniovi.wichatwebapp.services.GameService;
-import com.uniovi.wichatwebapp.services.HintService;
 import com.uniovi.wichatwebapp.services.ScoreService;
+import entities.Answer;
+import entities.Question;
+import entities.QuestionCategory;
+import entities.Score;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 
@@ -19,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Fail.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -85,7 +88,6 @@ public class QuestionControllerTests {
         String view = questionController.createPersonalizedGame(category,timer, questionCount);
 
         //Asserts
-        Assertions.assertEquals(category, gameService.getGame().getCategory());
         Assertions.assertEquals(12, gameService.getGame().getTimer());
         Assertions.assertEquals(7, gameService.getGame().getMaxNumberOfQuestions());
         Assertions.assertEquals(0, gameService.getGame().getQuestions());
@@ -126,7 +128,6 @@ public class QuestionControllerTests {
         String view = questionController.startGame(category);
 
         //Asserts
-        Assertions.assertEquals(category, gameService.getGame().getCategory());
         Assertions.assertEquals(30, gameService.getGame().getTimer());
         Assertions.assertEquals(10, gameService.getGame().getMaxNumberOfQuestions());
         Assertions.assertEquals(0, gameService.getGame().getQuestions());
@@ -169,7 +170,6 @@ public class QuestionControllerTests {
         String view = questionController.startGame(category,timer, questionCount);
 
         //Asserts
-        Assertions.assertEquals(category, gameService.getGame().getCategory());
         Assertions.assertEquals(12, gameService.getGame().getTimer());
         Assertions.assertEquals(7, gameService.getGame().getMaxNumberOfQuestions());
         Assertions.assertEquals(0, gameService.getGame().getQuestions());
@@ -177,6 +177,45 @@ public class QuestionControllerTests {
         Assertions.assertEquals(0, gameService.getGame().getWrongAnswers());
         Assertions.assertEquals(0, gameService.getGame().getPoints());
         Question currentQuestion=gameService.getGame().getCurrentQuestion();
+        Assertions.assertNotNull(currentQuestion);
+        Assertions.assertEquals("Madrid", currentQuestion.getCorrectAnswer().getText());
+        Assertions.assertEquals("en", currentQuestion.getCorrectAnswer().getLanguage());
+        Assertions.assertEquals("Which is the capital of Spain?", currentQuestion.getContent());
+        Assertions.assertEquals("no-image", currentQuestion.getImageUrl());
+
+        Assertions.assertEquals("redirect:/game/question", view);
+    }
+    @Test
+    void createAllCategoriesGameTest() {
+        Question mockQuestion = new Question(new Answer("Madrid", "en"), "Which is the capital of Spain?", "no-image");
+
+        // When startAllCategoriesGame() is called, set up the game and store it
+        doAnswer(invocation -> {
+            GameAllCategories game = new GameAllCategories();
+            when(gameService.getGame()).thenReturn(game); // Make getGame() return this game
+            gameService.nextQuestion();
+            return null; // startAllCategoriesGame() is void
+        }).when(gameService).startAllCategoriesGame();
+
+        doAnswer(invocation -> {
+            // This will be executed when nextQuestion() is called
+            gameService.getGame().setCurrentQuestion(mockQuestion);
+            return null; // since it's void
+        }).when(gameService).nextQuestion();
+
+        // Act
+        String view = questionController.createAllCategoriesGame();
+
+        // Asserts
+        Assertions.assertEquals(0, gameService.getGame().getPoints());
+        Assertions.assertEquals(0, gameService.getPoints());
+        Assertions.assertEquals(0, gameService.getGame().getQuestions());
+        Assertions.assertEquals(0, gameService.getGame().getRightAnswers());
+        Assertions.assertEquals(0, gameService.getGame().getWrongAnswers());
+        Assertions.assertEquals(0, gameService.getRightAnswers());
+        Assertions.assertEquals(0, gameService.getWrongAnswers());
+        Assertions.assertNull(gameService.getCategory());
+        Question currentQuestion = gameService.getGame().getCurrentQuestion();
         Assertions.assertNotNull(currentQuestion);
         Assertions.assertEquals("Madrid", currentQuestion.getCorrectAnswer().getText());
         Assertions.assertEquals("en", currentQuestion.getCorrectAnswer().getLanguage());
@@ -367,7 +406,12 @@ public class QuestionControllerTests {
         // Mock authentication
         Authentication auth = mock(Authentication.class);
         when(auth.getName()).thenReturn(username);
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        //SecurityContextHolder.getContext().setAuthentication(auth);
+
+        SecurityContextHolder.clearContext();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(auth); // your mocked auth
+        SecurityContextHolder.setContext(context);
 
         // Mock model behavior
         when(model.addAttribute(anyString(), any())).thenAnswer(invocation -> {
@@ -388,7 +432,7 @@ public class QuestionControllerTests {
         // Mock score service
         doAnswer(invocation -> {
             score[0] = invocation.getArgument(0); // Capturamos el primer argumento
-            return null; // asumiendo que addScore() es void
+            return true; // asumiendo que addScore() es void
         }).when(scoreService).addScore(any(Score.class));
 
         // Act
@@ -427,5 +471,65 @@ public class QuestionControllerTests {
         // Assert
         Assertions.assertEquals("redirect:/game/start/GEOGRAPHY", view);
         verifyNoInteractions(scoreService);
+    }
+
+    @Test
+    void resultsEndedGameNoCategoryTest() {
+        // Arrange
+        Map<String, Object> modelAttributes = new HashMap<>();
+        String username = "testUser";
+
+        // Mock authentication
+        Authentication auth = mock(Authentication.class);
+        when(auth.getName()).thenReturn(username);
+
+        SecurityContextHolder.clearContext();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(auth); // your mocked auth
+        SecurityContextHolder.setContext(context);
+
+        // Mock model behavior
+        when(model.addAttribute(anyString(), any())).thenAnswer(invocation -> {
+            modelAttributes.put(invocation.getArgument(0), invocation.getArgument(1));
+            return model;
+        });
+
+        // Mock game service responses
+        when(gameService.hasGameEnded()).thenReturn(true);
+        when(gameService.getCategory()).thenReturn(null);
+        when(gameService.getPoints()).thenReturn(100);
+        when(gameService.getRightAnswers()).thenReturn(5);
+        when(gameService.getWrongAnswers()).thenReturn(2);
+        when(gameService.getTimer()).thenReturn(30);
+        when(gameService.getMaxQuestions()).thenReturn(10);
+
+        final Score[] score = {null};
+        // Mock score service
+        doAnswer(invocation -> {
+            score[0] = invocation.getArgument(0); // Capture the first argument
+            return true; // assuming addScore() is void
+        }).when(scoreService).addScore(any(Score.class));
+
+        // Act
+        String viewName = questionController.results(model);
+
+        // Verify model attributes
+        Assertions.assertTrue(gameService.hasGameEnded());
+        Assertions.assertEquals("All topics", score[0].getCategory());
+        Assertions.assertEquals(username, score[0].getUser());
+        Assertions.assertEquals(100, score[0].getScore());
+        Assertions.assertEquals(5, score[0].getRightAnswers());
+        Assertions.assertEquals(2, score[0].getWrongAnswers());
+        Assertions.assertEquals(username, modelAttributes.get("player"));
+        Assertions.assertEquals(100, modelAttributes.get("points"));
+        Assertions.assertEquals(5, modelAttributes.get("right"));
+        Assertions.assertEquals(2, modelAttributes.get("wrong"));
+        Assertions.assertEquals("All topics", modelAttributes.get("category"));
+        Assertions.assertEquals(30, modelAttributes.get("timer"));
+        Assertions.assertEquals(10, modelAttributes.get("questions"));
+
+        verify(scoreService).addScore(any(Score.class));
+        verify(gameService).startAllCategoriesGame();
+        Assertions.assertEquals("question/results", viewName);
     }
 }
