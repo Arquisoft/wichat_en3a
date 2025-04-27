@@ -147,7 +147,7 @@ public class QuestionController {
 
         }
         score.setQuestions(gameService.getGame().getQuestionList());
-        Score addedScore = scoreService.addAndGetScore(score);
+        Score addedScore = scoreService.addScore(score);
         if(addedScore == null){
             model.addAttribute("addError", true);
         } else{

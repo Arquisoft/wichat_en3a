@@ -434,7 +434,7 @@ public class QuestionControllerTests {
         // Mock score service
         doAnswer(invocation -> {
             score[0] = invocation.getArgument(0); // Capturamos el primer argumento
-            return true; // asumiendo que addScore() es void
+            return new Score(); // asumiendo que addScore() es void
         }).when(scoreService).addScore(any(Score.class));
 
         // Act
@@ -512,7 +512,7 @@ public class QuestionControllerTests {
         // Mock score service
         doAnswer(invocation -> {
             score[0] = invocation.getArgument(0); // Capture the first argument
-            return true; // assuming addScore() is void
+            return new Score(); // assuming addScore() is void
         }).when(scoreService).addScore(any(Score.class));
 
         // Act
