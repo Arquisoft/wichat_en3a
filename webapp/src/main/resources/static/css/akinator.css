@@ -1,5 +1,12 @@
-:root {
-    font-size: 16px; /* Base para rem (1rem = 16px por defecto) */
+main {
+    background-color: #302c30;
+    border-radius: 0.5rem !important;
+    padding: 15px 20px; /* Espaciado interno */
+    margin: 0; /* Eliminar márgenes por defecto */
+    border: none; /* Remove borders */
+}
+h1 {
+    color:#f5d58c;
 }
 
 .akinator-container {
@@ -27,6 +34,7 @@ p {
     place-items: center;
     margin: 0;
     text-align: center; /* Alinea el texto al centro */
+    font-size: 1.3rem;
 }
 
 .oracle-text {
@@ -47,9 +55,8 @@ p {
 #question {
     flex: 1;
     padding: 0.625rem 0.9375rem; /* 10px 15px → 0.625rem 0.9375rem */
-    border: 0.125rem solid #1a73e8; /* 2px → 0.125rem */
     border-radius: 0.5rem;       /* 8px → 0.5rem */
-    font-size: 1rem;            /* 16px → 1rem */
+    font-size: 1.3rem;            /* 16px → 1rem */
     outline: none;
     transition: border 0.3s;
 }
@@ -57,11 +64,24 @@ p {
 /* Botón */
 #questionSubmit {
     padding: 0.625rem 1.25rem;   /* 10px 20px → 0.625rem 1.25rem */
-    background-color: #1a73e8;
-    color: white;
     border: none;
     border-radius: 0.5rem;       /* 8px → 0.5rem */
     font-size: 1rem;             /* 16px → 1rem */
     cursor: pointer;
     transition: background 0.3s;
+}
+
+button {
+    display: block;
+    margin: 0 auto; /* Centrado horizontal */
+    font-size: 1.3rem !important;
+    width:75% !important;
+}
+
+#answerButtons{
+    width:100%;
+}
+
+#answerButtons form{
+    margin-bottom:1rem;
 }
