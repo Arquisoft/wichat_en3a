@@ -1,4 +1,4 @@
-package com.uniovi.wichatwebapp.entitites;
+package entities;
 
 import entities.QuestionCategory;
 import org.junit.jupiter.api.Assertions;
