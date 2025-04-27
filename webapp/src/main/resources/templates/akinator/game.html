@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="fragments/head :: head('Question')"></th:block>
+    <link rel="stylesheet" href="/css/home.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/nav.css"/>
+    <link rel="stylesheet" href="/css/akinator.css"/>
+</head>
+<body class="akinator-container">
+    <nav th:replace="fragments/nav"></nav>
+    <main>
+        <h1>Oracle’s Veil</h1>
+            <div id="oracle-container">
+                <img src="/images/oracle.png" alt="Oracle" class="imagen-oracle">
+                <p class="oracle-text" th:text="${ai}"></p>
+            </div>
+            <br>
+            <!--<h3>User</h3>-->
+            <div th:if="${!aiGuesses and (ai.split('The solution').length <= 1)}">
+                <form action="/akinator/askQuestion" method="POST">
+                    <div class="guess-container">
+                        <input type="text" id="question" name="question" placeholder="Ask a question...">
+                        <button id="questionSubmit" type="submit">↵</button>
+                    </div>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+                <form action="/akinator/end" method="POST">
+                    <button type="submit">End game</button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+            </div>
+            <div th:if="${aiGuesses && (ai.split('My guess').length <= 1)}">
+                <form action="/akinator/yes" method="POST">
+                    <button type="submit">Yes</button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+                <form action="/akinator/probablyYes" method="POST">
+                    <button type="submit">Probably yes</button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+                <form action="/akinator/dontKnow" method="POST">
+                    <button type="submit">Don't know</button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+                <form action="/akinator/probablyNo" method="POST">
+                    <button type="submit">Probably no</button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+                <form action="/akinator/no" method="POST">
+                    <button type="submit">No</button>
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+            </div>
+            <br>
+    </main>
+</body>
+</html>

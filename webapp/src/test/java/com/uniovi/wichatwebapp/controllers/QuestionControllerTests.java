@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 
@@ -405,7 +406,12 @@ public class QuestionControllerTests {
         // Mock authentication
         Authentication auth = mock(Authentication.class);
         when(auth.getName()).thenReturn(username);
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        //SecurityContextHolder.getContext().setAuthentication(auth);
+
+        SecurityContextHolder.clearContext();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(auth); // your mocked auth
+        SecurityContextHolder.setContext(context);
 
         // Mock model behavior
         when(model.addAttribute(anyString(), any())).thenAnswer(invocation -> {
@@ -426,7 +432,7 @@ public class QuestionControllerTests {
         // Mock score service
         doAnswer(invocation -> {
             score[0] = invocation.getArgument(0); // Capturamos el primer argumento
-            return null; // asumiendo que addScore() es void
+            return true; // asumiendo que addScore() es void
         }).when(scoreService).addScore(any(Score.class));
 
         // Act

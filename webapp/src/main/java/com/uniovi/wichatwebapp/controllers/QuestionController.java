@@ -125,7 +125,4 @@ public class QuestionController {
         return "question/results";
     }
 
-
-
-
 }

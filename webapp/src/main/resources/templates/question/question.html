@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <th:block th:insert="fragments/head :: head('Question')"></th:block>
@@ -16,13 +16,16 @@
         <!-- Columna del juego -->
         <div class="game-container">
             <div class="question-text-container">
-                <h1 class="text-center mb-4" th:text="${question.getContent()}">The question will be here</h1>
+                <h1 id="questionText" class="text-center mb-4" th:data-content="${question.getContent()}">
+                    <!-- The question will be displayed here letter by letter -->
+                </h1>
             </div>
 
             <div class="stats">
                 <h3 id="points" th:text="'Points : ' + ${points}"></h3>
 
-                <canvas id="timer" class="small-timer"></canvas>
+                <canvas id="timer" class="small-timer hidden"></canvas>
+                <div th:replace="fragments/loader-bar"></div> <!-- Ensure correct fragment path -->
             </div>
 
             <!-- Fila para las respuestas y el chat -->
@@ -33,7 +36,7 @@
                     <div class="row answer-row" id="answers">
                         <div class="col-md-6 answer-div" th:each="answer, iterStat : ${question.getAnswers()}">
                             <button type="button"
-                                    th:id= "${answer.getId()}"
+                                    th:id= "${answer.getId()}"w
                                     class="btn btn-primary answer-button"
 
                                     th:attr="onclick='checkAnswer(\''+${answer.getId()}+'\')'">
@@ -49,14 +52,17 @@
         </div>
     </div>
 </div>
+<script src="/script/loader-bar.js"></script>
 <div class="col-md-4 chat-button">
     <div th:replace="fragments/chat"></div>
 </div>
 <script src="/script/hint.js"></script>
 
+
 <script th:inline="javascript">
     /*<![CDATA[*/
         setUpTimer([[${timer}]]);
+        setUpLoaderBar([[${timer}]]);
     /*]]>*/
 </script>
 </body>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="fragments/head :: head('500 - Server Error')"></th:block>
+    <link rel="stylesheet" href="/css/nav.css"/>
+    <link rel="stylesheet" href="/css/error.css"/>
+</head>
+<body>
+    <nav th:replace="fragments/nav"></nav>
+    <div class="container mt-5 text-center">
+        <div class="error-container">
+            <h1>500</h1>
+            <h2>Internal Server Error</h2>
+            <p>Something went wrong on our end. Please try again later.</p>
+            <a href="/home" class="btn btn-primary">Go Home</a>
+        </div>
+    </div>
+</body>
+</html>
