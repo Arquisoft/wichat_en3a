@@ -1,0 +1,9 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-introduction-and-goals]]
+== Testing
+=== Load testing
+=== Functional testing
+Unit and acceptance tests were done to ensure that neither the users nor the application did something they weren't supposed to
+
+The unit tests were done with JUnit 5 and Mockito for creating the mocks for the tests. The acceptance tests were done using
