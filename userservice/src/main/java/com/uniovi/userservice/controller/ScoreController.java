@@ -58,12 +58,11 @@ public class ScoreController {
         User user = userService.findByEmail(score.getUser());
         if(user.isCorrect()){
             score.setUser_id(user.getId());
-            scoreService.addScore(score);
+            Score addedScore = scoreService.addScore(score);
+            return addedScore;
         }else{
             throw new UserNotFoundException(score.getUser());
         }
-
-        return score;
 
     }
 

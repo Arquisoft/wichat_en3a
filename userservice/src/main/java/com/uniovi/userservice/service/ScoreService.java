@@ -17,8 +17,8 @@ public class ScoreService {
         this.scoreRepository = scoreRepository;
     }
 
-    public void addScore(Score score) {
-        scoreRepository.save(score);
+    public Score addScore(Score score) {
+        return scoreRepository.save(score);
     }
 
     public List<Score> findBestScores(String user) {
