@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <th:block th:insert="fragments/head"></th:block>
+  <link rel="stylesheet" href="/css/home.css"/>
+  <link rel="stylesheet" href="/css/forms_home.css"/>
+</head>
+
+<body class="home-bg">
+  <nav th:replace="fragments/nav"></nav>
+  <main class="menu-container">
+    <!-- Combobox dinámico desde Enum -->
+    <form action="/akinator" method="POST" onsubmit="waitingCursor()">
+      <h1>Oracle’s Veil</h1>
+      <label for="category">Choose a category:</label>
+
+      <!-- Combobox dinámico desde Enum -->
+      <select id="category" name="category" required>
+        <option value="" disabled selected>-- Chose an option--</option>
+        <option
+                th:each="category : ${categories}"
+                th:value="${category.name()}"
+                th:text="${category.toString()}"
+        ></option>
+      </select>
+
+      <label for="mode">Choose a mode:</label>
+      <select id="mode" name="mode" required>
+        <option value="" disabled selected>-- Chose an option--</option>
+        <option value="ai">Oracle Guesses</option>
+        <option value="player">Player Guesses</option>
+      </select>
+
+      <p></p>
+      <!-- Botón de enviar -->
+      <button class="small-button" type="submit">Play</button>
+
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    </form>
+  </main>
+</body>
+</html>

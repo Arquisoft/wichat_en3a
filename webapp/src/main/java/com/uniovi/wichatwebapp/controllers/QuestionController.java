@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 public class QuestionController {
     private final GameService gameService;
@@ -32,6 +33,14 @@ public class QuestionController {
         gameService.start(category, timerSeconds, questionCount);
         return "redirect:/game/question";
     }
+
+    @RequestMapping(value="/game/categories/start", method = RequestMethod.GET)
+    public String createAllCategoriesGame( ) {
+        gameService.startAllCategoriesGame();
+        return "redirect:/game/question";
+    }
+
+
 
     @RequestMapping(value="/play/{id}", method = RequestMethod.GET)
     public String multiplayerGame(@PathVariable String id, Model model) {
@@ -55,7 +64,6 @@ public class QuestionController {
         gameService.start(score.getQuestions(), QuestionCategory.valueOf(score.getCategory()));
         return "redirect:/game/question";
     }
-
 
     @RequestMapping(value="/game/start/{category}")
     public String startGame(@PathVariable QuestionCategory category) {
@@ -125,25 +133,34 @@ public class QuestionController {
         model.addAttribute("points", gameService.getPoints());
         model.addAttribute("right", gameService.getRightAnswers());
         model.addAttribute("wrong", gameService.getWrongAnswers());
-        model.addAttribute("category", gameService.getCategory().name());
-
         model.addAttribute("timer", gameService.getTimer());
         model.addAttribute("questions", gameService.getMaxQuestions());
 
-        Score score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
+        Score score;
+        if(gameService.getCategory()==null){
+            model.addAttribute("category","All topics");
+            score = new Score(username, "All topics", gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
+
+        }
+        else {
+            model.addAttribute("category", gameService.getCategory().name());
+            score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
+
+        }
         score.setQuestions(gameService.getGame().getQuestionList());
         if(!scoreService.addScore(score)){
             model.addAttribute("addError", true);
         } else{
             model.addAttribute("scoreID", score.getId());
         }
-
-        gameService.start(gameService.getCategory());
+        if(gameService.getCategory()==null){
+            gameService.startAllCategoriesGame();
+        }
+        else{
+            gameService.start(gameService.getCategory());
+        }
 
         return "question/results";
     }
-
-
-
 
 }

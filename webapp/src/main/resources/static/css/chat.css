@@ -10,7 +10,7 @@
 /* Estilos generales */
 .chat-container {
     height: 400px;
-    font-family: Minecraft, Arial, sans-serif;
+    font-family: PixelOperator, Arial, sans-serif;
     position: relative;
 }
 
@@ -47,10 +47,12 @@
 
 #exitButton{
     flex-basis: 10%;
+    background-color: #c4272f;
 }
 
 #header-text{
     flex-basis: 70%;
+    font-size: 1.5rem;
 }
 
 #chatMessages {
@@ -75,7 +77,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-right: 5px;
-    font-size: 14px; /* Tamaño de la fuente */
+    font-size: 1rem; /* Tamaño de la fuente */
 }
 
 #sendMessage {
@@ -101,6 +103,7 @@
     margin-bottom: 10px;
     border-radius: 8px;
     max-width: 80%;
+    font-size: 1rem;
 }
 
 .ai-message {
@@ -158,11 +161,23 @@
 @media(max-width: 1000px) {
     .chat-wrapper-chat-visible {
         right: 5%;
-        transform: translateX(-50%); /* Center the chat box */
+        transform: translateX(0%); /* Center the chat box */
         left: 50%; /* Center relative to screen */
     }
     
     #chatBox {
         transform: translateX(-50%); /* Center the chatbox */
+    }
+}
+
+@media(max-width: 765px) {
+    .chat-wrapper {
+        top: 25% !important;
+    }
+}
+
+@media(max-width: 480px) {
+    .chat-wrapper {
+        top: 20% !important;
     }
 }

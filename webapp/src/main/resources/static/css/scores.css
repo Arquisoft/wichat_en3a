@@ -1,6 +1,6 @@
 /* Main body background */
 body {
-    font-family: 'Minecraft';
+    font-family: 'PixelOperator';
     min-height: 100vh;
     margin: 0;
     background-image: url('../images/Background.png');
@@ -51,7 +51,7 @@ body {
 
 .pure-bg-table td,
 .pure-bg-table th {
-    font-size: 1rem; /* Slightly smaller text */
+    font-size: 1.2rem; /* Slightly smaller text */
     padding: 20px 15px !important; /* Adjusted padding */
 }
 
@@ -79,7 +79,6 @@ body {
 .no-scores {
     bottom: 60px;
 }
-
 
 @media screen and (max-width: 768px) {
     .container{

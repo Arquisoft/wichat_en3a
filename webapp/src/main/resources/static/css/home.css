@@ -35,15 +35,15 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    height: 200px; /* Adjust height as needed */
+    height: 150px; /* Adjust height as needed */
     width: 100%; /* Full width */
-    margin-top: 200px; /* Add spacing from the previous content */
+    margin-top: 100px; /* Add spacing from the previous content */
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    transform: scale(3);
-    margin-bottom: 200px;
+    transform: scale(2);
+    margin-bottom: 100px;
     text-align: center;
     overflow: hidden; /* Ensure content stays within the frame */
 }

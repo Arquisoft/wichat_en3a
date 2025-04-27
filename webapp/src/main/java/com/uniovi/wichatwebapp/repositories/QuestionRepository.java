@@ -30,7 +30,18 @@ public class QuestionRepository {
                 .bodyToMono(Question.class)
                 .block();
     }
-
+    public Question getRandomQuestionNoCategory(){
+        return webClientBuilder
+                .baseUrl(baseUrl) // Set base URL here or in config
+                .build()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/game/newQuestion/NO_CATEGORY")
+                        .build())
+                .retrieve()
+                .bodyToMono(Question.class)
+                .block();
+    }
     /*
     public Question getQuestion(String id){
         return webClientBuilder

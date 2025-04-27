@@ -1,0 +1,31 @@
+form {
+    color: white; /* Ensure text inside the card is white */
+    background-color: #272a35;
+    border-radius: 0.5rem !important;
+    padding: 15px 20px; /* Espaciado interno */
+    margin: 0; /* Eliminar márgenes por defecto */
+    border: none; /* Remove borders */
+}
+
+h1 {
+    color:#ff96c7;
+}
+
+label{
+    margin-top: 2rem;
+    font-size: 1.3em;
+}
+
+select,input {
+    font-size: 1.3rem !important;
+}
+
+small {
+    font-size: 1rem;
+}
+
+button {
+    display: block;
+    margin: 0 auto; /* Centrado horizontal */
+    font-size: 1.3rem !important;
+}

@@ -1,29 +1,26 @@
 package com.uniovi.wichatwebapp.services;
 
+import com.uniovi.wichatwebapp.entities.AbstractGame;
 import com.uniovi.wichatwebapp.entities.Game;
 
-import com.uniovi.wichatwebapp.services.questionstrategies.GameQuestionStrategy;
-import com.uniovi.wichatwebapp.services.questionstrategies.PredefinedQuestionsStrategy;
-import com.uniovi.wichatwebapp.services.questionstrategies.RandomQuestionStrategy;
+import com.uniovi.wichatwebapp.entities.GameAllCategories;
 import entities.Question;
 import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.util.List;
+
 
 @Service
 @SessionScope
 public class GameService {
 
     private final QuestionService questionService;
-    private Game game;
-    private GameQuestionStrategy gameQuestionStrategy;
-
+    private AbstractGame game;
     public GameService(QuestionService questionService) {
         this.questionService = questionService;
     }
-
+    private QuestionCategory category;
     public void correctAnswer(){
         game.correctAnswer();
     }
@@ -36,24 +33,25 @@ public class GameService {
 
     public void start(QuestionCategory category){
         game = new Game(category);
-        gameQuestionStrategy = new RandomQuestionStrategy(game, questionService);
+        this.category = category;
         nextQuestion();
     }
 
     public void start(QuestionCategory category, int timer, int questions){
         game = new Game(category, timer, questions);
-        gameQuestionStrategy = new RandomQuestionStrategy(game, questionService);
-        nextQuestion();
+        game.nextQuestion(questionService);
     }
 
-    public void start(List<Question> questions, QuestionCategory category){
-        game = new Game(category);
-        gameQuestionStrategy = new PredefinedQuestionsStrategy(game, questions);
-        nextQuestion();
+    public void startAllCategoriesGame(){
+        game = new GameAllCategories();
+        this.category=null;
+        game.nextQuestion(questionService);
     }
+
+
 
     public QuestionCategory getCategory(){
-        return game.getCategory();
+        return category;
     }
 
     public boolean hasGameEnded(){
@@ -61,7 +59,7 @@ public class GameService {
     }
 
     public void nextQuestion(){
-        gameQuestionStrategy.nextQuestion();
+        game.nextQuestion(questionService);
     }
 
     public Question getCurrentQuestion() {
@@ -92,7 +90,9 @@ public class GameService {
         return game.getMaxNumberOfQuestions();
     }
 
-    public Game getGame() {
+    public AbstractGame getGame() {
         return game;
     }
+
+
 }

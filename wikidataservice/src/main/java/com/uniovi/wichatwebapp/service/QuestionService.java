@@ -8,7 +8,7 @@ import entities.AnswerCategory;
 import entities.Question;
 import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.Random;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -112,7 +112,7 @@ public class QuestionService {
         Collections.shuffle(validQuestions, new Random());
 
         if (!validQuestions.isEmpty()) {
-            Question randomQuestion = validQuestions.get(0); // Get the first random question
+            Question randomQuestion = validQuestions.getFirst(); // Get the first random question
 
             // Ensure the question has a set of valid answers (correct and distractors)
             List<Answer> possibleAnswers = new ArrayList<>();
@@ -206,7 +206,7 @@ public class QuestionService {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         return optionalAnswer.orElse(null);
     }
-
+/*
     @Transactional
     public void saveAllQuestionsBatch(List<Question> questions) {
         questionRepository.saveAll(questions);
@@ -214,5 +214,12 @@ public class QuestionService {
     @Transactional
     public void saveAllAnswersBatch(List<Answer> answers) {
         answerRepository.saveAll(answers);
+    }
+*/
+    public Question getRandomQuestionNoCategory(String language) {
+        Random random = new Random();
+        QuestionCategory[] categories = QuestionCategory.values();
+        QuestionCategory randomCategory = categories[random.nextInt(categories.length)];
+        return getRandomQuestion(language,randomCategory);
     }
 }
