@@ -36,6 +36,15 @@
                     <p>-Personalize your question game by picking the number of questions and timer.</p>
                 </div>
             </div>
+
+            <div class="tooltip-container">
+                <a href="/game/categories/start" class="game-link big-button-anchor" sec:authorize="isAuthenticated()" onclick="waitingCursor()">
+                    All topics
+                </a>
+                <div class="tooltip">
+                    <p>-Play your question game with all topics instead of one.</p>
+                </div>
+            </div>
             <div class="tooltip-container">
                 <a href="/akinator" class="game-link big-button-anchor" sec:authorize="isAuthenticated()" onclick="waitingCursor()">
                     Oracle’s Veil
@@ -59,21 +68,6 @@
                     <p>-If a letter is not correct, it would be gray.</p>
                 </div>
             </div>
-            <button id="startGameButton" class="game-link big-button-anchor" onclick="startGame()" sec:authorize="isAuthenticated()">
-                Start Game
-            </button>
-            <a href="/game/personalized" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-                Custom Game
-            </a>
-            <a href="/game/categories/start" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-                 All Topics
-            </a>
-            <a href="/akinator" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-                Oracle’s Veil
-            </a>
-            <a href="/wordle/start" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-                Wordle
-            </a>
         </div>
     </div>
     <script src="/script/home.js"></script>
