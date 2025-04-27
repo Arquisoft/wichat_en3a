@@ -19,15 +19,9 @@
       <p class="card-text">Score: <strong id="playerScore" th:text="${points}"></strong></p>
       <p class="card-text">Right answers: <strong id="rightAnswers" th:text="${right}"></strong></p>
       <p class="card-text">Wrong answers: <strong id="wrongAnswers" th:text="${wrong}"></strong></p>
-
-
-      <a th:href="'/game/start/'+${category}+'/'+${timer}+'/'+${questions}" onclick="waitingCursor()">Play Again?</a>
-
-      <br>
-
-      <a href="/user/scores" onclick="waitingCursor()">Check your scores</a>
-
     </div>
+    <a class="game-link big-button-anchor" th:href="'/game/start/'+${category}+'/'+${timer}+'/'+${questions}" onclick="waitingCursor()">Play Again?</a>
+    <a class="game-link big-button-anchor" href="/user/scores" onclick="waitingCursor()">Check your scores</a>
 
   </div>
 </div>

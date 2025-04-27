@@ -161,11 +161,23 @@
 @media(max-width: 1000px) {
     .chat-wrapper-chat-visible {
         right: 5%;
-        transform: translateX(-50%); /* Center the chat box */
+        transform: translateX(0%); /* Center the chat box */
         left: 50%; /* Center relative to screen */
     }
     
     #chatBox {
         transform: translateX(-50%); /* Center the chatbox */
+    }
+}
+
+@media(max-width: 765px) {
+    .chat-wrapper {
+        top: 25% !important;
+    }
+}
+
+@media(max-width: 480px) {
+    .chat-wrapper {
+        top: 20% !important;
     }
 }
