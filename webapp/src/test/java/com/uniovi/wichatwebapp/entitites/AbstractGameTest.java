@@ -144,4 +144,12 @@ public class AbstractGameTest {
         Assertions.assertEquals(1, game.getWrongAnswers());
         Assertions.assertEquals(175, game.getPoints()); // 100 + (-25) + 100
     }
+
+    @Test
+    void hasQuestionTest(){
+        Question question2 = new Question(new Answer("Berlin", "en"), "Capital of Germany?", "no-image");
+        Assertions.assertFalse(game.isQuestionInGame(question2));
+        game.setCurrentQuestion(question2);
+        Assertions.assertTrue(game.isQuestionInGame(question2));
+    }
 }

@@ -11,6 +11,6 @@ import java.util.List;
 
 @Repository
 public interface ScoreRepository extends MongoRepository<Score, String> {
-    @Query("{'user':  ?0}")
-    List<Score> findBestByUser(Sort sort, String user);
+    @Query("{'email':  ?0}")
+    List<Score> findBestByEmail(Sort sort, String user);
 }

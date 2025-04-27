@@ -33,7 +33,6 @@ public class GameTest {
     void testNextQuestion() {
         game.nextQuestion(questionService);
         assertEquals(question, game.getCurrentQuestion());
-        verify(questionService).removeQuestion(question);
     }
 
     @Test

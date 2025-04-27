@@ -4,11 +4,14 @@ import com.uniovi.wichatwebapp.entities.AbstractGame;
 import com.uniovi.wichatwebapp.entities.Game;
 
 import com.uniovi.wichatwebapp.entities.GameAllCategories;
+import com.uniovi.wichatwebapp.entities.MultiPlayerGame;
 import entities.Question;
 import entities.QuestionCategory;
+import entities.Score;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.List;
 
 
 @Service
@@ -30,6 +33,7 @@ public class GameService {
     public void wrongAnswer(){
         game.wrongAnswer();
     }
+    private boolean isMultiplayer = false;
 
     public void start(QuestionCategory category){
         game = new Game(category);
@@ -39,6 +43,16 @@ public class GameService {
 
     public void start(QuestionCategory category, int timer, int questions){
         game = new Game(category, timer, questions);
+        this.category = category;
+        game.nextQuestion(questionService);
+    }
+
+    public void start(QuestionCategory category, Score score){
+        game = new MultiPlayerGame(score.getQuestions(), category, score.getScore());
+        this.isMultiplayer = true;
+        this.category = category;
+        game.setTimer(score.getQuestionTime());
+        game.setMaxNumberOfQuestions(score.getQuestions().size() - 1);
         game.nextQuestion(questionService);
     }
 
@@ -48,6 +62,12 @@ public class GameService {
         game.nextQuestion(questionService);
     }
 
+    public int getMultiPlayerScore(){
+        if(isMultiplayer) {
+            return ((MultiPlayerGame) game).getScore();
+        }
+        return 0;
+    }
 
 
     public QuestionCategory getCategory(){
@@ -92,6 +112,10 @@ public class GameService {
 
     public AbstractGame getGame() {
         return game;
+    }
+
+    public boolean isMultiplayer() {
+        return isMultiplayer;
     }
 
 

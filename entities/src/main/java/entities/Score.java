@@ -2,6 +2,10 @@ package entities;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
+
+import java.util.List;
 
 @Document(collection = "scores")
 public class Score {
@@ -15,6 +19,9 @@ public class Score {
     private int score;
     private int rightAnswers;
     private int wrongAnswers;
+    private List<Question> questions;
+    private int questionTime;
+    private String email;
 
     public Score(){
     }
@@ -30,6 +37,14 @@ public class Score {
         this.score = score;
         this.rightAnswers = rightAnswers;
         this.wrongAnswers = wrongAnswers;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getId() {
@@ -86,5 +101,21 @@ public class Score {
 
     public void setWrongAnswers(int wrongAnswers) {
         this.wrongAnswers = wrongAnswers;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public int getQuestionTime() {
+        return questionTime;
+    }
+
+    public void setQuestionTime(int questionTime) {
+        this.questionTime = questionTime;
     }
 }

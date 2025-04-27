@@ -71,4 +71,19 @@ public class QuestionTest {
         Assertions.assertEquals(newAnswers, question.getAnswers());
         Assertions.assertEquals("es", question.getLanguage());
     }
+
+    @Test
+    void equalsHashMapTest(){
+        Question question1 = new Question(correctAnswer, questionContent, imageUrl);
+        Question question2 = new Question(correctAnswer, questionContent, imageUrl);
+
+        Assertions.assertEquals(question1, question2);
+        Assertions.assertEquals(question1.hashCode(), question2.hashCode());
+
+        // question with different values
+        Question question3 = new Question(new Answer("Berlin", "de"), "What is the capital of Germany?", "germany.jpg");
+        Assertions.assertNotEquals(question1, question3);
+        Assertions.assertNotEquals(question1.hashCode(), question3.hashCode());
+
+    }
 }

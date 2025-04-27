@@ -4,10 +4,8 @@ import com.uniovi.wichatwebapp.dto.AnswerDto;
 import com.uniovi.wichatwebapp.entities.*;
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.ScoreService;
-import entities.Answer;
-import entities.Question;
-import entities.QuestionCategory;
-import entities.Score;
+import com.uniovi.wichatwebapp.services.UserService;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,6 +36,9 @@ public class QuestionControllerTests {
 
     @Mock
     private ScoreService scoreService;
+
+    @Mock
+    private UserService userService;
 
     @Mock
     private Model model;
@@ -402,6 +404,7 @@ public class QuestionControllerTests {
         Map<String, Object> modelAttributes = new HashMap<>();
         QuestionCategory category = QuestionCategory.GEOGRAPHY;
         String username = "testUser";
+        User user = new User(username, username + "@mail.com", "123", true);
 
         // Mock authentication
         Authentication auth = mock(Authentication.class);
@@ -418,6 +421,7 @@ public class QuestionControllerTests {
             modelAttributes.put(invocation.getArgument(0), invocation.getArgument(1));
             return model;
         });
+        Game game = new Game(category);
 
         // Mock game service responses
         when(gameService.hasGameEnded()).thenReturn(true);
@@ -427,12 +431,14 @@ public class QuestionControllerTests {
         when(gameService.getWrongAnswers()).thenReturn(2);
         when(gameService.getTimer()).thenReturn(30);
         when(gameService.getMaxQuestions()).thenReturn(10);
+        when(gameService.getGame()).thenReturn(game);
+        when(userService.getUserByEmail(username)).thenReturn(user);
 
         final Score[] score = {null};
         // Mock score service
         doAnswer(invocation -> {
             score[0] = invocation.getArgument(0); // Capturamos el primer argumento
-            return true; // asumiendo que addScore() es void
+            return new Score(); // asumiendo que addScore() es void
         }).when(scoreService).addScore(any(Score.class));
 
         // Act
@@ -478,6 +484,7 @@ public class QuestionControllerTests {
         // Arrange
         Map<String, Object> modelAttributes = new HashMap<>();
         String username = "testUser";
+        User user = new User(username, username + "@mail.com", "123", true);
 
         // Mock authentication
         Authentication auth = mock(Authentication.class);
@@ -494,6 +501,8 @@ public class QuestionControllerTests {
             return model;
         });
 
+        GameAllCategories game = new GameAllCategories();
+
         // Mock game service responses
         when(gameService.hasGameEnded()).thenReturn(true);
         when(gameService.getCategory()).thenReturn(null);
@@ -502,12 +511,14 @@ public class QuestionControllerTests {
         when(gameService.getWrongAnswers()).thenReturn(2);
         when(gameService.getTimer()).thenReturn(30);
         when(gameService.getMaxQuestions()).thenReturn(10);
+        when(gameService.getGame()).thenReturn(game);
+        when(userService.getUserByEmail(username)).thenReturn(user);
 
         final Score[] score = {null};
         // Mock score service
         doAnswer(invocation -> {
             score[0] = invocation.getArgument(0); // Capture the first argument
-            return true; // assuming addScore() is void
+            return new Score(); // assuming addScore() is void
         }).when(scoreService).addScore(any(Score.class));
 
         // Act
@@ -531,5 +542,63 @@ public class QuestionControllerTests {
         verify(scoreService).addScore(any(Score.class));
         verify(gameService).startAllCategoriesGame();
         Assertions.assertEquals("question/results", viewName);
+    }
+
+    @Test
+    void multiplayerGameValidId() {
+        String gameId = "validId";
+        Score mockScore = new Score("testUser", "GEOGRAPHY", 100, 5, 2);
+        mockScore.setId(gameId);
+        mockScore.setQuestionTime(30);
+        mockScore.setQuestions(List.of(new Question(new Answer("Madrid", "en"), "Capital of Spain?", "no-image")));
+
+        when(scoreService.getScore(gameId)).thenReturn(mockScore);
+
+        String viewName = questionController.multiplayerGame(gameId, model);
+
+        verify(model).addAttribute("otherPlayer", mockScore.getUser());
+        verify(model).addAttribute("score", mockScore.getScore());
+        verify(model).addAttribute("category", mockScore.getCategory());
+        verify(model).addAttribute("questionTime", mockScore.getQuestionTime());
+        verify(model).addAttribute("numberOfQuestions", mockScore.getQuestions().size() - 1);
+        verify(model).addAttribute("gameId", mockScore.getId());
+        Assertions.assertEquals("multiplayer/details", viewName);
+    }
+
+    @Test
+    void multiplayerGameInvalidId() {
+        String gameId = "invalidId";
+
+        when(scoreService.getScore(gameId)).thenReturn(null);
+
+        String viewName = questionController.multiplayerGame(gameId, model);
+
+        Assertions.assertEquals("redirect:/home", viewName);
+    }
+
+    @Test
+    void startMultiplayerGameValidId() {
+        String gameId = "validId";
+        Score mockScore = new Score("testUser", "GEOGRAPHY", 100, 5, 2);
+        mockScore.setId(gameId);
+        mockScore.setQuestions(List.of(new Question(new Answer("Madrid", "en"), "Capital of Spain?", "no-image")));
+
+        when(scoreService.getScore(gameId)).thenReturn(mockScore);
+
+        String viewName = questionController.startMultiplayerGame(gameId);
+
+        verify(gameService).start(QuestionCategory.GEOGRAPHY, mockScore);
+        Assertions.assertEquals("redirect:/game/question", viewName);
+    }
+
+    @Test
+    void startMultiplayerGameInvalidId() {
+        String gameId = "invalidId";
+
+        when(scoreService.getScore(gameId)).thenReturn(null);
+
+        String viewName = questionController.startMultiplayerGame(gameId);
+
+        Assertions.assertEquals("redirect:/home", viewName);
     }
 }
