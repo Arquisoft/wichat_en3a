@@ -8,6 +8,8 @@ import entities.AnswerCategory;
 import entities.Question;
 import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
+
+import java.security.SecureRandom;
 import java.util.Random;
 
 import java.util.*;
@@ -18,6 +20,8 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
     private boolean areAssigned = false;
+
+    private SecureRandom random = new SecureRandom();
 
     public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
@@ -64,7 +68,7 @@ public class QuestionService {
         );
 
         // Shuffle wrong answers and limit to 3 with different getText
-        Collections.shuffle(wrongAnswers, new Random());
+        Collections.shuffle(wrongAnswers, random);
         List<Answer> selectedWrongAnswers = wrongAnswers.stream()
                 .distinct() // Ensure uniqueness
                 .filter(a -> a.getText() != null) // Additional safeguard if needed
@@ -75,7 +79,7 @@ public class QuestionService {
         selectedWrongAnswers.add(question.getCorrectAnswer());
 
         // Shuffle the final list of answers
-        Collections.shuffle(selectedWrongAnswers, new Random());
+        Collections.shuffle(selectedWrongAnswers, random);
 
         // Set answers in the question and save
         question.setAnswers(selectedWrongAnswers);
@@ -109,7 +113,7 @@ public class QuestionService {
                 .collect(Collectors.toList());
 
         // Shuffle the list to randomize the order and pick one
-        Collections.shuffle(validQuestions, new Random());
+        Collections.shuffle(validQuestions, random);
 
         if (!validQuestions.isEmpty()) {
             Question randomQuestion = validQuestions.getFirst(); // Get the first random question
@@ -117,7 +121,7 @@ public class QuestionService {
             // Ensure the question has a set of valid answers (correct and distractors)
             List<Answer> possibleAnswers = new ArrayList<>();
             int count = 1;
-            Collections.shuffle(answers, new Random());
+            Collections.shuffle(answers, random);
             for (Answer answer : answers) {
                 if (count < 4) {
                     if (!answer.getText().equals(randomQuestion.getCorrectAnswer().getText())
@@ -141,7 +145,7 @@ public class QuestionService {
 
             // Add the correct answer and shuffle all answers
             possibleAnswers.add(randomQuestion.getCorrectAnswer());
-            Collections.shuffle(possibleAnswers, new Random());
+            Collections.shuffle(possibleAnswers, random);
 
             randomQuestion.setAnswers(possibleAnswers);
             return randomQuestion;
@@ -217,7 +221,7 @@ public class QuestionService {
     }
 */
     public Question getRandomQuestionNoCategory(String language) {
-        Random random = new Random();
+
         QuestionCategory[] categories = QuestionCategory.values();
         QuestionCategory randomCategory = categories[random.nextInt(categories.length)];
         return getRandomQuestion(language,randomCategory);
