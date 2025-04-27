@@ -55,7 +55,7 @@ public class QuestionController {
         model.addAttribute("score", score.getScore());
         model.addAttribute("category", score.getCategory());
         model.addAttribute("questionTime", score.getQuestionTime());
-        model.addAttribute("numberOfQuestions", score.getQuestions().size());
+        model.addAttribute("numberOfQuestions", score.getQuestions().size() - 1);
         model.addAttribute("gameId", score.getId());
         return "multiplayer/details";
     }

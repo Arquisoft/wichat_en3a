@@ -21,7 +21,7 @@ public class Game extends AbstractGame{
         Question question = questionService.getRandomQuestion(getCategory());
         int tries = 0;
         while(isQuestionInGame(question) &&  tries < 10){
-            question = questionService.getRandomQuestionNoCategory();
+            question = questionService.getRandomQuestion(getCategory());
             tries++;
         }
         setCurrentQuestion(question);
