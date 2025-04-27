@@ -7,6 +7,7 @@ import com.uniovi.wichatwebapp.entities.GameAllCategories;
 import com.uniovi.wichatwebapp.entities.MultiPlayerGame;
 import entities.Question;
 import entities.QuestionCategory;
+import entities.Score;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -46,10 +47,11 @@ public class GameService {
         game.nextQuestion(questionService);
     }
 
-    public void start(List<Question> questions, QuestionCategory category, int score){
-        game = new MultiPlayerGame(questions, category, score);
+    public void start(List<Question> questions, QuestionCategory category, Score score){
+        game = new MultiPlayerGame(questions, category, score.getScore());
         this.isMultiplayer = true;
         this.category = category;
+        game.setTimer(score.getQuestionTime());
         game.nextQuestion(questionService);
     }
 

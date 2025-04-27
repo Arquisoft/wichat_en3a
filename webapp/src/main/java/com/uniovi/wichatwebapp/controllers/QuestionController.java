@@ -66,7 +66,7 @@ public class QuestionController {
         if(score == null){
             return "redirect:/home";
         }
-        gameService.start(score.getQuestions(), QuestionCategory.valueOf(score.getCategory().toUpperCase()), score.getScore());
+        gameService.start(score.getQuestions(), QuestionCategory.valueOf(score.getCategory().toUpperCase()), score);
         return "redirect:/game/question";
     }
 
