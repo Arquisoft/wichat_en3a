@@ -5,6 +5,7 @@ package com.uniovi.userservice.services;
 import com.uniovi.userservice.repository.ScoreRepository;
 import com.uniovi.userservice.service.ScoreService;
 import entities.Score;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -37,7 +39,7 @@ class ScoreServiceTests {
         Score s3 = new Score("test@test.com", "Flags", 700, 10, 0);
 
         //Mock repository response
-        when(scoreRepo.findBestByUser(Sort.by(Sort.Direction.DESC, "score"), "test@test.com")).thenReturn(List.of(s1, s2, s3));
+        when(scoreRepo.findBestByEmail(Sort.by(Sort.Direction.DESC, "score"), "test@test.com")).thenReturn(List.of(s1, s2, s3));
 
         //Execute method
         List<Score> results = scoreService.findBestScores("test@test.com");
@@ -62,13 +64,24 @@ class ScoreServiceTests {
             scores.add(new Score("test@test.com", "Flags", 800, 8, 2));
         }
 
-        when(scoreRepo.findBestByUser(Sort.by(Sort.Direction.DESC, "score"), "test@test.com")).thenReturn(scores);
+        when(scoreRepo.findBestByEmail(Sort.by(Sort.Direction.DESC, "score"), "test@test.com")).thenReturn(scores);
 
         List<Score> results = scoreService.findBestScores("test@test.com");
 
         assertFalse(results.isEmpty());
         assertEquals(10, results.size());
 
+    }
+
+    @Test
+    public void getScoreByIdTest(){
+        Score testScore = new Score();
+        when(scoreRepo.findById("1")).thenReturn(Optional.of(testScore));
+        when(scoreRepo.findById("2")).thenReturn(Optional.empty());
+
+        Score score = scoreService.findScore("1");
+        Assertions.assertEquals(testScore, score);
+        Assertions.assertNull(scoreService.findScore("2"));
     }
 
 }

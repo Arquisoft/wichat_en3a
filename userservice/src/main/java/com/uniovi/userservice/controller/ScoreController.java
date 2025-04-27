@@ -55,19 +55,18 @@ public class ScoreController {
         )
             @RequestBody Score score) {
 
-        User user = userService.findByEmail(score.getUser());
+        User user = userService.findByEmail(score.getEmail());
         if(user.isCorrect()){
             score.setUser_id(user.getId());
-            scoreService.addScore(score);
+            Score addedScore = scoreService.addScore(score);
+            return addedScore;
         }else{
             throw new UserNotFoundException(score.getUser());
         }
 
-        return score;
-
     }
 
-    @Operation(summary = "Gets the 10 best scores of the user")
+    @Operation(summary = "Gets the 10 best scores of the user by their email")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Returns a list with the 10 best scores",
             content = {@Content(mediaType = "application/json",
@@ -77,6 +76,28 @@ public class ScoreController {
     @RequestMapping(value = "/getBestScores", method = RequestMethod.GET)
     public List<Score> getBestScores(@RequestParam String user) {
         return scoreService.findBestScores(user);
+    }
+
+
+    @Operation(summary = "Gets a score by the id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Returns the score matching the id",
+            content = {@Content(mediaType = "application/json",
+            schema = @Schema(implementation = Score.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "Score was not found", content = @Content)
+    })
+    @RequestMapping(value="/getScore", method = RequestMethod.GET)
+    public Score findScore(
+            @RequestParam String id){
+        Score score = scoreService.findScore(id);
+
+        if(score == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Score with that id was not found");
+        }
+
+        return score;
+
     }
 
 }

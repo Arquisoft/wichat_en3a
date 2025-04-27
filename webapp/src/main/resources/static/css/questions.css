@@ -27,7 +27,6 @@ body.bg-light {
     display: flex;
     justify-content: center; /* Center the buttons */
     align-items: center; /* Center vertically */
-    width: 100%; /* Full width of parent container */
 }
 
 .answer-button {
@@ -129,8 +128,6 @@ body.bg-light {
     }
 
     .answer-row {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* Two columns */
         gap: 10px;
         width: 100%;
     }

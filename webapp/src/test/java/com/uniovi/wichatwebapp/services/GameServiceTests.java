@@ -1,15 +1,19 @@
 package com.uniovi.wichatwebapp.services;
 
 import com.uniovi.wichatwebapp.entities.AbstractGame;
+import com.uniovi.wichatwebapp.entities.MultiPlayerGame;
 import entities.Answer;
 import entities.Question;
 import entities.QuestionCategory;
+import entities.Score;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -254,5 +258,63 @@ public class GameServiceTests {
         Assertions.assertEquals(1, gameService.getRightAnswers());
         Assertions.assertEquals(100-25, gameService.getPoints());
         Assertions.assertEquals(1, gameService.getWrongAnswers());
+    }
+
+    @Test
+    public void startMultiplayerGameWithValidScore() {
+        Score mockScore = new Score("player1", "GEOGRAPHY", 150, 10, 5);
+        mockScore.setQuestions(List.of(new Question(new Answer("Berlin", "en"), "Capital of Germany?", "no-image")));
+        mockScore.setQuestionTime(20);
+
+        gameService.start(QuestionCategory.GEOGRAPHY, mockScore);
+
+        AbstractGame game = gameService.getGame();
+        Assertions.assertNotNull(game);
+        Assertions.assertTrue(game instanceof MultiPlayerGame);
+        Assertions.assertEquals(150, gameService.getMultiPlayerScore());
+        Assertions.assertEquals(20, game.getTimer());
+        Assertions.assertEquals(QuestionCategory.GEOGRAPHY, gameService.getCategory());
+    }
+
+    @Test
+    public void startMultiplayerGameWithEmptyQuestions() {
+        Score mockScore = new Score("player1", "BIOLOGY", 0, 0, 0);
+        mockScore.setQuestions(List.of());
+        mockScore.setQuestionTime(15);
+
+        gameService.start(QuestionCategory.BIOLOGY, mockScore);
+
+        AbstractGame game = gameService.getGame();
+        Assertions.assertNotNull(game);
+        Assertions.assertTrue(game instanceof MultiPlayerGame);
+        Assertions.assertEquals(0, gameService.getMultiPlayerScore());
+        Assertions.assertEquals(15, game.getTimer());
+        Assertions.assertEquals(QuestionCategory.BIOLOGY, gameService.getCategory());
+    }
+
+    @Test
+    public void getMultiPlayerScoreWhenNotMultiplayer() {
+        gameService.start(category);
+
+        int score = gameService.getMultiPlayerScore();
+        Assertions.assertEquals(0, score);
+    }
+
+    @Test
+    public void isMultiplayerReturnsTrueForMultiplayerGame() {
+        Score mockScore = new Score("player1", "SPORT", 50, 5, 3);
+        mockScore.setQuestions(List.of(new Question(new Answer("5", "en"), "2+3=?", "no-image")));
+        mockScore.setQuestionTime(10);
+
+        gameService.start(QuestionCategory.SPORT, mockScore);
+
+        Assertions.assertTrue(gameService.isMultiplayer());
+    }
+
+    @Test
+    public void isMultiplayerReturnsFalseForSinglePlayerGame() {
+        gameService.start(category);
+
+        Assertions.assertFalse(gameService.isMultiplayer());
     }
 }

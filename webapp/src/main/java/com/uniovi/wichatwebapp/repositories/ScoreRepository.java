@@ -54,4 +54,18 @@ public class ScoreRepository {
                 .bodyToMono(new ParameterizedTypeReference<List<Score>>() {})
                 .block();
     }
+
+    public Score getScore(String id) {
+        return webClientBuilder
+                .baseUrl(baseUrl)
+                .build()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/getScore")
+                        .queryParam("id", id)
+                        .build())
+                .retrieve()
+                .bodyToMono(Score.class)
+                .block();
+    }
 }
