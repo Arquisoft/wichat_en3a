@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -101,6 +102,18 @@ class ScoreControllerTests {
         Score result = scoreController.findScore("1");
         //Check results
         assertEquals(s1, result);
+    }
+
+    @Test
+    void testGetScoreByIdNonExisting(){
+        //Mock score service response
+        when(scoreService.findScore("1")).thenReturn(null);
+        try{
+            Score result = scoreController.findScore("1");
+            fail("The score was found");
+        } catch(ResponseStatusException e){
+            assertEquals("404 NOT_FOUND \"Score with that id was not found\"", e.getMessage());
+        }
     }
 
 }

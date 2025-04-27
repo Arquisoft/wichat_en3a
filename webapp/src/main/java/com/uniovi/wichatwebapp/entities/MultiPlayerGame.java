@@ -22,6 +22,9 @@ public class MultiPlayerGame extends AbstractGame{
 
     @Override
     public void nextQuestion(QuestionService questionService) {
+        if(currentQuestion >= questions.size()) {
+            return;
+        }
         setCurrentQuestion(questions.get(currentQuestion));
         currentQuestion++;
     }

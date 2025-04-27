@@ -42,4 +42,13 @@ public class ScoreServiceTests {
         Assertions.assertEquals(testsScores, score);
     }
 
+    @Test
+    public void getScoreByIdTest(){
+        when(scoreRepository.getScore("1")).thenReturn(testScore);
+
+        Score score = scoreService.getScore("1");
+        Assertions.assertEquals(testScore, score);
+        Assertions.assertNull(scoreService.getScore("2"));
+    }
+
 }

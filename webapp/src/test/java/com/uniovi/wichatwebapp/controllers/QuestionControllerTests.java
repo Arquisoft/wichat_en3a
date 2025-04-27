@@ -18,6 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -541,5 +542,63 @@ public class QuestionControllerTests {
         verify(scoreService).addScore(any(Score.class));
         verify(gameService).startAllCategoriesGame();
         Assertions.assertEquals("question/results", viewName);
+    }
+
+    @Test
+    void multiplayerGameValidId() {
+        String gameId = "validId";
+        Score mockScore = new Score("testUser", "GEOGRAPHY", 100, 5, 2);
+        mockScore.setId(gameId);
+        mockScore.setQuestionTime(30);
+        mockScore.setQuestions(List.of(new Question(new Answer("Madrid", "en"), "Capital of Spain?", "no-image")));
+
+        when(scoreService.getScore(gameId)).thenReturn(mockScore);
+
+        String viewName = questionController.multiplayerGame(gameId, model);
+
+        verify(model).addAttribute("otherPlayer", mockScore.getUser());
+        verify(model).addAttribute("score", mockScore.getScore());
+        verify(model).addAttribute("category", mockScore.getCategory());
+        verify(model).addAttribute("questionTime", mockScore.getQuestionTime());
+        verify(model).addAttribute("numberOfQuestions", mockScore.getQuestions().size());
+        verify(model).addAttribute("gameId", mockScore.getId());
+        Assertions.assertEquals("multiplayer/details", viewName);
+    }
+
+    @Test
+    void multiplayerGameInvalidId() {
+        String gameId = "invalidId";
+
+        when(scoreService.getScore(gameId)).thenReturn(null);
+
+        String viewName = questionController.multiplayerGame(gameId, model);
+
+        Assertions.assertEquals("redirect:/home", viewName);
+    }
+
+    @Test
+    void startMultiplayerGameValidId() {
+        String gameId = "validId";
+        Score mockScore = new Score("testUser", "GEOGRAPHY", 100, 5, 2);
+        mockScore.setId(gameId);
+        mockScore.setQuestions(List.of(new Question(new Answer("Madrid", "en"), "Capital of Spain?", "no-image")));
+
+        when(scoreService.getScore(gameId)).thenReturn(mockScore);
+
+        String viewName = questionController.startMultiplayerGame(gameId);
+
+        verify(gameService).start(mockScore.getQuestions(), QuestionCategory.GEOGRAPHY, mockScore);
+        Assertions.assertEquals("redirect:/game/question", viewName);
+    }
+
+    @Test
+    void startMultiplayerGameInvalidId() {
+        String gameId = "invalidId";
+
+        when(scoreService.getScore(gameId)).thenReturn(null);
+
+        String viewName = questionController.startMultiplayerGame(gameId);
+
+        Assertions.assertEquals("redirect:/home", viewName);
     }
 }
