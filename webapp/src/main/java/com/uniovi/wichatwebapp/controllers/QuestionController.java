@@ -66,7 +66,12 @@ public class QuestionController {
         if(score == null){
             return "redirect:/home";
         }
-        gameService.start(QuestionCategory.valueOf(score.getCategory().toUpperCase().replace(" ", "_")), score);
+        String category = score.getCategory().toUpperCase().replace(" ", "_");
+        QuestionCategory questionCategory = null;
+        if(!category.equals("ALL_TOPICS")){
+            questionCategory = QuestionCategory.valueOf(category);
+        }
+        gameService.start(questionCategory, score);
         return "redirect:/game/question";
     }
 
