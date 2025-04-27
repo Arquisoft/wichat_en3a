@@ -40,6 +40,7 @@ class ScoreControllerTests {
 
         //Mock user service response
         when(userService.findByEmail("test@test.com")).thenReturn(u);
+        when(scoreService.addScore(s)).thenReturn(s);
 
         //Execute method
         Score result = scoreController.addScore(s);
