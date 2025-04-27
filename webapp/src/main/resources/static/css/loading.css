@@ -1,0 +1,9 @@
+body.waiting {
+    cursor: wait !important;
+}
+
+body.waiting button,
+body.waiting input,
+body.waiting * {
+    cursor: wait !important;
+}
