@@ -77,5 +77,11 @@ public class WordleTest {
         mock.guess("Light");
 
         assertEquals(Wordle.GameStatus.LOSE, mock.getStatus());
+
+        mock.setStatus(Wordle.GameStatus.LOSE);
+        for(int i=0; i<=11; i++) {
+            mock.getAttempts().add("PARIS");
+        }
+        mock.guess("Light");
     }
 }
