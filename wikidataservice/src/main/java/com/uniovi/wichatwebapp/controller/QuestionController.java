@@ -1,6 +1,7 @@
 package com.uniovi.wichatwebapp.controller;
 
 
+import com.uniovi.wichatwebapp.errorHandling.exceptions.*;
 import com.uniovi.wichatwebapp.service.QuestionService;
 
 import entities.Answer;
@@ -42,6 +43,8 @@ public class QuestionController {
                     "], " +
                     "\"correctAnswer\": { \"id\": \"a1\", \"text\": \"France\", \"language\": \"en\", \"category\": \"FLAG\" } " +
                     "}"))}),
+            @ApiResponse(responseCode = "400", description = "Invalid category", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Service unavailable", content = @Content)
     })
     @RequestMapping(
             value = {"/game/newQuestion/{category}"},
@@ -60,7 +63,8 @@ public class QuestionController {
             schema = @Schema(implementation = Answer.class),
             examples = @ExampleObject(value = "{ \"id\": \"a1\", \"text\": \"France\", \"language\": \"en\", \"category\": \"FLAG\" }"))
             }),
-            @ApiResponse(responseCode = "404", description = "Question was not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Question was not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Service unavailable", content = @Content)
     })
     @RequestMapping(
             value = {"/game/getCorrectAnswer/{id}"},
@@ -71,7 +75,7 @@ public class QuestionController {
             @PathVariable String id) {
         Question question = questionService.findQuestionById(id);
         if (question == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found");
+            throw new QuestionNotFoundException();
         }
         return questionService.findAnswerById(question.getCorrectAnswerId());
     }
@@ -83,7 +87,8 @@ public class QuestionController {
             schema = @Schema(implementation = Answer.class),
             examples = @ExampleObject(value = "{ \"id\": \"a1\", \"text\": \"France\", \"language\": \"en\", \"category\": \"FLAG\" }"))
             }),
-            @ApiResponse(responseCode = "404", description = "Answer was not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Answer was not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Service unavailable", content = @Content)
     })
     @RequestMapping(
             value = {"/game/getAnswer/{id}"},
@@ -94,7 +99,7 @@ public class QuestionController {
             @PathVariable String  id) {
         Answer answer = questionService.findAnswerById(id);
         if(answer == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Answer not found");
+            throw new AnswerNotFound();
         }
         return answer;
     }
@@ -102,7 +107,8 @@ public class QuestionController {
     @Operation(summary = "Removes the question matching the id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Deletes the question", content = @Content),
-            @ApiResponse(responseCode = "404", description = "Question not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "Question not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Service unavailable", content = @Content)
     })
     @RequestMapping(
             value = {"/game/removeQuestion/{id}"},
@@ -113,7 +119,7 @@ public class QuestionController {
             @PathVariable String id){
         Question question = questionService.findQuestionById(id);
         if(question == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question not found");
+            throw new QuestionNotFoundException();
         }
         questionService.removeQuestion(question);
     }

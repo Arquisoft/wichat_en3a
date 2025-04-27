@@ -1,5 +1,7 @@
 package com.uniovi.userservice.controller;
 
+import com.uniovi.userservice.errorHandling.exceptions.EmailInUseException;
+import com.uniovi.userservice.errorHandling.exceptions.UserNotFoundException;
 import com.uniovi.userservice.service.UserService;
 import entities.User;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,6 +41,7 @@ public class UserController {
                     "\"email\": \"prueba@prueba.com\"," +
                     "\"password\": \"pruebaPW\"}"))}),
             @ApiResponse(responseCode = "409", description = "User with that email already exists", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Service unavailable", content = @Content)
 
     })
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
@@ -55,7 +58,7 @@ public class UserController {
         User newUser = userService.addUser(user);
 
         if(!newUser.isCorrect()){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "User with that email already exists");
+            throw new EmailInUseException(newUser.getEmail());
         }
 
         return newUser;
@@ -67,7 +70,8 @@ public class UserController {
             content = {@Content(mediaType = "application/json",
             schema = @Schema(implementation = User.class))
             }),
-            @ApiResponse(responseCode = "404", description = "User was not found", content = @Content)
+            @ApiResponse(responseCode = "404", description = "User was not found", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Service unavailable", content = @Content)
     })
     @RequestMapping(value="/getUser", method = RequestMethod.GET)
     public User findUser(
@@ -77,7 +81,7 @@ public class UserController {
         User user = userService.findByEmail(email);
 
         if(!user.isCorrect()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with that email was not found");
+            throw new UserNotFoundException(email);
         }
 
         return user;
