@@ -3,6 +3,7 @@ package com.uniovi.wichatwebapp.controllers;
 import com.uniovi.wichatwebapp.dto.AnswerDto;
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.ScoreService;
+import com.uniovi.wichatwebapp.services.UserService;
 import entities.QuestionCategory;
 import entities.Score;
 import org.springframework.security.core.Authentication;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.*;
 public class QuestionController {
     private final GameService gameService;
     private final ScoreService scoreService;
+    private final UserService userService;
 
-    public QuestionController(GameService gameService, ScoreService scoreService) {
+    public QuestionController(GameService gameService, ScoreService scoreService, UserService userService) {
         this.gameService = gameService;
         this.scoreService = scoreService;
+        this.userService = userService;
     }
 
     @RequestMapping(value="/game/personalized")
@@ -52,6 +55,8 @@ public class QuestionController {
         model.addAttribute("score", score.getScore());
         model.addAttribute("category", score.getCategory());
         model.addAttribute("questionTime", score.getQuestionTime());
+        model.addAttribute("numberOfQuestions", score.getQuestions().size());
+        model.addAttribute("gameId", score.getId());
         return "multiplayer/details";
     }
 
@@ -61,7 +66,7 @@ public class QuestionController {
         if(score == null){
             return "redirect:/home";
         }
-        gameService.start(score.getQuestions(), QuestionCategory.valueOf(score.getCategory()), score.getScore());
+        gameService.start(score.getQuestions(), QuestionCategory.valueOf(score.getCategory().toUpperCase()), score.getScore());
         return "redirect:/game/question";
     }
 
@@ -129,7 +134,7 @@ public class QuestionController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        model.addAttribute("player", username);
+        model.addAttribute("player", userService.getUserByEmail(username).getName());
         model.addAttribute("points", gameService.getPoints());
         model.addAttribute("right", gameService.getRightAnswers());
         model.addAttribute("wrong", gameService.getWrongAnswers());
@@ -147,11 +152,12 @@ public class QuestionController {
 
         }
         score.setQuestions(gameService.getGame().getQuestionList());
+        score.setQuestionTime(gameService.getTimer());
         Score addedScore = scoreService.addScore(score);
         if(addedScore == null){
             model.addAttribute("addError", true);
         } else{
-            model.addAttribute("multiplayerURL", "https://wichat.pablordgz.es/play/" + score.getId());
+            model.addAttribute("multiplayerURL", "https://wichat.pablordgz.es/play/" + addedScore.getId());
         }
         if(gameService.isMultiplayer()){
             model.addAttribute("isMultiplayer", true);

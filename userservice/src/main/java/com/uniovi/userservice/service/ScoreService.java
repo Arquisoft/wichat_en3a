@@ -3,6 +3,7 @@ package com.uniovi.userservice.service;
 
 import com.uniovi.userservice.repository.ScoreRepository;
 import entities.Score;
+import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 

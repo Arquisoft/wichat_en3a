@@ -87,8 +87,6 @@ public class ScoreController {
             }),
             @ApiResponse(responseCode = "404", description = "Score was not found", content = @Content)
     })
-
-
     @RequestMapping(value="/getScore", method = RequestMethod.GET)
     public Score findScore(
             @RequestParam String id){
