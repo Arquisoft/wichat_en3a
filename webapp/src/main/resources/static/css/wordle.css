@@ -21,7 +21,8 @@ body {
 
 .game-container {
     text-align: center;
-    background-color: #fff;
+    background-color: #05152d;
+    color:white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -51,12 +52,14 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 1.3rem;
     font-weight: bold;
     background-color: #d3d3d3;
     border-radius: 5px;
 }
-
+h2 {
+    color:#6aaa64 !important;
+}
 .correct {
     background-color: #6aaa64;
     color: #fff;
@@ -74,27 +77,42 @@ h1 {
 
 .attempts-info {
     margin-bottom: 20px;
+    font-size: 1.3rem;
 }
 
 input[type="text"] {
     width: 100px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 1.3rem;
     text-align: center;
     margin-bottom: 10px;
 }
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 5px;
+#wordForm {
+    display: flex;
+    gap: 0.5rem;                /* 8px → 0.5rem */
+    width: 90%;                 /* Ocupa el 90% del padre (responsive) */
+    max-width: 31.25rem;        /* 500px → 31.25rem (500/16) */
+    margin: 0 auto;
+    padding: 0.75rem;           /* 12px → 0.75rem */
 }
 
-button:hover {
-    background-color: #45a049;
+#guess {
+    flex: 1;
+}
+
+#wordSubmit{
+    flex: 0.1;
+    padding: 0.625rem 1.25rem;   /* 10px 20px → 0.625rem 1.25rem */
+    border: none;
+    border-radius: 0.5rem;       /* 8px → 0.5rem */
+    font-size: 1.3rem;             /* 16px → 1rem */
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button {
+    display: block;
+    margin: 0 auto; /* Centrado horizontal */
+    font-size: 1.3rem !important;
+    width:100% !important;
 }

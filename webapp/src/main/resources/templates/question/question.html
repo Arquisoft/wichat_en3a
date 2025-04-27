@@ -2,9 +2,8 @@
 <html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <th:block th:insert="fragments/head :: head('Question')"></th:block>
+    <th:block th:insert="fragments/head"></th:block>
     <link rel="stylesheet" href="/css/questions.css"/>
-    <link rel="stylesheet" href="/css/nav.css"/>
 </head>
 <body class="bg-light">
 <nav th:replace="fragments/nav"></nav>
@@ -19,13 +18,12 @@
                 <h1 id="questionText" class="text-center mb-4" th:data-content="${question.getContent()}">
                     <!-- The question will be displayed here letter by letter -->
                 </h1>
-            </div>
+                <div class="stats">
+                    <h3 id="points" th:text="'Points : ' + ${points}"></h3>
 
-            <div class="stats">
-                <h3 id="points" th:text="'Points : ' + ${points}"></h3>
-
-                <canvas id="timer" class="small-timer hidden"></canvas>
-                <div th:replace="fragments/loader-bar"></div> <!-- Ensure correct fragment path -->
+                    <canvas id="timer" class="small-timer hidden"></canvas>
+                    <div th:replace="fragments/loader-bar"></div> <!-- Ensure correct fragment path -->
+                </div>
             </div>
 
             <!-- Fila para las respuestas y el chat -->

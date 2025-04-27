@@ -177,6 +177,14 @@ public class UserControllerTests {
     }
 
     @Test
+    void baseUrlTest() {
+        // Act
+        String view = userController.baseUrl();
+
+        Assertions.assertEquals("redirect:home", view);
+    }
+
+    @Test
     void scoresTest() {
         // Arrange
         String userEmail = "user@example.com";
