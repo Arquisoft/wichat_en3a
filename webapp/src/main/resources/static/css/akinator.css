@@ -47,7 +47,7 @@ p {
 #question {
     flex: 1;
     padding: 0.625rem 0.9375rem; /* 10px 15px → 0.625rem 0.9375rem */
-    border: 0.125rem solid #405de6; /* 2px → 0.125rem */
+    border: 0.125rem solid #1a73e8; /* 2px → 0.125rem */
     border-radius: 0.5rem;       /* 8px → 0.5rem */
     font-size: 1rem;            /* 16px → 1rem */
     outline: none;
@@ -57,7 +57,7 @@ p {
 /* Botón */
 #questionSubmit {
     padding: 0.625rem 1.25rem;   /* 10px 20px → 0.625rem 1.25rem */
-    background-color: #405de6;
+    background-color: #1a73e8;
     color: white;
     border: none;
     border-radius: 0.5rem;       /* 8px → 0.5rem */
