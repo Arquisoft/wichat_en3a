@@ -61,7 +61,7 @@ public class QuestionController {
         if(score == null){
             return "redirect:/home";
         }
-        gameService.start(score.getQuestions(), QuestionCategory.valueOf(score.getCategory()));
+        gameService.start(score.getQuestions(), QuestionCategory.valueOf(score.getCategory()), score.getScore());
         return "redirect:/game/question";
     }
 
@@ -140,7 +140,6 @@ public class QuestionController {
         if(gameService.getCategory()==null){
             model.addAttribute("category","All topics");
             score = new Score(username, "All topics", gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
-
         }
         else {
             model.addAttribute("category", gameService.getCategory().name());
@@ -151,7 +150,11 @@ public class QuestionController {
         if(!scoreService.addScore(score)){
             model.addAttribute("addError", true);
         } else{
-            model.addAttribute("scoreID", score.getId());
+            model.addAttribute("multiplayerURL", "/play/" + score.getId());
+        }
+        if(gameService.isMultiplayer()){
+            model.addAttribute("isMultiplayer", true);
+            model.addAttribute("otherPlayerScore", gameService.getMultiPlayerScore());
         }
         if(gameService.getCategory()==null){
             gameService.startAllCategoriesGame();

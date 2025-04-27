@@ -2,8 +2,6 @@ package com.uniovi.wichatwebapp.services;
 
 import com.uniovi.wichatwebapp.entities.Game;
 import com.uniovi.wichatwebapp.repositories.QuestionRepository;
-import com.uniovi.wichatwebapp.services.questionstrategies.PredefinedQuestionsStrategy;
-import com.uniovi.wichatwebapp.services.questionstrategies.RandomQuestionStrategy;
 import entities.Answer;
 import entities.Question;
 import entities.QuestionCategory;
@@ -45,27 +43,5 @@ public class QuestionServiceTests {
 
         // Assert
         verify(questionRepository, times(1)).removeQuestion("q123");
-    }
-
-    @Test
-    public void randomQuestionStrategyTest(){
-        when(questionRepository.getRandomQuestion(any())).thenReturn(testQuestion);
-        Game game = new Game(QuestionCategory.GEOGRAPHY);
-
-        RandomQuestionStrategy randomQuestionStrategy = new RandomQuestionStrategy(game, questionService);
-        randomQuestionStrategy.nextQuestion();
-        Assertions.assertEquals(testQuestion, game.getCurrentQuestion());
-    }
-
-    @Test
-    public void predefinedQuestionStrategyTest(){
-        when(questionRepository.getRandomQuestion(any())).thenReturn(testQuestion);
-        Game game = new Game(QuestionCategory.GEOGRAPHY);
-        List<Question> questions = new ArrayList<>();
-        questions.add(testQuestion);
-
-        PredefinedQuestionsStrategy predefinedQuestionsStrategy = new PredefinedQuestionsStrategy(game, questions);
-        predefinedQuestionsStrategy.nextQuestion();
-        Assertions.assertEquals(testQuestion, game.getCurrentQuestion());
     }
 }

@@ -18,8 +18,12 @@ public class Game extends AbstractGame{
 
     @Override
     public void nextQuestion(QuestionService questionService){
-        Question question = questionService.getRandomQuestion(this.category);
+        Question question = questionService.getRandomQuestion(getCategory());
+        int tries = 0;
+        while(isQuestionInGame(question) &&  tries < 10){
+            question = questionService.getRandomQuestionNoCategory();
+            tries++;
+        }
         setCurrentQuestion(question);
-        questionService.removeQuestion(question);
     }
 }

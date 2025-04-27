@@ -64,7 +64,12 @@ public abstract class AbstractGame {
     }
 
     public void setCurrentQuestion(Question currentQuestion) {
+        questionList.add(currentQuestion);
         this.currentQuestion = currentQuestion;
+    }
+
+    public boolean hasQuestion(Question question) {
+        return questionList.contains(question);
     }
 
     public int getTimer() {

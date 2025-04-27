@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Document(
         collection = "questions"
@@ -110,5 +111,17 @@ public class Question {
 
     public void setCategory(QuestionCategory category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        return Objects.equals(id, question.id) && Objects.equals(content, question.content);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, content);
     }
 }

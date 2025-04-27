@@ -418,6 +418,7 @@ public class QuestionControllerTests {
             modelAttributes.put(invocation.getArgument(0), invocation.getArgument(1));
             return model;
         });
+        Game game = new Game(category);
 
         // Mock game service responses
         when(gameService.hasGameEnded()).thenReturn(true);
@@ -427,6 +428,7 @@ public class QuestionControllerTests {
         when(gameService.getWrongAnswers()).thenReturn(2);
         when(gameService.getTimer()).thenReturn(30);
         when(gameService.getMaxQuestions()).thenReturn(10);
+        when(gameService.getGame()).thenReturn(game);
 
         final Score[] score = {null};
         // Mock score service
@@ -494,6 +496,8 @@ public class QuestionControllerTests {
             return model;
         });
 
+        GameAllCategories game = new GameAllCategories();
+
         // Mock game service responses
         when(gameService.hasGameEnded()).thenReturn(true);
         when(gameService.getCategory()).thenReturn(null);
@@ -502,6 +506,7 @@ public class QuestionControllerTests {
         when(gameService.getWrongAnswers()).thenReturn(2);
         when(gameService.getTimer()).thenReturn(30);
         when(gameService.getMaxQuestions()).thenReturn(10);
+        when(gameService.getGame()).thenReturn(game);
 
         final Score[] score = {null};
         // Mock score service
