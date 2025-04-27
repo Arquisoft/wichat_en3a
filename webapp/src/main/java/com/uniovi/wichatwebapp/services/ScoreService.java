@@ -19,6 +19,10 @@ public class ScoreService {
         return scoreRepository.addScore(score) != null;
     }
 
+    public Score addAndGetScore(Score score) {
+        return scoreRepository.addScore(score);
+    }
+
     public List<Score> getBestScores(String email) {
         return scoreRepository.getBestScores(email);
     }

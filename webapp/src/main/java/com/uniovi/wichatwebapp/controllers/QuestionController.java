@@ -147,10 +147,11 @@ public class QuestionController {
 
         }
         score.setQuestions(gameService.getGame().getQuestionList());
-        if(!scoreService.addScore(score)){
+        Score addedScore = scoreService.addAndGetScore(score);
+        if(addedScore == null){
             model.addAttribute("addError", true);
         } else{
-            model.addAttribute("multiplayerURL", "/play/" + score.getId());
+            model.addAttribute("multiplayerURL", "https://wichat.pablordgz.es/play/" + score.getId());
         }
         if(gameService.isMultiplayer()){
             model.addAttribute("isMultiplayer", true);
