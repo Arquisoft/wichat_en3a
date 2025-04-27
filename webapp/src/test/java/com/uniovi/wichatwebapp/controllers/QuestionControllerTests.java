@@ -472,4 +472,64 @@ public class QuestionControllerTests {
         Assertions.assertEquals("redirect:/game/start/GEOGRAPHY", view);
         verifyNoInteractions(scoreService);
     }
+
+    @Test
+    void resultsEndedGameNoCategoryTest() {
+        // Arrange
+        Map<String, Object> modelAttributes = new HashMap<>();
+        String username = "testUser";
+
+        // Mock authentication
+        Authentication auth = mock(Authentication.class);
+        when(auth.getName()).thenReturn(username);
+
+        SecurityContextHolder.clearContext();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(auth); // your mocked auth
+        SecurityContextHolder.setContext(context);
+
+        // Mock model behavior
+        when(model.addAttribute(anyString(), any())).thenAnswer(invocation -> {
+            modelAttributes.put(invocation.getArgument(0), invocation.getArgument(1));
+            return model;
+        });
+
+        // Mock game service responses
+        when(gameService.hasGameEnded()).thenReturn(true);
+        when(gameService.getCategory()).thenReturn(null);
+        when(gameService.getPoints()).thenReturn(100);
+        when(gameService.getRightAnswers()).thenReturn(5);
+        when(gameService.getWrongAnswers()).thenReturn(2);
+        when(gameService.getTimer()).thenReturn(30);
+        when(gameService.getMaxQuestions()).thenReturn(10);
+
+        final Score[] score = {null};
+        // Mock score service
+        doAnswer(invocation -> {
+            score[0] = invocation.getArgument(0); // Capture the first argument
+            return true; // assuming addScore() is void
+        }).when(scoreService).addScore(any(Score.class));
+
+        // Act
+        String viewName = questionController.results(model);
+
+        // Verify model attributes
+        Assertions.assertTrue(gameService.hasGameEnded());
+        Assertions.assertEquals("All topics", score[0].getCategory());
+        Assertions.assertEquals(username, score[0].getUser());
+        Assertions.assertEquals(100, score[0].getScore());
+        Assertions.assertEquals(5, score[0].getRightAnswers());
+        Assertions.assertEquals(2, score[0].getWrongAnswers());
+        Assertions.assertEquals(username, modelAttributes.get("player"));
+        Assertions.assertEquals(100, modelAttributes.get("points"));
+        Assertions.assertEquals(5, modelAttributes.get("right"));
+        Assertions.assertEquals(2, modelAttributes.get("wrong"));
+        Assertions.assertEquals("All topics", modelAttributes.get("category"));
+        Assertions.assertEquals(30, modelAttributes.get("timer"));
+        Assertions.assertEquals(10, modelAttributes.get("questions"));
+
+        verify(scoreService).addScore(any(Score.class));
+        verify(gameService).startAllCategoriesGame();
+        Assertions.assertEquals("question/results", viewName);
+    }
 }
