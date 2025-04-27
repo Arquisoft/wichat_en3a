@@ -29,8 +29,8 @@ public class ScoreServiceTests {
     public void addScoreTest() {
         when(scoreRepository.addScore(any())).thenReturn(testScore);
 
-        boolean couldAdd = scoreService.addScore(testScore) != null;
-        Assertions.assertEquals(true, couldAdd);
+        Score addedScore = scoreService.addScore(testScore);
+        Assertions.assertEquals(testScore, addedScore);
     }
 
     @Test
