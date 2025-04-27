@@ -72,6 +72,12 @@ class QuestionServiceTest {
     }
 
     @Test
+    void loadAnswersTest_OneQuestion() {
+        assertNotNull(testQuestion.getAnswers());
+        assertEquals(0, testQuestion.getAnswers().size()); // Correct answer + 3 distractors
+    }
+
+    @Test
     void getRandomQuestionTest_ReturnFourAnswers() {
         when(questionRepository.findQuestionsByCorrectAnswerIdExists()).thenReturn(Collections.singletonList(testQuestion));
         when(answerRepository.findAnswersByLanguageAndQuestionCategory(eq("en"), anyList()))

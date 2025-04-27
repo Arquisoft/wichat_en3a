@@ -130,6 +130,7 @@ public class AbstractGameTest {
 
         Assertions.assertEquals(newQuestion, game.getCurrentQuestion());
         Assertions.assertTrue(game.checkAnswer("newCorrect"));
+        Assertions.assertTrue(game.hasQuestion(newQuestion));
     }
 
     @Test

@@ -84,4 +84,12 @@ class ScoreServiceTests {
         Assertions.assertNull(scoreService.findScore("2"));
     }
 
+    @Test
+    public void addScoreTest(){
+        Score testScore = new Score();
+        when(scoreRepo.save(testScore)).thenReturn(testScore);
+
+        Score score = scoreService.addScore(testScore);
+        Assertions.assertEquals(testScore, score);
+    }
 }
