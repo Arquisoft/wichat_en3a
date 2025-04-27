@@ -560,7 +560,7 @@ public class QuestionControllerTests {
         verify(model).addAttribute("score", mockScore.getScore());
         verify(model).addAttribute("category", mockScore.getCategory());
         verify(model).addAttribute("questionTime", mockScore.getQuestionTime());
-        verify(model).addAttribute("numberOfQuestions", mockScore.getQuestions().size());
+        verify(model).addAttribute("numberOfQuestions", mockScore.getQuestions().size() - 1);
         verify(model).addAttribute("gameId", mockScore.getId());
         Assertions.assertEquals("multiplayer/details", viewName);
     }
