@@ -1,3 +1,5 @@
+
+
 /* Style for text and password inputs */
 input[name="username"],
 input[name="password"],
@@ -11,7 +13,6 @@ input[name="email"]{
     padding: 40px 60px 60px;                      /* Add spacing for text */
     border: none;                            /* Remove default border */
     color: #333;                             /* Text color */
-    font-size: 20px;
     width: 320px;                           /* Adjust width as needed */
     height: 100px;                          /* Adjust height as needed */
     margin-bottom: 40px;
@@ -36,11 +37,10 @@ input[name="name"]:focus{
 
 /* Arrange forms horizontally */
 .form-container {
-    flex-direction: column;
-    display: flex;              /* Horizontal layout */
     gap: 40px;                 /* Space between forms */
     margin-top: 20px;          /* Space below the logo */
     align-items: center;   /* Align forms at the top */
+    flex-direction: column;
 }
 
 /* Optional: Style individual forms for consistency */
@@ -59,12 +59,16 @@ input[name="name"]:focus{
     width: 192px;               /* Adjust to match your image size */
     height: 128px;              /* Adjust to match your image size */
     color: black;             /* Text color (ensure visibility) */
-    font-size: 2em;
+    font-size: 1.7em;
     cursor: pointer;         /* Show pointer on hover */
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+a.big-button-anchor:hover, a.big-button:hover, a.small-button:hover {
+    text-decoration: none;
 }
 
 .big-button {
@@ -79,6 +83,7 @@ input[name="name"]:focus{
     cursor: pointer;         /* Show pointer on hover */
 }
 
+
 /* Sign Up Button */
 .small-button {
     background-image: url('../images/UI_Flat_Frame01a.png'); /* Signup PNG path */
@@ -89,9 +94,9 @@ input[name="name"]:focus{
     width: 96px;
     height: 64px;
     color: #333;           /* Adjust text color for contrast */
-    font-size: 15px;
     cursor: pointer;
     padding: 10px 20px;
+    font-size: 1.1rem;
 }
 
 /* Hover Effects (Optional) */
@@ -108,4 +113,25 @@ input[name="name"]:focus{
 
 .game-link:hover {
     color: #333; /* Same color on hover */
+}
+/* Responsive Design */
+@media(max-width: 480px) {
+    .form {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    input, button {
+        padding: 0.65rem;
+    }
+
+    .answer-button {
+        width: 100%;
+    }
+    .qwizzimage{
+        margin-bottom: -100px;
+    }
 }

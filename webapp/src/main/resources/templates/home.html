@@ -1,33 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <th:block th:insert="fragments/head :: head('Question')"></th:block>
+    <th:block th:insert="fragments/head"></th:block>
     <link rel="stylesheet" href="/css/home.css"/>
-    <link rel="stylesheet" href="/css/main.css"/>
-    <link rel="stylesheet" href="/css/nav.css"/>
+    <link rel="stylesheet" href="/css/instructions.css"/>
 </head>
 <body class="home-bg">
 <nav th:replace="fragments/nav"></nav>
 <main class="home-container">
-    <a href="/game/start/SPORT" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Sport Game
-    </a>
-    <a href="/game/start/GEOGRAPHY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Geography Game
-    </a>
-    <a href="/game/start/POP_CULTURE" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Pop culture Game
-    </a>
+    <div class="content-wrapper">
+        <div class="additional-frame">
+            <button class="nav-button left-button" onclick="changeText(-1)"></button>
+            <p id="frame-text">SPORT</p>
+            <button class="nav-button right-button" onclick="changeText(1)"></button>
+        </div>
 
-    <a href="/game/start/BIOLOGY" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Biology Game
-    </a>
-    <a href="/game/categories/start" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        All Categories Game
-    </a>
-    <a href="/game/personalized" class="game-link big-button-anchor" sec:authorize="isAuthenticated()">
-        Custom Game
-    </a>
+        <div class="button-container">
+            <div class="tooltip-container">
+                <button id="startGameButton" class="game-link big-button-anchor" onclick="waitingCursor(); startGame()" sec:authorize="isAuthenticated()">
+                    Start Game
+                </button>
+                <div class="tooltip">
+                    <p><b>Question game tutorial</b></p>
+                    <p>-Answer the questions correctly by selecting one option and before the timer ends.</p>
+                    <p>-Get hints from AI to help you answer (star button).</p>
+                    <p>-Pick above the topic of the questions.</p>
+                </div>
+            </div>
+            <div class="tooltip-container">
+                <a href="/game/personalized" class="game-link big-button-anchor" sec:authorize="isAuthenticated()" onclick="waitingCursor()">
+                    Custom Game
+                </a>
+                <div class="tooltip">
+                    <p><b>Custom game tutorial</b></p>
+                    <p>-Personalize your question game by picking the number of questions and timer.</p>
+                </div>
+            </div>
+
+            <div class="tooltip-container">
+                <a href="/game/categories/start" class="game-link big-button-anchor" sec:authorize="isAuthenticated()" onclick="waitingCursor()">
+                    All topics
+                </a>
+                <div class="tooltip">
+                    <p>-Play your question game with all topics instead of one.</p>
+                </div>
+            </div>
+            <div class="tooltip-container">
+                <a href="/akinator" class="game-link big-button-anchor" sec:authorize="isAuthenticated()" onclick="waitingCursor()">
+                    Oracle’s Veil
+                </a>
+                <div class="tooltip">
+                    <p><b>Oracle's veil tutorial</b></p>
+                    <p>-Select a topic for the word that is going to be guessed.</p>
+                    <p>-You can think of a word, and the Oracle will try to guess it by answering to his questions. </p>
+                    <p>-Or trying to guess what the Oracle is thinking by asking him questions.</p>
+                </div>
+            </div>
+            <div class="tooltip-container">
+                <a href="/wordle/start" class="game-link big-button-anchor" sec:authorize="isAuthenticated()" onclick="waitingCursor()">
+                    Runes
+                </a>
+                <div class="tooltip">
+                    <p><b>Runes tutorial</b></p>
+                    <p>-Guess a 5-letter word.</p>
+                    <p>-If a letter is correct and it's placed correctly, it would be green.</p>
+                    <p>-If a letter is correct and it's not placed correctly, it would be yellow.</p>
+                    <p>-If a letter is not correct, it would be gray.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/script/home.js"></script>
 </main>
 </body>
 </html>

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head th:replace="fragments/head :: head('Login')">
+<head th:replace="fragments/head">
 </head>
     <body class="login-bg">
     <div class="centered-content">
-        <img src="/images/qwizz.png" width="350" alt="Logo"/>
+        <img src="/images/qwizz.png" class="qwizzimage" width="250" alt="Logo"/>
         <div class="form-container">
             <!-- Login Form -->
-            <form method="post" action="/login" class="form">
+            <form method="post" action="/login" class="form" onsubmit="waitingCursor()">
                 <input type="text" id="username" name="username" placeholder="Enter your email" required/>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required/>
                 <button type="submit" class="big-button">Login</button>
                 <p th:if="${param.error}" class="error">Invalid username or password.</p>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             </form>
-            <form action="/signup" method="get" class="form">
+            <form action="/signup" method="get" class="form" onsubmit="waitingCursor()">
                 <button type="submit" class="small-button">Sign Up</button>
             </form>
         </div>
