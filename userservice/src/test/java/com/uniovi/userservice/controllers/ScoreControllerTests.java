@@ -37,6 +37,7 @@ class ScoreControllerTests {
     void testAddScore() {
         //Test data
         Score s = new Score("test@test.com", "Flags", 800, 8, 2);
+        s.setEmail("test@test.com");
         User u = new User("1", "Test", "test@test.com", "testPw", true);
 
         //Mock user service response
@@ -55,6 +56,7 @@ class ScoreControllerTests {
     void testAddScoreIncorrectUser(){
         //Test data
         Score s = new Score("test@test.com", "Flags", 800, 8, 2);
+        s.setEmail("test@test.com");
         User u = new User("1", "test", "test@test.com", "testPw", false);
 
         //Mock user service
