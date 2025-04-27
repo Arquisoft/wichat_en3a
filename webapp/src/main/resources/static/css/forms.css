@@ -67,6 +67,10 @@ input[name="name"]:focus{
     justify-content: center;
 }
 
+a.big-button-anchor:hover, a.big-button:hover, a.small-button:hover {
+    text-decoration: none;
+}
+
 .big-button {
     background-image: url('../images/UI_Flat_Frame01a.png'); /* Login PNG path */
     background-size: cover;       /* Scale image to cover the button */
@@ -78,6 +82,7 @@ input[name="name"]:focus{
     font-size: 30px;
     cursor: pointer;         /* Show pointer on hover */
 }
+
 
 /* Sign Up Button */
 .small-button {

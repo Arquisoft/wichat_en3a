@@ -3,12 +3,13 @@
 <head>
     <th:block th:insert="fragments/head"></th:block>
     <link rel="stylesheet" href="/css/home.css"/>
-    <script src="/script/chat.js"></script>
+    <link rel="stylesheet" href="/css/forms_home.css"/>
 </head>
 <body class="home-bg">
 <nav th:replace="fragments/nav"></nav>
 <main class="personalized-home-container">
     <form action="/game/personalized" method="POST" onsubmit="waitingCursor()">
+        <h1>Custom game</h1>
         <label for="category">Choose a category:</label>
 
         <!-- Combobox dinámico desde Enum -->
@@ -47,7 +48,7 @@
         </div>
 
         <!-- Botón de enviar -->
-        <button type="submit">Play</button>
+        <button class="small-button" type="submit">Play</button>
 
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     </form>
