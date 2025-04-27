@@ -4,10 +4,8 @@ import com.uniovi.wichatwebapp.dto.AnswerDto;
 import com.uniovi.wichatwebapp.entities.*;
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.ScoreService;
-import entities.Answer;
-import entities.Question;
-import entities.QuestionCategory;
-import entities.Score;
+import com.uniovi.wichatwebapp.services.UserService;
+import entities.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,6 +35,9 @@ public class QuestionControllerTests {
 
     @Mock
     private ScoreService scoreService;
+
+    @Mock
+    private UserService userService;
 
     @Mock
     private Model model;
@@ -402,6 +403,7 @@ public class QuestionControllerTests {
         Map<String, Object> modelAttributes = new HashMap<>();
         QuestionCategory category = QuestionCategory.GEOGRAPHY;
         String username = "testUser";
+        User user = new User(username, username + "@mail.com", "123", true);
 
         // Mock authentication
         Authentication auth = mock(Authentication.class);
@@ -429,6 +431,7 @@ public class QuestionControllerTests {
         when(gameService.getTimer()).thenReturn(30);
         when(gameService.getMaxQuestions()).thenReturn(10);
         when(gameService.getGame()).thenReturn(game);
+        when(userService.getUserByEmail(username)).thenReturn(user);
 
         final Score[] score = {null};
         // Mock score service
@@ -480,6 +483,7 @@ public class QuestionControllerTests {
         // Arrange
         Map<String, Object> modelAttributes = new HashMap<>();
         String username = "testUser";
+        User user = new User(username, username + "@mail.com", "123", true);
 
         // Mock authentication
         Authentication auth = mock(Authentication.class);
@@ -507,6 +511,7 @@ public class QuestionControllerTests {
         when(gameService.getTimer()).thenReturn(30);
         when(gameService.getMaxQuestions()).thenReturn(10);
         when(gameService.getGame()).thenReturn(game);
+        when(userService.getUserByEmail(username)).thenReturn(user);
 
         final Score[] score = {null};
         // Mock score service
