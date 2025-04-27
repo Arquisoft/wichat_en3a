@@ -94,4 +94,23 @@ class QuestionControllerTest {
     }
 
 
+
+    @Test
+    void getRandomCategoryQuestionTest_ReturnsRandomQuestion() {
+        // Arrange
+        Answer correctAnswer = new Answer("Correct answer", AnswerCategory.FLAG, "en");
+        Question expectedQuestion = new Question(correctAnswer, "Sample question", "image.jpg", QuestionCategory.GEOGRAPHY);
+        when(questionService.getRandomQuestionNoCategory("en")).thenReturn(expectedQuestion);
+
+        // Act
+        Question result = questionController.getRandomCategoryQuestion();
+
+        // Assert
+        assertThat(result).isEqualTo(expectedQuestion);
+        verify(questionService).getRandomQuestionNoCategory("en");
+    }
+
+
+
+
 }

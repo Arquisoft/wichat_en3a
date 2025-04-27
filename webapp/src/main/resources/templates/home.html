@@ -36,6 +36,15 @@
                     <p>-Personalize your question game by picking the number of questions and timer.</p>
                 </div>
             </div>
+
+            <div class="tooltip-container">
+                <a href="/game/categories/start" class="game-link big-button-anchor" sec:authorize="isAuthenticated()" onclick="waitingCursor()">
+                    All topics
+                </a>
+                <div class="tooltip">
+                    <p>-Play your question game with all topics instead of one.</p>
+                </div>
+            </div>
             <div class="tooltip-container">
                 <a href="/akinator" class="game-link big-button-anchor" sec:authorize="isAuthenticated()" onclick="waitingCursor()">
                     Oracle’s Veil
