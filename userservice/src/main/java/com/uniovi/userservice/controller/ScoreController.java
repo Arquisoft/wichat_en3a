@@ -66,7 +66,7 @@ public class ScoreController {
 
     }
 
-    @Operation(summary = "Gets the 10 best scores of the user")
+    @Operation(summary = "Gets the 10 best scores of the user by their email")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Returns a list with the 10 best scores",
             content = {@Content(mediaType = "application/json",

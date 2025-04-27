@@ -3,7 +3,6 @@ package com.uniovi.userservice.service;
 
 import com.uniovi.userservice.repository.ScoreRepository;
 import entities.Score;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,7 @@ public class ScoreService {
 
     public List<Score> findBestScores(String user) {
         Sort sort = Sort.by(Sort.Direction.DESC, "score");
-        List<Score> scores = scoreRepository.findBestByUser(sort, user);
+        List<Score> scores = scoreRepository.findBestByEmail(sort, user);
         return scores.size() > 10 ? scores.subList(0, 10) : scores;
     }
 

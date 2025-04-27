@@ -39,7 +39,7 @@ class ScoreServiceTests {
         Score s3 = new Score("test@test.com", "Flags", 700, 10, 0);
 
         //Mock repository response
-        when(scoreRepo.findBestByUser(Sort.by(Sort.Direction.DESC, "score"), "test@test.com")).thenReturn(List.of(s1, s2, s3));
+        when(scoreRepo.findBestByEmail(Sort.by(Sort.Direction.DESC, "score"), "test@test.com")).thenReturn(List.of(s1, s2, s3));
 
         //Execute method
         List<Score> results = scoreService.findBestScores("test@test.com");
@@ -64,7 +64,7 @@ class ScoreServiceTests {
             scores.add(new Score("test@test.com", "Flags", 800, 8, 2));
         }
 
-        when(scoreRepo.findBestByUser(Sort.by(Sort.Direction.DESC, "score"), "test@test.com")).thenReturn(scores);
+        when(scoreRepo.findBestByEmail(Sort.by(Sort.Direction.DESC, "score"), "test@test.com")).thenReturn(scores);
 
         List<Score> results = scoreService.findBestScores("test@test.com");
 
