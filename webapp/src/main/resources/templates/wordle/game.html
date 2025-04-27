@@ -28,14 +28,14 @@
         <div class="solution-message" th:if="${solutionWord}">
             <p>Game over, the word was: <strong th:text="${solutionWord}">PALABRA</strong></p>
         </div>
-        <form action="/wordle/guess" method="post" onsubmit="waitingCursor()">
+        <form id="wordForm" action="/wordle/guess" method="post" onsubmit="waitingCursor()">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <input type="text" name="guess" minlength="5" maxlength="5" required placeholder="Introduce">
-            <button type="submit">Send</button>
+            <input id="guess" type="text" name="guess" minlength="5" maxlength="5" required placeholder="Introduce">
+            <button id="wordSubmit" class="small-button" type="submit">↵</button>
         </form>
         <form action="/wordle/reset" method="post" onsubmit="waitingCursor()">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-            <button type="submit">Restart</button>
+            <button  class="small-button" type="submit">Restart</button>
         </form>
 
     </main>
