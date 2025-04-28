@@ -154,7 +154,6 @@ public abstract class QuestionWikidata {
             Thread.currentThread().interrupt();
         } catch (IOException e2) {
             LOGGER.log(Level.SEVERE, "Failed to send the request", e2);
-            throw new RuntimeException("Failed to send the request", e2);
         }
 
 
