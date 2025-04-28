@@ -1,10 +1,10 @@
 package com.uniovi.wichatwebapp.controllers;
 
-import com.uniovi.wichatwebapp.entities.Score;
-import com.uniovi.wichatwebapp.entities.User;
 import com.uniovi.wichatwebapp.services.ScoreService;
 import com.uniovi.wichatwebapp.services.UserService;
 import com.uniovi.wichatwebapp.validators.SignUpValidator;
+import entities.Score;
+import entities.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -153,7 +153,10 @@ public class UserControllerTests {
         User user = new User(name, email, password, true);
 
         when(authentication.getName()).thenReturn(email);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.clearContext();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication); // your mocked auth
+        SecurityContextHolder.setContext(context);
         when(userService.getUserByEmail(email)).thenReturn(user);
 
         Map<String, Object> modelAttributes = new HashMap<>();
@@ -174,6 +177,14 @@ public class UserControllerTests {
     }
 
     @Test
+    void baseUrlTest() {
+        // Act
+        String view = userController.baseUrl();
+
+        Assertions.assertEquals("redirect:home", view);
+    }
+
+    @Test
     void scoresTest() {
         // Arrange
         String userEmail = "user@example.com";
@@ -183,7 +194,10 @@ public class UserControllerTests {
         );
 
         when(authentication.getName()).thenReturn(userEmail);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.clearContext();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication); // your mocked auth
+        SecurityContextHolder.setContext(context);
 
         when(scoreService.getBestScores(userEmail)).thenReturn(mockScores);
 

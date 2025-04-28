@@ -1,8 +1,8 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:insert="fragments/head :: head('Results')"></th:block>
-  <link rel="stylesheet" href="/css/nav.css"/>
+  <th:block th:insert="fragments/head"></th:block>
+  <link rel="stylesheet" href="/css/results.css"/>
 </head>
 <body class="bg-light">
 <nav th:replace="fragments/nav"></nav>
@@ -19,15 +19,15 @@
       <p class="card-text">Score: <strong id="playerScore" th:text="${points}"></strong></p>
       <p class="card-text">Right answers: <strong id="rightAnswers" th:text="${right}"></strong></p>
       <p class="card-text">Wrong answers: <strong id="wrongAnswers" th:text="${wrong}"></strong></p>
-
-
-      <a th:href="'/game/start/'+${category}+'/'+${timer}+'/'+${questions}">Play Again?</a>
-
-      <br>
-
-      <a href="/user/scores">Check your scores</a>
-
+      <p class="card-text">Challenge your friends!: <span th:text="${multiplayerURL}"></span></p>
     </div>
+    <div class="card-body" th:if="${isMultiplayer}">
+      <h5 class="card-title">Multiplayer Results</h5>
+      <p class="card-text">Your score: <strong id="playerScore" th:text="${points}"></strong></p>
+      <p class="card-text">The other player's score: <strong id="playerScore" th:text="${otherPlayerScore}"></strong></p>
+    </div>
+    <a class="game-link big-button-anchor" th:href="'/game/start/'+${category}+'/'+${timer}+'/'+${questions}" onclick="waitingCursor()">Play Again?</a>
+    <a class="game-link big-button-anchor" href="/user/scores" onclick="waitingCursor()">Check your scores</a>
 
   </div>
 </div>

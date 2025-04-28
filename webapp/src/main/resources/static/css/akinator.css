@@ -1,0 +1,87 @@
+main {
+    background-color: #302c30;
+    border-radius: 0.5rem !important;
+    padding: 15px 20px; /* Espaciado interno */
+    margin: 0; /* Eliminar márgenes por defecto */
+    border: none; /* Remove borders */
+}
+h1 {
+    color:#f5d58c;
+}
+
+.akinator-container {
+    background-image: url('../images/ruins_background.png'); /* Your background image */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+#oracle-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem; /* Espacio entre la imagen y el texto */
+    flex-wrap: wrap; /* Para que sea adaptable en pantallas pequeñas */
+
+    background-color: white;     /* Fondo blanco */
+    border-radius: 1rem;         /* Esquinas redondeadas */
+    padding: 1rem;               /* Espacio interior */
+}
+
+p {
+    display: grid;
+    place-items: center;
+    margin: 0;
+    text-align: center; /* Alinea el texto al centro */
+    font-size: 1.3rem;
+}
+
+.oracle-text {
+    font-weight: bold;
+}
+
+/* Contenedor principal */
+.guess-container {
+    display: flex;
+    gap: 0.5rem;                /* 8px → 0.5rem */
+    width: 90%;                 /* Ocupa el 90% del padre (responsive) */
+    max-width: 31.25rem;        /* 500px → 31.25rem (500/16) */
+    margin: 0 auto;
+    padding: 0.75rem;           /* 12px → 0.75rem */
+}
+
+/* Input */
+#question {
+    flex: 1;
+    padding: 0.625rem 0.9375rem; /* 10px 15px → 0.625rem 0.9375rem */
+    border-radius: 0.5rem;       /* 8px → 0.5rem */
+    font-size: 1.3rem;            /* 16px → 1rem */
+    outline: none;
+    transition: border 0.3s;
+}
+
+/* Botón */
+#questionSubmit {
+    padding: 0.625rem 1.25rem;   /* 10px 20px → 0.625rem 1.25rem */
+    border: none;
+    border-radius: 0.5rem;       /* 8px → 0.5rem */
+    font-size: 1rem;             /* 16px → 1rem */
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button {
+    display: block;
+    margin: 0 auto; /* Centrado horizontal */
+    font-size: 1.3rem !important;
+    width:75% !important;
+}
+
+#answerButtons{
+    width:100%;
+}
+
+#answerButtons form{
+    margin-bottom:1rem;
+}

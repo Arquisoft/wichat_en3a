@@ -31,4 +31,14 @@ User registration and historical data storage introduce potential
 security vulnerabilities (e.g., data leaks, unauthorized access). Compliance with GDPR or other privacy regulations
 is also a concern.
 
+|Question Repetitiveness a|
+
+Users may encounter repetitive questions. A system for tracking previously used questions and ensuring diversity in
+topics is necessary.
+
+|Time-Limited Question Challenges a|
+
+Implementing a real-time timer for answering questions may lead to synchronization issues across different devices and
+network conditions, potentially causing an unfair experience. Latency compensation mechanisms should be considered.
+
 |===

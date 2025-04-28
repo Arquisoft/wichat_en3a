@@ -1,10 +1,9 @@
 package com.uniovi.wichatwebapp.repositories;
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.AnswerCategory;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
 import com.uniovi.wichatwebapp.service.QuestionService;
+import entities.Answer;
+import entities.AnswerCategory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +28,7 @@ class AnswerRepositoryTest {
     @Test
     void saveAnswersTest_answersSaved() {
         // Arrange: Create answers
-        Answer a1 = new Answer("Correct",AnswerCategory.FLAG, "en");
+        Answer a1 = new Answer("Correct", AnswerCategory.FLAG, "en");
         Answer a2 = new Answer("Incorrect", AnswerCategory.FLAG,"en");
         Answer a3 = new Answer("Maybe",AnswerCategory.FLAG, "en");
 

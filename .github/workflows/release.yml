@@ -13,6 +13,8 @@ jobs:
       with:
         distribution: 'corretto'
         java-version: '23'
+    - run: mvn clean install
+      working-directory: entities
     - run: mvn clean test --batch-mode
       working-directory: userservice
     - run: mvn clean test --batch-mode
@@ -35,6 +37,13 @@ jobs:
       with:
         distribution: 'corretto'
         java-version: '23'
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.12.0
+      with:
+        mongodb-version: '8.0'
+    - name: Set up entities JAR
+      run: mvn clean install
+      working-directory: entities
     - name: Start User Service
       run: mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dspring.profiles.active=e2e" &
       working-directory: userservice
@@ -178,6 +187,15 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         command: |
           wget https://raw.githubusercontent.com/arquisoft/wichat_en3a/master/docker-compose.yml -O docker-compose.yml
+          wget https://raw.githubusercontent.com/arquisoft/wichat_en3a/master/prometheus.yml -O prometheus.yml
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/arquisoft/wichat_en3a.git
+          cd wichat_en3a
+          git sparse-checkout set grafana
+          cd ..
+          mv wichat_en3a/grafana .
+          mv wichat_en3a/promtail-config.yml .
+          rm -rf wichat_en3a
           echo "HINTSERVICE_API_KEY=${{ secrets.LLM_API_KEY }}" > .env
+          echo "GRAFANA_ADMIN_PASSWORD=${{ secrets.GRAFANA_ADMIN_PASSWORD }}" >> .env
           docker compose --profile prod down
           docker compose --profile prod up -d --pull always

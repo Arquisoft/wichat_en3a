@@ -1,8 +1,7 @@
 package com.uniovi.wichatwebapp.services;
 
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
-import com.uniovi.wichatwebapp.entities.Score;
 import com.uniovi.wichatwebapp.repositories.ScoreRepository;
+import entities.Score;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,8 +29,8 @@ public class ScoreServiceTests {
     public void addScoreTest() {
         when(scoreRepository.addScore(any())).thenReturn(testScore);
 
-        boolean couldAdd = scoreService.addScore(testScore);
-        Assertions.assertEquals(true, couldAdd);
+        Score addedScore = scoreService.addScore(testScore);
+        Assertions.assertEquals(testScore, addedScore);
     }
 
     @Test
@@ -41,6 +40,15 @@ public class ScoreServiceTests {
 
         List<Score> score = scoreService.getBestScores("test");
         Assertions.assertEquals(testsScores, score);
+    }
+
+    @Test
+    public void getScoreByIdTest(){
+        when(scoreRepository.getScore("1")).thenReturn(testScore);
+
+        Score score = scoreService.getScore("1");
+        Assertions.assertEquals(testScore, score);
+        Assertions.assertNull(scoreService.getScore("2"));
     }
 
 }

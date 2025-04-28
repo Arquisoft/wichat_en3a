@@ -76,9 +76,9 @@ class WhatAnimalTest {
 
     @Test
     void needToSkipTest_DetectsDuplicateAnimalLabels() {
-        assertFalse(whatAnimal.getAnimalLabels().contains("Lion"), "First check: should not contain Lion.");
-        whatAnimal.getAnimalLabels().add("Lion"); // Manually add for test
-        assertTrue(whatAnimal.getAnimalLabels().contains("Lion"), "Second check: should now contain Lion.");
+        assertFalse(whatAnimal.getAnswerLabels().contains("Lion"), "First check: should not contain Lion.");
+        whatAnimal.getAnswerLabels().add("Lion"); // Manually add for test
+        assertTrue(whatAnimal.getAnswerLabels().contains("Lion"), "Second check: should now contain Lion.");
         assertTrue(whatAnimal.needToSkip("Lion"), "Should skip duplicate animal label.");
     }
     @Test

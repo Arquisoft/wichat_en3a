@@ -1,10 +1,13 @@
 package com.uniovi.wichatwebapp.controller;
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.AnswerCategory;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
+import com.uniovi.wichatwebapp.errorHandling.exceptions.AnswerNotFound;
+import com.uniovi.wichatwebapp.errorHandling.exceptions.QuestionNotFoundException;
 import com.uniovi.wichatwebapp.service.QuestionService;
+import entities.Answer;
+import entities.AnswerCategory;
+import entities.Question;
+import entities.QuestionCategory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,6 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Fail.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -60,6 +65,25 @@ class QuestionControllerTest {
     }
 
     @Test
+    void getCorrectAnswerTest_NullQuestion() {
+        // Arrange
+        Answer correctAnswer = new Answer("Correct answer", AnswerCategory.FLAG,"en");
+        Question question = new Question(correctAnswer, "Sample question", "image.jpg",QuestionCategory.GEOGRAPHY);
+        String questionId = "q1";
+        question.setId(questionId);
+
+        when(questionService.findQuestionById(questionId)).thenReturn(null);
+
+        // Act
+        try {
+            Answer result = questionController.getCorrectAnswer(questionId);
+            fail();
+        } catch (QuestionNotFoundException e) {
+            assertNotNull(e);
+        }
+    }
+
+    @Test
     void getAnswerTest_ReturnsAnswerById() {
         // Arrange
         Answer expectedAnswer = new Answer("Test answer", AnswerCategory.FLAG,"en");
@@ -72,6 +96,22 @@ class QuestionControllerTest {
         // Assert
         assertThat(result).isEqualTo(expectedAnswer);
         verify(questionService).findAnswerById(answerId);
+    }
+
+    @Test
+    void getAnswerTest_NullAnswer() {
+        // Arrange
+        Answer expectedAnswer = new Answer("Test answer", AnswerCategory.FLAG,"en");
+        String answerId = expectedAnswer.getId();
+        when(questionService.findAnswerById(answerId)).thenReturn(null);
+
+        // Act
+        try {
+            Answer result = questionController.getAnswer(answerId);
+            fail();
+        } catch (AnswerNotFound e) {
+            assertNotNull(e);
+        }
     }
 
     @Test
@@ -91,6 +131,44 @@ class QuestionControllerTest {
         verify(questionService).findQuestionById(questionId);
         verify(questionService).removeQuestion(question);
     }
+
+    @Test
+    void removeQuestionTest_NullQuestion() {
+        // Arrange
+        String questionId = "q1";
+        Answer correctAnswer = new Answer("Correct",AnswerCategory.FLAG, "en");
+        Question question = new Question(correctAnswer, "Content", "image.jpg",QuestionCategory.GEOGRAPHY);
+        question.setId(questionId);
+
+        when(questionService.findQuestionById(questionId)).thenReturn(null);
+
+        // Act
+        try {
+            questionController.removeQuestion(questionId);
+            fail();
+        } catch (QuestionNotFoundException e) {
+            assertNotNull(e);
+        }
+    }
+
+
+
+    @Test
+    void getRandomCategoryQuestionTest_ReturnsRandomQuestion() {
+        // Arrange
+        Answer correctAnswer = new Answer("Correct answer", AnswerCategory.FLAG, "en");
+        Question expectedQuestion = new Question(correctAnswer, "Sample question", "image.jpg", QuestionCategory.GEOGRAPHY);
+        when(questionService.getRandomQuestionNoCategory("en")).thenReturn(expectedQuestion);
+
+        // Act
+        Question result = questionController.getRandomCategoryQuestion();
+
+        // Assert
+        assertThat(result).isEqualTo(expectedQuestion);
+        verify(questionService).getRandomQuestionNoCategory("en");
+    }
+
+
 
 
 }

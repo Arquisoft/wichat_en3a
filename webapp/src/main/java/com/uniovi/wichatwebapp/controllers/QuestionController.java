@@ -1,24 +1,28 @@
 package com.uniovi.wichatwebapp.controllers;
 
 import com.uniovi.wichatwebapp.dto.AnswerDto;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
-import com.uniovi.wichatwebapp.entities.Score;
 import com.uniovi.wichatwebapp.services.GameService;
 import com.uniovi.wichatwebapp.services.ScoreService;
+import com.uniovi.wichatwebapp.services.UserService;
+import entities.QuestionCategory;
+import entities.Score;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 public class QuestionController {
     private final GameService gameService;
     private final ScoreService scoreService;
+    private final UserService userService;
 
-    public QuestionController(GameService gameService, ScoreService scoreService) {
+    public QuestionController(GameService gameService, ScoreService scoreService, UserService userService) {
         this.gameService = gameService;
         this.scoreService = scoreService;
+        this.userService = userService;
     }
 
     @RequestMapping(value="/game/personalized")
@@ -33,6 +37,43 @@ public class QuestionController {
         return "redirect:/game/question";
     }
 
+    @RequestMapping(value="/game/categories/start", method = RequestMethod.GET)
+    public String createAllCategoriesGame( ) {
+        gameService.startAllCategoriesGame();
+        return "redirect:/game/question";
+    }
+
+
+
+    @RequestMapping(value="/play/{id}", method = RequestMethod.GET)
+    public String multiplayerGame(@PathVariable String id, Model model) {
+        Score score = scoreService.getScore(id);
+        if(score == null){
+            return "redirect:/home";
+        }
+        model.addAttribute("otherPlayer", score.getUser());
+        model.addAttribute("score", score.getScore());
+        model.addAttribute("category", score.getCategory());
+        model.addAttribute("questionTime", score.getQuestionTime());
+        model.addAttribute("numberOfQuestions", score.getQuestions().size() - 1);
+        model.addAttribute("gameId", score.getId());
+        return "multiplayer/details";
+    }
+
+    @RequestMapping(value="/game/multiplayer/start/{id}", method = RequestMethod.GET)
+    public String startMultiplayerGame(@PathVariable String id) {
+        Score score = scoreService.getScore(id);
+        if(score == null){
+            return "redirect:/home";
+        }
+        String category = score.getCategory().toUpperCase().replace(" ", "_");
+        QuestionCategory questionCategory = null;
+        if(!category.equals("ALL_TOPICS")){
+            questionCategory = QuestionCategory.valueOf(category);
+        }
+        gameService.start(questionCategory, score);
+        return "redirect:/game/question";
+    }
 
     @RequestMapping(value="/game/start/{category}")
     public String startGame(@PathVariable QuestionCategory category) {
@@ -97,27 +138,46 @@ public class QuestionController {
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
+        String email = auth.getName();
+        String username = userService.getUserByEmail(email).getName();
         model.addAttribute("player", username);
         model.addAttribute("points", gameService.getPoints());
         model.addAttribute("right", gameService.getRightAnswers());
         model.addAttribute("wrong", gameService.getWrongAnswers());
-        model.addAttribute("category", gameService.getCategory().name());
-
         model.addAttribute("timer", gameService.getTimer());
         model.addAttribute("questions", gameService.getMaxQuestions());
 
-        Score score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
-        if(!scoreService.addScore(score)){
-            model.addAttribute("addError", true);
+        Score score;
+        if(gameService.getCategory()==null){
+            model.addAttribute("category","All topics");
+            score = new Score(username, "All topics", gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
         }
+        else {
+            model.addAttribute("category", gameService.getCategory().name());
+            score = new Score(username, gameService.getCategory().toString(), gameService.getPoints(), gameService.getRightAnswers(), gameService.getWrongAnswers());
 
-        gameService.start(gameService.getCategory());
+        }
+        score.setEmail(email);
+        score.setQuestions(gameService.getGame().getQuestionList());
+        score.setQuestionTime(gameService.getTimer());
+        Score addedScore = scoreService.addScore(score);
+        if(addedScore == null){
+            model.addAttribute("addError", true);
+        } else{
+            model.addAttribute("multiplayerURL", "https://wichat.pablordgz.es/play/" + addedScore.getId());
+        }
+        if(gameService.isMultiplayer()){
+            model.addAttribute("isMultiplayer", true);
+            model.addAttribute("otherPlayerScore", gameService.getMultiPlayerScore());
+        }
+        if(gameService.getCategory()==null){
+            gameService.startAllCategoriesGame();
+        }
+        else{
+            gameService.start(gameService.getCategory());
+        }
 
         return "question/results";
     }
-
-
-
 
 }

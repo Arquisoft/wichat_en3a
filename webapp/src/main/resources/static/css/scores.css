@@ -1,6 +1,6 @@
 /* Main body background */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'PixelOperator';
     min-height: 100vh;
     margin: 0;
     background-image: url('../images/Background.png');
@@ -8,31 +8,37 @@ body {
     background-position: center;
     background-attachment: fixed;
 }
-/* Add these new rules */
+
 .background_div {
     background-image: url('../images/9887952c-ba20-41ab-a5d3-6981e6ec1c9d_removalai_preview.png') !important;
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    padding: 150px 40px 100px 40px;
-    margin: -20px;
+    padding: 150px 20px 100px 20px;
     min-height: 600px;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
+    margin-top: -100px;
 }
 
 .pure-bg-table {
-    width: 90% !important; /* Smaller than container */
-    margin: 0 auto; /* Center the table */
-    transform: none; /* Remove previous transform */
+    width: fit-content !important;
+    min-width: 90%;
+    max-width: 100%;
+    margin: 0 auto;
     background: transparent !important;
     position: relative;
     z-index: 2;
-    min-height: auto;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
-/* Modify existing rules */
+.mobile-text {
+    display: none;
+}
+
+
 .table-responsive {
     padding-top: 100px; /* Increased for heading space */
     background: transparent;
@@ -45,7 +51,7 @@ body {
 
 .pure-bg-table td,
 .pure-bg-table th {
-    font-size: 1rem; /* Slightly smaller text */
+    font-size: 1.2rem; /* Slightly smaller text */
     padding: 20px 15px !important; /* Adjusted padding */
 }
 
@@ -72,4 +78,29 @@ body {
 /* Update no-scores position */
 .no-scores {
     bottom: 60px;
+}
+
+@media screen and (max-width: 768px) {
+    .container{
+        position: absolute;
+        top: 3rem;
+    }
+    .desktop-text {
+        display: none;
+    }
+
+    .mobile-text {
+        display: inline;
+        font-size: 0.9rem; /* Reduced from 1.2rem */
+    }
+
+    .pure-bg-table td,
+    .pure-bg-table th {
+        font-size: 0.7rem; /* Reduced from 0.9rem */
+        padding: 10px 8px !important;
+    }
+
+    .table-responsive {
+        padding-top: 60px;
+    }
 }

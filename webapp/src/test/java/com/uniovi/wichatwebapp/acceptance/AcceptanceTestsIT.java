@@ -134,7 +134,7 @@ public class AcceptanceTestsIT {
 
     @Order(4)
     @Test
-    public void testLoginWithInvalidCredentials() {
+    public void testLoginWithInvalidCredentials() throws InterruptedException {
         driver.get("http://localhost:8000/login");
 
 
@@ -147,12 +147,13 @@ public class AcceptanceTestsIT {
         loginButton.click();
 
         // Check for error message
+        Thread.sleep(5000);
         WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("error")));
         assertNotNull(errorMessage, "Expected error message for invalid login");
         System.out.println("Invalid login test passed");
     }
 
-    /*
+
     @Order(5)
     @Test
     public void testLogout() throws InterruptedException {
@@ -174,6 +175,7 @@ public class AcceptanceTestsIT {
         loginButton.click();
         Thread.sleep(1000); // Wait 1 second
 
+        Thread.sleep(5000);
         // Ensure successful login before proceeding
         wait.until(ExpectedConditions.urlContains("/home"));
 
@@ -198,5 +200,5 @@ public class AcceptanceTestsIT {
 
         System.out.println("Access to protected page denied");
     }
-    */
+
 }

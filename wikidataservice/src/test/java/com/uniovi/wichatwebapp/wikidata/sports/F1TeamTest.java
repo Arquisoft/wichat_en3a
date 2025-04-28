@@ -79,9 +79,9 @@ class F1TeamTest {
 
     @Test
     void needToSkipTest_DetectsDuplicateAthleteLabels() {
-        assertFalse(f1Team.getAthleteLabels().contains("Lewis Hamilton"), "First check: should not contain Hamilton.");
-        f1Team.getAthleteLabels().add("Lewis Hamilton"); // Manually add for test
-        assertTrue(f1Team.getAthleteLabels().contains("Lewis Hamilton"), "Second check: should now contain Hamilton.");
+        assertFalse(f1Team.getAnswerLabels().contains("Lewis Hamilton"), "First check: should not contain Hamilton.");
+        f1Team.getAnswerLabels().add("Lewis Hamilton"); // Manually add for test
+        assertTrue(f1Team.getAnswerLabels().contains("Lewis Hamilton"), "Second check: should now contain Hamilton.");
         assertTrue(f1Team.needToSkip("Lewis Hamilton", "Mercedes"), "Should skip duplicate athlete label.");
     }
 
@@ -89,7 +89,6 @@ class F1TeamTest {
     void needToSkipTest_SkipsInvalidEntityNames() {
         assertTrue(WikidataUtils.isEntityName("Q12345"), "Q12345 should be recognized as an entity name.");
         assertTrue(f1Team.needToSkip("Q12345", "Mercedes"), "Should skip invalid athlete name.");
-        assertTrue(f1Team.needToSkip("Lewis Hamilton", "Q67890"), "Should skip invalid team name.");
     }
 
     @Test

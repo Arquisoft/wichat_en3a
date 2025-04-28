@@ -1,32 +1,40 @@
 package com.uniovi.wichatwebapp.wikidata.sports;
 
-import com.uniovi.wichatwebapp.entities.Answer;
-import com.uniovi.wichatwebapp.entities.AnswerCategory;
-import com.uniovi.wichatwebapp.entities.Question;
-import com.uniovi.wichatwebapp.entities.QuestionCategory;
+
+import com.uniovi.wichatwebapp.wikidata.ComposeQuestion;
 import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
 import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
+import entities.AnswerCategory;
+import entities.QuestionCategory;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class F1Team extends QuestionWikidata {
-    private static final String[] spanishStringsIni = {"¿En qué equipo está este deportista? ", "¿Cuál es el equipo de este deportista? "};
-    private static final String[] englishStringsIni= {"What team is this person in? ", "What's this person's team? "};
-
-    private List<String> athleteLabels= new ArrayList<>();
-
+public class F1Team extends ComposeQuestion {
 
     public F1Team(String langCode) {
         super(langCode);
     }
 
-    //For testing
-    public F1Team() {
-    }
     @Override
-    protected void setQuery() {
+    protected void initStringsIni() {
+        spanishStringsIni = new String[]{"¿En qué equipo está %s?", "¿Cuál es el equipo de %s?"};
+        englishStringsIni = new String[]{"What team is %s in?", "What's %s's team?"};
+    }
+
+    @Override
+    protected String getQuestionLabel() {
+        return "name";
+    }
+
+    // For testing
+    public F1Team() {
+        super();
+    }
+
+    @Override
+    public void setQuery() {
         this.sparqlQuery =
                 "SELECT DISTINCT ?name ?team_name ?image WHERE {   \n" +
                         "   VALUES ?occupation { wd:Q10841764 }\n" +
@@ -55,61 +63,18 @@ public class F1Team extends QuestionWikidata {
     }
 
     @Override
-    protected void processResults() {
-        athleteLabels = new ArrayList<>();
-        List<Question> questions = new ArrayList<>();
-        List<Answer> answers = new ArrayList<>();
-
-        for (int i = 0; i < results.length(); i++) {
-            JSONObject result = results.getJSONObject(i);
-            String athleteLabel = result.getJSONObject("name").getString("value");
-            String teamLabel = result.getJSONObject("team_name").getString("value");
-            String image = result.has("image") ? result.getJSONObject("image").getString("value") : null; // Retrieves image if available
-
-            if (needToSkip(athleteLabel, teamLabel)) {
-                continue;
-            }
-
-            Answer answer = new Answer(teamLabel, AnswerCategory.PERSON_F1_TEAM, langCode);
-            answers.add(answer);
-
-            String questionString;
-            if (langCode.equals("es")) {
-                questionString = spanishStringsIni[i % spanishStringsIni.length] + athleteLabel;
-            } else {
-                questionString = englishStringsIni[i % englishStringsIni.length] + athleteLabel;
-            }
-
-            if (image == null) {
-                image = QuestionWikidata.DEFAULT_QUESTION_IMG; // Set default image if none available
-            }
-
-            Question question = new Question(answer, questionString, athleteLabel, QuestionCategory.SPORT);
-            question.setImageUrl(image); // Sets the monument's image
-            questions.add(question);
-        }
-
-        qs.addAll(questions);
-        as.addAll(answers);
-    }
-
-    //For testing
-     List<String> getAthleteLabels() {
-        return athleteLabels;
+    protected QuestionCategory getQuestionCategory() {
+        return QuestionCategory.SPORT;
     }
 
     @Override
-    protected boolean needToSkip(String... parameters) {
-        if (athleteLabels.contains(parameters[0])) {
-            return true; // Avoid duplicate questions for the same monument
-        }
-        athleteLabels.add(parameters[0]);
+    protected AnswerCategory getAnswerCategory() {
+        return AnswerCategory.PERSON_F1_TEAM;
+    }
 
-        if (WikidataUtils.isEntityName(parameters[0]) || WikidataUtils.isEntityName(parameters[1])) {
-            return true; // Skip if either name is invalid
-        }
-
-        return false;
+    @Override
+    protected String getAnswerLabel() {
+        return "team_name";
     }
 
 }

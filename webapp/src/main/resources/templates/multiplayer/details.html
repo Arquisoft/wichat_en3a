@@ -1,0 +1,30 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="en" xmlns="http://www.thymeleaf.org" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:insert="fragments/head"></th:block>
+    <link rel="stylesheet" href="/css/results.css"/>
+</head>
+<body class="bg-light">
+<nav th:replace="fragments/nav"></nav>
+
+<div class="container mt-5">
+    <!-- Game Results Card -->
+    <div class="card text-center">
+        <div class="card-header">
+            <h2>Multiplayer game</h2>
+        </div>
+        <div class="card-body">
+            <p class="error" th:if="${addError}">The score could not be saved</p>
+            <h5 class="card-title">Your rival is: <strong id="playerName" th:text="${otherPlayer}"></strong></h5>
+            <p class="card-text">Their score is: <strong id="playerScore" th:text="${score}"></strong></p>
+            <p class="card-text">The category is: <strong id="category" th:text="${category}"></strong></p>
+            <p class="card-text">The time for each question is: <strong id="questionTime" th:text="${questionTime}"></strong></p>
+            <p class="card-text">There are: <strong id="numberQuestions" th:text="${numberOfQuestions}"></strong> questions</p>
+            <a style="margin: 0 auto" class="game-link big-button-anchor" th:href="'/game/multiplayer/start/' + ${gameId}" onClick="waitingCursor()">Play</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 package com.uniovi.wichatwebapp.repositories;
 
-import com.uniovi.wichatwebapp.entities.Score;
+import entities.Score;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;
@@ -52,6 +52,20 @@ public class ScoreRepository {
                         .build())
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<Score>>() {})
+                .block();
+    }
+
+    public Score getScore(String id) {
+        return webClientBuilder
+                .baseUrl(baseUrl)
+                .build()
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/getScore")
+                        .queryParam("id", id)
+                        .build())
+                .retrieve()
+                .bodyToMono(Score.class)
                 .block();
     }
 }
