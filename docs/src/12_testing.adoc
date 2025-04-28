@@ -3,7 +3,24 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 == Testing
 === Load testing
+Load testing was done to ensure the fulfilling of the performance quality goals that we defined in the first section of this documentation. The tests don't cover the whole application as we weren't able to cover the artificial intelligence section due to the limit in requests of Gemini
+We did two different tests for this:
+The first one was a simple one were we just made the users log in, check their scores and log out
+
+image::12-load-testing-1.png["Load test 1"]
+
+As you can see the application can handle up to 500 simultaneous users without too muc hassle
+
+image::12-load-testing-3.png["Load test 3"]
+
+The second one was a bit more elaborated as we made the users make the same thing as before but also play a round of the game in the biology category
+
+image::12-load-testing-2.png["Load test 2"]
+
+In this case you can see that the application even though it has a bit more failed requests it handles more than 3000 users simultaneously so that increase is expected
+
+image::12-load-testing-4.png["Load test 4"]
 === Functional testing
 Unit and acceptance tests were done to ensure that neither the users nor the application did something they weren't supposed to
 
-The unit tests were done with JUnit 5 and Mockito for creating the mocks for the tests. The acceptance tests were done using
+The unit tests were done with JUnit 5 and with Mockito for creating the mocks for the tests. The acceptance tests were done using mainly Selenium and some defining scenarios with Cucumber
