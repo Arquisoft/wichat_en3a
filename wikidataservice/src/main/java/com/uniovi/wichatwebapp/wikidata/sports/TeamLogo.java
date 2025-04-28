@@ -1,15 +1,9 @@
 package com.uniovi.wichatwebapp.wikidata.sports;
 
 
-import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
 import com.uniovi.wichatwebapp.wikidata.SimpleQuestion;
-import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import entities.AnswerCategory;
 import entities.QuestionCategory;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TeamLogo extends SimpleQuestion {
 

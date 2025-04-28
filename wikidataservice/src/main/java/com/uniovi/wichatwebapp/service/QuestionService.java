@@ -8,8 +8,8 @@ import entities.AnswerCategory;
 import entities.Question;
 import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
-import java.util.Random;
 
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,6 +18,7 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
     private boolean areAssigned = false;
+    private final SecureRandom random = new SecureRandom();
 
     public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
@@ -217,7 +218,7 @@ public class QuestionService {
     }
 */
     public Question getRandomQuestionNoCategory(String language) {
-        Random random = new Random();
+
         QuestionCategory[] categories = QuestionCategory.values();
         QuestionCategory randomCategory = categories[random.nextInt(categories.length)];
         return getRandomQuestion(language,randomCategory);

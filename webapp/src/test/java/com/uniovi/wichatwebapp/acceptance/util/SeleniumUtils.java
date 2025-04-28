@@ -69,7 +69,7 @@ public class SeleniumUtils {
 
 	/**
 	 * Espera por la visibilidad de un elemento/s en la vista actualmente cargandose en driver. Para ello se empleará una consulta xpath 
-	 * según varios criterios..
+	 * según varios criterios.
 	 * 
 	 * @param driver: apuntando al navegador abierto actualmente.
 	 * @param criterio: "id" or "class" or "text" or "@attribute" or "free". Si el valor de criterio es free es una expresion xpath completa. 

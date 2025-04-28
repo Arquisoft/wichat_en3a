@@ -69,7 +69,7 @@ public class AkinatorService {
 
     public void answer(String option) { //AI is guessing
         game.addQuestionsAndAnswers(getAiMessage(), option);
-        game.setAiMessage(askToAiQuestion()); //ask to player another hint
+        game.setAiMessage(askToAiQuestion()); //ask player another hint
     }
 
     public void endGame() {

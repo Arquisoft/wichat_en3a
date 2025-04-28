@@ -1,17 +1,9 @@
 package com.uniovi.wichatwebapp.wikidata.geography;
 
 
-import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
 import com.uniovi.wichatwebapp.wikidata.SimpleQuestion;
-import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
-import entities.Answer;
 import entities.AnswerCategory;
-import entities.Question;
 import entities.QuestionCategory;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MonumentNameQuestion extends SimpleQuestion {
 
