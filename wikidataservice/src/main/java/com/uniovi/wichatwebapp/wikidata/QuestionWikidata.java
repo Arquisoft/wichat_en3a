@@ -144,9 +144,13 @@ public abstract class QuestionWikidata {
                 System.err.println("Error: Received HTTP code " + response.statusCode());
                 System.err.println("Response body: " + response.body());
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException("Failed to send the request", e);
+            Thread.currentThread().interrupt();
+        }catch (IOException e2){
+            e2.printStackTrace();
+            throw new RuntimeException("Failed to send the request", e2);
+
         }
 
 

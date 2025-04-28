@@ -23,7 +23,7 @@ public class PO_View {
 
 
 	/**
-	 *  Espera por la visibilidad de un elemento/s en la vista actualmente cargandose en driver..
+	 *  Espera por la visibilidad de un elemento/s en la vista actualmente cargandose en driver.
 	 * 
 	 * @param driver: apuntando al navegador abierto actualmente.
 	 * @param type: 

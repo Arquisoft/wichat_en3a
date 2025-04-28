@@ -36,7 +36,7 @@ First, clone the project:
 
 ### LLM API key configuration
 
-In order to communicate with the LLM integrated in this project, we need to setup an API key.
+In order to communicate with the LLM integrated in this project, we need to set up an API key.
 We have to create a .env file in the hintservice directory with this format:
 HINTSERVICE_API_KEY=YOUR_API_KEY
 

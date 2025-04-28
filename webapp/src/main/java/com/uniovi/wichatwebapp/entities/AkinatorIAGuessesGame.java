@@ -2,8 +2,6 @@ package com.uniovi.wichatwebapp.entities;
 
 import entities.QuestionCategory;
 
-import java.util.HashMap;
-
 public class AkinatorIAGuessesGame extends AkinatorGame{
     private int questionsLeft=20;
     public AkinatorIAGuessesGame(QuestionCategory category) {

@@ -1,8 +1,5 @@
 package com.uniovi.wichatwebapp.services;
 
-import com.uniovi.wichatwebapp.entities.AkinatorGame;
-import com.uniovi.wichatwebapp.entities.AkinatorIAGuessesGame;
-import com.uniovi.wichatwebapp.entities.AkinatorPlayerGuessesGame;
 import com.uniovi.wichatwebapp.repositories.HintRepository;
 import entities.Question;
 import entities.QuestionCategory;
@@ -15,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)

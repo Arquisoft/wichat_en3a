@@ -1,7 +1,5 @@
 package com.uniovi.wichatwebapp.entitites;
 
-import com.uniovi.wichatwebapp.entities.AkinatorGame;
-import com.uniovi.wichatwebapp.entities.AkinatorIAGuessesGame;
 import com.uniovi.wichatwebapp.entities.AkinatorPlayerGuessesGame;
 import entities.QuestionCategory;
 import org.junit.jupiter.api.BeforeEach;
