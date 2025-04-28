@@ -145,7 +145,7 @@ public abstract class QuestionWikidata {
                 System.err.println("Response body: " + response.body());
             }
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
 
             Thread.currentThread().interrupt();
             throw new RuntimeException("Failed to send the request", e);
