@@ -37,6 +37,14 @@ public class QuestionServiceTests {
     }
 
     @Test
+    public void getRandomQuestionNoCategoryTest() {
+        when(questionRepository.getRandomQuestionNoCategory()).thenReturn(testQuestion);
+
+        Question question = questionService.getRandomQuestionNoCategory();
+        Assertions.assertEquals(testQuestion, question);
+    }
+
+    @Test
     public void removeQuestionTest() {
         testQuestion.setId("q123");
         questionService.removeQuestion(testQuestion);
