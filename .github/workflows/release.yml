@@ -192,8 +192,8 @@ jobs:
           cd wichat_en3a
           git sparse-checkout set grafana
           cd ..
-          mv wichat_en3a/grafana .
-          mv wichat_en3a/promtail-config.yml .
+          mv -f wichat_en3a/grafana .
+          mv -f wichat_en3a/promtail-config.yml .
           rm -rf wichat_en3a
           echo "HINTSERVICE_API_KEY=${{ secrets.LLM_API_KEY }}" > .env
           echo "GRAFANA_ADMIN_PASSWORD=${{ secrets.GRAFANA_ADMIN_PASSWORD }}" >> .env
