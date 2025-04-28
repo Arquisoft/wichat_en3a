@@ -134,3 +134,10 @@ This action uses three secrets that must be configured in the repository:
 - DEPLOY_KEY: key to authenticate the user in the remote machine.
 
 Note that this action logs in the remote machine and downloads the docker-compose file from the repository and launches it. Obviously, previous actions have been executed which have uploaded the docker images to the GitHub Packages repository.
+
+### API Documentation
+To manage the services of our application, we developed three APIs: one to manage the users and their scores, another to contact WikiData and manage the questions and a final for the hints using an AI.
+These three APIs are documented using openAPI and their documentations can be accessed here:
+- [User Service](https://userservice.wichat.pablordgz.es/swagger-ui/index.html)
+- [WikiData Service](https://wikidataservice.wichat.pablordgz.es/swagger-ui/index.html)
+- [Hint Service](https://hintservice.wichat.pablordgz.es/swagger-ui/index.html)
