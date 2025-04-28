@@ -70,5 +70,5 @@ The quality goals we have considered the most important taking into account the 
 | RTVE | Get an evolution of their quiz game and continue promoting their program all around the world
 | ChattySW | Develop an application within the given constraints and that fulfills the requirements given by the client
 | https://www.wikidata.org[Wikidata] | Offer a service allowing the development team to create the questions using an API
-| Google Gemini | Offer a service allowing the development team to provide hints and guess using an API
+| Google Gemini | Offer a service allowing the development team to provide hints using an API
 |===
