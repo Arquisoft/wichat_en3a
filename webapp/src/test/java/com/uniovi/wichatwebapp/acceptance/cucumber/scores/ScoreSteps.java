@@ -3,8 +3,6 @@ package com.uniovi.wichatwebapp.acceptance.cucumber.scores;
 import com.uniovi.wichatwebapp.acceptance.cucumber.BaseStep;
 import com.uniovi.wichatwebapp.acceptance.PO.PO_HomeView;
 import com.uniovi.wichatwebapp.acceptance.PO.PO_LoginView;
-import com.uniovi.wichatwebapp.acceptance.PO.PO_SignUpView;
-import com.uniovi.wichatwebapp.acceptance.util.SeleniumUtils;
 import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;

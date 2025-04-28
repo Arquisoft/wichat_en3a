@@ -5,8 +5,6 @@ import com.uniovi.wichatwebapp.wikidata.ComposeQuestion;
 import entities.AnswerCategory;
 import entities.QuestionCategory;
 
-import java.util.List;
-
 public class AnimalScientificName extends ComposeQuestion {
 
     public AnimalScientificName(String langCode) {

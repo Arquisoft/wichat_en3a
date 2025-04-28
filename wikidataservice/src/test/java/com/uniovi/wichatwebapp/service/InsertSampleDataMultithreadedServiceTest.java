@@ -1,18 +1,11 @@
 package com.uniovi.wichatwebapp.service;
 
-import com.uniovi.wichatwebapp.wikidata.biology.*;
-import com.uniovi.wichatwebapp.wikidata.geography.*;
-import com.uniovi.wichatwebapp.wikidata.pop.*;
-import com.uniovi.wichatwebapp.wikidata.sports.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.scheduling.annotation.AsyncResult;
 
-import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 import static org.mockito.Mockito.*;
@@ -27,7 +20,7 @@ class InsertSampleDataMultithreadedServiceTest {
     private InsertSampleDataMultithreadedService service;
 
     @Test
-    void insertFlagQuestionsTest() throws Exception {
+    void insertFlagQuestionsTest() {
         // Act
         CompletableFuture<Void> future = service.insertFlagQuestions();
 

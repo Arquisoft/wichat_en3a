@@ -1,7 +1,5 @@
 package entities;
 
-import entities.Answer;
-import entities.Question;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,8 +8,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.assertj.core.api.Fail.fail;
 
 @ExtendWith(MockitoExtension.class)
 public class QuestionTest {

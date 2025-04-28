@@ -5,11 +5,11 @@
     <img src="/images/qwizz.png" class="qwizzimage" width="250"/>
     <div class="form-container">
     <form method="post" action="/signup" th:object="${user}" class="form" onsubmit="waitingCursor()">
-        <input type="text" id="email" name="email" placeholder="Enter your email" required="true"/>
+        <input type="text" id="email" name="email" placeholder="Enter your email" required/>
         <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-        <input type="text" id="name" name="name" placeholder="Enter your name" required="true"/>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required/>
         <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required="true"/>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required/>
         <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
         <button type="submit" class="big-button">Sign up</button>
         <p class="error" th:if="${adderror}">The account could not be created, an account with that email might already exist</p>

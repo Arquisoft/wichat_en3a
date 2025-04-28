@@ -2,14 +2,8 @@ package com.uniovi.wichatwebapp.wikidata.sports;
 
 
 import com.uniovi.wichatwebapp.wikidata.ComposeQuestion;
-import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
-import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import entities.AnswerCategory;
 import entities.QuestionCategory;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FootballTeam extends ComposeQuestion {
 

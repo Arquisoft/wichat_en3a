@@ -36,7 +36,7 @@ First, clone the project:
 
 ### LLM API key configuration
 
-In order to communicate with the LLM integrated in this project, we need to setup an API key.
+In order to communicate with the LLM integrated in this project, we need to set up an API key.
 We have to create a .env file in the hintservice directory with this format:
 HINTSERVICE_API_KEY=YOUR_API_KEY
 
@@ -57,7 +57,7 @@ Just like the LLM, for the deployment via GitHub actions, this password is set i
 
 The username to Grafana is admin.
 
-Grafana is accessible on port 3000.
+Grafana is accessible on port 3001.
 
 ### Component by component start
 First, start the database. Either install and run Mongo or run it using docker:
@@ -84,7 +84,7 @@ The machine for deployment can be created in services like Microsoft Azure or Am
 - Linux machine with Ubuntu > 20.04 (the recommended is 24.04).
 - An x86-64 (also known as AMD64 or Intel64) or ARM64 architecture
 - Docker installed.
-- Open ports for the applications installed (in this case, port 8000 for the webapp, and 3000 for Grafana, if you want to use it).
+- Open ports for the applications installed (in this case, port 8000 for the webapp, and 3001 for Grafana, if you want to use it).
 
 Once you have the virtual machine created, you can install **docker** using the following instructions:
 

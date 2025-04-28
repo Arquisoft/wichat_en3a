@@ -1,6 +1,5 @@
 package com.uniovi.wichatwebapp.wikidata.geography;
 
-import com.uniovi.wichatwebapp.wikidata.QuestionWikidata;
 import com.uniovi.wichatwebapp.wikidata.WikidataUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
