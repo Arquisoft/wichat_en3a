@@ -1,6 +1,6 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
-[[section-introduction-and-goals]]
+[[section-testing]]
 == Testing
 === Load testing
 Load testing was done to ensure the fulfilling of the performance quality goals that we defined in the first section of this documentation. The tests don't cover the whole application as we weren't able to cover the artificial intelligence section due to the limit in requests of Gemini
