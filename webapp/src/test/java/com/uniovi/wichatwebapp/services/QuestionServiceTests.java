@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,6 +28,14 @@ public class QuestionServiceTests {
         when(questionRepository.getRandomQuestion(any())).thenReturn(testQuestion);
 
         Question question = questionService.getRandomQuestion(QuestionCategory.GEOGRAPHY);
+        Assertions.assertEquals(testQuestion, question);
+    }
+
+    @Test
+    public void getRandomQuestionNoCategoryTest() {
+        when(questionRepository.getRandomQuestionNoCategory()).thenReturn(testQuestion);
+
+        Question question = questionService.getRandomQuestionNoCategory();
         Assertions.assertEquals(testQuestion, question);
     }
 

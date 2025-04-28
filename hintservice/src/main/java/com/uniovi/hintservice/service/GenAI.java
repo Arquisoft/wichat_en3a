@@ -56,60 +56,8 @@ public class GenAI { //https://github.com/googleapis/java-genai
 
     }
 
-    /*
-    public String exampleAskTextInput() throws IOException, HttpException {
-        GenerateContentResponse response =
-                client.models.generateContent(GEMINI_1_5, "What is your name?", null);
-        return response.text();
-    }
-
-    public String exampleAskTextAndImageInput() throws IOException, HttpException {
-        // Create parts from builder or `fromJson` method.
-        Part textPart = Part.builder().text("describe the image").build();
-        Part imagePart =
-                Part.fromJson(
-                        "{\"fileData\":{\"mimeType\":\"image/jpeg\",\"fileUri\":\"gs://path/to/image.jpg\"}}");
-
-        Content content =
-                Content.builder().role("user").parts(ImmutableList.of(textPart, imagePart)).build();
-
-        GenerateContentResponse response =
-                client.models.generateContent(GEMINI_2_0, content, null);
-
-        System.out.println("Response: " + response.text());
-        return response.text();
-    }
-
-    public String exampleAskWithConfig() throws IOException, HttpException {
-        // Sets the safety settings in the config.
-        ImmutableList<SafetySetting> safetySettings = initializeSafetySettings();
-
-        // Sets the system instruction in the config.
-        Content systemInstruction =
-                Content.builder()
-                        .parts(ImmutableList.of(Part.builder().text("Answer as concisely as possible").build()))
-                        .build();
-
-        // Sets the Google Search tool in the config.
-        Tool googleSearchTool = Tool.builder().googleSearch(GoogleSearch.builder().build()).build();
-
-        GenerateContentConfig config =
-                GenerateContentConfig.builder()
-                        .candidateCount(1)
-                        .maxOutputTokens(1024)
-                        .safetySettings(safetySettings)
-                        .systemInstruction(systemInstruction)
-                        .tools(ImmutableList.of(googleSearchTool))
-                        .build();
-
-        GenerateContentResponse response =
-                client.models.generateContent(GEMINI_2_0, "Tell me the history of LLM", config);
-
-        return response.text();
-    }
-*/
     // Sets the safety settings
-    private ImmutableList<SafetySetting> initializeSafetySettings() {
+    protected ImmutableList<SafetySetting> initializeSafetySettings() {
         return ImmutableList.of(
                 SafetySetting.builder()
                         .category("HARM_CATEGORY_HATE_SPEECH")

@@ -66,6 +66,43 @@ public class WordleControllerTest {
     }
 
     @Test
+    public void getGameLostGameTest() {
+        List<String> attempts = List.of("paris", "lima");
+
+        Wordle gameMock = Mockito.mock(Wordle.class);
+        Mockito.when(gameMock.getAttempts()).thenReturn(attempts);
+        Mockito.when(wordleService.getGame(username)).thenReturn(gameMock);
+        Mockito.when(wordleService.getGame(username).getRemainingAttempts()).thenReturn(0);
+        Mockito.when(wordleService.getGame(username).getStatus()).thenReturn(Wordle.GameStatus.LOSE);
+
+        String result = wordleController.getGame(model);
+
+        Mockito.verify(model).addAttribute(eq("wordle"), eq(gameMock));
+        Mockito.verify(model).addAttribute(eq("attemptsSplit"), Mockito.any());
+        Mockito.verify(model).addAttribute(eq("solutionWord"), Mockito.any());
+        Assertions.assertEquals("wordle/game", result);
+    }
+
+    @Test
+    public void getGameWinGameTest() {
+        List<String> attempts = List.of("paris", "lima");
+
+        Wordle gameMock = Mockito.mock(Wordle.class);
+        Mockito.when(gameMock.getAttempts()).thenReturn(attempts);
+        Mockito.when(wordleService.getGame(username)).thenReturn(gameMock);
+        Mockito.when(wordleService.getGame(username).getRemainingAttempts()).thenReturn(1);
+        Mockito.when(wordleService.getGame(username).getStatus()).thenReturn(Wordle.GameStatus.WIN);
+
+        String result = wordleController.getGame(model);
+
+        Mockito.verify(model).addAttribute(eq("wordle"), eq(gameMock));
+        Mockito.verify(model).addAttribute(eq("attemptsSplit"), Mockito.any());
+        Mockito.verify(model).addAttribute(eq("hasWon"), Mockito.any());
+        Assertions.assertEquals("wordle/game", result);
+    }
+
+
+    @Test
     public void makeGuessTest() {
         //The word has 5 letters
         String guess = "aireo";

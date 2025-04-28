@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)  // No Spring context!
@@ -69,6 +68,12 @@ class QuestionServiceTest {
 
         assertNotNull(testQuestion.getAnswers());
         assertEquals(4, testQuestion.getAnswers().size()); // Correct answer + 3 distractors
+    }
+
+    @Test
+    void loadAnswersTest_OneQuestion() {
+        assertNotNull(testQuestion.getAnswers());
+        assertEquals(0, testQuestion.getAnswers().size()); // Correct answer + 3 distractors
     }
 
     @Test

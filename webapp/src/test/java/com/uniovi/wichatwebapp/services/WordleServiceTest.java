@@ -53,5 +53,10 @@ public class WordleServiceTest {
         Assertions.assertFalse(wordleService.getGame("user123").getAttempts().isEmpty());
     }
 
-
+    @Test
+    public void resetGameTest() {
+        wordleService.startNewGame("user123");
+        wordleService.resetGame("user123");
+        Assertions.assertNull(wordleService.getGame("user123"));
+    }
 }

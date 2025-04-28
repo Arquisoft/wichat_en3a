@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Fail.fail;
-
 @ExtendWith(MockitoExtension.class)
 public class AbstractGameTest {
     private Game game;
@@ -130,6 +128,7 @@ public class AbstractGameTest {
 
         Assertions.assertEquals(newQuestion, game.getCurrentQuestion());
         Assertions.assertTrue(game.checkAnswer("newCorrect"));
+        Assertions.assertTrue(game.hasQuestion(newQuestion));
     }
 
     @Test
@@ -143,5 +142,13 @@ public class AbstractGameTest {
         Assertions.assertEquals(2, game.getRightAnswers());
         Assertions.assertEquals(1, game.getWrongAnswers());
         Assertions.assertEquals(175, game.getPoints()); // 100 + (-25) + 100
+    }
+
+    @Test
+    void hasQuestionTest(){
+        Question question2 = new Question(new Answer("Berlin", "en"), "Capital of Germany?", "no-image");
+        Assertions.assertFalse(game.isQuestionInGame(question2));
+        game.setCurrentQuestion(question2);
+        Assertions.assertTrue(game.isQuestionInGame(question2));
     }
 }

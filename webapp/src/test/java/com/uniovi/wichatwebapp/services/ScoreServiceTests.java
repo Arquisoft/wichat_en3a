@@ -12,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -29,8 +28,8 @@ public class ScoreServiceTests {
     public void addScoreTest() {
         when(scoreRepository.addScore(any())).thenReturn(testScore);
 
-        boolean couldAdd = scoreService.addScore(testScore);
-        Assertions.assertEquals(true, couldAdd);
+        Score addedScore = scoreService.addScore(testScore);
+        Assertions.assertEquals(testScore, addedScore);
     }
 
     @Test
@@ -40,6 +39,15 @@ public class ScoreServiceTests {
 
         List<Score> score = scoreService.getBestScores("test");
         Assertions.assertEquals(testsScores, score);
+    }
+
+    @Test
+    public void getScoreByIdTest(){
+        when(scoreRepository.getScore("1")).thenReturn(testScore);
+
+        Score score = scoreService.getScore("1");
+        Assertions.assertEquals(testScore, score);
+        Assertions.assertNull(scoreService.getScore("2"));
     }
 
 }

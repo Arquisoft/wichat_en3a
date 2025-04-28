@@ -18,8 +18,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 public abstract class QuestionWikidata {
     public final static String DEFAULT_QUESTION_IMG ="https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg";
+    private static final Logger LOGGER = Logger.getLogger(QuestionWikidata.class.getName());
     // Query to be sent to WikiData QS
     protected String sparqlQuery;
     // Response given by WikiData QS for the query sent
@@ -144,9 +149,12 @@ public abstract class QuestionWikidata {
                 System.err.println("Error: Received HTTP code " + response.statusCode());
                 System.err.println("Response body: " + response.body());
             }
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to send the request", e);
+        } catch (InterruptedException e) {
+            LOGGER.log(Level.SEVERE, "Thread was interrupted", e);
+            Thread.currentThread().interrupt();
+        } catch (IOException e2) {
+            LOGGER.log(Level.SEVERE, "Failed to send the request", e2);
+            throw new RuntimeException("Failed to send the request", e2);
         }
 
 

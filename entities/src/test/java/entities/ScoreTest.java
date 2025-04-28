@@ -1,12 +1,12 @@
-package com.uniovi.wichatwebapp.entitites;
+package entities;
 
-import entities.Score;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Fail.fail;
+import java.util.ArrayList;
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class ScoreTest {
@@ -62,6 +62,9 @@ public class ScoreTest {
             score.setScore(200);
             score.setRightAnswers(10);
             score.setWrongAnswers(5);
+            List<Question> questions = new ArrayList<>();
+            score.setQuestions(questions);
+            score.setQuestionTime(5);
 
             // Verify all fields
             Assertions.assertEquals("score123", score.getId());
@@ -71,5 +74,9 @@ public class ScoreTest {
             Assertions.assertEquals(200, score.getScore());
             Assertions.assertEquals(10, score.getRightAnswers());
             Assertions.assertEquals(5, score.getWrongAnswers());
+            Assertions.assertEquals(questions, score.getQuestions());
+            Assertions.assertEquals(5, score.getQuestionTime());
         }
+
+
     }

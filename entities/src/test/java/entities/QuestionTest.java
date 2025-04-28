@@ -1,7 +1,5 @@
-package com.uniovi.wichatwebapp.entitites;
+package entities;
 
-import entities.Answer;
-import entities.Question;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,8 +8,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.assertj.core.api.Fail.fail;
 
 @ExtendWith(MockitoExtension.class)
 public class QuestionTest {
@@ -70,5 +66,20 @@ public class QuestionTest {
         Assertions.assertEquals(newCorrectAnswer, question.getCorrectAnswer());
         Assertions.assertEquals(newAnswers, question.getAnswers());
         Assertions.assertEquals("es", question.getLanguage());
+    }
+
+    @Test
+    void equalsHashMapTest(){
+        Question question1 = new Question(correctAnswer, questionContent, imageUrl);
+        Question question2 = new Question(correctAnswer, questionContent, imageUrl);
+
+        Assertions.assertEquals(question1, question2);
+        Assertions.assertEquals(question1.hashCode(), question2.hashCode());
+
+        // question with different values
+        Question question3 = new Question(new Answer("Berlin", "de"), "What is the capital of Germany?", "germany.jpg");
+        Assertions.assertNotEquals(question1, question3);
+        Assertions.assertNotEquals(question1.hashCode(), question3.hashCode());
+
     }
 }
