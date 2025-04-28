@@ -515,7 +515,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
-<li><a href="#section-glossary">12. Glossary</a></li>
+<li><a href="#section-introduction-and-goals">12. Testing</a>
+<ul class="sectlevel2">
+<li><a href="#_load_testing">12.1. Load testing</a></li>
+<li><a href="#_functional_testing">12.2. Functional testing</a></li>
+</ul>
+</li>
+<li><a href="#section-glossary">13. Glossary</a></li>
 </ul>
 </div>
 </div>
@@ -555,7 +561,7 @@ See <a href="https://arc42.org" class="bare">https://arc42.org</a>.</p>
 <p>The application aims to be a web game of questions and answers following the format of the TV show ‘Saber y Ganar’. The game will show a question to the player followed by a fixed number of possible answers (the information used in the questions and answers will be obtained from <a href="https://www.wikidata.org">Wikidata</a>. The player must answer these questions by clicking on one of the answers, clicking a correct answer will increase their score and clicking a incorrect answer will decrease it.</p>
 </div>
 <div class="paragraph">
-<p>The description given till now was the same as the project that was implemented by the students that took the software architecture course last year. But, apart from that, this year there will be a new feature that implements a clue system using an LLM. This system will let the user decide whether to use clues or not once they have seen the question. Using the clues will result in a penalty to be decided. Some goals established for the application are (without priority order):</p>
+<p>The description given till now was the same as the project that was implemented by the students that took the software architecture course last year. But, apart from that, this year there will be a new feature that implements a clue system using an LLM. This system will let the user decide whether to use clues or not once they have seen the question. Some goals established for the application are (without priority order):</p>
 </div>
 <div class="ulist">
 <ul>
@@ -660,8 +666,10 @@ There shall be a record of the historical data of the games from logged in playe
 <div class="sect2">
 <h3 id="_quality_goals">1.2. Quality Goals</h3>
 <div class="paragraph">
-<p>About the Hint service:
-The implementation of tests and that the product is extensible is one of the main goals as they are one of the most important requirements of some of our stakeholders (our teachers)</p>
+<p>Regarding the Hint service, the implementation of tests and that the product is extensible is one of the main goals as they are one of the most important requirements of some of our stakeholders (our teachers)</p>
+</div>
+<div class="paragraph">
+<p>The quality goals we have considered the most important taking into account the necessities of our major stakeholders are the following 5:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -676,55 +684,27 @@ The implementation of tests and that the product is extensible is one of the mai
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility &amp; Transferability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system has to be compatible with different browsers (at least Chrome, Firefox and Opera) and devices while ensuring an optimal experience regardless of the chosen platform. It also has to take into account different screen sizes (computer/laptop size, tablet size and phone size)</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system shall be available 99% of the time a user tries to access</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system shall be available 97% of the time a user tries to access</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Usability &amp; Operability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The application is intuitive, users can learn how to fluently use the application in their first use. The users should be able to play the game and complete it.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The application is able to manage a big number of users (50) without penalizing response times</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maintainability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system has to be designed to facilitate the maintenance and updating</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Functional suitability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system can fulfill its intended goal effectively by allowing the users to register, play the game, ask for hints to the LLM and access their statistics</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reliability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system has to be able to generate questions from Wikidata ensuring their accuracy and diversity. It should handle the storage of user registrations, logins and game data without errors</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application is intuitive, an inexperienced user can understand by himself how to play each game in less than 5 minutes.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The information about users can only accessed by themselves</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An unauthenticated user can&#8217;t access the game and the data of the users can only be accessed by themselves with their encrypted password.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Functional suitability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system will have a user management system that will allow users to login with their credentials stored, sign up if they aren&#8217;t registered, and see their historical data (scores). The system has a game system that will allow to obtain reliable questions from wikidata, and ask the LLM for hints</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reliability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The failure of the LLM doesn&#8217;t translate into the failure of the whole application. There will always be some questions available for playing due to the diversity taken into account</p></td>
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>Other goals to take into account are:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>We should use a test focused development</p>
-</li>
-<li>
-<p>We should carefully choose the design to make sure that the application is maintainable</p>
-</li>
-<li>
-<p>The system has to be easy to use and understand</p>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_stakeholders">1.3. Stakeholders</h3>
@@ -742,11 +722,11 @@ The implementation of tests and that the product is extensible is one of the mai
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Users</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Test their knowledge.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Test their knowledge while having fun.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Software architecture professors</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provide their students, the development team, with practical experience regarding software architecture by allowing them to work in an environment that emulates the flow of development of a real project . Which means that they expect us to be able to meet the standards of quality and production of a real application.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provide their students, the development team, with practical experience regarding software architecture by allowing them to work in an environment that emulates the flow of development of a real project. Which means that they expect us to be able to meet the standards of quality and production of a real application.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RTVE</p></td>
@@ -759,6 +739,10 @@ The implementation of tests and that the product is extensible is one of the mai
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.wikidata.org">Wikidata</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Offer a service allowing the development team to create the questions using an API</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Google Gemini</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Offer a service allowing the development team to provide hints and guess using an API</p></td>
 </tr>
 </tbody>
 </table>
@@ -1691,7 +1675,59 @@ network conditions, potentially causing an unfair experience. Latency compensati
 </div>
 </div>
 <div class="sect1">
-<h2 id="section-glossary">12. Glossary</h2>
+<h2 id="section-introduction-and-goals">12. Testing</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_load_testing">12.1. Load testing</h3>
+<div class="paragraph">
+<p>Load testing was done to ensure the fulfilling of the performance quality goals that we defined in the first section of this documentation. The tests don&#8217;t cover the whole application as we weren&#8217;t able to cover the artificial intelligence section due to the limit in requests of Gemini
+We did two different tests for this:
+The first one was a simple one were we just made the users log in, check their scores and log out</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/12-load-testing-1.png" alt="Load test 1">
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see the application can handle up to 500 simultaneous users without too muc hassle</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/12-load-testing-3.png" alt="Load test 3">
+</div>
+</div>
+<div class="paragraph">
+<p>The second one was a bit more elaborated as we made the users make the same thing as before but also play a round of the game in the biology category</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/12-load-testing-2.png" alt="Load test 2">
+</div>
+</div>
+<div class="paragraph">
+<p>In this case you can see that the application even though it has a bit more failed requests it handles more than 3000 users simultaneously so that increase is expected</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/12-load-testing-4.png" alt="Load test 4">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_functional_testing">12.2. Functional testing</h3>
+<div class="paragraph">
+<p>Unit and acceptance tests were done to ensure that neither the users nor the application did something they weren&#8217;t supposed to</p>
+</div>
+<div class="paragraph">
+<p>The unit tests were done with JUnit 5 and with Mockito for creating the mocks for the tests. The acceptance tests were done using mainly Selenium and some defining scenarios with Cucumber</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-glossary">13. Glossary</h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1765,7 +1801,7 @@ network conditions, potentially causing an unfair experience. Latency compensati
 <div id="footer">
 <div id="footer-text">
 Version 8.2 EN<br>
-Last updated 2025-04-03 10:27:41 +0200
+Last updated 2025-04-27 21:36:52 +0200
 </div>
 </div>
 </body>
