@@ -45,9 +45,9 @@ The application has some constraints, these are requirements of the stakeholders
 
 | Public repository | The project source code will be available in a public repository
 
-| Continuous Integration | The project has some requirements stated by our stakeholders that need to e fulfilled. A code coverage of 80%, no more than 3% of code repetitions, ... We are using GitHub actions to ensure this
+| Continuous Integration | The project has some requirements stated by our stakeholders will be automatically checked or done using GitHub actions: a code coverage of 80%, no more than 3% of code repetitions, deployed…
 
-| Documentation | It should be a complete, deployed and synchronized documentation
+| Documentation | It should be complete, deployed and synchronized with the application's arquitecture
 
 |=== 
 
