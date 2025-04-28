@@ -9,6 +9,7 @@ import entities.Question;
 import entities.QuestionCategory;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,8 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
     private boolean areAssigned = false;
-    private final Random random = new Random();
+    private final SecureRandom random = new SecureRandom();
+
     public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
         this.answerRepository = answerRepository;
