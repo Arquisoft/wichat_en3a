@@ -7,21 +7,22 @@ ifndef::imagesdir[:imagesdir: ../images]
 === Business Context
 
 
-image::03-business_context.jpg["Business context"]
+image::03-business_context_v2.jpg["Business context"]
 
-* User: the player interacts with our application by using the front-end of the
-application to play the question game, sign up and log in.
+* User: the player interacts with our application by using the front-end of the application to sign up, log in,
+and play different games (question game, akinator style game, and wordle game)
 
-* Application : our application allows the player to play the question games, and it will interact with the
-WikiData API and LLM API by using queries to get the questions and options, and to ask for hints related to the
-questions respectively.
-It also allows to authenticated the player and allows them to see their statistics.
+* Application : our application allows the player to play the games, and it will interact by using queries to get the
+questions, answer and incorrect options from WikiData, and getting hints for the different games from the LLM.
+It also allows the user to authenticate and see their score.
 
-* WikiData API: API to extract the information for generating the different questions, options and answers.
+* Login and SignUp: authentication system for the game.
 
-* Database: Database for storing the users information.
+* Scores: score system that allows users to see their past games statistics.
 
-* LLM API: API to ask to an AI for hints related to the question shown to the user.
+* WikiData: API to extract the information for generating the different questions, options and answers.
+
+* LLM: API to ask to an AI for hints related to the question shown to the user.
 
 
 === Technical Context
