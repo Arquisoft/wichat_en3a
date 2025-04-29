@@ -11,7 +11,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 | Decision | Reasons
 | Use https://spring.io/projects/spring-boot[SpringBoot] at the project | We are going to use SpringBoot at the project because:
 
-- It gives us a lot of functionality already implemented so that we don't have to implement it ourselves.
+- It gives us a lot of functionality already implemented so that we don't have to implement it ourselves (security, validators, exception handler, default configuration...).
 
 - It allows us to use Java, which we are very used to and prefer over JavaScript.
 | https://www.mongodb.com/[MongoDB] as a database system | We will use MongoDB because:
@@ -19,6 +19,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 - It's already integrated in the user and authentication service
 
 - It's the more popular non-relational database, and has a more or less simple syntax
+
+| Creation of an entities project | We created an entities project that contains entities that are used by several services (webapp, hintService, userService...) for avoiding code duplication, reutilize code and avoid mistakes caused by repeating code.
 
 |===
 
@@ -32,6 +34,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 - It allows us to use Java, which we are very used to and prefer over JavaScript.
 
+| Use Thymeleaf as template engine | Use of Thymeleaf as template engine:
+
+- It's easy integrated with SpringBoot
+
+- It allows us to separate the user interface from the content in the web application, process model data dynamically and access to model attributes
 |===
 
 ==== LLM
@@ -47,6 +54,12 @@ ifndef::imagesdir[:imagesdir: ../images]
 - It has a way to handle hallucinations and errors.
 
 - It allows us to send the instructions for how the LLM should behave each time the user asks the LLM something. This also means that the user can't just ask the LLM to ignore its instructions and give them the correct answer.
+
+| Use of https://github.com/googleapis/java-genai[Google Gen AI Java SDK] as API | We use GenAI for communicating with Gemini as:
+
+- It's very easy to use as it's well documented
+
+- It simplifies the communication to Gemini, as you don't need to use JSON in Java with difficult configurations.
 |===
 
 ==== Deployment
@@ -58,7 +71,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 - Docker containers encapsulate the application and its dependencies, ensuring consistency across different environments (development, testing, production).
 
 - This portability allows seamless deployment on Azure, regardless of the underlying infrastructure.
-| https://www.docker.com/[Docker] with https://apex.oracle.com/en/platform/deployment/[Oracle] for deploying the application permanently | We will use Docker with Oracle because:
+| Use of https://www.docker.com/[Docker] with https://apex.oracle.com/en/platform/deployment/[Oracle] for deploying the application permanently (instead of Azure) | We will use Docker with Oracle because:
 
 - It's much more cheaper than Azure for keep the app deployed.
 |===
@@ -71,15 +84,17 @@ ifndef::imagesdir[:imagesdir: ../images]
 | Decision | Reasons
 | MVC architectural pattern | We will use MVC for the project because:
 
-- It allows us to divide the application into model, view and controller and are less coupled
+- It allows us to divide the application into model, view and controller and are less coupled.
+
+- Easier for developing and scalability since all layers are separated, making easy to change one layer and divide the work
 | Microservices architecture | We will use the microservices architecture because:
 
-- We can divide the project into independent services (other projects) that can be reusable
+- We can divide the project into independent services (other projects) that can be reusable.
+
+- This allows flexibility to change how each service works, having independence to develop each service on it's own, and easier to update them since they are not coupled.
 |===
 
 === Organizational breakdown
-Scrum,  Pull requests revision,
-
 [options="header"]
 |===
 | Decision | Reasons
@@ -107,6 +122,9 @@ Scrum,  Pull requests revision,
 [options="header"]
 |===
 | Attribute pursued | Choice
-|Compatibility & Transferability | The system has been developed to correctly work no matter the browser or device guaranteeing a fluid experience. We are using HTML, CSS and Bootstrap which assure that the design and features look and act similarly across the different platflorms.
-|Usability & Operability| The UI has been designed taking into account usability principles taught to the team. The team has also made sure that the users can guess what the buttons all around the application do without much problem.
+| Availability | To ensure the 97% availability of our system, we use a virtual machine from Oracle who is a trusted provider.
+| Usability & Operability| The application features a user-friendly UI that allows it to be easily understood. The application can be used with no training as it provides tooltips describing instructions for the games for new users.
+| Security | We use SpringBootSecurity features to force the user to login to access the application. When registering a user, we use PasswordEncoder to encrypt the password so we don't store their raw password in our database.
+| Reliability | There will be always questions available to play, since we load the questions when starting the application.
+|Compatibility & Transferability | The application has been design to work in all modern browsers while providing equal performance. For that, we made use of HTML, CSS and Bootstrap. In addition, since the application is designed to be deployed with Docker, it can be transfered to another computer or device with no issue.
 |===
