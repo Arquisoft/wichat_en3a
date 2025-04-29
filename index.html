@@ -526,9 +526,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-technical-risks">11. Risks and Technical Debts</a></li>
 <li><a href="#section-testing">12. Testing &amp; Monitoring</a>
 <ul class="sectlevel2">
-<li><a href="#_load_testing">12.1. Load testing</a></li>
-<li><a href="#_functional_testing">12.2. Functional testing</a></li>
-<li><a href="#_unitary_testing">12.3. Unitary testing</a></li>
+<li><a href="#_functional_testing">12.1. Functional testing</a></li>
+<li><a href="#_unitary_testing">12.2. Unitary testing</a></li>
+<li><a href="#_load_testing">12.3. Load testing</a></li>
+<li><a href="#_monitoring">12.4. Monitoring</a></li>
 </ul>
 </li>
 <li><a href="#section-glossary">13. Glossary</a></li>
@@ -1880,47 +1881,11 @@ network conditions, potentially causing an unfair experience. Latency compensati
 <h2 id="section-testing">12. Testing &amp; Monitoring</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A wide range of tests were done to ensure that our system work as expected.</p>
+<p>A wide range of tests were done to ensure that our system work as expected and ensuring a code coverage greater or equal to 80%.
+Also, we monitor our system using</p>
 </div>
 <div class="sect2">
-<h3 id="_load_testing">12.1. Load testing</h3>
-<div class="paragraph">
-<p>Load testing was done to ensure the fulfilling of the performance quality goals that we defined in the first section of this documentation. The tests don&#8217;t cover the whole application as we weren&#8217;t able to cover the artificial intelligence section due to the limit in requests of Gemini
-We did two different tests for this:
-The first one was a simple one were we just made the users log in, check their scores and log out</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/12-load-testing-1.png" alt="Load test 1">
-</div>
-</div>
-<div class="paragraph">
-<p>As you can see the application can handle up to 500 simultaneous users without too muc hassle</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/12-load-testing-3.png" alt="Load test 3">
-</div>
-</div>
-<div class="paragraph">
-<p>The second one was a bit more elaborated as we made the users make the same thing as before but also play a round of the game in the biology category</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/12-load-testing-2.png" alt="Load test 2">
-</div>
-</div>
-<div class="paragraph">
-<p>In this case you can see that the application even though it has a bit more failed requests it handles more than 3000 users simultaneously so that increase is expected</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images/12-load-testing-4.png" alt="Load test 4">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_functional_testing">12.2. Functional testing</h3>
+<h3 id="_functional_testing">12.1. Functional testing</h3>
 <div class="paragraph">
 <p>We implemented acceptance tests to verify that the product meets the specified requirements and behaves as expected from the user&#8217;s perspective. These tests were primarily conducted using Selenium, with some scenarios defined in Cucumber.
 Some scenarios that were tested with acceptance tests are login, signup and logout.
@@ -1928,12 +1893,137 @@ In addition, we performed end-to-end (E2E) tests using Selenium to simulate real
 </div>
 </div>
 <div class="sect2">
-<h3 id="_unitary_testing">12.3. Unitary testing</h3>
+<h3 id="_unitary_testing">12.2. Unitary testing</h3>
 <div class="paragraph">
 <p>Unit tests were implemented to verify that both users and the application behave as expected and do not perform unintended actions.
 We used JUnit 5 for writing the tests, and Mockito for mocking dependencies where isolation was required.
 These unit tests also contributed to improving code coverage, in line with our quality gate requirement of 80%. Right now, the code coverage stands at 85.1%.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_load_testing">12.3. Load testing</h3>
+<div class="paragraph">
+<p>Load testing was done to ensure the fulfilling of the performance quality goals that we defined in the first section of this documentation.
+It was done in a laptop in localhost with 12 cores and 16GB RAM.</p>
+</div>
+<div class="paragraph">
+<p>The tests don&#8217;t cover the whole application as we weren&#8217;t able to cover the artificial intelligence section due to the limit in requests of Gemini.</p>
+</div>
+<div class="paragraph">
+<p>We did two different tests for this:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The first one was a simple one were we just made the users log in, check their scores and log out.</p>
+</li>
+<li>
+<p>The second one was a bit more complex as we made the users make the same thing as before but also play a Biology question game by letting in each round that the time finishes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For both test, we were incrementing the number of users in different phases:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It started with one user.</p>
+</li>
+<li>
+<p>Then it added 5 users over 10 seconds</p>
+</li>
+<li>
+<p>Then, added 15 users over 30 seconds</p>
+</li>
+<li>
+<p>Then, added 50 users over 30 seconds</p>
+</li>
+<li>
+<p>Then, added 100 users over 120 seconds</p>
+</li>
+<li>
+<p>Then, adding 20 users per second during 5 minutes.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Here we can see the results for the first test:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/12-load-testing-1.png" alt="Load test 1">
+</div>
+</div>
+<div class="paragraph">
+<p>We can see that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>20874 request lasted less than 800 ms</p>
+</li>
+<li>
+<p>2807 are between 800ms and 1200ms</p>
+</li>
+<li>
+<p>10078 take longer than 1200ms</p>
+</li>
+<li>
+<p>10083 failed</p>
+</li>
+<li>
+<p>The pages with more failures were (from more failures to less): login, scores, home and logout.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As you can see the application can handle up to 500 simultaneous users very well, even though some requests started taking long and failing.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/12-load-testing-3.png" alt="Load test 3">
+</div>
+</div>
+<div class="paragraph">
+<p>Here we can see the results for the second test:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/12-load-testing-2.png" alt="Load test 2">
+</div>
+</div>
+<div class="paragraph">
+<p>We can see that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>185953 requests lasted less than 800 ms</p>
+</li>
+<li>
+<p>18797 failed</p>
+</li>
+<li>
+<p>The pages with more failures were (from more failures to less): view results, scores, home, login and starting the game.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In this case you can see that the application even though it has a bit more failed requests it handles more than 3000 users simultaneously so that increase is expected.
+This might be because the users might be distributed in different pages and also the players aren&#8217;t really playing.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/12-load-testing-4.png" alt="Load test 4">
+</div>
+</div>
+<div class="paragraph">
+<p>From these results we can see that is needed to be checked if it can be improved the Scores pages and Home specially, as they are always very high in terms of failed requests and they are also very common pages tha tusers usually visit.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monitoring">12.4. Monitoring</h3>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
