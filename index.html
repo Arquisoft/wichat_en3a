@@ -477,6 +477,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
 <li><a href="#_level_2">5.2. Level 2</a></li>
+<li><a href="#_level_2_2">5.3. Level 2</a></li>
 </ul>
 </li>
 <li><a href="#section-runtime-view">6. Runtime View</a>
@@ -496,9 +497,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#_performance_and_scalability">8.1. Performance and Scalability</a></li>
-<li><a href="#_usability_and_accesibility">8.2. Usability and Accesibility</a></li>
-<li><a href="#_maintainability_and_extensibility">8.3. Maintainability and Extensibility</a></li>
+<li><a href="#_domain_model">8.1. Domain model</a></li>
+<li><a href="#_performance_and_scalability">8.2. Performance and Scalability</a></li>
+<li><a href="#_usability_and_accesibility">8.3. Usability and Accesibility</a></li>
+<li><a href="#_maintainability_and_extensibility">8.4. Maintainability and Extensibility</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
@@ -1184,11 +1186,25 @@ interfaces and ask the other parts/services of the application the different dat
 <img src="./images/03-business_context_v2.png" alt="Whitebox Overall System">
 </div>
 </div>
-<div class="paragraph">
-<p>Motivation: This is a very general overview of our system to understand how it works and services has/uses in a simple way.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Motivation **</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Contained Building Blocks: as we described, before it&#8217;s composed by:</p>
+<p>This is a very general overview of our system to understand how it works and services has/uses in a simple way.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contained Building Blocks **</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>As we described, before it&#8217;s composed by:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1197,11 +1213,52 @@ interfaces and ask the other parts/services of the application the different dat
 </li>
 <li>
 <p>Our application will interact with different services: Login and SignUp, Scores, WikiData and LLM.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Important Interfaces **
+The user interacts connects to the application and can play the game by making</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_level_2">5.2. Level 2</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/03_technical_context_v4.png" alt="Level 2">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Motivation **</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Overall view of the system and the parts in which it is divided as well as the external systems it connects to.</p>
+<p>This is bit gives a little more deep that help us to understand the architecture and how we structured.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contained Building Blocks **</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The WebApp provides the user interface of our system. It could be considered the Application, but it works as a Controller,
+that is an intermediate between the User and Services provided.</p>
+</li>
+<li>
+<p>UserService is a REST API that provides all the functionality related with the users.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Application represents the entire system implemented by our team. This is the part of the system with which the user interacts.</p>
@@ -1217,7 +1274,7 @@ interfaces and ask the other parts/services of the application the different dat
 </div>
 </div>
 <div class="sect2">
-<h3 id="_level_2">5.2. Level 2</h3>
+<h3 id="_level_2_2">5.3. Level 2</h3>
 <div class="imageblock">
 <div class="content">
 <img src="./images/05_level2_v2.png" alt="Level 2">
@@ -1500,27 +1557,71 @@ interfaces and ask the other parts/services of the application the different dat
 <h2 id="section-concepts">8. Cross-cutting Concepts</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_performance_and_scalability">8.1. Performance and Scalability</h3>
+<h3 id="_domain_model">8.1. Domain model</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/8_domain.jpeg" alt="Domain model">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Classes **</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Question: Represents a question entity. It contains the question text, a list of possible answers, the correct answer, and optionally an image relevant to the question. Each question is associated with a question category.</p>
+</li>
+<li>
+<p>User: Represents a user, storing personal information such as name, email, and password.</p>
+</li>
+<li>
+<p>Answer: Represents an answer entity. It contains the answer text and is linked to an answer category.</p>
+</li>
+<li>
+<p>Score: Represents the score for a game session. It records key information such as the user who played, the game category, the number of correct and incorrect answers, and the time taken to answer the questions.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enums **</p>
+<div class="ulist">
+<ul>
+<li>
+<p>QuestionCategory: Defines the categories of questions. Currently, available categories are Pop Culture, Biology, Sport, and Geography.</p>
+</li>
+<li>
+<p>AnswerCategory: Defines answer categories related to the question categories, such as Flag, Brand Name, F1 Team, Monument Name, Animal Lifespan, and others</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_performance_and_scalability">8.2. Performance and Scalability</h3>
 <div class="sect3">
-<h4 id="_load_managing">8.1.1. Load managing</h4>
+<h4 id="_load_managing">8.2.1. Load managing</h4>
 <div class="paragraph">
 <p>Considering that the application&#8217;s concurrent users can vary its important to take horizontal scalability when designing the architecture, that&#8217;s why we are using Docker for deployment.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_usability_and_accesibility">8.2. Usability and Accesibility</h3>
+<h3 id="_usability_and_accesibility">8.3. Usability and Accesibility</h3>
 <div class="sect3">
-<h4 id="_intuitive_interface">8.2.1. Intuitive interface</h4>
+<h4 id="_intuitive_interface">8.3.1. Intuitive interface</h4>
 <div class="paragraph">
 <p>The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_maintainability_and_extensibility">8.3. Maintainability and Extensibility</h3>
+<h3 id="_maintainability_and_extensibility">8.4. Maintainability and Extensibility</h3>
 <div class="sect3">
-<h4 id="_modularity">8.3.1. Modularity</h4>
+<h4 id="_modularity">8.4.1. Modularity</h4>
 <div class="paragraph">
 <p>The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components.</p>
 </div>
@@ -1631,25 +1732,45 @@ We however have decided to have Azure as a backup in case of an issue</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Performance</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">- The system should generate a question, its possible answers and the image within a short time.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since the main game relies on generating questions and showing an image, the application should be able to generate them efficiently and to render the image within a short time.
+For this, the questions are loaded qhen the application is first deployed so there is no need to query Wikidata each game. For the images, we use the ones provided by WikiData and display them
+with a resolution low enough to guarantee a short waiting time
+High, Medium</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Availability</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">- A failover mechanism should allow hint generation to respond or give a controlled answer even if the LLM API is temporarily unavailable.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The system should be available most of the time so the application can be used. For this we use a virtual machine from Oracle and have tested our application to verify that it can deal with a large load of users at the same time.
+High, Medium</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Security</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">- User data (e.g., progress history) should be securely stored.<br>
-  - The system should prevent unauthorized access to API keys.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since security is a high priority for users, we implemented mechanism to ensure the safety of the users data (such as encrypting their passwords) as well as guaranteeing that things like their scores are only accessible by them
+Medium, Medium</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainability</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">- The codebase should follow modular architecture principles, ensuring ease of modification and debugging.<br>
-  - The system should be correctly tested.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">While the end users won&#8217;t see it, we want to make sure that our application&#8217;s code is maintainable and easily modifieable so new features can be easily added without the need to change a lot of the previous code. To ensure this, we chose a modular architecture to reduce coupling between elements and included tests to verify that they work properly in case there are modifications.
+Low, Medium</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Usability</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">- The web interface should be intuitive and accessible for everyone.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Usability &amp; Operability </strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application show provide an intuitive UI so that users can pick it up the application easily. For this, a clear and simple UI was designed and tooltips where added for the more complex aspects of the application to ensure that the users can master it in a few minutes.
+High, Medium</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Functional Suitability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application&#8217;s system are properly divided so each module handles the functionality taht corresponds to them. This way, we guarantee a good design and separation of responsabilities between the elements of the application.
+High, High</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Compatibility</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application has been designed to work on most moder browers to ensure that the users can access it and use it regardless of the techonology they use to connect to it
+High, Low</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Transferability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since the application is deployed using Docker, it can be easily transfered to a new machine or cloned into mutiple ones to improve escalability
+Low, Medium</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Reliability</strong></p></td>
