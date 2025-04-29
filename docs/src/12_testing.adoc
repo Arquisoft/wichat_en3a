@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-testing]]
 == Testing & Monitoring
 A wide range of tests were done to ensure that our system work as expected and ensuring a code coverage greater or equal to 80%.
-Also, we monitor our system using
+Also, we monitor our system using SpringBoot Actuator, Prometheus and Grafana.
 
 === E2E testing
 We implemented acceptance tests to verify that the product meets the specified requirements and behaves as expected from the user's perspective.
@@ -61,8 +61,6 @@ We can see that:
 * 18797 failed
 * The pages with more failures were (from more failures to less): view results, scores, home, login and starting the game.
 
-
-
 In this case you can see that the application even though it has a bit more failed requests it handles more than 3000 users simultaneously so that increase is expected.
 This might be because the users might be distributed in different pages and also the players aren't really playing.
 
@@ -71,3 +69,12 @@ image::12-load-testing-4.png["Load test 4"]
 From these results we can see that is needed to be checked if it can be improved the Scores pages and Home specially, as they are always very high in terms of failed requests and they are also very common pages tha tusers usually visit.
 
 === Monitoring
+The Prometheus actuator is deployed in https://wichat.pablordgz.es/actuator/prometheus.
+And the Prometheus serer is deployed in 158.179.214.177:9091, but the port is closed as you can accessed the statistics using Grafana.
+
+Grafana is deployed on port 3001, and can be accessed using the following URL https://gf.wichat.pablordgz.es, and the credentials: admin (as user) and nice_dashboard (as password).
+The dashboards used are JVM micrometer and SpringBoot observability.
+
+image::12_grafana_1.png["JVM micrometer"]
+
+image::12_grafana_2.png["SpringBoot observability"]
