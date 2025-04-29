@@ -1530,6 +1530,35 @@ expandability and scalability. The services could be changed and as long as the 
 <div class="paragraph">
 <p><strong>Mapping of Building Blocks to Infrastructure</strong></p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>The webapp is in the webapp folder</p>
+</li>
+<li>
+<p>The userService is in the userService folder</p>
+</li>
+<li>
+<p>The wikidataService in when wikidataService folder</p>
+</li>
+<li>
+<p>The hintService in the hintService folder</p>
+</li>
+<li>
+<p>The database runs in Docker, and upon WikiData service starting it will be filled with questions</p>
+</li>
+<li>
+<p>WikiData is an external component, which is key to our application but is not something we can change, it&#8217;s
+important to keep up with any API changes and to keep in mind that information there might be wrong our outdated.</p>
+</li>
+<li>
+<p>The Grafana configuration is in the Grafana folder</p>
+</li>
+<li>
+<p>The Prometheus configuration is in prometheus.yml</p>
+</li>
+</ul>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
