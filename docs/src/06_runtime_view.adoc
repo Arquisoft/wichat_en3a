@@ -12,7 +12,7 @@ The following diagram shows how the sign up process of a user is done.
 4. Returns if they are unique.
 5. Create the user and store it in the Database.
 6. Notify to what page the user should be redirected.
-7. The user is redirected to the menu. The user can access to its statistics (interaction with the User service) and play the game.
+7. The user is redirected to the login menu.
 8. Notify that the credentials are invalid.
 9. The errors are shown and the user isn’t registered.
 
@@ -20,22 +20,22 @@ The following diagram shows how the sign up process of a user is done.
 ----
 autonumber
 actor User
-participant FrontEnd
+participant WebApp
 participant UserService
 database Database
 
-User -> FrontEnd: write credentials
-FrontEnd -> UserService: check credentials' format
+User -> WebApp: write credentials
+WebApp -> UserService: check credentials' format
 UserService -> Database: check uniqueness
 Database --> UserService: return uniqueness
 
 alt valid credentials
     UserService -> Database: user created
-    UserService --> FrontEnd: redirect user
-    FrontEnd --> User: show menu
+    UserService --> WebApp: redirect user
+    WebApp --> User: show login menu
 else not valid
-    UserService --> FrontEnd: notify credentials are invalid
-    FrontEnd --> User: show errors
+    UserService --> WebApp: notify credentials are invalid
+    WebApp --> User: show errors
 end
 ----
 
@@ -47,7 +47,7 @@ The following diagram shows how the login process of a user is done.
 3. Check the credentials are valid for the user.
 4. Return if the credentials are valid.
 5. The user is authenticated.
-6. The user is redirected to the menu. The user can access to its statistics (interaction with the UserService) and play the game.
+6. The user is redirected to the home menu. The user can access to its statistics and play games.
 7. Notify that the credentials are invalid.
 8. The errors are shown and the user isn’t registered.
 
@@ -55,124 +55,114 @@ The following diagram shows how the login process of a user is done.
 ----
 autonumber
 actor User
-participant FrontEnd
+participant WebApp
 participant UserService
 database Database
 
-User -> FrontEnd: write credentials
-FrontEnd -> UserService: check credentials' format
+User -> WebApp: write credentials
+WebApp -> UserService: check credentials' format
 UserService -> Database: check credentials are valid
 Database --> UserService: return if valid
 
 alt valid credentials
-    UserService --> FrontEnd: login
-    FrontEnd --> User: redirect
+    UserService --> WebApp: login
+    WebApp --> User: redirect to home
 else not valid
-    UserService --> FrontEnd: notify credentials are invalid
-    FrontEnd --> User: show errors
+    UserService --> WebApp: notify credentials are invalid
+    WebApp --> User: show errors
 end
 ----
 
-=== Game
+=== Question game
 The following diagram shows how the playing of the game is done.
 
-1. Choses the game option in the menu.
+1. Choses the question game option and category in the menu.
 2. The game starts.
-3. See the Question Generation section below.
+3. Ask for a random question to WikidataService
 4. The data related to the question is returned.
-5. User asks for a hint.
-6. The timer is stopped.
-7. See the Hint Generation section below.
-8. The information related to the hint is returned.
-9. User choses an option from the four given.
-10. The GameService checks if the option picked is the answer or not to the question.
-11. The GameService returns if it's correct the option picked.
-12. The user is informed if they make a good guess or not.
-13. Store the results and information of the game in the database.
-14. Returns the information of the game to the FrontEnd.
-15. The information of the game is shown to the user.
+5. The question and available options is shown to the User
+6. User asks for a hint.
+7. The timer is stopped.
+8. See the Hint Generation section below.
+9. The information related to the hint is returned.
+10. The hint is shown to the User
+11. User choses an option from the four given.
+12. Check if the option picked is the answer or not to the question.
+13. The User is informed if they make a good guess or not.
+14. Sends the results and information of the game by using the UserService.
+15. The UserServices sends this information to the database to be stored
+16. The information of the game is shown to the User.
 
 [plantuml,"Game diagram",png]
 ----
 autonumber
 actor User
-participant FrontEnd
-participant GameService
+participant WebApp
 participant WikidataService
 participant HintService
+participant UserService
 database Database
 
-User -> FrontEnd: choses the game option
-FrontEnd -> GameService: the game starts
-loop round starts with timer (global or per round)
-    GameService -> WikidataService: [Question generation part]
-    WikidataService --> GameService: return data
+User -> WebApp: choses the game option
+WebApp -> WebApp: the game starts
+loop round starts with timer
+    WebApp -> WikidataService: asks for a random question
+    WikidataService --> WebApp: return question
+    WebApp --> User: show question and options
     alt user asks for a hint
-        User -> FrontEnd: ask for a hint
-        FrontEnd -> GameService: stop timer
-        GameService -> HintService: [Hint generation part]
-        HintService --> FrontEnd: return hint
+        User -> WebApp: ask for a hint
+        WebApp -> WebApp: stop timer
+        WebApp -> HintService: [Hint generation part]
+        HintService --> WebApp: return hint
+        WebApp --> User: show hint
 
     else user chooses an option
-        User -> FrontEnd: chooses an option
-        FrontEnd -> GameService: check if correct
-        GameService --> FrontEnd: returns if correct
-        FrontEnd --> User: inform if correct
+        User -> WebApp: chooses an option
+        WebApp -> WebApp: check if correct
+        WebApp --> User: inform if correct
     end
 end
-GameService -> Database: store results
-GameService --> FrontEnd: return the results
-FrontEnd --> User: show the results
+WebApp -> UserService: send results
+UserService -> Database: store results
+WebApp --> User: show the results
 ----
 
 === Question generation
 The following diagram shows how the generation of the questions is done. This option loads the questions during the game directly from Wikidata.
 
-1. The GameService asks for a question.
-2. The WikidataService requests data for creating the questions.
-3. Wikidata returns the question, image and options for the question.
-4. The WikidataService returns all the information.
-5. The GameService stores all the information returned.
-6. The GameService returns the data to the FrontEnd
-7. The question, image and options for the question are shown
+1. The WikidataService requests questions about several topics.
+2. Wikidata returns the question, answer and image for the question.
+3. The WikidataService send all the questions to the Database, so they are stored.
 
 [plantuml,"Question generation 1 diagram",png]
 ----
 autonumber
-actor User
-participant FrontEnd
-participant GameService
 participant WikidataService
 entity WikiData
+database Database
 
-GameService -> WikidataService: ask for a question
-WikidataService -> WikiData: requests data
+WikidataService -> WikiData: requests questions about several topics
 WikiData --> WikidataService: returns the data
-WikidataService --> GameService: returns the data
-GameService -> GameService: stores the data
-GameService --> FrontEnd: returns the data
-FrontEnd --> User: show the data
+WikidataService -> Database: store all the questions
 ----
 
 === Hint generation
 The following diagram shows how the generation of the hints is done.
 
-1. The GameService (after the user asks it) asks for a hint to the current question.
-2. The HintService gives some context to the LLM.
+1. The WebApp (after the user asks it) asks for a hint to the current question, and gives instructions and context for the LLM.
+2. The HintService gives some context to the LLM, and asks for a clue.
 3. The LLM returns the clue.
 4. The HintService returns the clue.
 
 [plantuml,"Hint generation diagram",png]
 ----
 autonumber
-participant GameService
+participant WebApp
 participant HintService
-entity WikiData
 entity LLM
 
-GameService -> HintService: ask for clue
-WikiData -> HintService : get context about the question
+WebApp -> HintService: gives instructions and context for the LLM
 HintService -> LLM: give context and ask for clue
 LLM --> HintService: returns the clue
-HintService --> GameService: returns the clue
+HintService --> WebApp: returns the clue
 ----
