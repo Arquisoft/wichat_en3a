@@ -24,6 +24,7 @@ All the quality requirements for the systems are:
 
 image::10_tree.png["Quality tree"]
 
+Here there are the rest of quality attributes that we don't considered as much important as the mentioned before.
 
 [cols="2,3"]
 |===
