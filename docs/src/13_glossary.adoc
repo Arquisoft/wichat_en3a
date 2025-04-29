@@ -43,6 +43,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 |Container
 |Executable package that encloses an application. Multiple containers can form a complex architecture while remaining isolated from each other. It is a live instance of an image, allowing it to be shared and stored. 
+
 |Image
 |File that includes everything necessary to run an application such as code, runtime system, libraries, runtime variables and configuration files. This will ensure that running the application is consistent independently of the environment.  
 

@@ -7,38 +7,39 @@ ifndef::imagesdir[:imagesdir: ../images]
 === Business Context
 
 
-image::03-business_context.jpg["Business context"]
+image::03-business_context_v2.jpg["Business context"]
 
-* User: the player interacts with our application by using the front-end of the
-application to play the question game, sign up and log in.
+* User: the player interacts with our application by using the front-end of the application to sign up, log in,
+and play different games (question game, akinator style game, and wordle game)
 
-* Application : our application allows the player to play the question games, and it will interact with the
-WikiData API and LLM API by using queries to get the questions and options, and to ask for hints related to the
-questions respectively.
-It also allows to authenticated the player and allows them to see their statistics.
+* Application : our application allows the player to play the games, and it will interact by using queries to get the
+questions, answer and incorrect options from WikiData, and getting hints for the different games from the LLM.
+It also allows the user to authenticate and see their score.
 
-* WikiData API: API to extract the information for generating the different questions, options and answers.
+* Login and SignUp: authentication system for the game.
 
-* Database: Database for storing the users information.
+* Scores: score system that allows users to see their past games statistics.
 
-* LLM API: API to ask to an AI for hints related to the question shown to the user.
+* WikiData: API to extract the information for generating the different questions, options and answers.
+
+* LLM: API to ask to an AI for hints related to the question shown to the user.
 
 
 === Technical Context
 
 
-image::03_technical_context_v2.png["Technical context"]
+image::03_technical_context_v4.png["Technical context"]
 
 The application is deployed using Docker with Oracle. The whole application:
-The user interacts with the front-end of the application. It will be a SpringBoot project that will contain the user
-interfaces and ask the other parts of the application the different data that it needs. So, it acts as a Controller.
+The user interacts with the front-end of the application. It will be a SpringBoot project called webapp that will contain the user
+interfaces and ask the other parts/services of the application the different data that it needs. So, it acts as a Controller.
 
 The services will be:
 
-* Users service (login and statistics)
-* WikiData service (WikiData)
-* Hint service (LLM)
-* Game service
+* UserService for the Login, SignUp and Score system. It will interact with the database (MongoDB) by using the TCP/IP protocol and sending queries in JSON format for the user authentication, and their statistics for the different games he played.
 
-The User service will interact with the database (MongoDB) to add information for the user authentication, and their statistics for the different games he played.
+* WikidataService which will interact directly with Wikidata by using the HTTPS protocol and sending some queries in SPARQL. Also, it interacts with the database (in the same way as the UserService) for storing the questions for the game.
 
+* HintService which will interact directly with the LLM by sending some queries and instructions using the HTTPS protocol and https://github.com/googleapis/java-genai[Google Gen AI Java SDK].
+
+The services are deployed as images in Docker with Oracle, and are different SpringBoot projects that act as REST APIs.

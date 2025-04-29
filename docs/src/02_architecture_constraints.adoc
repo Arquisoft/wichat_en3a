@@ -15,13 +15,17 @@ The application has some constraints, these are requirements of the stakeholders
 
 | Web Frontend | The system will have at least a Web frontend 
 
-| Deployment | The application should be deployed 
+| Deployment | The application should be deployed in the cloud with Azure or a similar provider
 
-|Wikidata  | We must use Wikidata to get information to generate the questions  
+| Wikidata | We must use Wikidata to get information to generate the questions
 
 | LLM  | An LLM will be used to generate hints for the questions  
 
-| GitHub | We must use GitHub for the version control of the project  
+| GitHub | We must use GitHub for the version control of the project
+
+| Testing | We must have unit, acceptance and load tests at least. With a code coverage of at least 80%
+
+| Documented API | We must have a documentation of the APIs created using OpenAPI
 
 |=== 
 
@@ -35,11 +39,15 @@ The application has some constraints, these are requirements of the stakeholders
 
 | Constraints | Limitations 
 
-| Team  | The team for the project was chosen by the professors 
+| Team | The team for the project was chosen by the professors
 
-| Weekly meetings  | There must be at least one weekly meeting 
+| Weekly meetings | There must be at least one weekly meeting
 
-| Public repository   | The project source code will be available in a public repository  
+| Public repository | The project source code will be available in a public repository
+
+| Continuous Integration | The project has some requirements stated by our stakeholders will be automatically checked or done using GitHub actions: a code coverage of 80%, no more than 3% of code repetitions, deployed…
+
+| Documentation | It should be complete, deployed and synchronized with the application's arquitecture
 
 |=== 
 

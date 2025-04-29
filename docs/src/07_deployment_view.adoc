@@ -6,14 +6,27 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Infrastructure Level 1
 
-image::07_Deployment_v2.png["Deployment"]
+image::07_deployment_v6.png["Deployment"]
 
-=== Deployment Architecture Components
+**Motivation**
 
-* **User**: The end-user interacts with the system through the web application.
-* **Application**: The central interface that connects users to the system.
-* **GameService**: Manages multiple services, including:
-  ** *Hint Service*: Interfaces with an external Large Language Model (**Gemini**) to process queries.
-  ** *Wikidata Service*: Handles question-related logic and interacts with the database using the **Wikidata API**.
-  ** *User Service*: Manages user-related functionalities such as authentication and profile management.
-* **Database**: Uses MongoDB as the primary database for storing user and question-related data.
+The above diagram shows the initial version of the architecture and the division between its components.
+We will be using a microservices architecture, with a main server that the user directly interacts with and several
+services that this server interacts with. One of these services interacts with Wikidata to get questions, another interacts
+with the database to store user information and another interacts with Gemini to get hints and more.
+
+**Quality and/or Performance Features**
+By separating the architecture in this way we have a lot of separation, which provides flexibility,
+expandability and scalability. The services could be changed and as long as the API remains the same, everything would keep working.
+
+**Mapping of Building Blocks to Infrastructure**
+
+* The webapp is in the webapp folder
+* The userService is in the userService folder
+* The wikidataService in when wikidataService folder
+* The hintService in the hintService folder
+* The database runs in Docker, and upon WikiData service starting it will be filled with questions
+* WikiData is an external component, which is key to our application but is not something we can change, it's
+important to keep up with any API changes and to keep in mind that information there might be wrong our outdated.
+* The Grafana configuration is in the Grafana folder
+* The Prometheus configuration is in prometheus.yml
