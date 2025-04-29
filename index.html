@@ -483,7 +483,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel2">
 <li><a href="#_sign_up">6.1. Sign up</a></li>
 <li><a href="#_login">6.2. Login</a></li>
-<li><a href="#_game">6.3. Game</a></li>
+<li><a href="#_question_game">6.3. Question game</a></li>
 <li><a href="#_question_generation">6.4. Question generation</a></li>
 <li><a href="#_hint_generation">6.5. Hint generation</a></li>
 </ul>
@@ -1277,7 +1277,7 @@ interfaces and ask the other parts/services of the application the different dat
 <p>Notify to what page the user should be redirected.</p>
 </li>
 <li>
-<p>The user is redirected to the menu. The user can access to its statistics (interaction with the User service) and play the game.</p>
+<p>The user is redirected to the login menu.</p>
 </li>
 <li>
 <p>Notify that the credentials are invalid.</p>
@@ -1289,7 +1289,7 @@ interfaces and ask the other parts/services of the application the different dat
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Sign%20up%20diagram.png" alt="Sign up diagram" width="550" height="505">
+<img src="./images/Sign%20up%20diagram.png" alt="Sign up diagram" width="554" height="505">
 </div>
 </div>
 </div>
@@ -1316,7 +1316,7 @@ interfaces and ask the other parts/services of the application the different dat
 <p>The user is authenticated.</p>
 </li>
 <li>
-<p>The user is redirected to the menu. The user can access to its statistics (interaction with the UserService) and play the game.</p>
+<p>The user is redirected to the home menu. The user can access to its statistics and play games.</p>
 </li>
 <li>
 <p>Notify that the credentials are invalid.</p>
@@ -1333,14 +1333,14 @@ interfaces and ask the other parts/services of the application the different dat
 </div>
 </div>
 <div class="sect2">
-<h3 id="_game">6.3. Game</h3>
+<h3 id="_question_game">6.3. Question game</h3>
 <div class="paragraph">
 <p>The following diagram shows how the playing of the game is done.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Choses the game option in the menu.</p>
+<p>Choses the question game option and category in the menu.</p>
 </li>
 <li>
 <p>The game starts.</p>
@@ -1379,7 +1379,7 @@ interfaces and ask the other parts/services of the application the different dat
 <p>Store the results and information of the game in the database.</p>
 </li>
 <li>
-<p>Returns the information of the game to the FrontEnd.</p>
+<p>Returns the information of the game to the WebApp.</p>
 </li>
 <li>
 <p>The information of the game is shown to the user.</p>
@@ -1388,7 +1388,7 @@ interfaces and ask the other parts/services of the application the different dat
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Game%20diagram.png" alt="Game diagram" width="776" height="719">
+<img src="./images/Game%20diagram.png" alt="Game diagram" width="686" height="758">
 </div>
 </div>
 </div>
@@ -1415,7 +1415,7 @@ interfaces and ask the other parts/services of the application the different dat
 <p>The GameService stores all the information returned.</p>
 </li>
 <li>
-<p>The GameService returns the data to the FrontEnd</p>
+<p>The GameService returns the data to the WebApp</p>
 </li>
 <li>
 <p>The question, image and options for the question are shown</p>
