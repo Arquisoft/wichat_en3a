@@ -2012,11 +2012,11 @@ This might be because the users might be distributed in different pages and also
 <h3 id="_monitoring">12.4. Monitoring</h3>
 <div class="paragraph">
 <p>The Prometheus actuator is deployed in <a href="https://wichat.pablordgz.es/actuator/prometheus" class="bare">https://wichat.pablordgz.es/actuator/prometheus</a>.
-And the Prometheus server is deployed in 158.179.214.177:9091, but the port is closed as you can accessed the statistics using Grafana.</p>
+And the Prometheus server is deployed in 158.179.214.177:9091, but the port is closed as you can accessed the statistics using Grafana.
+But also is deployed for each service: userservice.wichat.pablordgz.es/actuator/prometheus, wikidataservice.wichat.pablordgz.es/actuator/prometheus and hintservice.wichat.pablordgz.es/actuator/prometheus.</p>
 </div>
 <div class="paragraph">
 <p>Grafana is deployed on port 3001, and can be accessed for the webapp using the following URL <a href="https://gf.wichat.pablordgz.es" class="bare">https://gf.wichat.pablordgz.es</a>, and the credentials: admin (as user) and nice_dashboard (as password).
-But also is deployed for each service: userservice.wichat.pablordgz.es/actuator/prometheus, wikidataservice.wichat.pablordgz.es/actuator/prometheus and hintservice.wichat.pablordgz.es/actuator/prometheus.
 The dashboards used are JVM micrometer and SpringBoot observability.</p>
 </div>
 <div class="imageblock">
