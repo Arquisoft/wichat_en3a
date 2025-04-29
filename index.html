@@ -492,7 +492,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-deployment-view">7. Deployment View</a>
 <ul class="sectlevel2">
 <li><a href="#_infrastructure_level_1">7.1. Infrastructure Level 1</a></li>
-<li><a href="#_deployment_architecture_components">7.2. Deployment Architecture Components</a></li>
 </ul>
 </li>
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
@@ -1511,40 +1510,25 @@ is divided into Services (the real logic of the game), Repositories (they are in
 <h3 id="_infrastructure_level_1">7.1. Infrastructure Level 1</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/07_Deployment_v2.png" alt="Deployment">
+<img src="./images/07_deployment_v6.png" alt="Deployment">
 </div>
 </div>
+<div class="paragraph">
+<p><strong>Motivation</strong></p>
 </div>
-<div class="sect2">
-<h3 id="_deployment_architecture_components">7.2. Deployment Architecture Components</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>User</strong>: The end-user interacts with the system through the web application.</p>
-</li>
-<li>
-<p><strong>Application</strong>: The central interface that connects users to the system.</p>
-</li>
-<li>
-<p><strong>GameService</strong>: Manages multiple services, including:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Hint Service</strong>: Interfaces with an external Large Language Model (<strong>Gemini</strong>) to process queries.</p>
-</li>
-<li>
-<p><strong>Wikidata Service</strong>: Handles question-related logic and interacts with the database using the <strong>Wikidata API</strong>.</p>
-</li>
-<li>
-<p><strong>User Service</strong>: Manages user-related functionalities such as authentication and profile management.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>The above diagram shows the initial version of the architecture and the division between its components.
+We will be using a microservices architecture, with a main server that the user directly interacts with and several
+services that this server interacts with. One of these services interacts with Wikidata to get questions, another interacts
+with the database to store user information and another interacts with Gemini to get hints and more.</p>
 </div>
-</li>
-<li>
-<p><strong>Database</strong>: Uses MongoDB as the primary database for storing user and question-related data.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><strong>Quality and/or Performance Features</strong>
+By separating the architecture in this way we have a lot of separation, which provides flexibility,
+expandability and scalability. The services could be changed and as long as the API remains the same, everything would keep working.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mapping of Building Blocks to Infrastructure</strong></p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
@@ -2031,7 +2015,8 @@ This might be because the users might be distributed in different pages and also
 And the Prometheus serer is deployed in 158.179.214.177:9091, but the port is closed as you can accessed the statistics using Grafana.</p>
 </div>
 <div class="paragraph">
-<p>Grafana is deployed on port 3001, and can be accessed using the following URL <a href="https://gf.wichat.pablordgz.es" class="bare">https://gf.wichat.pablordgz.es</a>, and the credentials: admin (as user) and nice_dashboard (as password).
+<p>Grafana is deployed on port 3001, and can be accessed for the webapp using the following URL <a href="https://gf.wichat.pablordgz.es" class="bare">https://gf.wichat.pablordgz.es</a>, and the credentials: admin (as user) and nice_dashboard (as password).
+But also is deployed for each service
 The dashboards used are JVM micrometer and SpringBoot observability.</p>
 </div>
 <div class="imageblock">
