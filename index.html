@@ -1346,10 +1346,13 @@ interfaces and ask the other parts/services of the application the different dat
 <p>The game starts.</p>
 </li>
 <li>
-<p>See the Question Generation section below.</p>
+<p>Ask for a random question to WikidataService</p>
 </li>
 <li>
 <p>The data related to the question is returned.</p>
+</li>
+<li>
+<p>The question and available options is shown to the User</p>
 </li>
 <li>
 <p>User asks for a hint.</p>
@@ -1364,31 +1367,31 @@ interfaces and ask the other parts/services of the application the different dat
 <p>The information related to the hint is returned.</p>
 </li>
 <li>
+<p>The hint is shown to the User</p>
+</li>
+<li>
 <p>User choses an option from the four given.</p>
 </li>
 <li>
-<p>The GameService checks if the option picked is the answer or not to the question.</p>
+<p>Check if the option picked is the answer or not to the question.</p>
 </li>
 <li>
-<p>The GameService returns if it&#8217;s correct the option picked.</p>
+<p>The User is informed if they make a good guess or not.</p>
 </li>
 <li>
-<p>The user is informed if they make a good guess or not.</p>
+<p>Sends the results and information of the game by using the UserService.</p>
 </li>
 <li>
-<p>Store the results and information of the game in the database.</p>
+<p>The UserServices sends this information to the database to be stored</p>
 </li>
 <li>
-<p>Returns the information of the game to the WebApp.</p>
-</li>
-<li>
-<p>The information of the game is shown to the user.</p>
+<p>The information of the game is shown to the User.</p>
 </li>
 </ol>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Game%20diagram.png" alt="Game diagram" width="686" height="758">
+<img src="./images/Game%20diagram.png" alt="Game diagram" width="784" height="788">
 </div>
 </div>
 </div>
