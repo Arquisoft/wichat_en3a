@@ -38,7 +38,7 @@ The services will be:
 
 * UserService for the Login, SignUp and Score system. It will interact with the database (MongoDB) by using the TCP/IP protocol and sending queries in JSON format for the user authentication, and their statistics for the different games he played.
 
-* WikidataService which will interact directly with Wikidata by using the HTTPS protocol and sending some queries in SPARQL.
+* WikidataService which will interact directly with Wikidata by using the HTTPS protocol and sending some queries in SPARQL. Also, it interacts with the database (in the same way as the UserService) for storing the questions for the game.
 
 * HintService which will interact directly with the LLM by sending some queries and instructions using the HTTPS protocol and https://github.com/googleapis/java-genai[Google Gen AI Java SDK].
 
