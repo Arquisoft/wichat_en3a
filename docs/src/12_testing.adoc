@@ -5,10 +5,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 A wide range of tests were done to ensure that our system work as expected and ensuring a code coverage greater or equal to 80%.
 Also, we monitor our system using
 
-=== Functional testing
-We implemented acceptance tests to verify that the product meets the specified requirements and behaves as expected from the user's perspective. These tests were primarily conducted using Selenium, with some scenarios defined in Cucumber.
-Some scenarios that were tested with acceptance tests are login, signup and logout.
-In addition, we performed end-to-end (E2E) tests using Selenium to simulate real-world user scenarios and validate the behaviour of the user interface. Some of them are game, signup, login and score tests
+=== E2E testing
+We implemented acceptance tests to verify that the product meets the specified requirements and behaves as expected from the user's perspective.
+These tests were primarily conducted using Selenium, with some scenarios defined in Cucumber.
+
+Some scenarios that were tested with acceptance tests are login with valid and invalid credentials, signup with valid and invalid credentials, logout....
 
 ===  Unitary testing
 Unit tests were implemented to verify that both users and the application behave as expected and do not perform unintended actions.
@@ -24,20 +25,49 @@ The tests don't cover the whole application as we weren't able to cover the arti
 We did two different tests for this:
 
 * The first one was a simple one were we just made the users log in, check their scores and log out.
-* The second one
+* The second one was a bit more complex as we made the users make the same thing as before but also play a Biology question game by letting in each round that the time finishes.
+
+For both test, we were incrementing the number of users in different phases:
+
+1. It started with one user.
+2. Then it added 5 users over 10 seconds
+3. Then, added 15 users over 30 seconds
+4. Then, added 50 users over 30 seconds
+5. Then, added 100 users over 120 seconds
+6. Then, adding 20 users per second during 5 minutes.
+
+Here we can see the results for the first test:
 
 image::12-load-testing-1.png["Load test 1"]
+We can see that:
 
-As you can see the application can handle up to 500 simultaneous users without too muc hassle
+* 20874 request lasted less than 800 ms
+* 2807 are between 800ms and 1200ms
+* 10078 take longer than 1200ms
+* 10083 failed
+* The pages with more failures were (from more failures to less): login, scores, home and logout.
+
+
+As you can see the application can handle up to 500 simultaneous users very well, even though some requests started taking long and failing.
 
 image::12-load-testing-3.png["Load test 3"]
 
-The second one was a bit more elaborated as we made the users make the same thing as before but also play a round of the game in the biology category
+Here we can see the results for the second test:
 
 image::12-load-testing-2.png["Load test 2"]
+We can see that:
 
-In this case you can see that the application even though it has a bit more failed requests it handles more than 3000 users simultaneously so that increase is expected
+* 185953 requests lasted less than 800 ms
+* 18797 failed
+* The pages with more failures were (from more failures to less): view results, scores, home, login and starting the game.
+
+
+
+In this case you can see that the application even though it has a bit more failed requests it handles more than 3000 users simultaneously so that increase is expected.
+This might be because the users might be distributed in different pages and also the players aren't really playing.
 
 image::12-load-testing-4.png["Load test 4"]
+
+From these results we can see that is needed to be checked if it can be improved the Scores pages and Home specially, as they are always very high in terms of failed requests and they are also very common pages tha tusers usually visit.
 
 === Monitoring
