@@ -475,7 +475,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#section-building-block-view">5. Building Block View</a>
 <ul class="sectlevel2">
-<li><a href="#_level_1">5.1. Level 1</a></li>
+<li><a href="#_whitebox_overall_system">5.1. Whitebox Overall System</a></li>
 <li><a href="#_level_2">5.2. Level 2</a></li>
 </ul>
 </li>
@@ -1172,14 +1172,27 @@ interfaces and ask the other parts/services of the application the different dat
 <h2 id="section-building-block-view">5. Building Block View</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_level_1">5.1. Level 1</h3>
-<div class="paragraph">
-<p>Overall view of the system and the parts in which it is divided as well as the external systems it connects to.</p>
-</div>
+<h3 id="_whitebox_overall_system">5.1. Whitebox Overall System</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/05_level1.png" alt="Level 1">
+<img src="./images/03-business_context_v2.png" alt="Whitebox Overall System">
 </div>
+</div>
+<div class="paragraph">
+<p>This is an very general overview of our system and, as we described, before it&#8217;s composed by:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An User that will interact with our application.</p>
+</li>
+<li>
+<p>Our application will interact with different services: Login and SignUp, Scores, WikiData and LLM.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Overall view of the system and the parts in which it is divided as well as the external systems it connects to.</p>
 </div>
 <div class="paragraph">
 <p>Application represents the entire system implemented by our team. This is the part of the system with which the user interacts.</p>
@@ -1668,19 +1681,21 @@ These service servers will respond to requests by returning data that the main a
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Integration with Wikidata</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Extracting meaningful and accurate data from Wikidata for generating
-questions and hints may be challenging. Data inconsistencies, missing
-attributes, or outdated information could lead to incorrect questions or
-hints.</p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User Authentication and Data Privacy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User registration and historical data storage introduce potential
+security vulnerabilities (e.g., data leaks, unauthorized access). Compliance with GDPR or other privacy regulations
+is also a concern.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Accuracy</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>The LLM may generate incorrect or misleading hints (hallucinations).</p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integration with Wikidata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extracting meaningful and accurate data from Wikidata for generating
+questions and hints may be challenging. Data inconsistencies, missing
+attributes, or outdated information could lead to incorrect questions or
+hints.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Availability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Since we are relying on a free AI model, the amount of requests the application can make is limited. If the number of players is too great, the parts of the application reliant on the AI may not work</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Scalability of the System</p></td>
@@ -1690,26 +1705,22 @@ database) may face performance bottlenecks.</p>
 </div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">User Authentication and Data Privacy</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>User registration and historical data storage introduce potential
-security vulnerabilities (e.g., data leaks, unauthorized access). Compliance with GDPR or other privacy regulations
-is also a concern.</p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Accuracy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The LLM may generate incorrect or misleading hints (hallucinations).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Question Repetitiveness</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Users may encounter repetitive questions. A system for tracking previously used questions and ensuring diversity in
-topics is necessary.</p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users may encounter repetitive questions. A system for tracking previously used questions and ensuring diversity in
+topics is necessary.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Question quality</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Due to the format of some of the questions, some of them may seem "stupid" (asking the name of a logo while displaying the name in the image). As such, an effort should be made to indentify this questions and resolve any issues they may have.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Time-Limited Question Challenges</p></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p>Implementing a real-time timer for answering questions may lead to synchronization issues across different devices and
-network conditions, potentially causing an unfair experience. Latency compensation mechanisms should be considered.</p>
-</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementing a real-time timer for answering questions may lead to synchronization issues across different devices and
+network conditions, potentially causing an unfair experience. Latency compensation mechanisms should be considered.</p></td>
 </tr>
 </tbody>
 </table>
