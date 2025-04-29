@@ -28,7 +28,7 @@ It also allows the user to authenticate and see their score.
 === Technical Context
 
 
-image::03_technical_context_v3.png["Technical context"]
+image::03_technical_context_v4.png["Technical context"]
 
 The application is deployed using Docker with Oracle. The whole application:
 The user interacts with the front-end of the application. It will be a SpringBoot project called webapp that will contain the user
