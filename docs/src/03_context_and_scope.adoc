@@ -35,8 +35,11 @@ The user interacts with the front-end of the application. It will be a SpringBoo
 interfaces and ask the other parts/services of the application the different data that it needs. So, it acts as a Controller.
 
 The services will be:
+
 * UserService for the Login, SignUp and Score system. It will interact with the database (MongoDB) by using the TCP/IP protocol and sending queries in JSON format for the user authentication, and their statistics for the different games he played.
+
 * WikidataService which will interact directly with Wikidata by using the HTTPS protocol and sending some queries in SPARQL.
+
 * HintService which will interact directly with the LLM by sending some queries and instructions using the HTTPS protocol and https://github.com/googleapis/java-genai[Google Gen AI Java SDK].
 
 The services are deployed as images in Docker with Oracle, and are different SpringBoot projects that act as REST APIs.
