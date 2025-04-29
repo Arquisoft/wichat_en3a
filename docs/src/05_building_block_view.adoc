@@ -8,11 +8,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 === Whitebox Overall System
 image::03-business_context_v2.png["Whitebox Overall System"]
 
-** Motivation **
+**Motivation**
 
 This is a very general overview of our system to understand how it works and services has/uses in a simple way.
 
-** Contained Building Blocks **
+**Contained Building Blocks**
 
 As we described, before it's composed by:
 
@@ -20,17 +20,17 @@ As we described, before it's composed by:
 
 * Our application will interact with different services: Login and SignUp, Scores, WikiData and LLM.
 
-** Important Interfaces **
+**Important Interfaces**
 The user interacts connects to the application and can play the game by making
 
 === Level 2
 image::03_technical_context_v4.png["Level 2"]
 
-** Motivation **
+**Motivation**
 
 This gives a little more deep that help us to understand the architecture and how we structured.
 
-** Contained Building Blocks **
+**Contained Building Blocks**
 
 * The WebApp provides the user interface of our system. It could be considered the Application, but it works as a Controller,
 that is an intermediate between the User and Services provided.
@@ -42,24 +42,25 @@ It also, communicates with the database for making the authentications and retri
 
 * HintService is a REST API that is in charged of communicating with the LLM (it's an intermediary), so it sends prompts to the LLM with some context.
 
-** Important Interfaces **
+**Important Interfaces**
 The webapp provides the user interface, contains the logic of the games and communicates with the rest of services by using making requests to their REST APIs to provide its functionality.
 
 === Level 3
 
 image::5_level_3.png["Level 3"]
 
-** Motivation **
+**Motivation**
 
 This level gives a more detailed and clarification specially for the webapp, as it can be considered the most complex element.
 
-** Contained Building Blocks **
+**Contained Building Blocks**
+
 * The services we mentioned before.
 * The UI (User Interface) forms part of the webapp, and it's going to the intermediate between the User and the logic of our system.
 * The question game is in charge of managing all the logic regarding this game, and will make requests to the services. For example,
 for getting hints to the HintService...
 
-** Important Interfaces **
+**Important Interfaces**
 The webapp follows a MVC architecture, so we have the view with controllers that manages the requests made by the User, and the Question game
 is divided into Services (the real logic of the game), Repositories (they are in charged of making requests to the UserService, HintService and WikidataService) and Entities.
 
