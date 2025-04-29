@@ -1403,31 +1403,19 @@ interfaces and ask the other parts/services of the application the different dat
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The GameService asks for a question.</p>
+<p>The WikidataService requests questions about several topics.</p>
 </li>
 <li>
-<p>The WikidataService requests data for creating the questions.</p>
+<p>Wikidata returns the question, answer and image for the question.</p>
 </li>
 <li>
-<p>Wikidata returns the question, image and options for the question.</p>
-</li>
-<li>
-<p>The WikidataService returns all the information.</p>
-</li>
-<li>
-<p>The GameService stores all the information returned.</p>
-</li>
-<li>
-<p>The GameService returns the data to the WebApp</p>
-</li>
-<li>
-<p>The question, image and options for the question are shown</p>
+<p>The WikidataService send all the questions to the Database, so they are stored.</p>
 </li>
 </ol>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Question%20generation%201%20diagram.png" alt="Question generation 1 diagram" width="560" height="409">
+<img src="./images/Question%20generation%201%20diagram.png" alt="Question generation 1 diagram" width="433" height="258">
 </div>
 </div>
 </div>
@@ -1439,10 +1427,10 @@ interfaces and ask the other parts/services of the application the different dat
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The GameService (after the user asks it) asks for a hint to the current question.</p>
+<p>The WebApp (after the user asks it) asks for a hint to the current question, and gives instructions and context for the LLM.</p>
 </li>
 <li>
-<p>The HintService gives some context to the LLM.</p>
+<p>The HintService gives some context to the LLM, and asks for a clue.</p>
 </li>
 <li>
 <p>The LLM returns the clue.</p>
@@ -1454,7 +1442,7 @@ interfaces and ask the other parts/services of the application the different dat
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/Hint%20generation%20diagram.png" alt="Hint generation diagram" width="464" height="278">
+<img src="./images/Hint%20generation%20diagram.png" alt="Hint generation diagram" width="627" height="248">
 </div>
 </div>
 <div style="page-break-after: always;"></div>
