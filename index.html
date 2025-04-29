@@ -506,6 +506,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_clientserver_architecture">9.1. Client/Server architecture</a></li>
 <li><a href="#_mvc_architectural_pattern">9.2. MVC architectural pattern</a></li>
 <li><a href="#_microservices_architecture">9.3. Microservices architecture</a></li>
+<li><a href="#_backend_2">9.4. Backend</a></li>
+<li><a href="#_frontend_2">9.5. Frontend</a></li>
+<li><a href="#_databases">9.6. Databases</a></li>
+<li><a href="#_cloud_service">9.7. Cloud service</a></li>
+<li><a href="#_llm_2">9.8. LLM</a></li>
 </ul>
 </li>
 <li><a href="#section-quality-scenarios">10. 10. Quality Requirements</a>
@@ -1179,7 +1184,10 @@ interfaces and ask the other parts/services of the application the different dat
 </div>
 </div>
 <div class="paragraph">
-<p>This is an very general overview of our system and, as we described, before it&#8217;s composed by:</p>
+<p>Motivation: This is a very general overview of our system to understand how it works and services has/uses in a simple way.</p>
+</div>
+<div class="paragraph">
+<p>Contained Building Blocks: as we described, before it&#8217;s composed by:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1535,20 +1543,58 @@ interfaces and ask the other parts/services of the application the different dat
 <div class="sect2">
 <h3 id="_clientserver_architecture">9.1. Client/Server architecture</h3>
 <div class="paragraph">
-<p>We are going to have an architecture with a main application with a client and server, and several servers for the external services (users, WikiData, LLM, etc.) that will act as data APIs for the main application server.
-These service servers will respond to requests by returning data that the main application will process and pass to the view.</p>
+<p>We are going to have an architecture with a main application with a client and server, and several servers for the external services (users, WikiData, LLM, etc.) that will act as data APIs for the main application server. These service servers will respond to requests by returning data that the main application will process and pass to the view.
+This will provide us more independence between the modules so they can be modified at will without affecting the whole application.
+=== MVC architectural pattern
+We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_mvc_architectural_pattern">9.2. MVC architectural pattern</h3>
 <div class="paragraph">
-<p>We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling.</p>
+<p>We are going to follow and MVC architectural pattern as it allows for a more divided and structured application with low coupling.
+This pattern works well with springboot, has low coupling, and allows to work independently with front and backend.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_microservices_architecture">9.3. Microservices architecture</h3>
 <div class="paragraph">
-<p>We are going to use a microservices architecture as it allows us to divide the whole application&#8217;s project into independent services that we can treat as separate projects that can be reusable.</p>
+<p>We are going to use a microservices architecture as it allows us to divide the whole application’s project into independent services that we can treat as separate projects that can be reusable.
+With microservices, we would be able to divide the application in small teams that can work independently.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_backend_2">9.4. Backend</h3>
+<div class="paragraph">
+<p>We are going to use a springboot. It is reusable, it contains many already implemented funtionalities and we are extremely familiar with the language (Java).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_frontend_2">9.5. Frontend</h3>
+<div class="paragraph">
+<p>We are going to use a springboot with thymeleaf. Springboot is reusable , it contains many already implemented funtionalities and we are extremely familiar with the language (Java).
+In addition, thymeleaf allows access to model attributes, processes dynamically the templates and separates the user interface from the content.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_databases">9.6. Databases</h3>
+<div class="paragraph">
+<p>We are going to use a non-relational database, MongoDB for the whole system.
+It is easier to use just a single database system for the whole application. In addition MongoDB is based on JSON so it has a simple sintax with powerful operations and since we don&#8217;t need complex relationships works well.
+It&#8217;s also very flexible since a collection can store different document and attribute types without a structure.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cloud_service">9.7. Cloud service</h3>
+<div class="paragraph">
+<p>We have decided to use Oracle as our main service. It is less expensive than the alternatives and has good enough availability.
+We however have decided to have Azure as a backup in case of an issue</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_llm_2">9.8. LLM</h3>
+<div class="paragraph">
+<p>We have decided to use Gemini since it is very powerful with ways to control hallucinations, allows instructions on the llm&#8217;s behaviour, free of charge usage.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
