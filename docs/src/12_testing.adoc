@@ -70,10 +70,10 @@ From these results we can see that is needed to be checked if it can be improved
 
 === Monitoring
 The Prometheus actuator is deployed in https://wichat.pablordgz.es/actuator/prometheus.
-And the Prometheus serer is deployed in 158.179.214.177:9091, but the port is closed as you can accessed the statistics using Grafana.
+And the Prometheus server is deployed in 158.179.214.177:9091, but the port is closed as you can accessed the statistics using Grafana.
 
 Grafana is deployed on port 3001, and can be accessed for the webapp using the following URL https://gf.wichat.pablordgz.es, and the credentials: admin (as user) and nice_dashboard (as password).
-But also is deployed for each service
+But also is deployed for each service: userservice.wichat.pablordgz.es/actuator/prometheus, wikidataservice.wichat.pablordgz.es/actuator/prometheus and hintservice.wichat.pablordgz.es/actuator/prometheus.
 The dashboards used are JVM micrometer and SpringBoot observability.
 
 image::12_grafana_1.png["JVM micrometer"]
