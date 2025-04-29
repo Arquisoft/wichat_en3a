@@ -959,7 +959,7 @@ interfaces and ask the other parts/services of the application the different dat
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Use <a href="https://spring.io/projects/spring-boot">SpringBoot</a> at the project</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We are going to use SpringBoot at the project because:</p>
-<p class="tableblock">- It gives us a lot of functionality already implemented so that we don&#8217;t have to implement it ourselves.</p>
+<p class="tableblock">- It gives us a lot of functionality already implemented so that we don&#8217;t have to implement it ourselves (security, validators, exception handler, default configuration&#8230;&#8203;).</p>
 <p class="tableblock">- It allows us to use Java, which we are very used to and prefer over JavaScript.</p></td>
 </tr>
 <tr>
@@ -967,6 +967,10 @@ interfaces and ask the other parts/services of the application the different dat
 <td class="tableblock halign-left valign-top"><p class="tableblock">We will use MongoDB because:</p>
 <p class="tableblock">- It&#8217;s already integrated in the user and authentication service</p>
 <p class="tableblock">- It&#8217;s the more popular non-relational database, and has a more or less simple syntax</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Creation of an entities project</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We created an entities project that contains entities that are used by several services (webapp, hintService, userService&#8230;&#8203;) for avoiding code duplication, reutilize code and avoid mistakes caused by repeating code.</p></td>
 </tr>
 </tbody>
 </table>
@@ -990,6 +994,12 @@ interfaces and ask the other parts/services of the application the different dat
 <td class="tableblock halign-left valign-top"><p class="tableblock">We are going to use SpringBoot at the project because:</p>
 <p class="tableblock">- It gives us a lot of functionality already implemented so that we don&#8217;t have to implement it ourselves.</p>
 <p class="tableblock">- It allows us to use Java, which we are very used to and prefer over JavaScript.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use Thymeleaf as template engine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use of Thymeleaf as template engine:</p>
+<p class="tableblock">- It&#8217;s easy integrated with SpringBoot</p>
+<p class="tableblock">- It allows us to separate the user interface from the content in the web application, process model data dynamically and access to model attributes</p></td>
 </tr>
 </tbody>
 </table>
@@ -1016,6 +1026,12 @@ interfaces and ask the other parts/services of the application the different dat
 <p class="tableblock">- It has a way to handle hallucinations and errors.</p>
 <p class="tableblock">- It allows us to send the instructions for how the LLM should behave each time the user asks the LLM something. This also means that the user can&#8217;t just ask the LLM to ignore its instructions and give them the correct answer.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use of <a href="https://github.com/googleapis/java-genai">Google Gen AI Java SDK</a> as API</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">We use GenAI for communicating with Gemini as:</p>
+<p class="tableblock">- It&#8217;s very easy to use as it&#8217;s well documented</p>
+<p class="tableblock">- It simplifies the communication to Gemini, as you don&#8217;t need to use JSON in Java with difficult configurations.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1040,7 +1056,7 @@ interfaces and ask the other parts/services of the application the different dat
 <p class="tableblock">- This portability allows seamless deployment on Azure, regardless of the underlying infrastructure.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.docker.com/">Docker</a> with <a href="https://apex.oracle.com/en/platform/deployment/">Oracle</a> for deploying the application permanently</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use of <a href="https://www.docker.com/">Docker</a> with <a href="https://apex.oracle.com/en/platform/deployment/">Oracle</a> for deploying the application permanently (instead of Azure)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We will use Docker with Oracle because:</p>
 <p class="tableblock">- It&#8217;s much more cheaper than Azure for keep the app deployed.</p></td>
 </tr>
@@ -1065,21 +1081,20 @@ interfaces and ask the other parts/services of the application the different dat
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MVC architectural pattern</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We will use MVC for the project because:</p>
-<p class="tableblock">- It allows us to divide the application into model, view and controller and are less coupled</p></td>
+<p class="tableblock">- It allows us to divide the application into model, view and controller and are less coupled.</p>
+<p class="tableblock">- Easier for developing and scalability since all layers are separated, making easy to change one layer and divide the work</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Microservices architecture</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">We will use the microservices architecture because:</p>
-<p class="tableblock">- We can divide the project into independent services (other projects) that can be reusable</p></td>
+<p class="tableblock">- We can divide the project into independent services (other projects) that can be reusable.</p>
+<p class="tableblock">- This allows flexibility to change how each service works, having independence to develop each service on it&#8217;s own, and easier to update them since they are not coupled.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
 <h3 id="_organizational_breakdown">4.3. Organizational breakdown</h3>
-<div class="paragraph">
-<p>Scrum,  Pull requests revision,</p>
-</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -1128,12 +1143,24 @@ interfaces and ask the other parts/services of the application the different dat
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility &amp; Transferability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system has been developed to correctly work no matter the browser or device guaranteeing a fluid experience. We are using HTML, CSS and Bootstrap which assure that the design and features look and act similarly across the different platflorms.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Availability</p></td>
+<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Usability &amp; Operability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The UI has been designed taking into account usability principles taught to the team. The team has also made sure that the users can guess what the buttons all around the application do without much problem.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application features a user-friendly UI that allows it to be easily undertood. The application can be used with no training as it provides tooltips describing some of its functionality for new users.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Using SprinBootSecurity and PasswordEncoder</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reliability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There will be always questions available to play, since we load the questions when starting the application.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility &amp; Transferability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The application has been design to work in all modern browsers while providing equal performance. For that, we made use of HTML, CSS and Bootstrap. In addition, since the application is designed to be deployed with Docker, it can be transfered to another computer or device with no issue.</p></td>
 </tr>
 </tbody>
 </table>
