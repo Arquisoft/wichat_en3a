@@ -1282,6 +1282,42 @@ The webapp provides the user interface, contains the logic of the games and comm
 <img src="./images/5_level_3.png" alt="Level 3">
 </div>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Motivation **</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This level gives a more detailed and clarification specially for the webapp, as it can be considered the most complex element.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Contained Building Blocks **</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The services we mentioned before.</p>
+</li>
+<li>
+<p>The UI (User Interface) forms part of the webapp, and it&#8217;s going to the intermediate between the User and the logic of our system.</p>
+</li>
+<li>
+<p>The question game is in charge of managing all the logic regarding this game, and will make requests to the services. For example,
+for getting hints to the HintService&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Important Interfaces **
+The webapp follows a MVC architecture, so we have the view with controllers that manages the requests made by the User, and the Question game
+is divided into Services (the real logic of the game), Repositories (they are in charged of making requests to the UserService, HintService and WikidataService) and Entities.</p>
+</li>
+</ul>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
