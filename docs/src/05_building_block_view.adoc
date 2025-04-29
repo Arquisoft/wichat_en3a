@@ -6,7 +6,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 == Building Block View
 
 === Whitebox Overall System
-image::03-business_context_v2.png["Whitebox Overall System"]
+
+image::03-business_context_v2.jpg["Whitebox Overall System"]
 
 **Motivation**
 
@@ -16,11 +17,12 @@ This is a very general overview of our system to understand how it works and ser
 
 As we described, before it's composed by:
 
-* An User that will interact with our application.
+* A User that will interact with our application.
 
 * Our application will interact with different services: Login and SignUp, Scores, WikiData and LLM.
 
 **Important Interfaces**
+
 The user interacts connects to the application and can play the game by making
 
 === Level 2
@@ -43,6 +45,7 @@ It also, communicates with the database for making the authentications and retri
 * HintService is a REST API that is in charged of communicating with the LLM (it's an intermediary), so it sends prompts to the LLM with some context.
 
 **Important Interfaces**
+
 The webapp provides the user interface, contains the logic of the games and communicates with the rest of services by using making requests to their REST APIs to provide its functionality.
 
 === Level 3
@@ -61,6 +64,7 @@ This level gives a more detailed and clarification specially for the webapp, as 
 for getting hints to the HintService...
 
 **Important Interfaces**
+
 The webapp follows a MVC architecture, so we have the view with controllers that manages the requests made by the User, and the Question game
 is divided into Services (the real logic of the game), Repositories (they are in charged of making requests to the UserService, HintService and WikidataService) and Entities.
 
