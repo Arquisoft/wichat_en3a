@@ -931,7 +931,7 @@ interfaces and ask the other parts/services of the application the different dat
 <p>UserService for the Login, SignUp and Score system. It will interact with the database (MongoDB) by using the TCP/IP protocol and sending queries in JSON format for the user authentication, and their statistics for the different games he played.</p>
 </li>
 <li>
-<p>WikidataService which will interact directly with Wikidata by using the HTTPS protocol and sending some queries in SPARQL.</p>
+<p>WikidataService which will interact directly with Wikidata by using the HTTPS protocol and sending some queries in SPARQL. Also, it interacts with the database (in the same way as the UserService) for storing the questions for the game.</p>
 </li>
 <li>
 <p>HintService which will interact directly with the LLM by sending some queries and instructions using the HTTPS protocol and <a href="https://github.com/googleapis/java-genai">Google Gen AI Java SDK</a>.</p>
@@ -1240,7 +1240,7 @@ The user interacts connects to the application and can play the game by making</
 </ul>
 </div>
 <div class="paragraph">
-<p>This is bit gives a little more deep that help us to understand the architecture and how we structured.</p>
+<p>This gives a little more deep that help us to understand the architecture and how we structured.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1253,24 +1253,12 @@ The user interacts connects to the application and can play the game by making</
 that is an intermediate between the User and Services provided.</p>
 </li>
 <li>
-<p>UserService is a REST API that provides all the functionality related with the users.</p>
+<p>UserService is a REST API that provides all the functionality related with the users (login, sign up, scores of users). It also, communicates</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>Application represents the entire system implemented by our team. This is the part of the system with which the user interacts.</p>
-</div>
-<div class="paragraph">
-<p>LLM stands for Large Language Model, which is used to generate hints.</p>
-</div>
-<div class="paragraph">
-<p>Wiki data is the external system that provides information about the questions in the game.</p>
-</div>
-<div class="paragraph">
-<p>The last part is the Database, which represents the connection to a database where data about the program, such as user data, is stored.</p>
 </div>
 </div>
 <div class="sect2">
