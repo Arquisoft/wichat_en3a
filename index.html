@@ -1765,6 +1765,9 @@ To ensure this, we did a responsive design and using standard technologies (CSS,
 </div>
 <div class="sect2">
 <h3 id="_quality_scenarios">10.2. Quality Scenarios</h3>
+<div class="paragraph">
+<p>Some quality scenarios are:</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 23.0769%;">
@@ -1773,34 +1776,37 @@ To ensure this, we did a responsive design and using standard technologies (CSS,
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top"><strong>Scenario Type</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Expected System Response</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Quality attribute</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Scenario</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Priority</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Performance</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The user plays the game and requests a question.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system generates the possible answers and shows an image wasting little time.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Usability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When the user enters into the app for the first time, he must understand how to play each game in less than 5 minutes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High, High</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Availability</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The LLM API is temporarily unavailable.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system does not break and provides a good feedback to the user.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Security</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When the user tries to enter the game without registering, it&#8217;s access is denied</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High, High</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Reliability</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When the LLM isn&#8217;t available, the system should keep working without failing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium, High</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Maintainability</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A new hint-generation strategy is introduced.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The system integrates it with minimal modifications due to its modular architecture.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Usability</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An user that is not used to play games or use computers tries the game.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The interface is clear and intuitive so the user has no problem playing the game.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When we want to change the LLM used, only the part of the system in charged of the LLM should change, and don&#8217;t affect the overall system</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low, Medium</p></td>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>customer, architect</p>
+</div>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
