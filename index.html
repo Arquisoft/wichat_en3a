@@ -501,9 +501,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_user_experience_ux">8.2. User Experience (UX)</a></li>
 <li><a href="#_safety_and_security_concepts">8.3. Safety and Security concepts</a></li>
 <li><a href="#_architecture_and_design_patterns">8.4. Architecture and design patterns</a></li>
-<li><a href="#_under_the_hood">8.5. Under-the-hood:</a></li>
-<li><a href="#_development_concepts">8.6. Development concepts</a></li>
-<li><a href="#_our_decisions">8.7. Our decisions</a></li>
+<li><a href="#_development_concepts">8.5. Development concepts</a></li>
+<li><a href="#_our_decisions">8.6. Our decisions</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
@@ -1557,13 +1556,12 @@ is divided into Services (the real logic of the game), Repositories (they are in
 <h3 id="_domain_model">8.1. Domain model</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/8_domain.jpeg" alt="Domain model">
+<img src="./images/8_domain.png" alt="Domain model">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Classes **</p>
+<div class="paragraph">
+<p><strong>Classes</strong></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1576,23 +1574,20 @@ is divided into Services (the real logic of the game), Repositories (they are in
 <p>Answer: Represents an answer entity. It contains the answer text and is linked to an answer category.</p>
 </li>
 <li>
-<p>Score: Represents the score for a game session. It records key information such as the user who played, the game category, the number of correct and incorrect answers, and the time taken to answer the questions.</p>
+<p>Score: Represents the score for a game session. It records key information such as the user who played, the game category, the number of correct and incorrect answers, and the time taken to answer the questions. It&#8217;s linked to a User</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Enums **</p>
+<div class="paragraph">
+<p><strong>Enums</strong></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>QuestionCategory: Defines the categories of questions. Currently, available categories are Pop Culture, Biology, Sport, and Geography.</p>
+<p>QuestionCategory: Defines the categories of questions. The current available categories are Pop Culture, Biology, Sport, and Geography.</p>
 </li>
 <li>
 <p>AnswerCategory: Defines answer categories related to the question categories, such as Flag, Brand Name, F1 Team, Monument Name, Animal Lifespan, and others</p>
-</li>
-</ul>
-</div>
 </li>
 </ul>
 </div>
@@ -1600,40 +1595,41 @@ is divided into Services (the real logic of the game), Repositories (they are in
 <div class="sect2">
 <h3 id="_user_experience_ux">8.2. User Experience (UX)</h3>
 <div class="paragraph">
-<p>Since this is a game, the focus must be on user experience to ensure that players have an enjoyable and engaging time. To achieve this, response times should be minimized, and the interfaces should be intuitive and easy to navigate.</p>
+<p>As our goal is to develop a game, the user experience has a huge rol, as players must enjoy playing.
+To achieve this, we developed interfaces that are intuitive, with instructions and colorful.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_safety_and_security_concepts">8.3. Safety and Security concepts</h3>
 <div class="paragraph">
-<p>We utilize Spring Boot Security features to require users to log in before accessing the application. During user registration, we employ PasswordEncoder to encrypt passwords, ensuring that raw passwords are not stored in our database.</p>
+<p>We use Spring Boot Security features to require users to log in before accessing the application.
+During user registration, we employed PasswordEncoder to encrypt passwords, ensuring that raw passwords are not stored in our database.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_architecture_and_design_patterns">8.4. Architecture and design patterns</h3>
 <div class="paragraph">
-<p>We chose to use Spring Boot for both the backend and a Thymeleaf-based frontend, following the Model-View-Controller (MVC) pattern to keep the codebase clear and well-organized.</p>
+<p>We chose to use Spring Boot for both the backend and a Thymeleaf-based frontend, following the MVC pattern to keep the
+codebase clear and well-organized.
+Also, we used microservices to have a project divided in clear and independent modules that are reusable.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_under_the_hood">8.5. Under-the-hood:</h3>
 <div class="paragraph">
-<p>To store the data, our project has a MongoDB, which stores information about users, scores, answers and questions.</p>
+<p>We use MongoDB as our database system to store information about users, scores, answers and questions.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_development_concepts">8.6. Development concepts</h3>
+<h3 id="_development_concepts">8.5. Development concepts</h3>
 <div class="paragraph">
-<p>We will perform the deployment in Oracle using continuous integration.</p>
+<p>We will deploy in Oracle using continuous integration.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_our_decisions">8.7. Our decisions</h3>
+<h3 id="_our_decisions">8.6. Our decisions</h3>
 <div class="paragraph">
 <p>To ensure the application&#8217;s robustness and high availability, we adopted a microservices architecture with a clear client-server division.
 A key design objective was to make the application independent of external services such as Wikidata and the LLM. This ensures that even if these services experience timeouts, our application remains available to users without interruption.
 To further minimize delays caused by Wikidata, we implemented multithreaded access when retrieving data, improving performance significantly.
-This modular approach enhances resilience, scalability, and fault tolerance while keeping a clean separation of concerns between data fetching and data usage</p>
+This modular approach enhances resilience, scalability, and fault tolerance while keeping a clean separation of concerns between data fetching and data usage.</p>
 </div>
 <div style="page-break-after: always;"></div>
 </div>
