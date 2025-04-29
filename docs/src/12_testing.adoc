@@ -21,6 +21,11 @@ In this case you can see that the application even though it has a bit more fail
 
 image::12-load-testing-4.png["Load test 4"]
 === Functional testing
-Unit and acceptance tests were done to ensure that neither the users nor the application did something they weren't supposed to
+We implemented acceptance tests to verify that the product meets the specified requirements and behaves as expected from the user's perspective. These tests were primarily conducted using Selenium, with some scenarios defined in Cucumber.
+Some scenarios that were tested with acceptance tests are login, signup and logout.
+In addition, we performed end-to-end (E2E) tests using Selenium to simulate real-world user scenarios and validate the behaviour of the user interface. Some of them are game, signup, login and score tests
 
-The unit tests were done with JUnit 5 and with Mockito for creating the mocks for the tests. The acceptance tests were done using mainly Selenium and some defining scenarios with Cucumber
+===  Unitary testing
+Unit tests were implemented to verify that both users and the application behave as expected and do not perform unintended actions.
+We used JUnit 5 for writing the tests, and Mockito for mocking dependencies where isolation was required.
+These unit tests also contributed to improving code coverage, in line with our quality gate requirement of 80%. Right now, the code coverage stands at 85.1%.
