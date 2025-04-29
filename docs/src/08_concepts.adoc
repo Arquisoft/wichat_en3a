@@ -2,14 +2,36 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [[section-concepts]]
 == Cross-cutting Concepts
-=== Performance and Scalability
-==== Load managing
-Considering that the application's concurrent users can vary its important to take horizontal scalability when designing the architecture, that's why we are using Docker for deployment.
+=== Domain model
+image::8_domain.jpeg["Domain model"]
 
-=== Usability and Accesibility
-==== Intuitive interface
-The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team.
+** Classes **
+* Question: Represents a question entity. It contains the question text, a list of possible answers, the correct answer, and optionally an image relevant to the question. Each question is associated with a question category.
+* User: Represents a user, storing personal information such as name, email, and password.
+* Answer: Represents an answer entity. It contains the answer text and is linked to an answer category.
+* Score: Represents the score for a game session. It records key information such as the user who played, the game category, the number of correct and incorrect answers, and the time taken to answer the questions.
 
-=== Maintainability and Extensibility
-==== Modularity
-The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components.
+** Enums **
+* QuestionCategory: Defines the categories of questions. Currently, available categories are Pop Culture, Biology, Sport, and Geography.
+* AnswerCategory: Defines answer categories related to the question categories, such as Flag, Brand Name, F1 Team, Monument Name, Animal Lifespan, and others
+
+=== User Experience (UX)
+Since this is a game, the focus must be on user experience to ensure that players have an enjoyable and engaging time. To achieve this, response times should be minimized, and the interfaces should be intuitive and easy to navigate.
+
+=== Safety and Security concepts
+We utilize Spring Boot Security features to require users to log in before accessing the application. During user registration, we employ PasswordEncoder to encrypt passwords, ensuring that raw passwords are not stored in our database.
+
+=== Architecture and design patterns
+We chose to use Spring Boot for both the backend and a Thymeleaf-based frontend, following the Model-View-Controller (MVC) pattern to keep the codebase clear and well-organized.
+
+=== Under-the-hood:
+To store the data, our project has a MongoDB, which stores information about users, scores, answers and questions.
+
+=== Development concepts
+We will perform the deployment in Oracle using continuous integration.
+
+=== Our decisions
+To ensure the application's robustness and high availability, we adopted a microservices architecture with a clear client-server division.
+A key design objective was to make the application independent of external services such as Wikidata and the LLM. This ensures that even if these services experience timeouts, our application remains available to users without interruption.
+To further minimize delays caused by Wikidata, we implemented multithreaded access when retrieving data, improving performance significantly.
+This modular approach enhances resilience, scalability, and fault tolerance while keeping a clean separation of concerns between data fetching and data usage
