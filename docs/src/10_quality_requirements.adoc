@@ -20,72 +20,51 @@ See https://docs.arc42.org/section-10/[Quality Requirements] in the arc42 docume
 endif::arc42help[]
 
 === Quality Tree
+All the quality requirements for the systems are:
 
-The quality tree below provides an overview of the primary and secondary quality requirements for the application.
+image::10_tree.png["Quality tree"]
+
 
 [cols="2,3"]
 |===
 | **Quality Attribute** | **Requirement**
 
-| **Performance**
-|Since the main game relies on generating questions and showing an image, the application should be able to generate them efficiently and to render the image within a short time.
-For this, the questions are loaded qhen the application is first deployed so there is no need to query Wikidata each game. For the images, we use the ones provided by WikiData and display them
-with a resolution low enough to guarantee a short waiting time
-High, Medium
-
-
-| **Availability**
-| The system should be available most of the time so the application can be used. For this we use a virtual machine from Oracle and have tested our application to verify that it can deal with a large load of users at the same time.
-High, Medium
-
-| **Security**
-| Since security is a high priority for users, we implemented mechanism to ensure the safety of the users data (such as encrypting their passwords) as well as guaranteeing that things like their scores are only accessible by them
-Medium, Medium
+| **Performance efficiency**
+| Since the main game relies on generating questions and showing an image, the application should be able to generate them efficiently and to render the image within a short time.
+For this, the questions are loaded when the application is first deployed so there is no need to query Wikidata each game. For the images, we use the ones provided by WikiData and display them
+with a resolution low enough to guarantee a short waiting time.
 
 | **Maintainability**
-| While the end users won't see it, we want to make sure that our application's code is maintainable and easily modifieable so new features can be easily added without the need to change a lot of the previous code. To ensure this, we chose a modular architecture to reduce coupling between elements and included tests to verify that they work properly in case there are modifications.
-Low, Medium
-
-| **Usability & Operability **
-| The application show provide an intuitive UI so that users can pick it up the application easily. For this, a clear and simple UI was designed and tooltips where added for the more complex aspects of the application to ensure that the users can master it in a few minutes.
-High, Medium
-
-| **Functional Suitability**
-| The application's system are properly divided so each module handles the functionality taht corresponds to them. This way, we guarantee a good design and separation of responsabilities between the elements of the application.
-High, High
+| While the end users won't see it, we want to make sure that our application's code is maintainable and easily modifiable so new features can be easily added without the need to change a lot of the previous code.
+To ensure this, we chose a modular architecture (MVC and microservices) to reduce coupling between elements and included tests to verify that they work properly in case there are modifications.
 
 | **Compatibility**
-| The application has been designed to work on most moder browers to ensure that the users can access it and use it regardless of the techonology they use to connect to it
-High, Low
+| The application has been designed to work on most moder browsers to ensure that the users can access it and use it regardless of the technology they use to connect to it.
+To ensure this, we did a responsive design and using standard technologies (CSS, JavaScript, HTML...)
 
 | **Transferability**
-| Since the application is deployed using Docker, it can be easily transfered to a new machine or cloned into mutiple ones to improve escalability
-Low, Medium
-
-| **Reliability**
-| - The hint system should provide accurate and relevant hints and prevent the LLM to retrieve the answer directly. +
-  - The system should handle incorrect answers and provide meaningful feedback to users.
+| Since the application is deployed using Docker, it can be easily transferred to a new machine or cloned into multiple ones to improve scalability
 |===
 
 === Quality Scenarios
-
+Some quality scenarios are:
 [cols="3,5,5"]
 |===
-| **Scenario Type** | **Description** | **Expected System Response**
-
-| **Performance**
-| The user plays the game and requests a question.
-| The system generates the possible answers and shows an image wasting little time.
-
-| **Availability**
-| The LLM API is temporarily unavailable.
-| The system does not break and provides a good feedback to the user.
-
-| **Maintainability**
-| A new hint-generation strategy is introduced.
-| The system integrates it with minimal modifications due to its modular architecture.
+| **Quality attribute** | **Scenario** | **Priority**
 
 | **Usability**
-| An user that is not used to play games or use computers tries the game.
-| The interface is clear and intuitive so the user has no problem playing the game.
+| When the user enters into the app for the first time, he must understand how to play each game in less than 5 minutes.
+| High, High
+| **Security**
+| When the user tries to enter the game without registering, it's access is denied
+| High, High
+| **Reliability**
+| When the LLM isn't available, the system should keep working without failing
+| Medium, High
+| **Maintainability**
+| When we want to change the LLM used, only the part of the system in charged of the LLM should change, and don't affect the overall system
+| Low, Medium
+
 |===
+
+customer, architect
