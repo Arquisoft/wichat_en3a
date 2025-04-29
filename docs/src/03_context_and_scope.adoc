@@ -28,18 +28,15 @@ It also allows the user to authenticate and see their score.
 === Technical Context
 
 
-image::03_technical_context_v2.png["Technical context"]
+image::03_technical_context_v3.png["Technical context"]
 
 The application is deployed using Docker with Oracle. The whole application:
-The user interacts with the front-end of the application. It will be a SpringBoot project that will contain the user
-interfaces and ask the other parts of the application the different data that it needs. So, it acts as a Controller.
+The user interacts with the front-end of the application. It will be a SpringBoot project called webapp that will contain the user
+interfaces and ask the other parts/services of the application the different data that it needs. So, it acts as a Controller.
 
 The services will be:
+* UserService for the Login, SignUp and Score system. It will interact with the database (MongoDB) by using the TCP/IP protocol and sending queries in JSON format for the user authentication, and their statistics for the different games he played.
+* WikidataService which will interact directly with Wikidata by using the HTTPS protocol and sending some queries in SPARQL.
+* HintService which will interact directly with the LLM by sending some queries and instructions using the HTTPS protocol and https://github.com/googleapis/java-genai[Google Gen AI Java SDK].
 
-* Users service (login and statistics)
-* WikiData service (WikiData)
-* Hint service (LLM)
-* Game service
-
-The User service will interact with the database (MongoDB) to add information for the user authentication, and their statistics for the different games he played.
-
+The services are deployed as images in Docker with Oracle, and are different SpringBoot projects that act as REST APIs.
