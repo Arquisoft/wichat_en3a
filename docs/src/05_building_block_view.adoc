@@ -5,18 +5,45 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 == Building Block View
 
-=== Level 1
-Overall view of the system and the parts in which it is divided as well as the external systems it connects to. 
+=== Whitebox Overall System
+image::03-business_context_v2.png["Whitebox Overall System"]
 
-image::05_level1.png["Level 1"]
+** Motivation **
 
-Application represents the entire system implemented by our team. This is the part of the system with which the user interacts. 
+This is a very general overview of our system to understand how it works and services has/uses in a simple way.
 
-LLM stands for Large Language Model, which is used to generate hints. 
+** Contained Building Blocks **
 
-Wiki data is the external system that provides information about the questions in the game. 
+As we described, before it's composed by:
 
-The last part is the Database, which represents the connection to a database where data about the program, such as user data, is stored. 
+* An User that will interact with our application.
+
+* Our application will interact with different services: Login and SignUp, Scores, WikiData and LLM.
+
+** Important Interfaces **
+The user interacts connects to the application and can play the game by making
+
+=== Level 2
+image::03_technical_context_v4.png["Level 2"]
+
+** Motivation **
+
+This gives a little more deep that help us to understand the architecture and how we structured.
+
+** Contained Building Blocks **
+
+* The WebApp provides the user interface of our system. It could be considered the Application, but it works as a Controller,
+that is an intermediate between the User and Services provided.
+
+* UserService is a REST API that provides all the functionality related with the users (login, sign up, scores of users).
+It also, communicates with the database for making the authentications and retrieving or storing scores of the users.
+
+* WikidataService is a REST API that is in charged of generating the questions from Wikidata, and stores them in the database.
+
+* HintService is a REST API that is in charged of communicating with the LLM (it's an intermediary), so it sends prompts to the LLM with some context.
+
+** Important Interfaces **
+The webapp acts as a Controller and communicates with the rest of services
 
 === Level 2
 
