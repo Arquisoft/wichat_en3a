@@ -1189,22 +1189,14 @@ interfaces and ask the other parts/services of the application the different dat
 <img src="./images/03-business_context_v2.png" alt="Whitebox Overall System">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Motivation **</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><strong>Motivation</strong></p>
 </div>
 <div class="paragraph">
 <p>This is a very general overview of our system to understand how it works and services has/uses in a simple way.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Contained Building Blocks **</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><strong>Contained Building Blocks</strong></p>
 </div>
 <div class="paragraph">
 <p>As we described, before it&#8217;s composed by:</p>
@@ -1216,16 +1208,12 @@ interfaces and ask the other parts/services of the application the different dat
 </li>
 <li>
 <p>Our application will interact with different services: Login and SignUp, Scores, WikiData and LLM.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Important Interfaces **
-The user interacts connects to the application and can play the game by making</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p><strong>Important Interfaces</strong>
+The user interacts connects to the application and can play the game by making</p>
 </div>
 </div>
 <div class="sect2">
@@ -1235,20 +1223,15 @@ The user interacts connects to the application and can play the game by making</
 <img src="./images/03_technical_context_v4.png" alt="Level 2">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Motivation **</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><strong>Motivation</strong></p>
 </div>
 <div class="paragraph">
 <p>This gives a little more deep that help us to understand the architecture and how we structured.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Contained Building Blocks **</p>
+<div class="paragraph">
+<p><strong>Contained Building Blocks</strong></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1267,12 +1250,9 @@ It also, communicates with the database for making the authentications and retri
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Important Interfaces **
+<div class="paragraph">
+<p><strong>Important Interfaces</strong>
 The webapp provides the user interface, contains the logic of the games and communicates with the rest of services by using making requests to their REST APIs to provide its functionality.</p>
-</li>
-</ul>
 </div>
 </div>
 <div class="sect2">
@@ -1282,20 +1262,15 @@ The webapp provides the user interface, contains the logic of the games and comm
 <img src="./images/5_level_3.png" alt="Level 3">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Motivation **</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><strong>Motivation</strong></p>
 </div>
 <div class="paragraph">
 <p>This level gives a more detailed and clarification specially for the webapp, as it can be considered the most complex element.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Contained Building Blocks **</p>
+<div class="paragraph">
+<p><strong>Contained Building Blocks</strong></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1310,13 +1285,10 @@ for getting hints to the HintService&#8230;&#8203;</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p>Important Interfaces **
+<div class="paragraph">
+<p><strong>Important Interfaces</strong>
 The webapp follows a MVC architecture, so we have the view with controllers that manages the requests made by the User, and the Question game
 is divided into Services (the real logic of the game), Repositories (they are in charged of making requests to the UserService, HintService and WikidataService) and Entities.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>Also, the entities that are used among several services/modules/projects are extracted into an entity module/project that is used as a library from teh rest of the system.</p>
