@@ -498,9 +498,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#section-concepts">8. Cross-cutting Concepts</a>
 <ul class="sectlevel2">
 <li><a href="#_domain_model">8.1. Domain model</a></li>
-<li><a href="#_performance_and_scalability">8.2. Performance and Scalability</a></li>
-<li><a href="#_usability_and_accesibility">8.3. Usability and Accesibility</a></li>
-<li><a href="#_maintainability_and_extensibility">8.4. Maintainability and Extensibility</a></li>
+<li><a href="#_user_experience_ux">8.2. User Experience (UX)</a></li>
+<li><a href="#_safety_and_security_concepts">8.3. Safety and Security concepts</a></li>
+<li><a href="#_architecture_and_design_patterns">8.4. Architecture and design patterns</a></li>
+<li><a href="#_under_the_hood">8.5. Under-the-hood:</a></li>
+<li><a href="#_development_concepts">8.6. Development concepts</a></li>
+<li><a href="#_our_decisions">8.7. Our decisions</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
@@ -1253,10 +1256,21 @@ The user interacts connects to the application and can play the game by making</
 that is an intermediate between the User and Services provided.</p>
 </li>
 <li>
-<p>UserService is a REST API that provides all the functionality related with the users (login, sign up, scores of users). It also, communicates</p>
+<p>UserService is a REST API that provides all the functionality related with the users (login, sign up, scores of users).
+It also, communicates with the database for making the authentications and retrieving or storing scores of the users.</p>
+</li>
+<li>
+<p>WikidataService is a REST API that is in charged of generating the questions from Wikidata, and stores them in the database.</p>
+</li>
+<li>
+<p>HintService is a REST API that is in charged of communicating with the LLM (it&#8217;s an intermediary), so it sends prompts to the LLM with some context.</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>Important Interfaces **
+The webapp acts as a Controller and communicates with the rest of services</p>
 </li>
 </ul>
 </div>
@@ -1589,32 +1603,44 @@ that is an intermediate between the User and Services provided.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_performance_and_scalability">8.2. Performance and Scalability</h3>
-<div class="sect3">
-<h4 id="_load_managing">8.2.1. Load managing</h4>
+<h3 id="_user_experience_ux">8.2. User Experience (UX)</h3>
 <div class="paragraph">
-<p>Considering that the application&#8217;s concurrent users can vary its important to take horizontal scalability when designing the architecture, that&#8217;s why we are using Docker for deployment.</p>
-</div>
+<p>Since this is a game, the focus must be on user experience to ensure that players have an enjoyable and engaging time. To achieve this, response times should be minimized, and the interfaces should be intuitive and easy to navigate.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_usability_and_accesibility">8.3. Usability and Accesibility</h3>
-<div class="sect3">
-<h4 id="_intuitive_interface">8.3.1. Intuitive interface</h4>
+<h3 id="_safety_and_security_concepts">8.3. Safety and Security concepts</h3>
 <div class="paragraph">
-<p>The web application offers a clear and easy user experience thanks to the knowledge about usability principles of the team.</p>
-</div>
+<p>We utilize Spring Boot Security features to require users to log in before accessing the application. During user registration, we employ PasswordEncoder to encrypt passwords, ensuring that raw passwords are not stored in our database.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_maintainability_and_extensibility">8.4. Maintainability and Extensibility</h3>
-<div class="sect3">
-<h4 id="_modularity">8.4.1. Modularity</h4>
+<h3 id="_architecture_and_design_patterns">8.4. Architecture and design patterns</h3>
 <div class="paragraph">
-<p>The microservices architecture eases the maintainability of the product and allows the addition of new functionalities without affecting the rest of the components.</p>
+<p>We chose to use Spring Boot for both the backend and a Thymeleaf-based frontend, following the Model-View-Controller (MVC) pattern to keep the codebase clear and well-organized.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_under_the_hood">8.5. Under-the-hood:</h3>
+<div class="paragraph">
+<p>To store the data, our project has a MongoDB, which stores information about users, scores, answers and questions.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_development_concepts">8.6. Development concepts</h3>
+<div class="paragraph">
+<p>We will perform the deployment in Oracle using continuous integration.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_our_decisions">8.7. Our decisions</h3>
+<div class="paragraph">
+<p>To ensure the application&#8217;s robustness and high availability, we adopted a microservices architecture with a clear client-server division.
+A key design objective was to make the application independent of external services such as Wikidata and the LLM. This ensures that even if these services experience timeouts, our application remains available to users without interruption.
+To further minimize delays caused by Wikidata, we implemented multithreaded access when retrieving data, improving performance significantly.
+This modular approach enhances resilience, scalability, and fault tolerance while keeping a clean separation of concerns between data fetching and data usage</p>
 </div>
 <div style="page-break-after: always;"></div>
-</div>
 </div>
 </div>
 </div>
